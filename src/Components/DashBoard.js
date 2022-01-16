@@ -3,19 +3,17 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 function Dashboard() {
-  //Next goal: Save some data on behalf of that user, and render it to the dashboard
   const navigate = useNavigate();
   const [currentUser, setCurrentUser] = useState(null);
   const [logOut, setLogOut] = useState(false);
 
   useEffect(() => {
-    setTimeout(console.log("Timeout", 1000));
+    //setTimeout(console.log("Timeout", 1000));
     getCurrentUser();
   }, [logOut]);
 
   async function getCurrentUser() {
     const currentUser = await Parse.User.current();
-    console.log("Goes in");
     setCurrentUser(currentUser);
     return currentUser;
   }

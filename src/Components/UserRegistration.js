@@ -36,7 +36,7 @@ function UserRegistration() {
   };
 
   useEffect(() => {
-    setTimeout(console.log("Timeout", 1000));
+    // setTimeout(console.log("Timeout", 1000));
     if (createUser === true) {
       navigate("/login");
     }
@@ -49,7 +49,6 @@ function UserRegistration() {
         value={username}
         placeholder={"Username"}
         onChange={handleChangeUser}
-        //onChangeText={(text) => setUsername(text)}
       ></input>{" "}
       <input
         value={password}
