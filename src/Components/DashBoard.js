@@ -2,18 +2,20 @@ import Parse from "parse";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-function DashBoard() {
+function Dashboard() {
+  //Next goal: Save some data on behalf of that user, and render it to the dashboard
   const navigate = useNavigate();
   const [currentUser, setCurrentUser] = useState(null);
   const [logOut, setLogOut] = useState(false);
 
   useEffect(() => {
-    //setTimeout(console.log("Timeout", 1000));
+    setTimeout(console.log("Timeout", 1000));
     getCurrentUser();
   }, [logOut]);
 
   async function getCurrentUser() {
     const currentUser = await Parse.User.current();
+    console.log("Goes in");
     setCurrentUser(currentUser);
     return currentUser;
   }
@@ -55,7 +57,6 @@ function DashBoard() {
   if (currentUser !== null) {
     return (
       <>
-        {/* <h2>Welcome{currentUser.get("username")}</h2> */}
         <h2>Welcome {currentUser.get("username")}</h2>
         <br />
         <br />
@@ -65,4 +66,4 @@ function DashBoard() {
   }
 }
 
-export default DashBoard;
+export default Dashboard;

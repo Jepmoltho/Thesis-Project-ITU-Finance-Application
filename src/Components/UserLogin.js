@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Parse from "parse";
 import { useNavigate } from "react-router-dom";
+//import Dashboard from "./Dashboard";
 
 function UserLogin() {
   const navigate = useNavigate();
@@ -32,17 +33,13 @@ function UserLogin() {
       setUsername("");
       setPassword("");
       // Update state variable holding current user
-      //getCurrentUser();
+      getCurrentUser();
       return true;
     } catch (error) {
       alert("Error caught: " + error);
       return false;
     }
   };
-
-  useEffect(() => {
-    getCurrentUser();
-  }, [doUserLogin]);
 
   //https://www.back4app.com/docs/react/working-with-users/react-login (BOOKMARK: STEP 3)
 
@@ -81,8 +78,8 @@ function UserLogin() {
         {navigate("/dashboard")}
         {/* Below is kept because it is an example of conditional rendering dependent on if the user is logget in or not*/}
         {/* <h1>Welcome {currentUser.get("username")}</h1>
-          <button onClick={() => navigate("/dashboard")}>Go to dashboard</button>
-          <button onClick={() => doUserLogOut()}>Logout</button> */}
+        <button onClick={() => navigate("/dashboard")}>Go to dashboard</button>
+        <button onClick={() => doUserLogOut()}>Logout</button> */}
       </>
     );
   }

@@ -36,14 +36,14 @@ function UserRegistration() {
   };
 
   useEffect(() => {
-    //setTimeout(console.log("Timeout", 1000));
+    setTimeout(console.log("Timeout", 1000));
     if (createUser === true) {
       navigate("/login");
     }
   }, [createUser]);
 
   return (
-    <div className="user-reg">
+    <>
       <h2>Create a user to get started</h2>
       <input
         value={username}
@@ -65,7 +65,7 @@ function UserRegistration() {
       <p style={{ display: "inline-block" }} onClick={() => navigate("/login")}>
         Continue to login
       </p>
-    </div>
+    </>
   );
 }
 
