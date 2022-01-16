@@ -10,7 +10,7 @@ function Dashboard() {
   useEffect(() => {
     //setTimeout(console.log("Timeout", 1000));
     getCurrentUser();
-  }, [logOut]);
+  }, []);
 
   async function getCurrentUser() {
     const currentUser = await Parse.User.current();
@@ -27,8 +27,9 @@ function Dashboard() {
         alert("Succesfully logged out!");
       }
       setLogOut(true);
+      navigate("/");
       // Update state variable holding current user
-      getCurrentUser();
+      // getCurrentUser();
       return true; //Why do we need to return true and false in theese funcitons at the end?
     } catch (error) {
       alert("Error caught: ", error);
@@ -36,14 +37,14 @@ function Dashboard() {
     }
   };
 
-  if (logOut === true) {
-    return (
-      <>
-        <p>Logging out - please hold</p>
-        {navigate("/")}
-      </>
-    );
-  }
+  // if (logOut === true) {
+  //   return (
+  //     <>
+  //       <p>Logging out - please hold</p>
+  //       {navigate("/")}
+  //     </>
+  //   );
+  // }
   if (currentUser === null) {
     //Nessesary, otherwise it crashes
     return (
