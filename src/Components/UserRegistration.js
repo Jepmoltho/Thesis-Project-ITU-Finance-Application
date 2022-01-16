@@ -18,7 +18,7 @@ function UserRegistration() {
   const doUserRegistration = async function () {
     const usernameValue = username;
     const passwordValue = password;
-    // Since the signUp method returns a Promise, we need to call it using await
+
     return await Parse.User.signUp(usernameValue, passwordValue)
       .then((createdUser) => {
         setCreateUser(true);
@@ -36,7 +36,6 @@ function UserRegistration() {
   };
 
   useEffect(() => {
-    // setTimeout(console.log("Timeout", 1000));
     if (createUser === true) {
       navigate("/login");
     }

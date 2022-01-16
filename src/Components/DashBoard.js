@@ -5,10 +5,8 @@ import { useNavigate } from "react-router-dom";
 function Dashboard() {
   const navigate = useNavigate();
   const [currentUser, setCurrentUser] = useState(null);
-  const [logOut, setLogOut] = useState(false);
 
   useEffect(() => {
-    //setTimeout(console.log("Timeout", 1000));
     getCurrentUser();
   }, []);
 
@@ -26,25 +24,14 @@ function Dashboard() {
       if (currentUser === null) {
         alert("Succesfully logged out!");
       }
-      setLogOut(true);
       navigate("/");
-      // Update state variable holding current user
-      // getCurrentUser();
-      return true; //Why do we need to return true and false in theese funcitons at the end?
+      return true;
     } catch (error) {
       alert("Error caught: ", error);
-      return false; //Why do we need to return true and false in theese funcitons at the end?
+      return false;
     }
   };
 
-  // if (logOut === true) {
-  //   return (
-  //     <>
-  //       <p>Logging out - please hold</p>
-  //       {navigate("/")}
-  //     </>
-  //   );
-  // }
   if (currentUser === null) {
     //Nessesary, otherwise it crashes
     return (
