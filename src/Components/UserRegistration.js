@@ -39,7 +39,7 @@ function UserRegistration() {
     if (createUser === true) {
       navigate("/login");
     }
-  }, [createUser]);
+  }, [createUser, navigate]);
 
   return (
     <>
