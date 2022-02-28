@@ -1,9 +1,9 @@
 import "./App.css";
 import Parse from "parse";
 import { Routes, Route } from "react-router-dom";
-import UserRegistration from "./Components/UserRegistration";
-import UserLogin from "./Components/UserLogin";
-import DashBoard from "./Components/DashBoard";
+import UserRegistration from "./Pages/UserRegistration";
+import UserLogin from "./Pages/UserLogin";
+import DashBoard from "./Pages/DashBoard";
 
 Parse.initialize(
   "3YvX2ZiSGXP4ddXb18SYQoYV2UGfADetSkQ4QkQl",
