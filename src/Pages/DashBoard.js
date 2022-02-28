@@ -1,6 +1,8 @@
 import Parse from "parse";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Category from "../Components/Category";
+import Container from "react-bootstrap/Container";
 
 function Dashboard() {
   const navigate = useNavigate();
@@ -42,12 +44,13 @@ function Dashboard() {
   }
   if (currentUser !== null) {
     return (
-      <>
+      <Container>
         <h2>Welcome {currentUser.get("username")}</h2>
         <br />
+        <Category />
         <br />
         <button onClick={doUserLogOut}>Logout</button>
-      </>
+      </Container>
     );
   }
 }
