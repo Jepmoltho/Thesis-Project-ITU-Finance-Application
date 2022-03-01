@@ -53,6 +53,8 @@ h4 {
   min-height: 75px;
 }
 
-Col {
-  margin: "auto";
+.addCategory {
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.15);
+  border-radius: 3px;
+  min-height: 75px;
 }
