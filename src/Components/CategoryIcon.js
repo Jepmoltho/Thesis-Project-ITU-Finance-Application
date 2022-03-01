@@ -1,6 +1,6 @@
 function CategoryIcon() {
   return (
-    <div className="categoryIcon">
+    <div className="categoryIcon" style={{ textAlign: "center" }}>
       <img
         src="/CategoryIcon.png"
         alt="tempAlt"
