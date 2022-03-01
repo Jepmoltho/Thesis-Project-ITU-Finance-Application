@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Category from "../Components/Category";
 import Container from "react-bootstrap/Container";
+import Asset from "../Components/Asset";
 
 function Dashboard() {
   const navigate = useNavigate();
@@ -47,7 +48,8 @@ function Dashboard() {
       <Container>
         <h2>Welcome {currentUser.get("username")}</h2>
         <br />
-        <Category />
+        <Category title="Stocks" />
+        <Asset />
         <br />
         <button onClick={doUserLogOut}>Logout</button>
       </Container>

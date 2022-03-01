@@ -1,37 +1,47 @@
 import "bootstrap/dist/css/bootstrap.css";
-//import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import ViewAssetsBtn from "./ViewAssetsBtn";
+import Tag from "./Tag";
+import CategoryValue from "./CategoryValue";
+import CategoryProfit from "./CategoryProfit";
+import NumberOfAssets from "./NumberOfAssets";
+import CategoryIcon from "./CategoryIcon";
+
 //import CategoryIcon from "../ImageFiles/CategoryIcon.png";
 
-function Category() {
+function Category(props) {
   return (
-    <div className="category">
-      <Row>
-        <Col style={{ margin: "auto" }}>
-          <img
-            src="/CategoryIcon.png"
-            alt="somealt"
-            style={{ maxWidth: "40px", display: "inline" }}
-          ></img>
-          <div style={{ display: "inline" }}>
-            <h3 style={{ display: "inline" }}>
-              <b>Stocks</b>
-            </h3>
-          </div>
-        </Col>
-        <Col className="bsPrefix">
-          <p style={{ margin: "0px" }}>Value</p>
-          <h2>1000</h2>
-        </Col>
-        <Col>
-          <h2>Test test test</h2>
-        </Col>
-        <Col>
-          <h2>Test test test</h2>
-        </Col>
-      </Row>
-    </div>
+    <Row className="category">
+      <Col className="col-sm-1" style={{ margin: "auto" }}>
+        <CategoryIcon />
+      </Col>
+      <Col style={{ margin: "auto" }}>
+        <p
+          style={{
+            margin: "0px",
+            color: "#18388C",
+            fontSize: "20px",
+            position: "relative",
+            top: "3px",
+          }}
+        >
+          <b>{props.title}</b>
+        </p>
+        <NumberOfAssets amount="3" />
+      </Col>
+      <Col style={{ margin: "auto" }}>
+        <Tag text="Value" />
+        <CategoryValue value="1000" />
+      </Col>
+      <Col style={{ margin: "auto" }}>
+        <Tag text="Profit" />
+        <CategoryProfit profit="3456" />
+      </Col>
+      <Col className="col-sm-2" style={{ margin: "auto", paddingLeft: "0px" }}>
+        <ViewAssetsBtn />
+      </Col>
+    </Row>
   );
 }
 
