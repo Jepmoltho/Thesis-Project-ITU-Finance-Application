@@ -3,7 +3,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import ViewAssetsBtn from "./ViewAssetsBtn";
 import Tag from "./Tag";
-import CategoryValue from "./CategoryValue";
+import Value from "./Value";
 import CategoryProfit from "./CategoryProfit";
 import NumberOfAssets from "./NumberOfAssets";
 import CategoryIcon from "./CategoryIcon";
@@ -32,7 +32,7 @@ function Category(props) {
       </Col>
       <Col style={{ margin: "auto" }}>
         <Tag text="Value" />
-        <CategoryValue value="1000" />
+        <Value value="1000" />
       </Col>
       <Col style={{ margin: "auto" }}>
         <Tag text="Profit" />

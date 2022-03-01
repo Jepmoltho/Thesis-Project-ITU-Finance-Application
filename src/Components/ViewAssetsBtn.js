@@ -3,7 +3,7 @@ import "bootstrap/dist/css/bootstrap.css";
 
 function ViewAssets() {
   return (
-    <div className="viewAssetsBtn" style={{ textAlign: "center" }}>
+    <div className="viewAssetsBtn">
       <p
         style={{
           margin: "0px",
