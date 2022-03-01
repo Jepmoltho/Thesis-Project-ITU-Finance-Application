@@ -1,5 +1,5 @@
 function SecondaryBtn(props) {
-  if (props.type === "edit") {
+  if (props.type === "cancel") {
     return (
       <div className="primarybtn">
         <button
@@ -11,14 +11,14 @@ function SecondaryBtn(props) {
           }}
         >
           <p style={{ fontSize: "12px", color: "black", marginBottom: "0px" }}>
-            Edit
+            Cancel
           </p>
         </button>
       </div>
     );
   }
 
-  if (props.type === "save") {
+  if (props.type === "delete") {
     return (
       <div className="primarybtn">
         <button
@@ -30,7 +30,7 @@ function SecondaryBtn(props) {
           }}
         >
           <p style={{ fontSize: "12px", color: "black", marginBottom: "0px" }}>
-            Save
+            Delete
           </p>
         </button>
       </div>

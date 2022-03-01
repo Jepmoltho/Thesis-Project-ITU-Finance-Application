@@ -5,6 +5,7 @@ import Category from "../Components/Category";
 import Container from "react-bootstrap/Container";
 import Asset from "../Components/Asset";
 import AddCategory from "../Components/AddCategory";
+import EditAsset from "../Components/EditAsset";
 
 function Dashboard() {
   const navigate = useNavigate();
@@ -53,6 +54,7 @@ function Dashboard() {
         <Asset />
         <br />
         <AddCategory />
+        <EditAsset />
         <br />
         <button onClick={doUserLogOut}>Logout</button>
       </Container>
