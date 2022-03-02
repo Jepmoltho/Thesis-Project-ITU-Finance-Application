@@ -51,7 +51,6 @@ function Asset(props) {
       </Row>
     );
   }
-
   if (props.realestate) {
     return (
       <Row className="asset">
