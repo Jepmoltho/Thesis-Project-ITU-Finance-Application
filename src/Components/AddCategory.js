@@ -8,7 +8,7 @@ function AddCategory() {
     <Row className="addCategory">
       <Col className="col-sm-1" style={{ margin: "auto" }}></Col>
       <Col style={{ margin: "auto" }}>
-        <CategorySelect />
+        <CategorySelect label="Category name" />
       </Col>
       <Col style={{ margin: "auto" }}></Col>
       <Col style={{ margin: "auto" }}></Col>

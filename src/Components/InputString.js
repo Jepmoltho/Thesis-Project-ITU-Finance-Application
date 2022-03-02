@@ -1,13 +1,13 @@
 //import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 function InputString(props) {
   const [input, setInput] = useState("");
 
-  useEffect(() => {
-    console.log(input);
-  }, [input]);
+  // useEffect(() => {
+  //   console.log(input);
+  // }, [input]);
 
   //   useEffect(() => {
   //     if (createUser === true) {
@@ -24,17 +24,10 @@ function InputString(props) {
         value={input}
         onChange={(e) => setInput(e.target.value)}
         size="small"
+        fullWidth //This makes it expand to the full width of the container
       />
     </div>
   );
 }
-
-/*
-      <input
-        label="test"
-        value={input}
-        onChange={(e) => setInput(e.target.value)}
-      ></input>
-*/
 
 export default InputString;
