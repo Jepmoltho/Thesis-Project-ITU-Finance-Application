@@ -51,9 +51,15 @@ function Dashboard() {
         <h2>Welcome {currentUser.get("username")}</h2>
         <br />
         <Category title="Stocks" />
-        <Asset />
         <br />
-        <AddCategory />
+        <AddCategory type="automatic" />
+        <br />
+        <AddCategory type="manual" />
+        <br />
+        <Asset type="normal" />
+        <br />
+        <Asset type="realestate" />
+        <br />
         <EditAsset />
         <br />
         <button onClick={doUserLogOut}>Logout</button>
