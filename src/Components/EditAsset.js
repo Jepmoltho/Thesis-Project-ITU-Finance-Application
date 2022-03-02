@@ -1,5 +1,4 @@
 import "bootstrap/dist/css/bootstrap.css";
-//import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import PrimaryBtn from "./PrimaryBtn";
@@ -8,6 +7,7 @@ import InputString from "./InputString";
 import Toggle from "./Toggle";
 import Tag from "./Tag";
 import BankAccountSelect from "./BankAccountSelect";
+import Icon from "./Icon";
 
 function EditAsset(props) {
   if (props.realestateman) {
@@ -98,7 +98,9 @@ function EditAsset(props) {
         <Col style={{ margin: "auto" }}>
           <InputString label="API key" />
         </Col>
-        <Col></Col>
+        <Col style={{ margin: "auto", paddingLeft: "0px" }}>
+          <Icon />
+        </Col>
         <Col
           className="col-sm-2"
           style={{ margin: "auto", paddingLeft: "0px" }}
