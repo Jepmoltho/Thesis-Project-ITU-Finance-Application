@@ -1,8 +1,3 @@
-import "bootstrap/dist/css/bootstrap.css";
-//import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
-
 import React, { useState, useEffect }  from "react";
 import 'chart.js/auto';
 import { Chart } from 'react-chartjs-2';
@@ -10,9 +5,8 @@ import { Chart as ChartJS, LineController, LineElement, PointElement, LinearScal
 
 ChartJS.register(LineController, LineElement, PointElement, LinearScale, Title);
 
+function SectorDiagram(){
 
-
-function Graph(){
 
     const data = {
         labels: ['Jan21', 'feb22'],
@@ -22,8 +16,8 @@ function Graph(){
             borderWidth: 2,
             backgroundColor: '#18388C',
             lineTension: 0.2,
-            pointRadius: 3,
-            // fill: true
+            pointRadius: 1,
+            // fill: true,
         }]
     };
 
@@ -37,17 +31,18 @@ function Graph(){
         },
     } 
 
+
     return (
-        <div className="card" style={{height: "100%", width: "100%",  marginLeft: "-13px"}}>
-            <div style={{ height: "auto", width: "auto"}}  >    
+        <div className="card">
+            <div  style={{height: "50%", width: "50%"}}  >
                 <Chart 
-                    type='line'
+                    type='doughnut'
                     data={data}
                     options={options}
-                    />
-                </div>
+                />
+            </div>
         </div>
     )
 }
 
-export default Graph
+export default SectorDiagram
