@@ -11,6 +11,7 @@ import CategoryIcon from "./CategoryIcon";
 //import CategoryIcon from "../ImageFiles/CategoryIcon.png";
 
 function Category(props) {
+  //Comment
   return (
     <Row className="category">
       <Col className="col-sm-1" style={{ margin: "auto" }}>
