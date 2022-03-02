@@ -1,5 +1,4 @@
 import "bootstrap/dist/css/bootstrap.css";
-//import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Value from "./Value";
@@ -9,7 +8,7 @@ import SecondaryBtn from "./SecondaryBtn";
 import Tag from "./Tag";
 
 function Asset(props) {
-  if (props.type === "normal") {
+  if (props.normal) {
     return (
       <Row className="asset">
         <Col className="col-sm-1" style={{ margin: "auto" }}></Col>
@@ -31,7 +30,29 @@ function Asset(props) {
     );
   }
 
-  if (props.type === "realestate") {
+  if (props.debt) {
+    return (
+      <Row className="asset">
+        <Col className="col-sm-1" style={{ margin: "auto" }}></Col>
+        <Col style={{ margin: "auto" }}>
+          <AssetName name="Danske Bank" />
+        </Col>
+        <Col style={{ margin: "auto" }}>
+          <Value debt value="1000" />
+        </Col>
+        <Col></Col>
+        <Col
+          className="col-sm-2"
+          style={{ margin: "auto", paddingLeft: "0px" }}
+        >
+          <PrimaryBtn type="edit" />
+          <SecondaryBtn type="delete" />
+        </Col>
+      </Row>
+    );
+  }
+
+  if (props.realestate) {
     return (
       <Row className="asset">
         <Col className="col-sm-1" style={{ margin: "auto" }}></Col>

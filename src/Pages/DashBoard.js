@@ -56,9 +56,11 @@ function Dashboard() {
         <br />
         <AddCategory type="manual" />
         <br />
-        <Asset type="normal" />
+        <Asset normal />
         <br />
-        <Asset type="realestate" />
+        <Asset debt />
+        <br />
+        <Asset realestate />
         <br />
         <EditAsset />
         <br />

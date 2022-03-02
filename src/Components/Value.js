@@ -32,6 +32,23 @@ function Value(props) {
         </p>
       </div>
     );
+  }
+  if (props.debt) {
+    return (
+      <div className="value">
+        <p
+          style={{
+            margin: "0px",
+            fontSize: "18px",
+            color: "#AC1414",
+            position: "relative",
+            top: "-3px",
+          }}
+        >
+          <b>-{props.value} DKK</b>
+        </p>
+      </div>
+    );
   } else {
     return (
       <div className="value">
