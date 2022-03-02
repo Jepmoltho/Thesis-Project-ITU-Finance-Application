@@ -64,6 +64,14 @@ function Dashboard() {
         <br />
         <EditAsset />
         <br />
+        <EditAsset realestateman />
+        <br />
+        <EditAsset realestateauto />
+        <br />
+        <EditAsset bankman />
+        <br />
+        <EditAsset bankauto />
+        <br />
         <button onClick={doUserLogOut}>Logout</button>
       </Container>
     );
