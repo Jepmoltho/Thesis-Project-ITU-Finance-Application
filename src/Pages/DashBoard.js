@@ -7,6 +7,8 @@ import Asset from "../Components/Asset";
 import AddCategory from "../Components/AddCategory";
 import EditAsset from "../Components/EditAsset";
 import Logo from "../Components/Logo"
+import NavigationBar from "../Components/NavigationBar"
+import ResponsiveAppBar from "../Components/ResponsiveAppBar"
 
 function Dashboard() {
   const navigate = useNavigate();
@@ -48,8 +50,9 @@ function Dashboard() {
   }
   if (currentUser !== null) {
     return (
+      <div>
+      <ResponsiveAppBar/>
       <Container>
-        <Logo/>
         <h2>Welcome {currentUser.get("username")}</h2>
         <br />
         <Category title="Stocks" />
@@ -60,6 +63,7 @@ function Dashboard() {
         <br />
         <button onClick={doUserLogOut}>Logout</button>
       </Container>
+      </div>
     );
   }
 }

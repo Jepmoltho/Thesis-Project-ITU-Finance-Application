@@ -2,7 +2,7 @@ function Logo(){
     return(
         <div className="Logo">
             <img
-                src="/LogoRawdiesLogo.png"
+                src="/LogoNavBar.svg"
                 alt="logo"
             >
             </img>
