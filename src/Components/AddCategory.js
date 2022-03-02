@@ -1,4 +1,4 @@
-import { Row, Col, Dropdown } from "react-bootstrap";
+import { Row, Col } from "react-bootstrap";
 import PrimaryBtn from "./PrimaryBtn";
 import SecondaryBtn from "./SecondaryBtn";
 import CategorySelect from "./CategorySelect";
@@ -7,8 +7,9 @@ function AddCategory() {
   return (
     <Row className="addCategory">
       <Col className="col-sm-1" style={{ margin: "auto" }}></Col>
-      <Col style={{ margin: "auto" }}></Col>
-      <CategorySelect />
+      <Col style={{ margin: "auto" }}>
+        <CategorySelect />
+      </Col>
       <Col style={{ margin: "auto" }}></Col>
       <Col style={{ margin: "auto" }}></Col>
       <Col className="col-sm-2" style={{ margin: "auto", paddingLeft: "0px" }}>
