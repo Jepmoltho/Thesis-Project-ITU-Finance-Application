@@ -7,8 +7,16 @@ import Asset from "../Components/Asset";
 import AddCategory from "../Components/AddCategory";
 import EditAsset from "../Components/EditAsset";
 import NavigationBar from "../Components/NavigationBar";
+import ProgressBar from "../Components/ProgressBar";
 
 function Dashboard() {
+
+  const testData = [
+    { completed: 60 },
+    { completed: 30 },
+    { completed: 53 },
+  ];
+
   const navigate = useNavigate();
   const [currentUser, setCurrentUser] = useState(null);
 
@@ -51,6 +59,9 @@ function Dashboard() {
       <div>
         <NavigationBar />
         <Container>
+          {testData.map((item, idx) => (
+            <ProgressBar key={idx} completed={item.completed} />
+          ))}
           <h2>Welcome {currentUser.get("username")}</h2>
           <br />
           <Category title="Stocks" />
