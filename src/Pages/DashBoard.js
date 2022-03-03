@@ -10,6 +10,7 @@ import NavigationBar from "../Components/NavigationBar";
 import ProgressBar from "../Components/ProgressBar";
 import AddCategoryBtn from "../Components/AddCategoryBtn";
 // import AddAssetBtn from "../Components/AddAssetBtn";
+import TopComponents from "../Components/TopComponents"
 
 function Dashboard() {
 
@@ -55,6 +56,7 @@ function Dashboard() {
       <div>
         <NavigationBar />
         <ProgressBar completed='60'/>
+        <TopComponents/>
         <Container>
           <h2>Welcome {currentUser.get("username")}</h2>
           <br />
