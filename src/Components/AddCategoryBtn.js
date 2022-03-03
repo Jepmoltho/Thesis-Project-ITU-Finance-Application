@@ -4,7 +4,7 @@ import AddCircleIcon from '@mui/icons-material/AddCircle';
 function AddCategoryBtn(){
     return(
         <IconButton aria-label="AddCategoryBtn">
-            <AddCircleIcon fontSize="75" sx={{ color: "#18388C"}} />
+            <AddCircleIcon style={{ fontSize: 75 }} sx={{ color: "#18388C"}} />
         </IconButton>
     );
 }
