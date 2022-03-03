@@ -6,6 +6,9 @@ import Container from "react-bootstrap/Container";
 import Asset from "../Components/Asset";
 import AddCategory from "../Components/AddCategory";
 import EditAsset from "../Components/EditAsset";
+import Logo from "../Components/Logo"
+import NavigationBar from "../Components/NavigationBar"
+import ResponsiveAppBar from "../Components/NavigationBar"
 
 function Dashboard() {
   const navigate = useNavigate();
@@ -47,6 +50,7 @@ function Dashboard() {
   }
   if (currentUser !== null) {
     return (
+      <div>
       <Container>
         <h2>Welcome {currentUser.get("username")}</h2>
         <br />
@@ -74,6 +78,7 @@ function Dashboard() {
         <br />
         <button onClick={doUserLogOut}>Logout</button>
       </Container>
+      </div>
     );
   }
 }
