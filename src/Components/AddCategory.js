@@ -4,7 +4,7 @@ import { Row, Col } from "react-bootstrap";
 import CategorySelect from "./CategorySelect";
 import InputString from "./InputString";
 import Tag from "./Tag";
-//import SelectImageIcon from "./SelectImageIcon";
+import SelectImageIcon from "./SelectImageIcon";
 import Icon from "./Icon";
 import ButtonGroup from "./ButtonGroup";
 //import IconButton from "@mui/material/IconButton";
@@ -44,9 +44,9 @@ function AddCategory(props) {
         </Col>
         <Col style={{ margin: "auto" }}>
           <Tag text="Select image" />
-          <Icon camera />
+          {/*<Icon camera />*/}
           {/* <PhotoCamera /> */}
-          {/* <SelectImageIcon /> */}
+          <SelectImageIcon />
         </Col>
         <Col style={{ margin: "auto" }}></Col>
         <Col

@@ -11,6 +11,7 @@ import ProgressBar from "../Components/ProgressBar";
 import AddCategoryBtn from "../Components/AddCategoryBtn";
 // import AddAssetBtn from "../Components/AddAssetBtn";
 import TopComponents from "../Components/TopComponents"
+import SelectImageIcon from "../Components/SelectImageIcon";
 
 function Dashboard() {
 
