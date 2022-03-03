@@ -7,6 +7,7 @@ import Asset from "../Components/Asset";
 import AddCategory from "../Components/AddCategory";
 import EditAsset from "../Components/EditAsset";
 import NavigationBar from "../Components/NavigationBar";
+import AddCategoryBtn from "../Components/AddCategoryBtn";
 // import AddAssetBtn from "../Components/AddAssetBtn";
 
 function Dashboard() {
@@ -52,6 +53,7 @@ function Dashboard() {
       <div>
         <NavigationBar />
         <Container>
+          <AddCategoryBtn/>
           <h2>Welcome {currentUser.get("username")}</h2>
           <br />
           <Category title="Stocks" />
