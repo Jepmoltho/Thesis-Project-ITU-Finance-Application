@@ -33,7 +33,7 @@ function SectorDiagram(){
 
 
     return (
-        <div className="card">
+        <div >
             <div  style={{height: "50%", width: "50%"}}  >
                 <Chart 
                     type='doughnut'
