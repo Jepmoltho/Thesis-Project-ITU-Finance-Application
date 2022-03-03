@@ -7,6 +7,7 @@ import Asset from "../Components/Asset";
 import AddCategory from "../Components/AddCategory";
 import EditAsset from "../Components/EditAsset";
 import NavigationBar from "../Components/NavigationBar";
+import AddCategoryBtn from "../Components/AddCategoryBtn";
 // import AddAssetBtn from "../Components/AddAssetBtn";
 
 function Dashboard() {
