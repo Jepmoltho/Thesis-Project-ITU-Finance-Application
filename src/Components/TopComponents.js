@@ -1,11 +1,11 @@
 import "bootstrap/dist/css/bootstrap.css";
-//import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Graph from "../Components/Graph";
 import SectorDiagram from "./SectorDiagram";
-import Tag from "./Tag";
-import { lightBlue } from "@mui/material/colors";
+import Overview from "./Overview";
+import Goal from "./Goal";
+
 
 function TopComponents(){
     return (
@@ -14,19 +14,28 @@ function TopComponents(){
                 <Graph/>
             </Col>
             <Col>
-                <Row style={{ marginBottom: "20px" }}>
-                    <SectorDiagram/>
+                <Row style={{ marginBottom: "20px" }} className="card">
+                    <Col>
+                          <span> 
+                            <a style={{ float: "right", fontStyle: "italic"}} href="https://investorjunkie.com/create-asset-allocation/">
+                                See how the pros does it
+                            </a> 
+                        </span>
+                        <span style={{ float: "right"}}> logo </span>                      
+                    </Col>
+
+                    <Col style={{padding: "0px"}}>
+                        <span>
+                            <SectorDiagram/>
+                        </span>
+                    </Col>
                 </Row>
                 <Row>
-                    <Col style={{ paddingRight: "0px", paddingLeft: "0px", marginRight: "10px"}}>
-                        <div className="card">
-                            <Tag text="Overview"/>
-                        </div>
+                    <Col className="card" style={{ paddingRight: "0px", paddingLeft: "0px", marginRight: "10px"}}>
+                        <Overview/>
                     </Col>
-                    <Col style={{ paddingRight: "0px", paddingLeft: "0px", marginLeft: "10px"}}>
-                        <div className="card" >
-                            <Tag text="Goal"/>
-                        </div>
+                    <Col className="card" style={{ paddingRight: "0px", paddingLeft: "0px", marginLeft: "10px"}}>
+                        <Goal/>
                     </Col>
                 </Row>
             </Col>
