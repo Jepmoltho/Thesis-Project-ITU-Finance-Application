@@ -38,8 +38,8 @@ function Graph(){
     } 
 
     return (
-        <div className="card" style={{height: "100%", width: "100%",  marginLeft: "-13px"}}>
-            <div style={{ height: "auto", width: "auto"}}  >    
+        <div className="card" style={{height: "100%", width: "100%" }}>
+            <div style={{ height: "auto", width: "auto", paddingTop: "52px"}}  >    
                 <Chart 
                     type='line'
                     data={data}
