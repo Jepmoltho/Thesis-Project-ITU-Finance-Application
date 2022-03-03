@@ -4,8 +4,10 @@ import SecondaryBtn from "./SecondaryBtn";
 import CategorySelect from "./CategorySelect";
 import InputString from "./InputString";
 import Tag from "./Tag";
-import SelectImageIcon from "./SelectImageIcon";
+//import SelectImageIcon from "./SelectImageIcon";
 import Icon from "./Icon";
+//import ButtonGroup from "./ButtonGroup";
+//import IconButton from "@mui/material/IconButton";
 
 function AddCategory(props) {
   if (props.type === "automatic") {
@@ -40,13 +42,16 @@ function AddCategory(props) {
         </Col>
         <Col style={{ margin: "auto" }}>
           <Tag text="Select image" />
-          <SelectImageIcon />
+          <Icon camera />
+          {/* <PhotoCamera /> */}
+          {/* <SelectImageIcon /> */}
         </Col>
         <Col style={{ margin: "auto" }}></Col>
         <Col
           className="col-sm-1"
           style={{ margin: "auto", paddingLeft: "0px" }}
         >
+          {/* <ButtonGroup  /> */}
           <PrimaryBtn type="save" />
           <SecondaryBtn type="cancel" />
         </Col>
