@@ -3,9 +3,10 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Value from "./Value";
 import AssetName from "./AssetName";
-import PrimaryBtn from "./PrimaryBtn";
-import SecondaryBtn from "./SecondaryBtn";
+// import PrimaryBtn from "./PrimaryBtn";
+// import SecondaryBtn from "./SecondaryBtn";
 import Tag from "./Tag";
+import ButtonGroup from "./ButtonGroup";
 
 function Asset(props) {
   if (props.normal) {
@@ -23,8 +24,9 @@ function Asset(props) {
           className="col-sm-2"
           style={{ margin: "auto", paddingLeft: "0px" }}
         >
-          <PrimaryBtn type="edit" />
-          <SecondaryBtn type="delete" />
+          <ButtonGroup primaryText="Edit" secondaryText="Delete" />
+          {/* <PrimaryBtn type="edit" />
+          <SecondaryBtn type="delete" /> */}
         </Col>
       </Row>
     );
@@ -45,8 +47,9 @@ function Asset(props) {
           className="col-sm-2"
           style={{ margin: "auto", paddingLeft: "0px" }}
         >
-          <PrimaryBtn type="edit" />
-          <SecondaryBtn type="delete" />
+          <ButtonGroup primaryText="Edit" secondaryText="Delete" />
+          {/* <PrimaryBtn type="edit" />
+          <SecondaryBtn type="delete" /> */}
         </Col>
       </Row>
     );
@@ -74,8 +77,9 @@ function Asset(props) {
           className="col-sm-2"
           style={{ margin: "auto", paddingLeft: "0px" }}
         >
-          <PrimaryBtn type="edit" />
-          <SecondaryBtn type="delete" />
+          <ButtonGroup primaryText="Edit" secondaryText="Delete" />
+          {/* <PrimaryBtn type="edit" />
+          <SecondaryBtn type="delete" /> */}
         </Col>
       </Row>
     );
