@@ -1,12 +1,10 @@
 function SelectImageIcon() {
-  return (
-    <div className="selectImageIcon">
-      <img
-        src="/CategoryIcon.png"
-        alt="tempAlt"
-        style={{ maxWidth: "40px", maxHeight: "30px", display: "inline" }}
-      ></img>
-    </div>
+  function myFunction() {
+    console.log("CLICKED");
+  };
+
+return (
+  <button type='button' style={{border: 0, backgroundColor: 'transparent', paddingTop: '0px'}} onClick={myFunction}> <img src="/SelectImageIcon.svg" alt="SelectImgBtn"/></button>
   );
 }
 
