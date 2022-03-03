@@ -51,7 +51,6 @@ function Dashboard() {
   if (currentUser !== null) {
     return (
       <div>
-      <NavigationBar/>
       <Container>
         <h2>Welcome {currentUser.get("username")}</h2>
         <br />
