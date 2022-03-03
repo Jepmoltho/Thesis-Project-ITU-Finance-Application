@@ -6,7 +6,6 @@ function PrimaryBtn(props) {
           style={{
             textAlign: "center",
             background: "#18388C",
-            borderRadius: "4.43335px",
             minWidth: "75px",
           }}
         >
@@ -25,7 +24,6 @@ function PrimaryBtn(props) {
           style={{
             textAlign: "center",
             background: "#18388C",
-            borderRadius: "4.43335px",
             minWidth: "75px",
           }}
         >

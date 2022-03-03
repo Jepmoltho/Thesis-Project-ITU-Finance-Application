@@ -8,7 +8,7 @@ function Tag(props) {
           color: "rgba(0, 0, 0, 0.55)",
         }}
       >
-        {props.text}
+        <nobr>{props.text}</nobr>
       </p>
     </div>
   );

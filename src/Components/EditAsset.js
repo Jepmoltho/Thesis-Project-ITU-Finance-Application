@@ -1,20 +1,21 @@
 import "bootstrap/dist/css/bootstrap.css";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import PrimaryBtn from "./PrimaryBtn";
-import SecondaryBtn from "./SecondaryBtn";
+// import PrimaryBtn from "./PrimaryBtn";
+// import SecondaryBtn from "./SecondaryBtn";
 import InputString from "./InputString";
 import Toggle from "./Toggle";
 import Tag from "./Tag";
 import BankAccountSelect from "./BankAccountSelect";
 import Icon from "./Icon";
+import ButtonGroup from "./ButtonGroup";
 
 function EditAsset(props) {
   if (props.realestateman) {
     return (
       <Row className="asset">
         <Col className="col-sm-1" style={{ margin: "auto" }}>
-          <Tag text="Calculate m2" />
+          <Tag text="Calculate pr. m²" />
           <Toggle />
         </Col>
         <Col style={{ margin: "auto" }}>
@@ -28,8 +29,10 @@ function EditAsset(props) {
           className="col-sm-2"
           style={{ margin: "auto", paddingLeft: "0px" }}
         >
-          <PrimaryBtn type="save" />
-          <SecondaryBtn type="cancel" />
+          <ButtonGroup primaryText="Save" secondaryText="Cancel" />
+
+          {/* <PrimaryBtn type="save" />
+          <SecondaryBtn type="cancel" /> */}
         </Col>
       </Row>
     );
@@ -38,7 +41,7 @@ function EditAsset(props) {
     return (
       <Row className="asset">
         <Col className="col-sm-1" style={{ margin: "auto" }}>
-          <Tag text="Calculate m2" />
+          <Tag text="Calculate pr. m²" />
           <Toggle defaultChecked />
         </Col>
         <Col className="col-sm-3" style={{ margin: "auto" }}>
@@ -55,8 +58,9 @@ function EditAsset(props) {
           className="col-sm-2"
           style={{ margin: "auto", paddingLeft: "0px" }}
         >
-          <PrimaryBtn type="edit" />
-          <SecondaryBtn type="delete" />
+          <ButtonGroup primaryText="Save" secondaryText="Cancel" />
+          {/* <PrimaryBtn type="edit" />
+          <SecondaryBtn type="delete" /> */}
         </Col>
       </Row>
     );
@@ -65,7 +69,7 @@ function EditAsset(props) {
     return (
       <Row className="asset">
         <Col className="col-sm-1" style={{ margin: "auto" }}>
-          <Tag text="Conn. bank" />
+          <Tag text="Connect bank" />
           <Toggle />
         </Col>
         <Col style={{ margin: "auto" }}>
@@ -79,8 +83,9 @@ function EditAsset(props) {
           className="col-sm-2"
           style={{ margin: "auto", paddingLeft: "0px" }}
         >
-          <PrimaryBtn type="save" />
-          <SecondaryBtn type="cancel" />
+          <ButtonGroup primaryText="Save" secondaryText="Cancel" />
+          {/* <PrimaryBtn type="save" />
+          <SecondaryBtn type="cancel" /> */}
         </Col>
       </Row>
     );
@@ -89,7 +94,7 @@ function EditAsset(props) {
     return (
       <Row className="asset">
         <Col className="col-sm-1" style={{ margin: "auto" }}>
-          <Tag text="Conn. bank" />
+          <Tag text="Connect bank" />
           <Toggle />
         </Col>
         <Col style={{ margin: "auto" }}>
@@ -105,8 +110,9 @@ function EditAsset(props) {
           className="col-sm-2"
           style={{ margin: "auto", paddingLeft: "0px" }}
         >
-          <PrimaryBtn type="save" />
-          <SecondaryBtn type="cancel" />
+          <ButtonGroup primaryText="Save" secondaryText="Cancel" />
+          {/* <PrimaryBtn type="save" />
+          <SecondaryBtn type="cancel" /> */}
         </Col>
       </Row>
     );
@@ -125,8 +131,10 @@ function EditAsset(props) {
           className="col-sm-2"
           style={{ margin: "auto", paddingLeft: "0px" }}
         >
-          <PrimaryBtn type="edit" />
-          <SecondaryBtn type="delete" />
+          <ButtonGroup primaryText="Save" secondaryText="Cancel" />
+
+          {/* <PrimaryBtn type="edit" />
+          <SecondaryBtn type="delete" /> */}
         </Col>
       </Row>
     );

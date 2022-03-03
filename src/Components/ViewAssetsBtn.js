@@ -1,20 +1,59 @@
 import "bootstrap/dist/css/bootstrap.css";
+import ArrowDropDownRoundedIcon from "@mui/icons-material/ArrowDropDownRounded";
 // import "bootstrap.bundle.js";
+import Button from "@mui/material/Button";
 
-function ViewAssets() {
-  return (
-    <div className="viewAssetsBtn">
-      <p
+function ViewAssets(props) {
+  if (props.inline) {
+    return (
+      <div
+        className="viewAssetsBtn"
         style={{
-          margin: "0px",
-          fontSize: "16px",
-          color: "#18388C",
+          display: "inline",
         }}
       >
-        View assets
-      </p>
-    </div>
-  );
+        <p
+          style={{
+            margin: "0px",
+            fontSize: "16px",
+            color: "#18388C",
+            display: "inline",
+          }}
+        >
+          View assets
+        </p>
+      </div>
+    );
+  }
+  if (props.mui) {
+    return (
+      <Button
+        variant="text"
+        style={{
+          fontSize: "12px",
+          color: "#18388C",
+          left: "-10px",
+        }}
+      >
+        View assets <ArrowDropDownRoundedIcon sx={{ color: "#18388C" }} />
+      </Button>
+    );
+  } else
+    return (
+      <div className="viewAssetsBtn">
+        <p
+          style={{
+            margin: "0px",
+            fontSize: "16px",
+            color: "#18388C",
+            display: "inline",
+          }}
+        >
+          View assets
+        </p>
+        <ArrowDropDownRoundedIcon sx={{ color: "#18388C" }} />
+      </div>
+    );
 }
 
 /*

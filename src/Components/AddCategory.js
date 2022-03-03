@@ -1,10 +1,13 @@
 import { Row, Col } from "react-bootstrap";
-import PrimaryBtn from "./PrimaryBtn";
-import SecondaryBtn from "./SecondaryBtn";
+// import PrimaryBtn from "./PrimaryBtn";
+// import SecondaryBtn from "./SecondaryBtn";
 import CategorySelect from "./CategorySelect";
 import InputString from "./InputString";
 import Tag from "./Tag";
-import SelectImageIcon from "./SelectImageIcon";
+//import SelectImageIcon from "./SelectImageIcon";
+import Icon from "./Icon";
+import ButtonGroup from "./ButtonGroup";
+//import IconButton from "@mui/material/IconButton";
 
 function AddCategory(props) {
   if (props.type === "automatic") {
@@ -17,11 +20,16 @@ function AddCategory(props) {
         <Col style={{ margin: "auto" }}></Col>
         <Col style={{ margin: "auto" }}></Col>
         <Col
-          className="col-sm-2"
+          className="col-sm-1"
           style={{ margin: "auto", paddingLeft: "0px" }}
         >
-          <PrimaryBtn type="save" />
-          <SecondaryBtn type="cancel" />
+          <ButtonGroup primaryText="Save" secondaryText="Cancel" />
+
+          {/* <PrimaryBtn type="save" />
+          <SecondaryBtn type="cancel" /> */}
+        </Col>
+        <Col className="col-sm-1">
+          <Icon delete />
         </Col>
       </Row>
     );
@@ -36,15 +44,21 @@ function AddCategory(props) {
         </Col>
         <Col style={{ margin: "auto" }}>
           <Tag text="Select image" />
-          <SelectImageIcon />
+          <Icon camera />
+          {/* <PhotoCamera /> */}
+          {/* <SelectImageIcon /> */}
         </Col>
         <Col style={{ margin: "auto" }}></Col>
         <Col
-          className="col-sm-2"
+          className="col-sm-1"
           style={{ margin: "auto", paddingLeft: "0px" }}
         >
-          <PrimaryBtn type="save" />
-          <SecondaryBtn type="cancel" />
+          <ButtonGroup primaryText="Save" secondaryText="Cancel" />
+          {/* <PrimaryBtn type="save" />
+          <SecondaryBtn type="cancel" /> */}
+        </Col>
+        <Col className="col-sm-1">
+          <Icon delete />
         </Col>
       </Row>
     );
