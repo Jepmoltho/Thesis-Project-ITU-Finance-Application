@@ -8,7 +8,7 @@ import AddCategory from "../Components/AddCategory";
 import EditAsset from "../Components/EditAsset";
 import Logo from "../Components/Logo"
 import NavigationBar from "../Components/NavigationBar"
-import ResponsiveAppBar from "../Components/ResponsiveAppBar"
+import ResponsiveAppBar from "../Components/NavigationBar"
 
 function Dashboard() {
   const navigate = useNavigate();
@@ -51,7 +51,7 @@ function Dashboard() {
   if (currentUser !== null) {
     return (
       <div>
-      <ResponsiveAppBar/>
+      <NavigationBar/>
       <Container>
         <h2>Welcome {currentUser.get("username")}</h2>
         <br />
