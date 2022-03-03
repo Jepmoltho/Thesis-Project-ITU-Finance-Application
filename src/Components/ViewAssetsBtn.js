@@ -1,6 +1,7 @@
 import "bootstrap/dist/css/bootstrap.css";
 import ArrowDropDownRoundedIcon from "@mui/icons-material/ArrowDropDownRounded";
 // import "bootstrap.bundle.js";
+import Button from "@mui/material/Button";
 
 function ViewAssets(props) {
   if (props.inline) {
@@ -22,6 +23,20 @@ function ViewAssets(props) {
           View assets
         </p>
       </div>
+    );
+  }
+  if (props.mui) {
+    return (
+      <Button
+        variant="text"
+        style={{
+          fontSize: "12px",
+          color: "#18388C",
+          left: "-10px",
+        }}
+      >
+        View assets <ArrowDropDownRoundedIcon sx={{ color: "#18388C" }} />
+      </Button>
     );
   } else
     return (

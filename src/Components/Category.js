@@ -41,7 +41,7 @@ function Category(props) {
       </Col>
       <Col className="col-sm-1" style={{ margin: "auto", padding: "0px" }}>
         <nobr>
-          <ViewAssetsBtn />
+          <ViewAssetsBtn mui />
         </nobr>
       </Col>
       <Col className="col-sm-1">
