@@ -52,7 +52,6 @@ function Dashboard() {
       <div>
         <NavigationBar />
         <Container>
-          <AddAssetBtn/>
           <h2>Welcome {currentUser.get("username")}</h2>
           <br />
           <Category title="Stocks" />
