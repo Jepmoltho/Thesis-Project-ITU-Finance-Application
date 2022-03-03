@@ -15,7 +15,7 @@ function EditAsset(props) {
     return (
       <Row className="asset">
         <Col className="col-sm-1" style={{ margin: "auto" }}>
-          <Tag text="Calculate m2" />
+          <Tag text="Calculate pr. m²" />
           <Toggle />
         </Col>
         <Col style={{ margin: "auto" }}>
@@ -41,7 +41,7 @@ function EditAsset(props) {
     return (
       <Row className="asset">
         <Col className="col-sm-1" style={{ margin: "auto" }}>
-          <Tag text="Calculate m2" />
+          <Tag text="Calculate pr. m²" />
           <Toggle defaultChecked />
         </Col>
         <Col className="col-sm-3" style={{ margin: "auto" }}>
@@ -69,7 +69,7 @@ function EditAsset(props) {
     return (
       <Row className="asset">
         <Col className="col-sm-1" style={{ margin: "auto" }}>
-          <Tag text="Conn. bank" />
+          <Tag text="Connect bank" />
           <Toggle />
         </Col>
         <Col style={{ margin: "auto" }}>
@@ -94,7 +94,7 @@ function EditAsset(props) {
     return (
       <Row className="asset">
         <Col className="col-sm-1" style={{ margin: "auto" }}>
-          <Tag text="Conn. bank" />
+          <Tag text="Connect bank" />
           <Toggle />
         </Col>
         <Col style={{ margin: "auto" }}>
