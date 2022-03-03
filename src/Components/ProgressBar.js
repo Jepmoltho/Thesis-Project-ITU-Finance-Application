@@ -47,3 +47,8 @@ function ProgressBar(props){
 }
 
 export default ProgressBar;
+
+/**
+ Test element
+ <ProgressBar completed='60'/>
+*/
