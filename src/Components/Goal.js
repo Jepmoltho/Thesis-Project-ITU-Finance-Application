@@ -8,7 +8,7 @@ function Goal(props){
     return (
         <div style={{ paddingTop:"10px", paddingLeft:"16px", paddingRight:"0px"}}>
             <div style={{float: "left"}}>
-                <Tag text="Overview"/>
+                <Tag text="Goal"/>
             </div>
             <div style={{float: "left", fontSize: "10px"}}>
                 Logo
