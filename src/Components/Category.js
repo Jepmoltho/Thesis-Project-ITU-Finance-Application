@@ -7,6 +7,7 @@ import Value from "./Value";
 import CategoryProfit from "./CategoryProfit";
 import NumberOfAssets from "./NumberOfAssets";
 import CategoryIcon from "./CategoryIcon";
+import Icon from "./Icon";
 
 //import CategoryIcon from "../ImageFiles/CategoryIcon.png";
 
@@ -38,8 +39,13 @@ function Category(props) {
         <Tag text="Profit" />
         <CategoryProfit profit="3456" />
       </Col>
-      <Col className="col-sm-2" style={{ margin: "auto", paddingLeft: "0px" }}>
-        <ViewAssetsBtn />
+      <Col className="col-sm-1" style={{ margin: "auto", padding: "0px" }}>
+        <nobr>
+          <ViewAssetsBtn mui />
+        </nobr>
+      </Col>
+      <Col className="col-sm-1">
+        <Icon edit />
       </Col>
     </Row>
   );

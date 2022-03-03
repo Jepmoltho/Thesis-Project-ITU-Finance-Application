@@ -6,8 +6,13 @@ import Container from "react-bootstrap/Container";
 import Asset from "../Components/Asset";
 import AddCategory from "../Components/AddCategory";
 import EditAsset from "../Components/EditAsset";
+import NavigationBar from "../Components/NavigationBar";
+import ProgressBar from "../Components/ProgressBar";
+import AddCategoryBtn from "../Components/AddCategoryBtn";
+// import AddAssetBtn from "../Components/AddAssetBtn";
 
 function Dashboard() {
+
   const navigate = useNavigate();
   const [currentUser, setCurrentUser] = useState(null);
 
@@ -47,17 +52,37 @@ function Dashboard() {
   }
   if (currentUser !== null) {
     return (
-      <Container>
-        <h2>Welcome {currentUser.get("username")}</h2>
-        <br />
-        <Category title="Stocks" />
-        <Asset />
-        <br />
-        <AddCategory />
-        <EditAsset />
-        <br />
-        <button onClick={doUserLogOut}>Logout</button>
-      </Container>
+      <div>
+        <NavigationBar />
+        <ProgressBar completed='60'/>
+        <Container>
+          <h2>Welcome {currentUser.get("username")}</h2>
+          <br />
+          <Category title="Stocks" />
+          <br />
+          <AddCategory type="automatic" />
+          <br />
+          <AddCategory type="manual" />
+          <br />
+          <Asset normal />
+          <br />
+          <Asset debt />
+          <br />
+          <Asset realestate />
+          <br />
+          <EditAsset />
+          <br />
+          <EditAsset realestateman />
+          <br />
+          <EditAsset realestateauto />
+          <br />
+          <EditAsset bankman />
+          <br />
+          <EditAsset bankauto />
+          <br />
+          <button onClick={doUserLogOut}>Logout</button>
+        </Container>
+      </div>
     );
   }
 }
