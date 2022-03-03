@@ -34,7 +34,7 @@ function SectorDiagram(){
 
     return (
         <div >
-            <div  style={{height: "50%", width: "50%"}}  >
+            <div  style={{height: "auto", width: "50%"}}  >
                 <Chart 
                     type='doughnut'
                     data={data}
