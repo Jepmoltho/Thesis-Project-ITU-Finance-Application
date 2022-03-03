@@ -1,4 +1,6 @@
-function CategoryIcon() {
+function CategoryIcon(props) {
+  const {categoryIcon} = props;
+  
   return (
     <div className="categoryIcon" style={{ textAlign: "center" }}>
       <img
