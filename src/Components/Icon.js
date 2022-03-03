@@ -8,10 +8,20 @@ function Icon(props) {
     return <InfoIcon />;
   }
   if (props.edit) {
-    return <EditIcon />;
+    return (
+      <EditIcon
+        sx={{ color: "#8c8c8c" }}
+        style={{ float: "right", paddingTop: "8px" }}
+      />
+    );
   }
   if (props.delete) {
-    return <DeleteIcon />;
+    return (
+      <DeleteIcon
+        sx={{ color: "#8c8c8c" }}
+        style={{ float: "right", paddingTop: "8px" }}
+      />
+    );
   } else {
     return <InfoOutlinedIcon />;
   }

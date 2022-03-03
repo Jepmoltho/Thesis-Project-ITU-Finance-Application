@@ -5,6 +5,7 @@ import CategorySelect from "./CategorySelect";
 import InputString from "./InputString";
 import Tag from "./Tag";
 import SelectImageIcon from "./SelectImageIcon";
+import Icon from "./Icon";
 
 function AddCategory(props) {
   if (props.type === "automatic") {
@@ -17,11 +18,14 @@ function AddCategory(props) {
         <Col style={{ margin: "auto" }}></Col>
         <Col style={{ margin: "auto" }}></Col>
         <Col
-          className="col-sm-2"
+          className="col-sm-1"
           style={{ margin: "auto", paddingLeft: "0px" }}
         >
           <PrimaryBtn type="save" />
           <SecondaryBtn type="cancel" />
+        </Col>
+        <Col className="col-sm-1">
+          <Icon delete />
         </Col>
       </Row>
     );
@@ -40,11 +44,14 @@ function AddCategory(props) {
         </Col>
         <Col style={{ margin: "auto" }}></Col>
         <Col
-          className="col-sm-2"
+          className="col-sm-1"
           style={{ margin: "auto", paddingLeft: "0px" }}
         >
           <PrimaryBtn type="save" />
           <SecondaryBtn type="cancel" />
+        </Col>
+        <Col className="col-sm-1">
+          <Icon delete />
         </Col>
       </Row>
     );

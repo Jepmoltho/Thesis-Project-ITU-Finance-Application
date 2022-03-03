@@ -39,9 +39,13 @@ function Category(props) {
         <Tag text="Profit" />
         <CategoryProfit profit="3456" />
       </Col>
-      <Col className="col-sm-2" style={{ margin: "auto", paddingLeft: "0px" }}>
-        <Icon delete style={{ position: "relative" }} />
-        <ViewAssetsBtn />
+      <Col className="col-sm-1" style={{ margin: "auto", padding: "0px" }}>
+        <nobr>
+          <ViewAssetsBtn />
+        </nobr>
+      </Col>
+      <Col className="col-sm-1">
+        <Icon edit />
       </Col>
     </Row>
   );
