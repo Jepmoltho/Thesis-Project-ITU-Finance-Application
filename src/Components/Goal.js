@@ -1,11 +1,12 @@
 import "bootstrap/dist/css/bootstrap.css";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 import Tag from "./Tag";
-import ProgressBar from "./ProgressBar"
+
 
 function Goal(props){
-
     return (
-        <div style={{ paddingTop:"10px", paddingLeft:"10px", paddingRight:"10px"}}>
+        <div style={{ paddingTop:"10px", paddingLeft:"16px", paddingRight:"0px"}}>
             <div style={{float: "left"}}>
                 <Tag text="Goal"/>
             </div>
@@ -15,13 +16,10 @@ function Goal(props){
             <div style={{float: "right", fontSize: "10px", paddingRight: "10px"}}>
                 edit
             </div>             
-            <div style={{marginTop: "34px"}}>
-                <p name="goal" style={{ color: "#00145E", float: "left", marginBottom: "7px" }}>Goal</p>     
-                <p name="-" style={{ color: "#00145E", float: "right", marginBottom: "0px" }}>-</p>     
+            <div>
+                <p style={{ color: "#00145E", marginTop: "34px", marginBottom: "7px" }}> {props.goal === 0 ? "-" : "Goal"}</p>     
             </div>
-            <div style={{paddingTop: "48px"}} >  
-                <ProgressBar completed='80'/>
-            </div>
+            <div> Progress bar</div>
         </div>
             
 
