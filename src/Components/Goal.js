@@ -17,7 +17,7 @@ function Goal(props){
             </div>             
             <div style={{marginTop: "34px"}}>
                 <p name="goal" style={{ color: "#00145E", float: "left", marginBottom: "7px" }}>Goal</p>     
-                <p name="-" style={{ color: "#00145E", float: "right", marginBottom: "0px" }}>-</p>     
+                <p name="-" style={{ color: "#00145E", float: "right", marginBottom: "0px" }}> {props.goal===undefined ? "-" : props.goal}</p>     
             </div>
             <div style={{paddingTop: "48px"}} >  
                 <ProgressBar completed='80'/>
