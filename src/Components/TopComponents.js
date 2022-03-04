@@ -9,12 +9,12 @@ import Goal from "./Goal";
 
 function TopComponents(){
     return (
-        <Row>   
+        <Row >   
             <Col className="col-sm-7" style={{ marginRight: "0px", paddingRight: "10px", paddingLeft: "0px"}}>
                 <Graph/>
             </Col>
             <Col className="col-sm-5" style={{ marginRight: "0px", paddingRight: "0px", paddingLeft: "10px"}}>
-                <Row style={{ marginBottom: "14px", marginLeft: "0px"}} className="card">
+                <Row style={{ marginBottom: "14px", marginLeft: "0px", marginRight: "0px"}} className="card">
                     <Col>
                           <span> 
                             <a style={{ float: "right", fontStyle: "italic"}} href="https://investorjunkie.com/create-asset-allocation/">
@@ -30,7 +30,7 @@ function TopComponents(){
                         </span>
                     </Col>
                 </Row>
-                <Row style={{marginTop: "14px", marginLeft: "0px"}}>
+                <Row style={{marginTop: "14px", marginLeft: "0px",  marginRight: "0px"}}>
                     <Col className="card" style={{ paddingRight: "0px", paddingLeft: "0px", marginRight: "10px"}}>
                         <Overview/>
                     </Col>
