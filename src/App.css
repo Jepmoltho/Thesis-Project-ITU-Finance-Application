@@ -7,9 +7,11 @@ h4 {
 }
 
 .category {
+  background: rgba(255, 255, 255, 0.966);
   box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.15);
   border-radius: 3px;
   min-height: 75px;
+  background-color: "white";
 }
 
 .asset {
@@ -19,18 +21,20 @@ h4 {
 }
 
 .addCategory {
+  background: rgba(255, 255, 255, 0.966);
+
   box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.15);
   border-radius: 3px;
   min-height: 75px;
 }
 
 .card {
-  background: #FFFFFF;
+  background: #ffffff;
   box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.15);
   border-radius: 3px;
 }
 
-.navigationBar{
+.navigationBar {
   box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.15);
   border-radius: 3px;
 }

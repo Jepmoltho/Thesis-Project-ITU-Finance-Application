@@ -1,33 +1,68 @@
 import "bootstrap/dist/css/bootstrap.css";
 import Tag from "./Tag";
-import ProgressBar from "./ProgressBar"
+import ProgressBar from "./ProgressBar";
 import Icon from "./Icon";
+import "bootstrap/dist/css/bootstrap.css";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 
-function Goal(props){
-
-    return (
-        <div style={{ paddingTop:"10px", paddingLeft:"10px", paddingRight:"10px"}}>
-            <div style={{float: "left"}}>
-                <Tag text="Goal"/>
-            </div>
-            <div style={{float: "left", fontSize: "10px"}}>
-                <Icon info/>
-            </div>
-            <div style={{float: "right", fontSize: "10px", paddingRight: "10px"}}>
-                <Icon edit/>   
-            </div>             
-            <div style={{marginTop: "34px"}}>
-                <p name="goal" style={{ color: "#00145E", float: "left", marginBottom: "7px" }}>Goal</p>     
-                <p name="-" style={{ color: "#00145E", float: "right", marginBottom: "0px" }}> {props.goal===undefined ? "-" : props.goal}</p>     
-            </div>
-            <div style={{paddingTop: "48px"}} >  
-                <ProgressBar completed='80'/>
-            </div>
-        </div>
-            
-
-    
-    )
+function Goal(props) {
+  return (
+    <div className="goalbox">
+      <Row style={{ padding: "10px" }}>
+        <Col style={{}}>
+          <Tag inline text="Goal" style={{ display: "inline" }} />
+          <Icon infosmall style={{ position: "relative", top: "-10px" }} />
+          <Icon editgoal style={{ position: "relative", float: "right" }} />
+        </Col>
+      </Row>
+      <Row style={{ padding: "10px" }}>
+        <Col>
+          <p style={{ color: "#00145E", float: "left", marginBottom: "7px" }}>
+            Goal
+          </p>
+          <p
+            name="-"
+            style={{ color: "#00145E", float: "right", marginBottom: "0px" }}
+          >
+            {props.goal === undefined ? "-" : props.goal}
+          </p>
+        </Col>
+      </Row>
+      <Row style={{ padding: "10px", paddingBottom: "20px" }}>
+        <ProgressBar completed="80" style={{ position: "relative" }} />
+      </Row>
+    </div>
+  );
 }
 
-export default Goal
+export default Goal;
+
+// <div>
+//       <div
+//         style={{
+//           paddingTop: "10px",
+//           paddingLeft: "10px",
+//           paddingRight: "10px",
+//         }}
+//       >
+//         <Tag inline text="Goal" style={{ display: "inline" }} />
+//         <Icon infosmall style={{ position: "relative", top: "-10px" }} />
+//         <Icon edit style={{ position: "relative", float: "right" }} />
+//         <div style={{ marginTop: "34px" }}>
+//           <p style={{ color: "#00145E", float: "left", marginBottom: "7px" }}>
+//             Goal
+//           </p>
+//           <p
+//             name="-"
+//             style={{ color: "#00145E", float: "right", marginBottom: "0px" }}
+//           >
+//             {props.goal === undefined ? "-" : props.goal}
+//           </p>
+//         </div>
+//       </div>
+//       <ProgressBar
+//         completed="80"
+//         style={{ position: "relative", top: "50px" }}
+//       />
+//     </div>
