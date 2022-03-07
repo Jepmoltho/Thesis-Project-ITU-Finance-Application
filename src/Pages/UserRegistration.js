@@ -3,14 +3,15 @@ import Parse from "parse";
 import { useNavigate } from "react-router-dom";
 import { Container, Row, Col } from "react-bootstrap";
 import Logo from "../Components/Logo";
-import InputString from "../Components/InputString";
 import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
 
 function UserRegistration() {
   const navigate = useNavigate("");
   const [username, setUsername] = useState("");
   const handleChangeUser = (e) => {
     setUsername(e.target.value);
+    console.log(username);
   };
   const [password, setPassword] = useState("");
   const handleChangePassword = (e) => {
@@ -63,40 +64,50 @@ function UserRegistration() {
           style={{
             margin: "auto",
             minHeight: "400px",
-            padding: "100px 50px 50px 50px",
+            padding: "50px 150px 50px 50px",
             borderRadius: "3px",
           }}
         >
-          <p style={{ fontSize: "26px", color: "#18388C" }}>
+          <p style={{ fontSize: "30px", color: "#18388C" }}>
             Create a user to get started
           </p>
-          <InputString
+          <TextField
             label="Username"
             value={username}
             onChange={handleChangeUser}
+            fullWidth
           />
-          <InputString label="Password" />
-          <input
-            value={username}
-            placeholder={"Username"}
-            onChange={handleChangeUser}
-          ></input>
-          <input
+          <p></p>
+          <TextField
+            label="Password"
             value={password}
-            placeholder={"Password"}
             onChange={handleChangePassword}
-          ></input>
+            fullWidth
+          />
           <br />
           <br />
-          <button onClick={doUserRegistration}>Create user</button>
+          <Button
+            variant="contained"
+            size="large"
+            onClick={doUserRegistration}
+            sx={{
+              backgroundColor: "#18388C",
+              color: "white",
+            }}
+            style={{ fontSize: "12px" }}
+          >
+            Create user
+          </Button>
           <br />
           <br />
-          <p style={{ display: "inline-block" }}>Already have a user?</p>{" "}
+          <p style={{ display: "inline-block", paddingRight: "5px" }}>
+            Already have a user?
+          </p>
           <p
-            style={{ display: "inline-block" }}
+            style={{ display: "inline-block", color: "#18388C" }}
             onClick={() => navigate("/login")}
           >
-            Continue to login
+            <b>Continue to login</b>
           </p>
         </Col>
         <Col className="col-sm-3"></Col>
@@ -108,8 +119,7 @@ function UserRegistration() {
 
 export default UserRegistration;
 
-{
-  /* <div
+/* <div
       className="userregistration"
       style={{
         justifyContent: "center",
@@ -151,4 +161,3 @@ export default UserRegistration;
         </p>
       </div>
     </div> */
-}
