@@ -3,6 +3,8 @@
 // import Row from "react-bootstrap/Row";
 // import Col from "react-bootstrap/Col";
 import Tag from "./Tag";
+import NetworthNumber from "./NetworthNumber";
+
 
 import React, { useState, useEffect }  from "react";
 import 'chart.js/auto';
@@ -40,9 +42,13 @@ function Graph(){
 
     return (
         <div className="card" style={{height: "100%", width: "100%"}}>
-            {/* <Tag text="Networth"/> */}
-            <div style={{ zIndex: "+1", position: "absolute", top:"50px", left: "70px"}}> Hello</div>
-            <div style={{ height: "auto", width: "auto", paddingTop: "0px", zIndex: "+1", position: "relative", top:"0px", left: "0px"}}  >    
+            
+            <div name="graph text" style={{position: "absolute", top:"50px", left: "100px"}}> 
+                <Tag text="Networth"/>
+                <NetworthNumber value={150000} />
+
+            </div>
+            <div name="graph visualization" style={{ height: "auto", width: "auto", paddingTop: "0px", position: "relative", top:"0px", left: "0px"}}  >    
                 <Chart 
                     type='line'
                     data={data}
