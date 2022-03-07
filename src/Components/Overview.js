@@ -2,6 +2,8 @@ import "bootstrap/dist/css/bootstrap.css";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Tag from "./Tag";
+import Icon from "./Icon";
+
 
 
 function Overview(props){
@@ -13,7 +15,7 @@ function Overview(props){
                         <Tag text="Overview"/>
                     </div>
                     <div style={{float: "left", fontSize: "10px"}}>
-                        Logo
+                        <Icon info />
                     </div>
                     <p style={{ color: "#00145E", marginTop: "34px", marginBottom: "7px" }}>Asset total</p>     
                     <p style={{ color: "#00145E", marginBottom: "7px"}}>Debt total</p>     

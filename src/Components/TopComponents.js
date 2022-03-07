@@ -5,6 +5,7 @@ import Graph from "../Components/Graph";
 import SectorDiagram from "./SectorDiagram";
 import Overview from "./Overview";
 import Goal from "./Goal";
+import Icon from "./Icon";
 
 
 function TopComponents(){
@@ -21,7 +22,9 @@ function TopComponents(){
                                 See how the pros does it
                             </a> 
                         </span>
-                        <span name="tedt" style={{ float: "right"}}> logo </span>                      
+                        <span name="tedt" style={{ float: "right"}}> 
+                            <Icon info />
+                        </span>                      
                     </Col>
                     <Col style={{paddingLeft: "0px"}}>
                             <SectorDiagram/>    

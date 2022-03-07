@@ -1,6 +1,7 @@
 import "bootstrap/dist/css/bootstrap.css";
 import Tag from "./Tag";
 import ProgressBar from "./ProgressBar"
+import Icon from "./Icon";
 
 function Goal(props){
 
@@ -10,10 +11,10 @@ function Goal(props){
                 <Tag text="Goal"/>
             </div>
             <div style={{float: "left", fontSize: "10px"}}>
-                Logo
+                <Icon info/>
             </div>
             <div style={{float: "right", fontSize: "10px", paddingRight: "10px"}}>
-                edit
+                <Icon edit/>   
             </div>             
             <div style={{marginTop: "34px"}}>
                 <p name="goal" style={{ color: "#00145E", float: "left", marginBottom: "7px" }}>Goal</p>     
