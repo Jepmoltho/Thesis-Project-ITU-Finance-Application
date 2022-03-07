@@ -15,7 +15,7 @@ function Category(props) {
   return (
     <Row className="category">
       <Col className="col-sm-1" style={{ margin: "auto" }}>
-        <CategoryIcon categoryIcon='Stocks'/>
+        <CategoryIcon categoryIcon="Stocks" />
       </Col>
       <Col style={{ margin: "auto" }}>
         <p
