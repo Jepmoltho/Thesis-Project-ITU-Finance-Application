@@ -12,6 +12,7 @@ import AddCategoryBtn from "../Components/AddCategoryBtn";
 // import AddAssetBtn from "../Components/AddAssetBtn";
 import TopComponents from "../Components/TopComponents"
 import SelectImageIcon from "../Components/SelectImageIcon";
+import OnboardingCard from "../Components/OnboardingCard";
 
 function Dashboard() {
 
@@ -58,6 +59,13 @@ function Dashboard() {
         <NavigationBar />
         <Container>
           <h2>Welcome {currentUser.get("username")}</h2>
+          <OnboardingCard
+            title='Ready to manange your investmenst?'
+            text='AssetTracker makes it easy to get an overview of your investments'
+            primaryBtnTxt='Start a quick walkthrough'
+            secondaryBtnTxt='Skip the walkthrough'
+          >
+          </OnboardingCard>
           <TopComponents/>
           <br />
           <Category title="Stocks" />
