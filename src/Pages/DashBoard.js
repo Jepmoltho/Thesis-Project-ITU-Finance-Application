@@ -56,9 +56,9 @@ function Dashboard() {
     return (
       <div>
         <NavigationBar />
-        <TopComponents/>
         <Container>
           <h2>Welcome {currentUser.get("username")}</h2>
+          <TopComponents/>
           <br />
           <Category title="Stocks" />
           <br />
