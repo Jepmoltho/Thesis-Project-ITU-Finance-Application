@@ -13,7 +13,7 @@ function Goal(props) {
         <Col style={{}}>
           <Tag inline text="Goal" style={{ display: "inline" }} />
           <Icon infosmall style={{ position: "relative", top: "-10px" }} />
-          <Icon edit style={{ position: "relative", float: "right" }} />
+          <Icon editgoal style={{ position: "relative", float: "right" }} />
         </Col>
       </Row>
       <Row style={{ padding: "10px" }}>
