@@ -3,14 +3,14 @@ function CategoryIcon(props) {
 
   function formate (props){
     return (
-      <div className="categoryIcon" style={{ textAlign: "center" }}>
+      // <div className="categoryIcon" style={{ textAlign: "center", padding: "0px", margin: "0px" }}>
       <img
-        src={`/${props.categoryIcon}CategoryIcon.svg`}
-        alt="tempAlt"
+        src={`images/${props.categoryIcon}CategoryIcon.svg`}
+        alt="logoImage"
         style={{ maxWidth: "40px", display: "inline" }}
-      ></img>
-    </div>
-    );
+        ></img>
+      // </div>
+        );
   }
   
   switch (categoryIcon) {
