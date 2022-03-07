@@ -1,7 +1,8 @@
-import "bootstrap/dist/css/bootstrap.css";
-//import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
+// import "bootstrap/dist/css/bootstrap.css";
+// //import Container from "react-bootstrap/Container";
+// import Row from "react-bootstrap/Row";
+// import Col from "react-bootstrap/Col";
+import Tag from "./Tag";
 
 import React, { useState, useEffect }  from "react";
 import 'chart.js/auto';
@@ -38,8 +39,10 @@ function Graph(){
     } 
 
     return (
-        <div className="card" style={{height: "100%", width: "100%" }}>
-            <div style={{ height: "auto", width: "auto", paddingTop: "52px"}}  >    
+        <div className="card" style={{height: "100%", width: "100%"}}>
+            {/* <Tag text="Networth"/> */}
+            <div style={{ zIndex: "+1", position: "absolute", top:"50px", left: "70px"}}> Hello</div>
+            <div style={{ height: "auto", width: "auto", paddingTop: "0px", zIndex: "+1", position: "relative", top:"0px", left: "0px"}}  >    
                 <Chart 
                     type='line'
                     data={data}
