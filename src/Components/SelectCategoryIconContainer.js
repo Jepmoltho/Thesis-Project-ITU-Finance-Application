@@ -3,13 +3,13 @@ import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import CategoryIcon from "./CategoryIcon";
 
-function SelectCategoryIconContainer(){
+function SelectCategoryIconContainer (props){
     return (
         <Row className="col-sm-6">
             <Col style={{ paddingTop: "10px", paddingBottom: "10px", paddingRight: "5px", paddingLeft: "0px"}}>
                 {/* <img src="images/BikeCategoryIcon.svg" alt="SelectImgBtn"/> */}
-                <CategoryIcon categoryIcon="Bike"/>
-                <span> bike </span>            
+                <CategoryIcon categoryIcon={props.icon} />
+                <span> {props.icon} </span>            
             </Col>  
         </Row>
     )
