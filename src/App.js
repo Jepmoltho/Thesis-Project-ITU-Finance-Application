@@ -14,7 +14,7 @@ Parse.serverURL = "https://parseapi.back4app.com/";
 
 function App() {
   return (
-    <div className="App">
+    <div className="App" style={{ backgroundColor: "#E5E5E5" }}>
       <Routes>
         <Route path="/" element={<UserRegistration />} />
         <Route path="/login" element={<UserLogin />} />

@@ -22,7 +22,7 @@ function InputString(props) {
         label={props.label}
         variant="outlined"
         value={input}
-        onChange={(e) => setInput(e.target.value)}
+        onChange={setInput}
         size="small"
         fullWidth //This makes it expand to the full width of the container
       />
