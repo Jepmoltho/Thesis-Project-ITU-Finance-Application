@@ -16,13 +16,21 @@ import {
 ChartJS.register(LineController, LineElement, PointElement, LinearScale, Title);
 //https://www.chartjs.org/docs/latest/configuration/legend.html
 
-const primaryData = [13,15,60,2,10,]
-const labels = ['Stocks','Crypto','Real estate','Bank account','Gold','car']
-
+const primaryData = [13, 15, 60, 2, 10];
+const labels = [
+  "Stocks",
+  "Crypto",
+  "Real estate",
+  "Bank account",
+  "Gold",
+  "car",
+];
 
 function SectorDiagram() {
-  const customLabels = labels.map((label,index) => `${label} ${primaryData[index]}%`)
-  
+  const customLabels = labels.map(
+    (label, index) => `${label} ${primaryData[index]}%`
+  );
+
   const data = {
     labels: customLabels,
     datasets: [
@@ -44,16 +52,15 @@ function SectorDiagram() {
     },
     responsive: true,
     cutout: "70%",
-    
-    
+
     plugins: {
       legend: {
-        display: false, 
+        display: false,
         display: true,
-        position: 'right',
+        position: "right",
         labels: {
-          padding: 5  
-        }
+          padding: 5,
+        },
       },
       // tooltip: {
       //   callbacks: {
@@ -63,17 +70,23 @@ function SectorDiagram() {
       //     }
       //   }
       // }
-    }
-
+    },
   };
 
-
   return (
-      <div>
-        <div style={{ width:"50%" }}>
-          <Chart type="doughnut" data={data} options={options} />
-        </div>
+    <div>
+      <div
+        style={{
+          width: "",
+          maxHeight: "300px",
+          padding: "50px 50px 50px 50px",
+          position: "relative",
+          top: "-110px",
+        }}
+      >
+        <Chart type="doughnut" data={data} options={options} />
       </div>
+    </div>
   );
 }
 
