@@ -5,11 +5,10 @@ import CategoryIcon from "./CategoryIcon";
 
 function SelectCategoryIconContainer (props){
     return (
-        <Row className="col-sm-6">
-            <Col style={{ paddingTop: "10px", paddingBottom: "10px", paddingRight: "5px", paddingLeft: "0px"}}>
-                {/* <img src="images/BikeCategoryIcon.svg" alt="SelectImgBtn"/> */}
+        <Row name="icon container" className="col-sm-6">
+            <Col name="img and text positioning" style={{ paddingTop: "10px", paddingBottom: "10px", paddingRight: "5px", paddingLeft: "0px"}}>
                 <CategoryIcon categoryIcon={props.icon} />
-                <span> {props.icon} </span>            
+                <span > {props.icon} </span>            
             </Col>  
         </Row>
     )
