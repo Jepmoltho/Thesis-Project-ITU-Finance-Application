@@ -4,12 +4,6 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import IconButton from "@mui/material/IconButton";
 import PhotoCamera from "@mui/icons-material/PhotoCamera";
-import { styled } from "@mui/material/styles";
-
-//For camera upload button
-const Input = styled("input")({
-  display: "none",
-});
 
 //Note: You probably need IconButton and not Button components from Mui. Find them under button components
 function Icon(props) {
@@ -51,7 +45,6 @@ function Icon(props) {
   if (props.camera) {
     return (
       <label htmlFor="icon-button-file">
-        <Input accept="image/*" id="icon-button-file" type="file" />
         <IconButton
           aria-label="upload picture"
           component="span"

@@ -1,7 +1,6 @@
 import "bootstrap/dist/css/bootstrap.css";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import InputString from "./InputString";
 import Tag from "./Tag";
 import Icon from "./Icon";
 import ButtonGroup from "./ButtonGroup";
@@ -12,6 +11,7 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
+//import { useSwitch } from "@mui/base/SwitchUnstyled"; Note: UseSwitch hook from MUI - might be usefull to deal with state of the toggle/switch
 
 function EditAsset(props) {
   //Constants and lifecycle methods for manual name input
@@ -38,6 +38,12 @@ function EditAsset(props) {
   const [inputPriceM2, setInputPriceM2] = useState("");
   const handleChangeInputPriceM2 = (e) => {
     setInputPriceM2(e.target.value);
+  };
+
+  //Constants and lifecycle methods for API key
+  const [inputAPIKey, setInputAPIKey] = useState("");
+  const handleChangeInputAPIKey = (e) => {
+    setInputAPIKey(e.target.value);
   };
 
   //Constants and lifecycle methods for input that selected from dropdown
@@ -188,7 +194,13 @@ function EditAsset(props) {
           </FormControl>
         </Col>
         <Col style={{ margin: "auto" }}>
-          <InputString label="API key" />
+          <TextField
+            label="API Key"
+            value={inputAPIKey}
+            onChange={handleChangeInputAPIKey}
+            fullWidth
+            size="small"
+          />
         </Col>
         <Col style={{ margin: "auto", paddingLeft: "0px" }}>
           <Icon />
