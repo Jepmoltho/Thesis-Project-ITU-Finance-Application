@@ -70,8 +70,7 @@ function SectorDiagram() {
 
   return (
       <div>
-        {/* <div style={{ float: "right", position: "absolute"}}> hej <br></br> med </div> */}
-        <div style={{ float: "left", width:"50%" }}>
+        <div style={{ width:"50%" }}>
           <Chart type="doughnut" data={data} options={options} />
         </div>
       </div>
