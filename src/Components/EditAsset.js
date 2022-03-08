@@ -2,25 +2,74 @@ import "bootstrap/dist/css/bootstrap.css";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import InputString from "./InputString";
-import Toggle from "./Toggle";
 import Tag from "./Tag";
-import BankAccountSelect from "./BankAccountSelect";
 import Icon from "./Icon";
 import ButtonGroup from "./ButtonGroup";
+import Switch from "@mui/material/Switch"; //This is the toggle
+import TextField from "@mui/material/TextField";
+import { useState } from "react";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
 
 function EditAsset(props) {
+  //Constants and lifecycle methods for manual name input
+  const [inputName, setInputName] = useState("");
+  const handleChangeInputName = (e) => {
+    setInputName(e.target.value);
+    console.log(inputName);
+  };
+
+  //Constants and lifecycle methods for manual name value
+  const [inputValue, setInputValue] = useState("");
+  const handleChangeInputValue = (e) => {
+    setInputValue(e.target.value);
+    console.log(inputValue);
+  };
+
+  //Constants and lifecycle methods for m2
+  const [inputM2, setInputM2] = useState("");
+  const handleChangeInputM2 = (e) => {
+    setInputM2(e.target.value);
+  };
+
+  //Constants and lifecycle methods for price pr. m2
+  const [inputPriceM2, setInputPriceM2] = useState("");
+  const handleChangeInputPriceM2 = (e) => {
+    setInputPriceM2(e.target.value);
+  };
+
+  //Constants and lifecycle methods for input that selected from dropdown
+  const [inputSelect, setInputSelect] = useState("");
+  const handleChangeInputSelect = (e) => {
+    setInputSelect(e.target.value);
+  };
+
   if (props.realestateman) {
     return (
       <Row className="asset">
         <Col className="col-sm-1" style={{ margin: "auto" }}>
           <Tag text="Calculate pr. m²" />
-          <Toggle />
+          <Switch />
         </Col>
         <Col style={{ margin: "auto" }}>
-          <InputString label="Name of property" />
+          <TextField
+            label="Name of property"
+            value={inputName}
+            onChange={handleChangeInputName}
+            fullWidth
+            size="small"
+          />
         </Col>
         <Col style={{ margin: "auto" }}>
-          <InputString label="Value" />
+          <TextField
+            label="Value"
+            value={inputValue}
+            onChange={handleChangeInputValue}
+            fullWidth
+            size="small"
+          />
         </Col>
         <Col></Col>
         <Col
@@ -28,9 +77,6 @@ function EditAsset(props) {
           style={{ margin: "auto", paddingLeft: "0px" }}
         >
           <ButtonGroup primaryText="Save" secondaryText="Cancel" />
-
-          {/* <PrimaryBtn type="save" />
-          <SecondaryBtn type="cancel" /> */}
         </Col>
       </Row>
     );
@@ -40,16 +86,34 @@ function EditAsset(props) {
       <Row className="asset">
         <Col className="col-sm-1" style={{ margin: "auto" }}>
           <Tag text="Calculate pr. m²" />
-          <Toggle defaultChecked />
+          <Switch />
         </Col>
         <Col className="col-sm-3" style={{ margin: "auto" }}>
-          <InputString label="Name of asset" />
+          <TextField
+            label="Name of property"
+            value={inputName}
+            onChange={handleChangeInputName}
+            fullWidth
+            size="small"
+          />
         </Col>
         <Col className="col-sm-1" style={{ margin: "auto" }}>
-          <InputString label="m2" />
+          <TextField
+            label="m2"
+            value={inputM2}
+            onChange={handleChangeInputM2}
+            fullWidth
+            size="small"
+          />
         </Col>
         <Col className="col-sm-2" style={{ margin: "auto" }}>
-          <InputString label="Price pr. m2" />
+          <TextField
+            label="price pr. m2"
+            value={inputPriceM2}
+            onChange={handleChangeInputPriceM2}
+            fullWidth
+            size="small"
+          />
         </Col>
         <Col className="col-sm-3"></Col>
         <Col
@@ -57,8 +121,6 @@ function EditAsset(props) {
           style={{ margin: "auto", paddingLeft: "0px" }}
         >
           <ButtonGroup primaryText="Save" secondaryText="Cancel" />
-          {/* <PrimaryBtn type="edit" />
-          <SecondaryBtn type="delete" /> */}
         </Col>
       </Row>
     );
@@ -68,13 +130,25 @@ function EditAsset(props) {
       <Row className="asset">
         <Col className="col-sm-1" style={{ margin: "auto" }}>
           <Tag text="Connect bank" />
-          <Toggle />
+          <Switch />
         </Col>
         <Col style={{ margin: "auto" }}>
-          <InputString label="Name of bank account" />
+          <TextField
+            label="Name of bank account"
+            value={inputName}
+            onChange={handleChangeInputName}
+            fullWidth
+            size="small"
+          />{" "}
         </Col>
         <Col style={{ margin: "auto" }}>
-          <InputString label="Value" />
+          <TextField
+            label="Value"
+            value={inputValue}
+            onChange={handleChangeInputValue}
+            fullWidth
+            size="small"
+          />
         </Col>
         <Col></Col>
         <Col
@@ -82,8 +156,6 @@ function EditAsset(props) {
           style={{ margin: "auto", paddingLeft: "0px" }}
         >
           <ButtonGroup primaryText="Save" secondaryText="Cancel" />
-          {/* <PrimaryBtn type="save" />
-          <SecondaryBtn type="cancel" /> */}
         </Col>
       </Row>
     );
@@ -93,10 +165,27 @@ function EditAsset(props) {
       <Row className="asset">
         <Col className="col-sm-1" style={{ margin: "auto" }}>
           <Tag text="Connect bank" />
-          <Toggle />
+          <Switch />
         </Col>
         <Col style={{ margin: "auto" }}>
-          <BankAccountSelect label="Select bank" />
+          <FormControl fullWidth>
+            <InputLabel size="small" id="demo-simple-select-label">
+              Select bank
+            </InputLabel>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              label="Select bank"
+              onChange={handleChangeInputSelect}
+              value={inputSelect}
+              size="small"
+            >
+              <MenuItem value={"Danske bank"}>Danske Bank</MenuItem>
+              <MenuItem value={"Support for more banks coming soon"}>
+                <i>Support for more banks coming soon</i>
+              </MenuItem>
+            </Select>
+          </FormControl>
         </Col>
         <Col style={{ margin: "auto" }}>
           <InputString label="API key" />
@@ -109,8 +198,6 @@ function EditAsset(props) {
           style={{ margin: "auto", paddingLeft: "0px" }}
         >
           <ButtonGroup primaryText="Save" secondaryText="Cancel" />
-          {/* <PrimaryBtn type="save" />
-          <SecondaryBtn type="cancel" /> */}
         </Col>
       </Row>
     );
@@ -119,10 +206,22 @@ function EditAsset(props) {
       <Row className="asset">
         <Col className="col-sm-1" style={{ margin: "auto" }}></Col>
         <Col style={{ margin: "auto" }}>
-          <InputString label="Name of asset" />
+          <TextField
+            label="Name of asset"
+            value={inputName}
+            onChange={handleChangeInputName}
+            fullWidth
+            size="small"
+          />
         </Col>
         <Col style={{ margin: "auto" }}>
-          <InputString label="Value" />
+          <TextField
+            label="Value"
+            value={inputValue}
+            onChange={handleChangeInputValue}
+            fullWidth
+            size="small"
+          />
         </Col>
         <Col></Col>
         <Col
@@ -130,9 +229,6 @@ function EditAsset(props) {
           style={{ margin: "auto", paddingLeft: "0px" }}
         >
           <ButtonGroup primaryText="Save" secondaryText="Cancel" />
-
-          {/* <PrimaryBtn type="edit" />
-          <SecondaryBtn type="delete" /> */}
         </Col>
       </Row>
     );
