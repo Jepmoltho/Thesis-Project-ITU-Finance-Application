@@ -5,7 +5,7 @@ import Graph from "../Components/Graph";
 import SectorDiagram from "./SectorDiagram";
 import Overview from "./Overview";
 import Goal from "./Goal";
-import Icon from "./Icon";
+import Seehowpros from "./Seehowpros";
 
 function TopComponents() {
   return (
@@ -30,20 +30,8 @@ function TopComponents() {
           }}
           className="card"
         >
-          <Col>
-            <span>
-              <a
-                style={{ float: "right", fontStyle: "italic" }}
-                href="https://investorjunkie.com/create-asset-allocation/"
-              >
-                See how the pros does it
-              </a>
-            </span>
-            <span name="tedt" style={{ float: "right" }}>
-              <Icon info />
-            </span>
-          </Col>
           <Col style={{ paddingLeft: "0px" }}>
+            <Seehowpros />
             <SectorDiagram />
           </Col>
         </Row>
