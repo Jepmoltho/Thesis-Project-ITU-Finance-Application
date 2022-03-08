@@ -1,3 +1,4 @@
+import React from "react";
 import { Row, Col } from "react-bootstrap";
 import Tag from "./Tag";
 import SelectImageIcon from "./SelectImageIcon";
@@ -9,6 +10,7 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
+import CategoryIconList from "./CategoryIconList";
 
 function AddCategory(props) {
   //Constants and lifecycle methods for manual input
@@ -22,6 +24,12 @@ function AddCategory(props) {
   const handleChangeInputSelect = (e) => {
     setInputSelect(e.target.value);
     console.log(inputSelect);
+  };
+
+  const [isIconListvisible, setIsIconListvisible] = React.useState(false);
+
+  const isListvisible = () => {
+    setIsIconListvisible(!isIconListvisible);
   };
 
   if (props.type === "automatic") {
@@ -69,32 +77,36 @@ function AddCategory(props) {
 
   if (props.type === "manual") {
     return (
-      <Row className="addCategory">
-        <Col className="col-sm-1" style={{ margin: "auto" }}></Col>
-        <Col style={{ margin: "auto" }}>
-          <TextField
-            label="Category name"
-            value={input}
-            onChange={handleChangeInput}
-            fullWidth
-            size="small"
-          />
-        </Col>
-        <Col style={{ margin: "auto" }}>
-          <Tag text="Select image" />
-          <SelectImageIcon />
-        </Col>
-        <Col style={{ margin: "auto" }}></Col>
-        <Col
-          className="col-sm-1"
-          style={{ margin: "auto", paddingLeft: "0px" }}
-        >
-          <ButtonGroup primaryText="Save" secondaryText="Cancel" />
-        </Col>
-        <Col className="col-sm-1">
-          <Icon delete />
-        </Col>
-      </Row>
+      <div>
+        <Row className="addCategory" style={{ zIndex: "-1" }}>
+          <Col className="col-sm-1" style={{ margin: "auto" }}></Col>
+          <Col style={{ margin: "auto" }}>
+            <TextField
+              label="Category name"
+              value={input}
+              onChange={handleChangeInput}
+              fullWidth
+              size="small"
+            />{" "}
+          </Col>
+          <Col style={{ margin: "auto" }}>
+            <Tag text="Select image" />
+            <SelectImageIcon isListvisible={isListvisible} />
+          </Col>
+          <Col style={{ margin: "auto" }}></Col>
+          <Col
+            className="col-sm-1"
+            style={{ margin: "auto", paddingLeft: "0px" }}
+          >
+            <ButtonGroup primaryText="Save" secondaryText="Cancel" />
+          </Col>
+          <Col className="col-sm-1">
+            <Icon delete />
+          </Col>
+        </Row>
+        {/* Shows iconList */}
+        {isIconListvisible ? <CategoryIconList /> : null}
+      </div>
     );
   }
 }

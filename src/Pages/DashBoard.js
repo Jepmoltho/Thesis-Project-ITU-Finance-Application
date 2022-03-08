@@ -7,11 +7,7 @@ import Asset from "../Components/Asset";
 import AddCategory from "../Components/AddCategory";
 import EditAsset from "../Components/EditAsset";
 import NavigationBar from "../Components/NavigationBar";
-import ProgressBar from "../Components/ProgressBar";
-import AddCategoryBtn from "../Components/AddCategoryBtn";
-// import AddAssetBtn from "../Components/AddAssetBtn";
 import TopComponents from "../Components/TopComponents";
-import SelectImageIcon from "../Components/SelectImageIcon";
 
 function Dashboard() {
   const navigate = useNavigate();

@@ -17,7 +17,6 @@ function TopComponents() {
         <Graph />
       </Col>
       <Col
-        name
         className="col-sm-5"
         style={{ marginRight: "0px", paddingRight: "0px", paddingLeft: "10px" }}
       >
