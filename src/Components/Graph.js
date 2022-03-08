@@ -19,9 +19,8 @@ import {
 
 ChartJS.register(LineController, LineElement, PointElement, LinearScale, Title);
 
-const primaryData = [50000, 150000,155000,160000,145000,160000,]
-const labels = ["Jan22", "feb22", "mar22","apr22","may22", "jun21",]
-
+const primaryData = [50000, 150000, 155000, 160000, 145000, 160000];
+const labels = ["Jan22", "feb22", "mar22", "apr22", "may22", "jun21"];
 
 function Graph() {
   const data = {
@@ -31,7 +30,7 @@ function Graph() {
       {
         label: "Networth",
         data: primaryData,
-        borderWidth: 1.5, //line width 
+        borderWidth: 1.5, //line width
         backgroundColor: "#18388C",
         lineTension: 0.25, //rounding curves of line
         pointRadius: 3,
@@ -45,9 +44,15 @@ function Graph() {
       padding: 0,
     },
     responsive: true, //graph size
-    borderColor: '#18388C', //The line color
-    legend: {
-      display: false,
+    borderColor: "#18388C", //The line color
+
+    plugins: {
+      legend: {
+        display: false,
+        labels: {
+          padding: 5,
+        },
+      },
     },
   };
 
@@ -58,8 +63,7 @@ function Graph() {
         height: "100%",
         width: "100%",
         margin: "auto",
-        paddingTop: "5%",
-        paddingRight: "10px",
+        padding: "70px 10px 10px 10px",
       }}
     >
       <div

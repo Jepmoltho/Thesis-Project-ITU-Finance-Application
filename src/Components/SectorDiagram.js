@@ -1,5 +1,4 @@
 import "bootstrap/dist/css/bootstrap.css";
-import Row from "react-bootstrap/Row";
 
 import React from "react";
 import "chart.js/auto";
@@ -55,7 +54,6 @@ function SectorDiagram() {
 
     plugins: {
       legend: {
-        display: false,
         display: true,
         position: "right",
         labels: {
@@ -78,10 +76,10 @@ function SectorDiagram() {
       <div
         style={{
           width: "",
-          maxHeight: "300px",
-          padding: "50px 50px 50px 50px",
+          maxHeight: "270px",
+          padding: "50px 70px 0px 50px",
           position: "relative",
-          top: "-110px",
+          top: "-117px",
         }}
       >
         <Chart type="doughnut" data={data} options={options} />
