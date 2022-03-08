@@ -25,12 +25,36 @@ h4 {
 }
 
 .card {
-  background: #FFFFFF;
+  background: #ffffff;
   box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.15);
   border-radius: 3px;
 }
 
-.navigationBar{
+.navigationBar {
   box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.15);
   border-radius: 3px;
+}
+
+.button {
+  cursor: pointer;
+  border: 0;
+  background-color: transparent;
+}
+
+.button:hover {
+  -webkit-transform: scale(1.1);
+  -ms-transform: scale(1.1);
+  transform: scale(1.1);
+
+  cursor: pointer;
+  color: black;
+  border: 0;
+  background-color: #7d8281;
+  border-radius: 50px;
+}
+
+.blurBackground {
+  filter: blur(8px);
+  -webkit-filter: blur(8px);
+  height: 100%;
 }
