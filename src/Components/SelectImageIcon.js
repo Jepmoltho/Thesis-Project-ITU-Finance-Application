@@ -4,7 +4,7 @@ function SelectImageIcon() {
   };
 
 return (
-  <button type='button' style={{border: 0, backgroundColor: 'transparent', paddingTop: '0px'}} onClick={myFunction}> <img src="/SelectImageIcon.svg" alt="SelectImgBtn"/></button>
+  <button type='button' style={{border: 0, backgroundColor: 'transparent', paddingTop: '0px'}} onClick={myFunction}> <img src="images/SelectImageIcon.svg" alt="SelectImgBtn"/></button>
   );
 }
 
