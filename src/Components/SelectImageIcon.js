@@ -1,10 +1,10 @@
-function SelectImageIcon() {
-  function myFunction() {
-    console.log("CLICKED");
-  };
+import React from "react";
+
+function SelectImageIcon( {isListvisible} ) {
 
 return (
-  <button type='button' style={{border: 0, backgroundColor: 'transparent', paddingTop: '0px'}} onClick={myFunction}> <img src="images/SelectImageIcon.svg" alt="SelectImgBtn"/></button>
+    <button type='button' style={{border: 0, backgroundColor: 'transparent', paddingTop: '0px'}} onClick={() => isListvisible()}> <img src="images/SelectImageIcon.svg" alt="SelectImgBtn"/>
+    </button>
   );
 }
 

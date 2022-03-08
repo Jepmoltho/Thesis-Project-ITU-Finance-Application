@@ -9,7 +9,7 @@ function CategoryIconList(props){
     return (
             <Row name="alignmentWrapper" className="justify-content-md-center" >
                 <Row name="box" className="col-sm-4" 
-                    style={{ zIndex: "+1", position: "relative", top: "280px", backgroundColor: "#cdced2", borderRadius: "5.87px", margin: "0px", padding:"0px", filter: "drop-shadow(5px 5px 17px rgba(0, 0, 0, 0.25))"}}>
+                    style={{ zIndex: "+1", position: "relative", top: "0px", backgroundColor: "#cdced2", borderRadius: "5.87px", margin: "0px", padding:"0px", filter: "drop-shadow(5px 5px 17px rgba(0, 0, 0, 0.25))"}}>
                     
                     <Row name="icon rows" className="justify-content-md-center" style={{ maxHeight: "270px", overflowY: "scroll", paddingRight: "0px", marginRight: "0px"}}>
                         <SelectCategoryIconContainer icon={"Bike"} />
