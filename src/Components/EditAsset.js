@@ -1,8 +1,6 @@
 import "bootstrap/dist/css/bootstrap.css";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-// import PrimaryBtn from "./PrimaryBtn";
-// import SecondaryBtn from "./SecondaryBtn";
 import InputString from "./InputString";
 import Toggle from "./Toggle";
 import Tag from "./Tag";

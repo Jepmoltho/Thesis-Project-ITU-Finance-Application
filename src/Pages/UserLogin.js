@@ -84,13 +84,13 @@ function UserLogin() {
           <br />
           <br />
           <p style={{ display: "inline-block", paddingRight: "5px" }}>
-            Already have a user?
+            Don't have a user?
           </p>
           <p
             style={{ display: "inline-block", color: "#18388C" }}
-            onClick={() => navigate("/login")}
+            onClick={() => navigate("/")}
           >
-            <b>Continue to login</b>
+            <b>Create a profile</b>
           </p>
         </Col>
         <Col className="col-sm-3"></Col>

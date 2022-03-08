@@ -11,7 +11,7 @@ function UserRegistration() {
   const [username, setUsername] = useState("");
   const handleChangeUser = (e) => {
     setUsername(e.target.value);
-    console.log(username);
+    //console.log(username);
   };
   const [password, setPassword] = useState("");
   const handleChangePassword = (e) => {

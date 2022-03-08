@@ -15,7 +15,7 @@ import AccountCircleRoundedIcon from "@mui/icons-material/AccountCircleRounded";
 //const pages = [];
 const settings = ["Account", "Logout"];
 
-const NavigationBar = () => {
+const NavigationBar = (props) => {
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
   const handleOpenUserMenu = (event) => {
