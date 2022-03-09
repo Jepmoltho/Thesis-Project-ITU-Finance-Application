@@ -37,32 +37,3 @@ function Goal(props) {
 }
 
 export default Goal;
-
-// <div>
-//       <div
-//         style={{
-//           paddingTop: "10px",
-//           paddingLeft: "10px",
-//           paddingRight: "10px",
-//         }}
-//       >
-//         <Tag inline text="Goal" style={{ display: "inline" }} />
-//         <Icon infosmall style={{ position: "relative", top: "-10px" }} />
-//         <Icon edit style={{ position: "relative", float: "right" }} />
-//         <div style={{ marginTop: "34px" }}>
-//           <p style={{ color: "#00145E", float: "left", marginBottom: "7px" }}>
-//             Goal
-//           </p>
-//           <p
-//             name="-"
-//             style={{ color: "#00145E", float: "right", marginBottom: "0px" }}
-//           >
-//             {props.goal === undefined ? "-" : props.goal}
-//           </p>
-//         </div>
-//       </div>
-//       <ProgressBar
-//         completed="80"
-//         style={{ position: "relative", top: "50px" }}
-//       />
-//     </div>

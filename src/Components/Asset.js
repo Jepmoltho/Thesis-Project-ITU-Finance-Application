@@ -3,8 +3,6 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Value from "./Value";
 import AssetName from "./AssetName";
-// import PrimaryBtn from "./PrimaryBtn";
-// import SecondaryBtn from "./SecondaryBtn";
 import Tag from "./Tag";
 import ButtonGroup from "./ButtonGroup";
 
@@ -25,8 +23,6 @@ function Asset(props) {
           style={{ margin: "auto", paddingLeft: "0px" }}
         >
           <ButtonGroup primaryText="Edit" secondaryText="Delete" />
-          {/* <PrimaryBtn type="edit" />
-          <SecondaryBtn type="delete" /> */}
         </Col>
       </Row>
     );
@@ -48,8 +44,6 @@ function Asset(props) {
           style={{ margin: "auto", paddingLeft: "0px" }}
         >
           <ButtonGroup primaryText="Edit" secondaryText="Delete" />
-          {/* <PrimaryBtn type="edit" />
-          <SecondaryBtn type="delete" /> */}
         </Col>
       </Row>
     );
@@ -78,8 +72,6 @@ function Asset(props) {
           style={{ margin: "auto", paddingLeft: "0px" }}
         >
           <ButtonGroup primaryText="Edit" secondaryText="Delete" />
-          {/* <PrimaryBtn type="edit" />
-          <SecondaryBtn type="delete" /> */}
         </Col>
       </Row>
     );

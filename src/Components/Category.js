@@ -1,15 +1,14 @@
 import "bootstrap/dist/css/bootstrap.css";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import ViewAssetsBtn from "./ViewAssetsBtn";
 import Tag from "./Tag";
 import Value from "./Value";
 import CategoryProfit from "./CategoryProfit";
 import NumberOfAssets from "./NumberOfAssets";
 import CategoryIcon from "./CategoryIcon";
 import Icon from "./Icon";
-
-//import CategoryIcon from "../ImageFiles/CategoryIcon.png";
+import ArrowDropDownRoundedIcon from "@mui/icons-material/ArrowDropDownRounded";
+import Button from "@mui/material/Button";
 
 function Category(props) {
   return (
@@ -41,7 +40,16 @@ function Category(props) {
       </Col>
       <Col className="col-sm-1" style={{ margin: "auto", padding: "0px" }}>
         <nobr>
-          <ViewAssetsBtn mui />
+          <Button
+            variant="text"
+            style={{
+              fontSize: "12px",
+              color: "#18388C",
+              left: "-10px",
+            }}
+          >
+            View assets <ArrowDropDownRoundedIcon sx={{ color: "#18388C" }} />
+          </Button>
         </nobr>
       </Col>
       <Col className="col-sm-1">

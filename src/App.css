@@ -39,9 +39,9 @@ h4 {
   border-radius: 3px;
 }
 
-.OnboardingBubble{
+.OnboardingBubble {
   border-radius: 49px 65px 65px 0px;
-  background-color: #C5CDE2;
+  background-color: #c5cde2;
   justify-content: space-evenly;
   display: flex;
   justify-content: center;
@@ -50,11 +50,35 @@ h4 {
   width: 324px;
   font-size: 14px;
   flex: 1;
-  height:100%;
+  height: 100%;
   vertical-align: middle;
   -o-text-overflow: clip;
   text-overflow: clip;
   padding-top: 15px;
   padding-left: 10px;
   padding-right:10px;
+}
+
+.button {
+  cursor: pointer;
+  border: 0;
+  background-color: transparent;
+}
+
+.button:hover {
+  -webkit-transform: scale(1.1);
+  -ms-transform: scale(1.1);
+  transform: scale(1.1);
+
+  cursor: pointer;
+  color: black;
+  border: 0;
+  background-color: #7d8281;
+  border-radius: 50px;
+}
+
+.blurBackground {
+  filter: blur(8px);
+  -webkit-filter: blur(8px);
+  height: 100%;
 }
