@@ -1,20 +1,20 @@
 import "bootstrap/dist/css/bootstrap.css";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import ViewAssetsBtn from "./ViewAssetsBtn";
 import Tag from "./Tag";
 import Value from "./Value";
 import CategoryProfit from "./CategoryProfit";
 import NumberOfAssets from "./NumberOfAssets";
 import CategoryIcon from "./CategoryIcon";
-
-//import CategoryIcon from "../ImageFiles/CategoryIcon.png";
+import Icon from "./Icon";
+import ArrowDropDownRoundedIcon from "@mui/icons-material/ArrowDropDownRounded";
+import Button from "@mui/material/Button";
 
 function Category(props) {
   return (
     <Row className="category">
       <Col className="col-sm-1" style={{ margin: "auto" }}>
-        <CategoryIcon />
+        <CategoryIcon categoryIcon="Stocks" />
       </Col>
       <Col style={{ margin: "auto" }}>
         <p
@@ -38,8 +38,22 @@ function Category(props) {
         <Tag text="Profit" />
         <CategoryProfit profit="3456" />
       </Col>
-      <Col className="col-sm-2" style={{ margin: "auto", paddingLeft: "0px" }}>
-        <ViewAssetsBtn />
+      <Col className="col-sm-1" style={{ margin: "auto", padding: "0px" }}>
+        <nobr>
+          <Button
+            variant="text"
+            style={{
+              fontSize: "12px",
+              color: "#18388C",
+              left: "-10px",
+            }}
+          >
+            View assets <ArrowDropDownRoundedIcon sx={{ color: "#18388C" }} />
+          </Button>
+        </nobr>
+      </Col>
+      <Col className="col-sm-1">
+        <Icon edit />
       </Col>
     </Row>
   );

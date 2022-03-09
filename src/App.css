@@ -1,38 +1,3 @@
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
- /* test Mathias */
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
 p,
 h1,
 h2,
@@ -42,9 +7,11 @@ h4 {
 }
 
 .category {
+  background: rgba(255, 255, 255, 0.966);
   box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.15);
   border-radius: 3px;
   min-height: 75px;
+  background-color: "white";
 }
 
 .asset {
@@ -54,7 +21,62 @@ h4 {
 }
 
 .addCategory {
+  background: rgba(255, 255, 255, 0.966);
+
   box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.15);
   border-radius: 3px;
   min-height: 75px;
+}
+
+.card {
+  background: #ffffff;
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.15);
+  border-radius: 3px;
+}
+
+.navigationBar {
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.15);
+  border-radius: 3px;
+}
+
+.OnboardingBubble {
+  border-radius: 49px 65px 65px 0px;
+  background-color: #c5cde2;
+  justify-content: space-evenly;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  width: 324px;
+  font-size: 14px;
+  flex: 1;
+  height: 100%;
+  vertical-align: middle;
+  -o-text-overflow: clip;
+  text-overflow: clip;
+  padding: 10px;
+}
+
+.button {
+  cursor: pointer;
+  border: 0;
+  background-color: transparent;
+}
+
+.button:hover {
+  -webkit-transform: scale(1.1);
+  -ms-transform: scale(1.1);
+  transform: scale(1.1);
+
+  cursor: pointer;
+  color: black;
+  border: 0;
+  background-color: #7d8281;
+  border-radius: 50px;
+}
+
+.blurBackground {
+  filter: blur(8px);
+  -webkit-filter: blur(8px);
+  height: 100%;
 }

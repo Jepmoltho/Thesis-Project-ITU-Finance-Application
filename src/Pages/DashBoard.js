@@ -6,6 +6,8 @@ import Container from "react-bootstrap/Container";
 import Asset from "../Components/Asset";
 import AddCategory from "../Components/AddCategory";
 import EditAsset from "../Components/EditAsset";
+import NavigationBar from "../Components/NavigationBar";
+import TopComponents from "../Components/TopComponents";
 
 function Dashboard() {
   const navigate = useNavigate();
@@ -47,17 +49,37 @@ function Dashboard() {
   }
   if (currentUser !== null) {
     return (
-      <Container>
-        <h2>Welcome {currentUser.get("username")}</h2>
-        <br />
-        <Category title="Stocks" />
-        <Asset />
-        <br />
-        <AddCategory />
-        <EditAsset />
-        <br />
-        <button onClick={doUserLogOut}>Logout</button>
-      </Container>
+      <div>
+        <NavigationBar />
+        <Container>
+          <h2>Welcome {currentUser.get("username")}</h2>
+          <TopComponents />
+          <br />
+          <Category title="Stocks" />
+          <br />
+          <AddCategory type="automatic" />
+          <br />
+          <AddCategory type="manual" />
+          <br />
+          <Asset normal />
+          <br />
+          <Asset debt />
+          <br />
+          <Asset realestate />
+          <br />
+          <EditAsset />
+          <br />
+          <EditAsset realestateman />
+          <br />
+          <EditAsset realestateauto />
+          <br />
+          <EditAsset bankman />
+          <br />
+          <EditAsset bankauto />
+          <br />
+          <button onClick={doUserLogOut}>Logout</button>
+        </Container>
+      </div>
     );
   }
 }
