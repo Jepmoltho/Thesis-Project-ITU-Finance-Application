@@ -3,7 +3,7 @@ function OnboardingBubble(props){
 
     return(
         <div className="OnboardingBubble">
-            <p style={{display: 'tableCell',verticalAlign: 'middle'}}> {props.text} </p>
+            <p> {props.text} </p>
         </div>
     );
 }
