@@ -8,8 +8,8 @@ function OnboardingCard (props){
         <div className='onboardingCard' style={{color:'white', textAlign:'center', width:492, height:452, fontWeight: 'bold'}}>
             <h1 style={{paddingTop:100, fontWeight: 'bold', fontSize:26}}> {props.title} </h1>
             <p style={{paddingTop: 28, fontSize:16, fontWeight: 'semibold'}}> {props.text} </p>
-            <button className='walkthroughBtn'> {props.primaryBtnTxt} </button>
-            <button className='skipWalkthroughBtn'> {props.secondaryBtnTxt} </button>
+            <button className='primaryWalkthroughBtn'> {props.primaryBtnTxt} </button>
+            <button className='secondaryWalkthroughBtn'> {props.secondaryBtnTxt} </button>
         </div>
     );
 }
