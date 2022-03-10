@@ -6,13 +6,11 @@ import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import Menu from "@mui/material/Menu";
 import Container from "@mui/material/Container";
-//import Avatar from '@mui/material/Avatar';
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import Logo from "./Logo";
 import AccountCircleRoundedIcon from "@mui/icons-material/AccountCircleRounded";
 
-//const pages = [];
 const settings = ["Account", "Logout"];
 
 const NavigationBar = () => {
@@ -84,7 +82,4 @@ const NavigationBar = () => {
   );
 };
 
-/**
- * <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
- */
 export default NavigationBar;

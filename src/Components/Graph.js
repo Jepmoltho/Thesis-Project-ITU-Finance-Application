@@ -1,53 +1,81 @@
-import "bootstrap/dist/css/bootstrap.css";
-//import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
+// import "bootstrap/dist/css/bootstrap.css";
+// //import Container from "react-bootstrap/Container";
+// import Row from "react-bootstrap/Row";
+// import Col from "react-bootstrap/Col";
+import Tag from "./Tag";
+import NetworthNumber from "./NetworthNumber";
 
-import React, { useState, useEffect }  from "react";
-import 'chart.js/auto';
-import { Chart } from 'react-chartjs-2';
-import { Chart as ChartJS, LineController, LineElement, PointElement, LinearScale, Title } from 'chart.js';
+import React from "react";
+import "chart.js/auto";
+import { Chart } from "react-chartjs-2";
+import {
+  Chart as ChartJS,
+  LineController,
+  LineElement,
+  PointElement,
+  LinearScale,
+  Title,
+} from "chart.js";
 
 ChartJS.register(LineController, LineElement, PointElement, LinearScale, Title);
 
+const primaryData = [50000, 150000, 155000, 160000, 145000, 160000];
+const labels = ["Jan22", "feb22", "mar22", "apr22", "may22", "jun21"];
 
+function Graph() {
+  const data = {
+    labels: labels,
+    labelColor: "#18388C",
+    datasets: [
+      {
+        label: "Networth",
+        data: primaryData,
+        borderWidth: 1.5, //line width
+        backgroundColor: "#18388C",
+        lineTension: 0.25, //rounding curves of line
+        pointRadius: 3,
+        // fill: true
+      },
+    ],
+  };
 
-function Graph(){
+  const options = {
+    layout: {
+      padding: 0,
+    },
+    responsive: true, //graph size
+    borderColor: "#18388C", //The line color
 
-    const data = {
-        labels: ['Jan21', 'feb22'],
-        datasets: [{
-            label: '# of Votes',
-            data: [35000, 55000],
-            borderWidth: 2,
-            backgroundColor: '#18388C',
-            lineTension: 0.2,
-            pointRadius: 3,
-            // fill: true
-        }]
-    };
-
-    const options = {
-        layout: {
-            padding: 10
+    plugins: {
+      legend: {
+        display: false,
+        labels: {
+          padding: 5,
         },
-        responsive: true,
-        legend: {
-            display: false
-        },
-    } 
+      },
+    },
+  };
 
-    return (
-        <div className="card" style={{height: "100%", width: "100%" }}>
-            <div style={{ height: "auto", width: "auto", paddingTop: "52px"}}  >    
-                <Chart 
-                    type='line'
-                    data={data}
-                    options={options}
-                    />
-                </div>
-        </div>
-    )
+  return (
+    <div
+      className="card"
+      style={{
+        height: "100%",
+        width: "100%",
+        margin: "auto",
+        padding: "70px 10px 10px 10px",
+      }}
+    >
+      <div
+        name="graph text"
+        style={{ position: "absolute", top: "10px", left: "70px" }}
+      >
+        <Tag text="Networth" />
+        <NetworthNumber value={150000} />
+      </div>
+      <Chart type="line" data={data} options={options} style={{ bottom: 0 }} />
+    </div>
+  );
 }
 
-export default Graph
+export default Graph;

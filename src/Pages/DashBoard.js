@@ -7,14 +7,9 @@ import Asset from "../Components/Asset";
 import AddCategory from "../Components/AddCategory";
 import EditAsset from "../Components/EditAsset";
 import NavigationBar from "../Components/NavigationBar";
-import ProgressBar from "../Components/ProgressBar";
-import AddCategoryBtn from "../Components/AddCategoryBtn";
-// import AddAssetBtn from "../Components/AddAssetBtn";
-import TopComponents from "../Components/TopComponents"
-import SelectImageIcon from "../Components/SelectImageIcon";
+import TopComponents from "../Components/TopComponents";
 
 function Dashboard() {
-
   const navigate = useNavigate();
   const [currentUser, setCurrentUser] = useState(null);
 
@@ -58,7 +53,7 @@ function Dashboard() {
         <NavigationBar />
         <Container>
           <h2>Welcome {currentUser.get("username")}</h2>
-          <TopComponents/>
+          <TopComponents />
           <br />
           <Category title="Stocks" />
           <br />

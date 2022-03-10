@@ -3,32 +3,36 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Tag from "./Tag";
 import Icon from "./Icon";
+import AssetsTotal from "./AssetsTotal";
+import DebtTotal from "./DebtTotal";
+import NetworthNumber from "./NetworthNumber";
 
-
-
-function Overview(props){
-    return (
-
-            <Row>
-                <Col name="overview-left" style={{ paddingTop:"10px", paddingLeft:"0px", paddingRight:"0px", marginLeft:"10px", paddingBottom: "10px" }}>
-                    <div style={{float: "left"}}>
-                        <Tag text="Overview"/>
-                    </div>
-                    <div style={{float: "left", fontSize: "10px"}}>
-                        <Icon info />
-                    </div>
-                    <p style={{ color: "#00145E", marginTop: "34px", marginBottom: "7px" }}>Asset total</p>     
-                    <p style={{ color: "#00145E", marginBottom: "7px"}}>Debt total</p>     
-                    <p style={{ color: "#00145E", fontWeight: "bold", marginBottom: "0px"}}>Networth</p>     
-                    
-                </Col>
-                <Col name="overview-right" style={{  paddingTop:"44px", paddingLeft:"0px", paddingRight:"10px" }}>
-                    <p style={{ color: "#00145E", marginBottom: "7px"}}>1500000 DKK</p>
-                    <p style={{ color: "#00145E", marginBottom: "7px"}}>1500000 DKK</p>
-                    <p style={{ color: "#00145E" , fontWeight: "bold"}}>1500000 DKK</p>
-                </Col>
-            </Row>
-    )
+function Overview() {
+  return (
+    <div className="overviewbox">
+      <Row style={{ padding: "10px 10px 10px 10px" }}>
+        <Col style={{ paddingLeft: "0px" }}>
+          <Tag inline text="Goal" style={{ display: "inline" }} />
+          <Icon infosmall style={{ position: "relative", top: "-10px" }} />
+        </Col>
+      </Row>
+      <Row style={{ padding: "10px 10px 10px 10px" }}>
+        <Col style={{ paddingLeft: "0px" }}>
+          <AssetsTotal />
+        </Col>
+      </Row>
+      <Row style={{ padding: "0px 10px 0px 10px" }}>
+        <Col style={{ paddingLeft: "0px", paddingBottom: "0px" }}>
+          <DebtTotal />
+        </Col>
+      </Row>
+      <Row style={{ padding: "10px 10px 10px 10px" }}>
+        <Col style={{ paddingLeft: "0px" }}>
+          <NetworthNumber overviewcard />
+        </Col>
+      </Row>
+    </div>
+  );
 }
 
-export default Overview
+export default Overview;
