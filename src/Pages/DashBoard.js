@@ -1,7 +1,7 @@
 import Parse from "parse";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-//import Category from "../Components/Category";
+import Category from "../Components/Category";
 import Container from "react-bootstrap/Container";
 //import Asset from "../Components/Asset";
 import AddCategory from "../Components/AddCategory";
@@ -13,31 +13,16 @@ import AddCategoryBtn from "../Components/AddCategoryBtn";
 function Dashboard() {
   const navigate = useNavigate();
 
-  //const [categoryList, setCategoryList] = useState([]);
-  // const [state, setState] = useState("off");
-  // function handleChangeState() {
-  //   setState("on");
-  // }
-  // function addCategory() {
-  //   if (state === "on") {
-  //     return <AddCategory />;
-  //   } else return <AddCategory />;
-  // }
+  const [categoryComponents, setCategoryComponents] = useState([""]);
+  function addCategoryComponent() {
+    setCategoryComponents([...categoryComponents, ""]);
+  }
 
-  //const [components, setComponents] = useState(["Sample Component"]);
-  const [components, setComponents] = useState(["Sample Component"]);
-
-  const MyButton = (props) => {
-    return (
-      <button className="AddButton" onClick={props.onClick}>
-        activate
-      </button>
-    );
-  };
-
-  function addComponent() {
-    //setComponents([...components, "Sample Component"])
-    setComponents([...components, "Sample Component"]);
+  //https://upmostly.com/tutorials/calling-a-react-component-on-button-click
+  //Note to self: Empty string is needed to compile. Think you can use it to pass props - read link above
+  const [addCategoryComponents, setAddCategoryComponents] = useState([""]);
+  function addAddCategoryComponent() {
+    setAddCategoryComponents([...addCategoryComponents, ""]);
   }
 
   //User login/logout related
@@ -88,12 +73,15 @@ function Dashboard() {
           <h2>Welcome {currentUser.get("username")}</h2>
           <TopComponents />
           <br />
-          {components.map((item, i) => (
-            <AddCategory />
+          {categoryComponents.map((item, i) => (
+            <Category />
           ))}
           <br />
-          <button onClick={addComponent}>Add component</button>
-          <AddCategoryBtn />
+          {addCategoryComponents.map((item, i) => (
+            <AddCategory event={addCategoryComponent} />
+          ))}
+          <br />
+          <AddCategoryBtn event={addAddCategoryComponent} />
           <br />
           <button onClick={doUserLogOut}>Logout</button>
         </Container>
@@ -105,9 +93,6 @@ function Dashboard() {
 export default Dashboard;
 
 /*
-{state === "off" && <AddCategory />}
-
-
 <Category title="Stocks" />
           <br />
           <AddCategory type="automatic" />

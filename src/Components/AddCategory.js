@@ -11,6 +11,7 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import CategoryIconList from "./CategoryIconList";
+import Button from "@mui/material/Button";
 
 function AddCategory(props) {
   //Constants and lifecycle methods for manual input
@@ -98,7 +99,44 @@ function AddCategory(props) {
             className="col-sm-1"
             style={{ margin: "auto", paddingLeft: "0px" }}
           >
-            <ButtonGroup primaryText="Save" secondaryText="Cancel" />
+            <div className="buttongroup">
+              <div
+                className="cont"
+                style={{ padding: "8px 0px 2px 0px" }}
+                sx={{ color: "#18388C" }}
+              >
+                <Button
+                  onClick={props.event}
+                  variant="contained"
+                  size="small"
+                  sx={{
+                    minWidth: "75px",
+                    maxHeight: "25px",
+                    backgroundColor: "#18388C",
+                    color: "white",
+                  }}
+                  style={{ fontSize: "12px" }}
+                >
+                  save
+                </Button>
+              </div>
+              <div className="cont" style={{ padding: "2px 0px 8px 0px" }}>
+                <Button
+                  variant="outlined"
+                  size="small"
+                  sx={{
+                    minWidth: "75px",
+                    maxHeight: "25px",
+                    backgroundColor: "",
+                    borderColor: "gray",
+                    color: "gray",
+                  }}
+                  style={{ fontSize: "12px" }}
+                >
+                  cancel
+                </Button>
+              </div>
+            </div>
           </Col>
           <Col className="col-sm-1">
             <Icon delete />
