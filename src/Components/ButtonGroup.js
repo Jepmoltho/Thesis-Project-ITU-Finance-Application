@@ -9,6 +9,7 @@ function ButtonGroup(props) {
         sx={{ color: "#18388C" }}
       >
         <Button
+          onClick={props.event1}
           variant="contained"
           size="small"
           sx={{
@@ -24,6 +25,7 @@ function ButtonGroup(props) {
       </div>
       <div className="cont" style={{ padding: "2px 0px 8px 0px" }}>
         <Button
+          onClick={props.event2}
           variant="outlined"
           size="small"
           sx={{

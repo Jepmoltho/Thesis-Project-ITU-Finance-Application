@@ -99,6 +99,11 @@ function AddCategory(props) {
             className="col-sm-1"
             style={{ margin: "auto", paddingLeft: "0px" }}
           >
+            <ButtonGroup
+              primaryText="Save"
+              secondaryText="Cancel"
+              event1={props.event}
+            />
             <div className="buttongroup">
               <div
                 className="cont"
