@@ -24,6 +24,10 @@ function Dashboard() {
   function addAddCategoryComponent() {
     setAddCategoryComponents([...addCategoryComponents, ""]);
   }
+  //Bug: Removes all addCategory
+  // function cancelAddCategoryComponent() {
+  //   setAddCategoryComponents([...addCategoryComponents.pop(), ""]);
+  // }
 
   //User login/logout related
   const [currentUser, setCurrentUser] = useState(null);
@@ -78,7 +82,10 @@ function Dashboard() {
           ))}
           <br />
           {addCategoryComponents.map((item, i) => (
-            <AddCategory event={addCategoryComponent} />
+            <AddCategory
+              eventSave={addCategoryComponent}
+              // eventCancel={cancelAddCategoryComponent}
+            />
           ))}
           <br />
           <AddCategoryBtn event={addAddCategoryComponent} />

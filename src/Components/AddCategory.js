@@ -102,46 +102,9 @@ function AddCategory(props) {
             <ButtonGroup
               primaryText="Save"
               secondaryText="Cancel"
-              event1={props.event}
+              event1={props.eventSave}
+              event2={props.eventCancel}
             />
-            <div className="buttongroup">
-              <div
-                className="cont"
-                style={{ padding: "8px 0px 2px 0px" }}
-                sx={{ color: "#18388C" }}
-              >
-                <Button
-                  onClick={props.event}
-                  variant="contained"
-                  size="small"
-                  sx={{
-                    minWidth: "75px",
-                    maxHeight: "25px",
-                    backgroundColor: "#18388C",
-                    color: "white",
-                  }}
-                  style={{ fontSize: "12px" }}
-                >
-                  save
-                </Button>
-              </div>
-              <div className="cont" style={{ padding: "2px 0px 8px 0px" }}>
-                <Button
-                  variant="outlined"
-                  size="small"
-                  sx={{
-                    minWidth: "75px",
-                    maxHeight: "25px",
-                    backgroundColor: "",
-                    borderColor: "gray",
-                    color: "gray",
-                  }}
-                  style={{ fontSize: "12px" }}
-                >
-                  cancel
-                </Button>
-              </div>
-            </div>
           </Col>
           <Col className="col-sm-1">
             <Icon delete />
