@@ -38,6 +38,7 @@ function Dashboard() {
   useEffect(() => {
     //User login/logout related
     getCurrentUser();
+    getCategories(userId, setCategories); //Moved this up hear insted of in useEffect
   }, []);
 
   //User login/logout related
@@ -103,12 +104,11 @@ function Dashboard() {
           <br />
           <div className="visibleSavedCategory">
             {categories.map((category) => (
-              <Category />
+              <Category
+                id={category.get("objectId")} //Bug: Doesn't work - not fatal, but creates an error message
+                title={category.get("name")}
+              />
             ))}
-
-            {/* {DutyList.map((duty) => (
-                <ItemCard id={duty.get("objectId")} item={duty.get("title")} />
-              ))} */}
           </div>
           <div className="visibleAddCategory">
             {visibleAddCategory ? (
