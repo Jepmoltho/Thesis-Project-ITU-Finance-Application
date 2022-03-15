@@ -5,16 +5,16 @@ import SelectImageIcon from "./SelectImageIcon";
 import Icon from "./Icon";
 import ButtonGroup from "./ButtonGroup";
 import TextField from "@mui/material/TextField";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import CategoryIconList from "./CategoryIconList";
-import Button from "@mui/material/Button";
 
 function AddCategory(props) {
   //Constants and lifecycle methods for manual input
+
   const [input, setInput] = useState("");
   const handleChangeInput = (e) => {
     setInput(e.target.value);
@@ -24,8 +24,14 @@ function AddCategory(props) {
   const [inputSelect, setInputSelect] = useState("");
   const handleChangeInputSelect = (e) => {
     setInputSelect(e.target.value);
-    console.log(inputSelect);
+    //localStorage.setItem()
+    //console.log(inputSelect);
   };
+  //console.log(inputSelect);
+
+  useEffect(() => {
+    localStorage.setItem("categorySelect", inputSelect);
+  }, [inputSelect]);
 
   const [isIconListvisible, setIsIconListvisible] = React.useState(false);
 

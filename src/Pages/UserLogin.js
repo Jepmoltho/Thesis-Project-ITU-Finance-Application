@@ -16,6 +16,7 @@ function UserLogin() {
     const passwordValue = password;
     try {
       const loggedInUser = await Parse.User.logIn(usernameValue, passwordValue);
+      localStorage.setItem("userId", loggedInUser.id); //Saves userID to local storage - has to be here
       alert(
         "Success! User " + loggedInUser.get("username") + " has logged in!"
       );
