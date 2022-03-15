@@ -8,6 +8,7 @@ import Button from "@mui/material/Button";
 
 function UserRegistration() {
   const navigate = useNavigate("");
+
   const [username, setUsername] = useState("");
   const handleChangeUser = (e) => {
     setUsername(e.target.value);

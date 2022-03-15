@@ -18,7 +18,10 @@ function App() {
       <Routes>
         <Route path="/" element={<UserRegistration />} />
         <Route path="/login" element={<UserLogin />} />
-        <Route path="/dashboard" element={<DashBoard />} />
+        <Route
+          path="/dashboard"
+          element={<DashBoard testObject={["Alex", "John"]} />}
+        />
       </Routes>
     </div>
   );

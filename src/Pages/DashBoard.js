@@ -10,24 +10,25 @@ import NavigationBar from "../Components/NavigationBar";
 import TopComponents from "../Components/TopComponents";
 import AddCategoryBtn from "../Components/AddCategoryBtn";
 
-function Dashboard() {
+function Dashboard(props) {
   const navigate = useNavigate();
 
-  const [categoryComponents, setCategoryComponents] = useState([""]);
-  function addCategoryComponent() {
-    setCategoryComponents([...categoryComponents, ""]);
-  }
+  const [visible, setVisible] = useState(false);
 
-  //https://upmostly.com/tutorials/calling-a-react-component-on-button-click
-  //Note to self: Empty string is needed to compile. Think you can use it to pass props - read link above
-  const [addCategoryComponents, setAddCategoryComponents] = useState([""]);
-  function addAddCategoryComponent() {
-    setAddCategoryComponents([...addCategoryComponents, ""]);
-  }
-  //Bug: Removes all addCategory
-  function cancelAddCategoryComponent() {
-    setAddCategoryComponents([...addCategoryComponents.pop(), ""]);
-  }
+  // const [categoryComponents, setCategoryComponents] = useState([""]);
+  // function addCategoryComponent() {
+  //   setCategoryComponents([...categoryComponents, ""]);
+  // }
+  // //https://upmostly.com/tutorials/calling-a-react-component-on-button-click
+  // //Note to self: Empty string is needed to compile - its an array of strings. Think you can use it to pass props - read link above
+  // const [addCategoryComponents, setAddCategoryComponents] = useState([""]);
+  // function addAddCategoryComponent() {
+  //   setAddCategoryComponents([...addCategoryComponents, ""]);
+  // }
+  // //Bug: Removes all addCategory
+  // function cancelAddCategoryComponent() {
+  //   setAddCategoryComponents([...addCategoryComponents.pop(), ""]);
+  // }
 
   //User login/logout related
   const [currentUser, setCurrentUser] = useState(null);
@@ -77,7 +78,7 @@ function Dashboard() {
           <h2>Welcome {currentUser.get("username")}</h2>
           <TopComponents />
           <br />
-          {categoryComponents.map((item, i) => (
+          {/* {categoryComponents.map((item, i) => (
             <Category />
           ))}
           <br />
@@ -86,9 +87,19 @@ function Dashboard() {
               eventSave={addCategoryComponent}
               eventCancel={cancelAddCategoryComponent}
             />
-          ))}
+          ))} */}
           <br />
-          <AddCategoryBtn event={addAddCategoryComponent} />
+          {/* <AddCategoryBtn event={addAddCategoryComponent} /> */}
+          <br />
+          <div className="visibleAddCategory">
+            {visible ? (
+              <AddCategory eventCancel={() => setVisible(false)} />
+            ) : (
+              <div className="Empty container"></div>
+            )}
+          </div>
+          <br />
+          <AddCategoryBtn event={() => setVisible(true)} />
           <br />
           <button onClick={doUserLogOut}>Logout</button>
         </Container>
