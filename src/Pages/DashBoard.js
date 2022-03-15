@@ -9,7 +9,7 @@ import AddCategory from "../Components/AddCategory";
 import NavigationBar from "../Components/NavigationBar";
 import TopComponents from "../Components/TopComponents";
 import AddCategoryBtn from "../Components/AddCategoryBtn";
-import { postCategory } from "../data";
+import { postCategory, getCategories } from "../data";
 
 function Dashboard() {
   const navigate = useNavigate();
@@ -17,13 +17,17 @@ function Dashboard() {
   const userId = localStorage.getItem("userId");
 
   //Manages display of addCategoryComponent upon pressing addCategory and dissapear upon pressing cancel
-  const [visible, setVisible] = useState(false);
+  const [visibleAddCategory, setVisibleAddCategory] = useState(false);
+
+  //Manages list of saved categories
+  const [categories, setCategories] = useState([]);
 
   //Saves a category to database by calling postCategory in data.js
   async function saveCategory() {
     try {
       const categoryName = localStorage.getItem("categorySelect");
-      postCategory(categoryName, userId);
+      await postCategory(categoryName, userId); //Added await
+      getCategories(userId, setCategories); //Moved this up hear insted of in useEffect
     } catch (error) {
       console.log("Errors");
     }
@@ -97,10 +101,19 @@ function Dashboard() {
           <h2>Welcome {currentUser.get("username")}</h2>
           <TopComponents />
           <br />
+          <div className="visibleSavedCategory">
+            {categories.map((category) => (
+              <Category />
+            ))}
+
+            {/* {DutyList.map((duty) => (
+                <ItemCard id={duty.get("objectId")} item={duty.get("title")} />
+              ))} */}
+          </div>
           <div className="visibleAddCategory">
-            {visible ? (
+            {visibleAddCategory ? (
               <AddCategory
-                eventCancel={() => setVisible(false)}
+                eventCancel={() => setVisibleAddCategory(false)}
                 eventSave={() => saveCategory()}
               />
             ) : (
@@ -108,7 +121,7 @@ function Dashboard() {
             )}
           </div>
           <br />
-          <AddCategoryBtn event={() => setVisible(true)} />
+          <AddCategoryBtn event={() => setVisibleAddCategory(true)} />
           <br />
           <button onClick={doUserLogOut}>Logout</button>
         </Container>
