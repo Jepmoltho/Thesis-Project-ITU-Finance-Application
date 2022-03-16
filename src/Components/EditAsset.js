@@ -6,7 +6,7 @@ import Icon from "./Icon";
 import ButtonGroup from "./ButtonGroup";
 import Switch from "@mui/material/Switch"; //This is the toggle
 import TextField from "@mui/material/TextField";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
@@ -18,14 +18,12 @@ function EditAsset(props) {
   const [inputName, setInputName] = useState("");
   const handleChangeInputName = (e) => {
     setInputName(e.target.value);
-    console.log(inputName);
   };
 
   //Constants and lifecycle methods for manual name value
   const [inputValue, setInputValue] = useState("");
   const handleChangeInputValue = (e) => {
     setInputValue(e.target.value);
-    console.log(inputValue);
   };
 
   //Constants and lifecycle methods for m2
@@ -51,6 +49,12 @@ function EditAsset(props) {
   const handleChangeInputSelect = (e) => {
     setInputSelect(e.target.value);
   };
+
+  //Saves assetName to local storage on change
+  useEffect(() => {
+    localStorage.setItem("assetName", inputName);
+    localStorage.setItem("assetValue", inputValue);
+  }, [inputName, inputValue]);
 
   if (props.realestateman) {
     return (

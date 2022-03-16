@@ -15,6 +15,7 @@ function Dashboard() {
   const navigate = useNavigate();
   //Fetches userId upon start so it's always avaliable in localStorage
   const userId = localStorage.getItem("userId");
+  const [categoryId, setCategoryId] = useState("");
 
   //Manages display of addCategoryComponent upon pressing addCategory and dissapear upon pressing cancel
   const [visibleAddCategory, setVisibleAddCategory] = useState(false);
@@ -37,6 +38,23 @@ function Dashboard() {
     } catch (error) {
       console.log("Errors");
     }
+  }
+
+  //Saves an asset to database by calling postAsset in data.js
+  async function saveAsset() {
+    try {
+      const assetName = localStorage.getItem("assetName");
+      const assetValue = localStorage.getItem("assetValue");
+      await postCategory(assetName, assetValue, categoryId); //Added await: HERE
+      getCategories(userId, setCategories); //Moved this up hear insted of in useEffect
+    } catch (error) {
+      console.log("Errors");
+    }
+  }
+
+  function addAssetClick(categoryId) {
+    setVisibleAddAsset(true);
+    localStorage.setItem("categoryId", categoryId); //Works with name - not with the id
   }
 
   //User login/logout related
@@ -111,9 +129,9 @@ function Dashboard() {
           <div className="visibleSavedCategory">
             {categories.map((category) => (
               <Category
-                id={category.get("objectId")} //Bug: Doesn't work - not fatal, but creates an error message
+                id={category.id} //Bug: Doesn't work - not fatal, but creates an error message
                 title={category.get("name")}
-                eventAddAsset={() => setVisibleAddAsset(true)}
+                eventAddAsset={() => addAssetClick(category.id)} //HERE - changed from: eventAddAsset={() => setVisibleAddAsset(true)
               />
             ))}
           </div>
