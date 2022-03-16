@@ -12,6 +12,11 @@ import AddCategoryBtn from "../Components/AddCategoryBtn";
 import { postCategory, getCategories, postAsset, getAssets } from "../data";
 
 function Dashboard() {
+  const [checked, setChecked] = useState(true);
+  const handleChange = () => {
+    setChecked(!checked);
+  };
+  
   const navigate = useNavigate();
   //Fetches userId upon start so it's always avaliable in localStorage
   const userId = localStorage.getItem("userId");
@@ -165,10 +170,16 @@ function Dashboard() {
           <div className="visibleAddAsset">
             {visibleAddAsset ? 
               isBankAccount() ? // Checks if category name is equal Banck account 
-                (<EditAsset bankauto        // Renders bank asset
-                eventCancel={() => setVisibleAddAsset(false)}
-                eventSave={() => saveAsset()}
-                />) 
+                checked ? 
+                  (<EditAsset bankauto        // Renders bank asset
+                    eventCancel={() => setVisibleAddAsset(false)}
+                    eventSave={() => saveAsset()}
+                    />) 
+                : 
+                  (<EditAsset bankman        // Renders bank asset
+                  eventCancel={() => setVisibleAddAsset(false)}
+                  eventSave={() => saveAsset()}
+                  />)
               : 
               isRealEstate() ?  // Checks if category name is equal Banck account 
                 (<EditAsset realestateauto    // Renders realestate asset

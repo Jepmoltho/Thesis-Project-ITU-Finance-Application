@@ -150,7 +150,10 @@ function EditAsset(props) {
       <Row className="asset">
         <Col className="col-sm-1" style={{ margin: "auto" }}>
           <Tag text="Connect bank" />
-          <Switch />
+          <Switch 
+            checked={false}
+            onChange={() => props.handleChange()}
+          />
         </Col>
         <Col style={{ margin: "auto" }}>
           <TextField
@@ -190,7 +193,10 @@ function EditAsset(props) {
       <Row className="asset">
         <Col className="col-sm-1" style={{ margin: "auto" }}>
           <Tag text="Connect bank" />
-          <Switch />
+          <Switch 
+            checked={true}
+            onChange={() => props.handleChange()}
+          />
         </Col>
         <Col style={{ margin: "auto" }}>
           <FormControl fullWidth>
