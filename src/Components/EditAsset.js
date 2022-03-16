@@ -240,7 +240,11 @@ function EditAsset(props) {
           className="col-sm-2"
           style={{ margin: "auto", paddingLeft: "0px" }}
         >
-          <ButtonGroup primaryText="Save" secondaryText="Cancel" />
+          <ButtonGroup
+            primaryText="Save"
+            secondaryText="Cancel"
+            event2={props.eventCancel}
+          />
         </Col>
       </Row>
     );

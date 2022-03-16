@@ -5,7 +5,7 @@ import Category from "../Components/Category";
 import Container from "react-bootstrap/Container";
 //import Asset from "../Components/Asset";
 import AddCategory from "../Components/AddCategory";
-//import EditAsset from "../Components/EditAsset";
+import EditAsset from "../Components/EditAsset";
 import NavigationBar from "../Components/NavigationBar";
 import TopComponents from "../Components/TopComponents";
 import AddCategoryBtn from "../Components/AddCategoryBtn";
@@ -19,8 +19,14 @@ function Dashboard() {
   //Manages display of addCategoryComponent upon pressing addCategory and dissapear upon pressing cancel
   const [visibleAddCategory, setVisibleAddCategory] = useState(false);
 
+  //Manages display if addAssetComponent upon pressing addAsset and dissapear upon pressing cancel
+  const [visibleAddAsset, setVisibleAddAsset] = useState(false);
+
   //Manages list of saved categories
   const [categories, setCategories] = useState([]);
+
+  //Manages list of saved assets
+  const [assets, setAssets] = useState([]);
 
   //Saves a category to database by calling postCategory in data.js
   async function saveCategory() {
@@ -107,8 +113,16 @@ function Dashboard() {
               <Category
                 id={category.get("objectId")} //Bug: Doesn't work - not fatal, but creates an error message
                 title={category.get("name")}
+                eventAddAsset={() => setVisibleAddAsset(true)}
               />
             ))}
+          </div>
+          <div className="visibleAddAsset">
+            {visibleAddAsset ? (
+              <EditAsset eventCancel={() => setVisibleAddAsset(false)} />
+            ) : (
+              <div className="Empty container"></div>
+            )}
           </div>
           <div className="visibleAddCategory">
             {visibleAddCategory ? (
@@ -146,8 +160,6 @@ OLD catagory map component
           ))}}
           <br />
           {<AddCategoryBtn event={addAddCategoryComponent} /> }
-
-
 
 <Category title="Stocks" />
           <br />

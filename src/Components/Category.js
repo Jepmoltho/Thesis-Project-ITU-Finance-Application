@@ -54,6 +54,7 @@ function Category(props) {
       </Col>
       <Col className="col-sm-1">
         <Icon edit />
+        <Icon add event1={props.eventAddAsset} />
       </Col>
     </Row>
   );

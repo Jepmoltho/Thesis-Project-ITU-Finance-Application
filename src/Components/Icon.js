@@ -4,6 +4,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import IconButton from "@mui/material/IconButton";
 import PhotoCamera from "@mui/icons-material/PhotoCamera";
+import AddCircleIcon from "@mui/icons-material/AddCircle";
 
 //Note: You probably need IconButton and not Button components from Mui. Find them under button components
 function Icon(props) {
@@ -53,6 +54,17 @@ function Icon(props) {
           <PhotoCamera />
         </IconButton>
       </label>
+    );
+  }
+  if (props.add) {
+    return (
+      <IconButton
+        aria-label="add"
+        style={{ float: "right", padding: "0px", top: "10px" }}
+        onClick={props.event1}
+      >
+        <AddCircleIcon sx={{ color: "#8c8c8c", padding: "3px" }} />
+      </IconButton>
     );
   } else {
     return <InfoOutlinedIcon sx={{ color: "#8c8c8c" }} />;
