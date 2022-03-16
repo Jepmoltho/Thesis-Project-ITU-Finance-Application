@@ -7,27 +7,6 @@ import Tag from "./Tag";
 import ButtonGroup from "./ButtonGroup";
 
 function Asset(props) {
-  if (props.normal) {
-    return (
-      <Row className="asset">
-        <Col className="col-sm-1" style={{ margin: "auto" }}></Col>
-        <Col style={{ margin: "auto" }}>
-          <AssetName name="Danske Bank" />
-        </Col>
-        <Col style={{ margin: "auto" }}>
-          <Value value="1000" />
-        </Col>
-        <Col></Col>
-        <Col
-          className="col-sm-2"
-          style={{ margin: "auto", paddingLeft: "0px" }}
-        >
-          <ButtonGroup primaryText="Edit" secondaryText="Delete" />
-        </Col>
-      </Row>
-    );
-  }
-
   if (props.debt) {
     return (
       <Row className="asset">
@@ -67,6 +46,25 @@ function Asset(props) {
           <Tag text="price pr. m2" />
           <Value tagNonbold value="46.421" />
         </Col>
+        <Col
+          className="col-sm-2"
+          style={{ margin: "auto", paddingLeft: "0px" }}
+        >
+          <ButtonGroup primaryText="Edit" secondaryText="Delete" />
+        </Col>
+      </Row>
+    );
+  } else {
+    return (
+      <Row className="asset">
+        <Col className="col-sm-1" style={{ margin: "auto" }}></Col>
+        <Col style={{ margin: "auto" }}>
+          <AssetName name={props.title} />
+        </Col>
+        <Col style={{ margin: "auto" }}>
+          <Value value="1000" />
+        </Col>
+        <Col></Col>
         <Col
           className="col-sm-2"
           style={{ margin: "auto", paddingLeft: "0px" }}

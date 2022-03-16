@@ -247,6 +247,7 @@ function EditAsset(props) {
           <ButtonGroup
             primaryText="Save"
             secondaryText="Cancel"
+            event1={props.eventSave}
             event2={props.eventCancel}
           />
         </Col>

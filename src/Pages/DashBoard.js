@@ -3,13 +3,13 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Category from "../Components/Category";
 import Container from "react-bootstrap/Container";
-//import Asset from "../Components/Asset";
+import Asset from "../Components/Asset";
 import AddCategory from "../Components/AddCategory";
 import EditAsset from "../Components/EditAsset";
 import NavigationBar from "../Components/NavigationBar";
 import TopComponents from "../Components/TopComponents";
 import AddCategoryBtn from "../Components/AddCategoryBtn";
-import { postCategory, getCategories } from "../data";
+import { postCategory, getCategories, postAsset, getAssets } from "../data";
 
 function Dashboard() {
   const navigate = useNavigate();
@@ -45,8 +45,8 @@ function Dashboard() {
     try {
       const assetName = localStorage.getItem("assetName");
       const assetValue = localStorage.getItem("assetValue");
-      await postCategory(assetName, assetValue, categoryId); //Added await: HERE
-      getCategories(userId, setCategories); //Moved this up hear insted of in useEffect
+      await postAsset(assetName, assetValue, categoryId); //Added await: HERE (CateoryId comes from state hook - if doesnt work, retireve it from local storage)
+      getAssets(categoryId, setAssets); //Moved this up hear insted of in useEffect
     } catch (error) {
       console.log("Errors");
     }
@@ -54,7 +54,8 @@ function Dashboard() {
 
   function addAssetClick(categoryId) {
     setVisibleAddAsset(true);
-    localStorage.setItem("categoryId", categoryId); //Works with name - not with the id
+    localStorage.setItem("categoryId", categoryId);
+    setCategoryId(categoryId);
   }
 
   //User login/logout related
@@ -135,9 +136,17 @@ function Dashboard() {
               />
             ))}
           </div>
+          <div className="visibleAsset">
+            {assets.map((asset) => (
+              <Asset title={asset.get("name")} />
+            ))}
+          </div>
           <div className="visibleAddAsset">
             {visibleAddAsset ? (
-              <EditAsset eventCancel={() => setVisibleAddAsset(false)} />
+              <EditAsset
+                eventCancel={() => setVisibleAddAsset(false)}
+                eventSave={() => saveAsset()}
+              />
             ) : (
               <div className="Empty container"></div>
             )}

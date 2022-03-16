@@ -25,6 +25,32 @@ export async function getCategories(userId, setCategories) {
   }
 }
 
+export async function postAsset(assetName, assetValue, categoryId) {
+  try {
+    const Asset = Parse.Object.extend("Asset");
+    const thisAsset = new Asset();
+    thisAsset.set("name", assetName);
+    thisAsset.set("value", assetValue);
+    thisAsset.set("categoryId", categoryId);
+    //thisCategory.set("userPointer", userPointer); Bug: Doesn't work with pointersl
+    await thisAsset.save();
+    alert("Saved asset to database");
+  } catch (error) {}
+}
+
+export async function getAssets(categoryId, setAssets) {
+  const parseQuery = new Parse.Query("Asset");
+  parseQuery.contains("categoryId", categoryId);
+  try {
+    let assets = await parseQuery.find();
+    setAssets(assets);
+    return assets;
+  } catch (error) {
+    alert("errors");
+    return false;
+  }
+}
+
 /*
 export async function getDuties(context, setDuties) {
   // Reading parse objects is done by using Parse.Query
