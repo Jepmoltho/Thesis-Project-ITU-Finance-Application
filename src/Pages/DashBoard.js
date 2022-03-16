@@ -35,6 +35,7 @@ function Dashboard() {
       const categoryName = localStorage.getItem("categorySelect");
       await postCategory(categoryName, userId); //Added await
       getCategories(userId, setCategories); //Moved this up hear insted of in useEffect
+      setVisibleAddCategory(false);
     } catch (error) {
       console.log("Errors");
     }
@@ -47,6 +48,7 @@ function Dashboard() {
       const assetValue = localStorage.getItem("assetValue");
       await postAsset(assetName, assetValue, categoryId); //Added await: HERE (CateoryId comes from state hook - if doesnt work, retireve it from local storage)
       getAssets(categoryId, setAssets); //Moved this up hear insted of in useEffect
+      setVisibleAddAsset(false);
     } catch (error) {
       console.log("Errors");
     }
@@ -64,7 +66,8 @@ function Dashboard() {
     //User login/logout related
     getCurrentUser();
     getCategories(userId, setCategories); //Moved this up hear insted of in useEffect
-  }, []);
+    getAssets(categoryId, setAssets);
+  }, [userId, categoryId]);
 
   //User login/logout related
   async function getCurrentUser() {
@@ -130,7 +133,7 @@ function Dashboard() {
           <div className="visibleSavedCategory">
             {categories.map((category) => (
               <Category
-                id={category.id} //Bug: Doesn't work - not fatal, but creates an error message
+                key={category.id} //Bug: Doesn't work - not fatal, but creates an error message
                 title={category.get("name")}
                 eventAddAsset={() => addAssetClick(category.id)} //HERE - changed from: eventAddAsset={() => setVisibleAddAsset(true)
               />
@@ -138,7 +141,7 @@ function Dashboard() {
           </div>
           <div className="visibleAsset">
             {assets.map((asset) => (
-              <Asset title={asset.get("name")} />
+              <Asset key={asset.id} title={asset.get("name")} />
             ))}
           </div>
           <div className="visibleAddAsset">
