@@ -53,21 +53,31 @@ export async function getAssets(categoryId, userId, setAssets) {
   }
 }
 
-/*
-export async function getDuties(context, setDuties) {
-  // Reading parse objects is done by using Parse.Query
-  const parseQuery = new Parse.Query("Duty");
-  parseQuery.contains("excursionId", context);
+//Not working: 1st attempt to GET the total value of a category by fetching all assets from database - needs to be imported to work in dashboard
+export async function getCategoryValue(categoryId, userId) {
+  let sum = 0;
+  const parseQuery = new Parse.Query("Asset");
+  parseQuery.contains("categoryId", categoryId);
+  parseQuery.contains("userId", userId);
   try {
-    let duties = await parseQuery.find();
-    // Be aware that empty or invalid queries return as an empty array
-    // Set results to state variable
-    setDuties(duties);
-    return duties;
+    let assets = await parseQuery.find();
+    assets.map((asset) => (sum += asset.get("value")));
   } catch (error) {
-    // Error can be caused by lack of Internet connection
-    alert(error);
-    return false;
+    console.log(error);
   }
+  return sum;
 }
-*/
+
+//Not working: 2nd attempt to itterate thorugh all the assets in the assets array of dashboard (passed as assets) and then to POST the total value to the category of the database. Notice that the use of ParseInt() is an attempt to solve the issue of storing strings in the database and use them as integers here - needs to be imported to work in dashboard
+export async function postCategoryValue(categoryId, userId, assets) {
+  let sum = 0;
+  //Attempt to iterate thoguh all assetvalues to get sum
+  assets.map((asset) => (sum += parseInt(asset.value)));
+  console.log(sum);
+  try {
+    const Category = Parse.Object.extend("Category");
+    const thisCategory = new Category();
+    //Filtering of right rows in category table goes here
+    thisCategory.set("value", sum);
+  } catch (error) {}
+}

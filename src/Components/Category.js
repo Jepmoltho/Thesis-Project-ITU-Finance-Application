@@ -32,7 +32,7 @@ function Category(props) {
       </Col>
       <Col style={{ margin: "auto" }}>
         <Tag text="Value" />
-        <Value value="1000" />
+        <Value value={props.value} />
       </Col>
       <Col style={{ margin: "auto" }}>
         <Tag text="Profit" />
