@@ -42,25 +42,25 @@ function Dashboard() {
     }
   }
 
-  function isRealEstate() {
-    //Doesnt work: Need to take into account that there in a lot of cases will be saved an item to local storage
-    const categoryName = "placeholder for bugfix"; //localStorage.getItem("categorySelect");
-    if (categoryName === "Real Estate") {
-      return true;
-    } else {
-      return false;
-    }
-  }
+  // function isRealEstate() {
+  //   //Doesnt work: Need to take into account that there in a lot of cases will be saved an item to local storage
+  //   const categoryName = "placeholder for bugfix"; //localStorage.getItem("categorySelect");
+  //   if (categoryName === "Real Estate") {
+  //     return true;
+  //   } else {
+  //     return false;
+  //   }
+  // }
 
-  function isBankAccount() {
-    //Doesnt work: Need to take into account that there in a lot of cases will be saved an item to local storage
-    const categoryName = "placeholder for bugfix"; //localStorage.getItem("categorySelect");
-    if (categoryName === "Bank account") {
-      return true;
-    } else {
-      return false;
-    }
-  }
+  // function isBankAccount() {
+  //   //Doesnt work: Need to take into account that there in a lot of cases will be saved an item to local storage
+  //   const categoryName = "placeholder for bugfix"; //localStorage.getItem("categorySelect");
+  //   if (categoryName === "Bank account") {
+  //     return true;
+  //   } else {
+  //     return false;
+  //   }
+  // }
 
   //Saves an asset to database by calling postAsset in data.js
   async function saveAsset() {
@@ -152,25 +152,11 @@ function Dashboard() {
           </div>
           <div className="visibleAddAsset">
             {visibleAddAsset ? (
-              isBankAccount() ? ( // Checks if category name is equal Banck account
-                <EditAsset
-                  bankauto // Renders bank asset
-                  eventCancel={() => setVisibleAddAsset(false)}
-                  eventSave={() => saveAsset()}
-                />
-              ) : isRealEstate() ? ( // Checks if category name is equal Banck account
-                <EditAsset
-                  realestateauto // Renders realestate asset
-                  eventCancel={() => setVisibleAddAsset(false)}
-                  eventSave={() => saveAsset()}
-                />
-              ) : (
-                //If category name is neither an 'Bank account' or 'Real estate'.
-                <EditAsset // Renders normal asset
-                  eventCancel={() => setVisibleAddAsset(false)}
-                  eventSave={() => saveAsset()}
-                />
-              )
+              //If category name is neither an 'Bank account' or 'Real estate'.
+              <EditAsset // Renders normal asset
+                eventCancel={() => setVisibleAddAsset(false)}
+                eventSave={() => saveAsset()}
+              />
             ) : (
               // Renders an empty container
               <div className="Empty container"></div>
