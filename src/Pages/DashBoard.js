@@ -118,12 +118,6 @@ function Dashboard() {
     }
   };
 
-  function getCategoryValue(assets) {
-    let sum = 0;
-    console.log(assets[0]);
-    console.log(sum);
-  }
-
   if (currentUser === null) {
     //Nessesary, otherwise it crashes
     return (
@@ -192,7 +186,6 @@ function Dashboard() {
               <div className="Empty container"></div>
             )}
           </div>
-          {getCategoryValue(assets)}
           <br />
           <AddCategoryBtn event={() => setVisibleAddCategory(true)} />
           <br />
