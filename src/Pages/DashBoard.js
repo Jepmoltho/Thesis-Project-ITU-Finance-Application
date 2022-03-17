@@ -54,7 +54,7 @@ function Dashboard() {
 
   function isBankAccount() {
     //Doesnt work: Need to take into account that there in a lot of cases will be saved an item to local storage
-    const categoryName = "placeholder fo bugfix"; //localStorage.getItem("categorySelect");
+    const categoryName = "placeholder bugfix"; //localStorage.getItem("categorySelect");
     if (categoryName === "Bank account") {
       return true;
     } else {
