@@ -41,21 +41,23 @@ function Dashboard() {
     }
   }
 
-  function isRealEstate(){
-    const categoryName = localStorage.getItem("categorySelect");
-    if (categoryName === 'Real Estate'){
-      return true 
-    } else { 
-      return false 
+  function isRealEstate() {
+    //Doesnt work: Need to take into account that there in a lot of cases will be saved an item to local storage
+    const categoryName = "placeholder"; //localStorage.getItem("categorySelect");
+    if (categoryName === "Real Estate") {
+      return true;
+    } else {
+      return false;
     }
   }
 
-  function isBankAccount(){
-    const categoryName = localStorage.getItem("categorySelect");
-    if (categoryName === 'Bank account'){
-      return true 
-    } else { 
-      return false 
+  function isBankAccount() {
+    //Doesnt work: Need to take into account that there in a lot of cases will be saved an item to local storage
+    const categoryName = "placeholder"; //localStorage.getItem("categorySelect");
+    if (categoryName === "Bank account") {
+      return true;
+    } else {
+      return false;
     }
   }
 
@@ -64,14 +66,15 @@ function Dashboard() {
     try {
       const assetName = localStorage.getItem("assetName");
       const assetValue = localStorage.getItem("assetValue");
-      await postAsset(assetName, assetValue, categoryId); //Added await: HERE (CateoryId comes from state hook - if doesnt work, retireve it from local storage)
-      getAssets(categoryId, setAssets); //Moved this up hear insted of in useEffect
+      await postAsset(assetName, assetValue, categoryId, userId); //Added await
+      getAssets(categoryId, userId, setAssets); //Moved this in hear insted of in useEffect
       setVisibleAddAsset(false);
     } catch (error) {
       console.log("Errors");
     }
   }
 
+  //Nessesary functon that wraps function calls that needs to happen in a specific order in order to save the relevant categoryId to local storage after clicking addAsset
   function addAssetClick(categoryId) {
     setVisibleAddAsset(true);
     localStorage.setItem("categoryId", categoryId);
@@ -84,7 +87,7 @@ function Dashboard() {
     //User login/logout related
     getCurrentUser();
     getCategories(userId, setCategories); //Moved this up hear insted of in useEffect
-    getAssets(categoryId, setAssets);
+    getAssets(categoryId, userId, setAssets);
   }, [userId, categoryId]);
 
   //User login/logout related
@@ -163,26 +166,30 @@ function Dashboard() {
             ))}
           </div>
           <div className="visibleAddAsset">
-            {visibleAddAsset ? 
-              isBankAccount() ? // Checks if category name is equal Banck account 
-                (<EditAsset bankauto        // Renders bank asset
-                eventCancel={() => setVisibleAddAsset(false)}
-                eventSave={() => saveAsset()}
-                />) 
-              : 
-              isRealEstate() ?  // Checks if category name is equal Banck account 
-                (<EditAsset realestateauto    // Renders realestate asset
+            {visibleAddAsset ? (
+              isBankAccount() ? ( // Checks if category name is equal Banck account
+                <EditAsset
+                  bankauto // Renders bank asset
                   eventCancel={() => setVisibleAddAsset(false)}
                   eventSave={() => saveAsset()}
-                />) 
-              : //If category name is neither an 'Bank account' or 'Real estate'.
-                (<EditAsset  // Renders normal asset
+                />
+              ) : isRealEstate() ? ( // Checks if category name is equal Banck account
+                <EditAsset
+                  realestateauto // Renders realestate asset
                   eventCancel={() => setVisibleAddAsset(false)}
                   eventSave={() => saveAsset()}
-                />) 
-            :     // Renders an empty container
-            <div className="Empty container"></div>
-            }
+                />
+              ) : (
+                //If category name is neither an 'Bank account' or 'Real estate'.
+                <EditAsset // Renders normal asset
+                  eventCancel={() => setVisibleAddAsset(false)}
+                  eventSave={() => saveAsset()}
+                />
+              )
+            ) : (
+              // Renders an empty container
+              <div className="Empty container"></div>
+            )}
           </div>
           <div className="visibleAddCategory">
             {visibleAddCategory ? (
