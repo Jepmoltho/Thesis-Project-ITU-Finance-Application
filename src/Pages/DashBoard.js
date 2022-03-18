@@ -142,14 +142,22 @@ function Dashboard() {
                 // value={() => getCategoryValue(category.id, userId)}
                 // value={() => calculateCategoryValue(assets, category.id)}
                 eventAddAsset={() => addAssetClick(category.id)} //HERE - changed from: eventAddAsset={() => setVisibleAddAsset(true)
+                assets={assets}
+              
               />
             ))}
+            
           </div>
-          <div className="visibleAsset">
+          
+          
+          {/* <div className="visibleAsset">
             {assets.map((asset) => (
               <Asset key={asset.id} title={asset.get("name")} />
             ))}
-          </div>
+          </div> */}
+          
+          
+          
           <div className="visibleAddAsset">
             {visibleAddAsset ? (
               isBankAccount() ? ( // Checks if category name is equal Banck account
