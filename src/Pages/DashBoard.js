@@ -1,5 +1,5 @@
 import Parse from "parse";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import Category from "../Components/Category";
 import Container from "react-bootstrap/Container";
@@ -12,11 +12,6 @@ import AddCategoryBtn from "../Components/AddCategoryBtn";
 import { postCategory, getCategories, postAsset, getAssets } from "../data";
 
 function Dashboard() {
-  const [checked, setChecked] = useState(true);
-  const handleChange = () => {
-    setChecked(!checked);
-  };
-  
   const navigate = useNavigate();
   //Fetches userId upon start so it's always avaliable in localStorage
   const userId = localStorage.getItem("userId");
@@ -78,6 +73,7 @@ function Dashboard() {
   }
 
   function addAssetClick(categoryId) {
+    console.log("clicked")
     setVisibleAddAsset(true);
     localStorage.setItem("categoryId", categoryId);
     setCategoryId(categoryId);
@@ -168,31 +164,32 @@ function Dashboard() {
             ))}
           </div>
           <div className="visibleAddAsset">
-            {visibleAddAsset ? 
-              isBankAccount() ? // Checks if category name is equal Banck account 
-                checked ? 
-                  (<EditAsset bankauto        // Renders bank asset
+            {{
+               if (visibleAddAsset){
+                (console.log("reached here"))
+                if (isBankAccount()){ // Checks if category name is equal Banck account
+                  (<EditAsset bank        // Renders bank asset
                     eventCancel={() => setVisibleAddAsset(false)}
                     eventSave={() => saveAsset()}
                     />) 
-                : 
-                  (<EditAsset bankman        // Renders bank asset
-                  eventCancel={() => setVisibleAddAsset(false)}
-                  eventSave={() => saveAsset()}
+                } else if (isRealEstate()){   // Checks if category name is equal real estate
+                  (<EditAsset realestate    // Renders realestate asset
+                    eventCancel={() => setVisibleAddAsset(false)}
+                    eventSave={() => saveAsset()}
+                  />) 
+                } 
+                else {//If category name is neither an 'Bank account' or 'Real estate'.
+                  (<EditAsset  // Renders normal asset
+                    eventCancel={() => setVisibleAddAsset(false)}
+                    eventSave={() => saveAsset()}
                   />)
-              : 
-              isRealEstate() ?  // Checks if category name is equal Banck account 
-                (<EditAsset realestateauto    // Renders realestate asset
-                  eventCancel={() => setVisibleAddAsset(false)}
-                  eventSave={() => saveAsset()}
-                />) 
-              : //If category name is neither an 'Bank account' or 'Real estate'.
-                (<EditAsset  // Renders normal asset
-                  eventCancel={() => setVisibleAddAsset(false)}
-                  eventSave={() => saveAsset()}
-                />) 
-            :     // Renders an empty container
-            <div className="Empty container"></div>
+                }
+              }
+            }
+              // Renders an empty containe, not sure how to implement
+              /*else { 
+                return <div className="Empty container"></div>  
+              } */
             }
           </div>
           <div className="visibleAddCategory">
