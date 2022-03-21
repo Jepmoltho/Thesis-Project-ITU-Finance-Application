@@ -10,6 +10,7 @@ import Icon from "./Icon";
 import ArrowDropDownRoundedIcon from "@mui/icons-material/ArrowDropDownRounded";
 import Button from "@mui/material/Button";
 import Asset from "../Components/Asset";
+import EditAsset from "../Components/EditAsset"
 
 
 function Category(props) {
@@ -59,6 +60,9 @@ function Category(props) {
         </Col>
         <Col className="col-sm-1">
           <Icon edit />
+          
+          {/* HERE */}
+          
           <Icon add event1={props.eventAddAsset} />
         </Col>
       </Row>
@@ -76,7 +80,52 @@ function Category(props) {
 
      {/* -------------- Add Asset -----------------------               */}
       <Row>
-        
+      {
+        props.isAddAssetVisable ?
+          props.title === "Real Estate" ?
+            <EditAsset category="realestate"    // Renders realestate asset
+              //eventCancel={() => setVisibleAddAsset(false)}
+              //eventSave={() => saveAsset()}
+            />
+            : 
+              props.title === "Bank account" ?
+                <EditAsset category="bank"   // Renders bank asset
+                //eventCancel={() => setVisibleAddAsset(false)}
+                //eventSave={() => saveAsset()}
+                />
+              :
+              <EditAsset  // Renders normal asset
+                  //eventCancel={() => setVisibleAddAsset(false)}
+                  //eventSave={() => saveAsset()}
+              />
+
+        :
+          null
+      }
+      {/*
+      <div className="visibleAddAsset">
+              {visibleAddAsset ?
+                isBankAccount() ?   // Checks if category name is equal Banck account
+                      <EditAsset category="bank"   // Renders bank asset
+                      eventCancel={() => setVisibleAddAsset(false)}
+                      eventSave={() => saveAsset()}
+                      /> 
+                  :
+                  isRealEstate() ?   // Checks if category name is equal real estate
+                      <EditAsset category="realestate"    // Renders realestate asset
+                        eventCancel={() => setVisibleAddAsset(false)}
+                        eventSave={() => saveAsset()}
+                      />
+                    :   //If category name is neither an 'Bank account' or 'Real estate'.
+                      <EditAsset  // Renders normal asset
+                        eventCancel={() => setVisibleAddAsset(false)}
+                        eventSave={() => saveAsset()}
+                      />
+                  : //Renders an empty containe, not sure how to implement
+                    <div className="Empty container"></div>  
+            }
+          </div>
+          */}
       </Row>
 
     </Row>

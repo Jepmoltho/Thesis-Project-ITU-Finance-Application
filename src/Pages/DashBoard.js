@@ -42,26 +42,6 @@ function Dashboard() {
     }
   }
 
-  function isRealEstate() {
-    //Doesnt work: Need to take into account that there in a lot of cases will be saved an item to local storage
-    const categoryName = "placeholder for bugfix"; //localStorage.getItem("categorySelect");
-    if (categoryName === "Real Estate") {
-      return true;
-    } else {
-      return false;
-    }
-  }
-
-  function isBankAccount() {
-    //Doesnt work: Need to take into account that there in a lot of cases will be saved an item to local storage
-    const categoryName = "placeholder for bugfix"; //localStorage.getItem("categorySelect");
-    if (categoryName === "Bank account") {
-      return true;
-    } else {
-      return false;
-    }
-  }
-
   //Saves an asset to database by calling postAsset in data.js
   async function saveAsset() {
     try {
@@ -145,12 +125,13 @@ function Dashboard() {
                 // value={() => calculateCategoryValue(assets, category.id)}
                 eventAddAsset={() => addAssetClick(category.id)} //HERE - changed from: eventAddAsset={() => setVisibleAddAsset(true)
                 assets={assets}
+                isAddAssetVisable={visibleAddAsset}
               />
             ))}
             
           </div>
           
-          
+          {/*
           <div className="visibleAddAsset">
               {visibleAddAsset ?
                 isBankAccount() ?   // Checks if category name is equal Banck account
@@ -173,6 +154,7 @@ function Dashboard() {
                     <div className="Empty container"></div>  
             }
           </div>
+          */}
           <div className="visibleAddCategory">
             {visibleAddCategory ? (
               <AddCategory
