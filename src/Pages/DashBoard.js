@@ -35,27 +35,30 @@ function Dashboard() {
       const categoryName = localStorage.getItem("categorySelect");
       await postCategory(categoryName, userId); //Added await
       getCategories(userId, setCategories); //Moved this up hear insted of in useEffect
+      getAssets(categoryId, userId, setAssets);
       setVisibleAddCategory(false);
     } catch (error) {
       console.log("Errors");
     }
   }
 
-  function isRealEstate(){
-    const categoryName = localStorage.getItem("categorySelect");
-    if (categoryName === 'Real Estate'){
-      return true 
-    } else { 
-      return false 
+  function isRealEstate() {
+    //Doesnt work: Need to take into account that there in a lot of cases will be saved an item to local storage
+    const categoryName = "placeholder for bugfix"; //localStorage.getItem("categorySelect");
+    if (categoryName === "Real Estate") {
+      return true;
+    } else {
+      return false;
     }
   }
 
-  function isBankAccount(){
-    const categoryName = localStorage.getItem("categorySelect");
-    if (categoryName === 'Bank account'){
-      return true 
-    } else { 
-      return false 
+  function isBankAccount() {
+    //Doesnt work: Need to take into account that there in a lot of cases will be saved an item to local storage
+    const categoryName = "placeholder for bugfix"; //localStorage.getItem("categorySelect");
+    if (categoryName === "Bank account") {
+      return true;
+    } else {
+      return false;
     }
   }
 
@@ -64,19 +67,23 @@ function Dashboard() {
     try {
       const assetName = localStorage.getItem("assetName");
       const assetValue = localStorage.getItem("assetValue");
-      await postAsset(assetName, assetValue, categoryId); //Added await: HERE (CateoryId comes from state hook - if doesnt work, retireve it from local storage)
-      getAssets(categoryId, setAssets); //Moved this up hear insted of in useEffect
+      //const testAssetValue = assetValue + 100;
+      await postAsset(assetName, assetValue, categoryId, userId); //Added await
+      getAssets(categoryId, userId, setAssets); //This gets all assets related to a certain category - maybe use it to solve the issue of calculating total value of a category, since it returns all relevant assets: const assetsInCategory = getAssets(categoryId, userId, setAssets);
+      //await postCategoryValue(categoryId, userId, assetsInCategory); //HERE!
       setVisibleAddAsset(false);
     } catch (error) {
       console.log("Errors");
     }
   }
 
+  //Nessesary functon that wraps function calls that needs to happen in a specific order in order to save the relevant categoryId to local storage after clicking addAsset
   function addAssetClick(categoryId) {
     console.log("clicked")
     setVisibleAddAsset(true);
     localStorage.setItem("categoryId", categoryId);
     setCategoryId(categoryId);
+    // getAssets(categoryId, userId, setAssets);
   }
 
   //User login/logout related
@@ -85,7 +92,7 @@ function Dashboard() {
     //User login/logout related
     getCurrentUser();
     getCategories(userId, setCategories); //Moved this up hear insted of in useEffect
-    getAssets(categoryId, setAssets);
+    getAssets(categoryId, userId, setAssets);
   }, [userId, categoryId]);
 
   //User login/logout related
@@ -112,27 +119,6 @@ function Dashboard() {
     }
   };
 
-  //Bug: Doesn't work with userPointer
-  // var userPointer = {
-  //   __type: "Pointer",
-  //   className: "User",
-  //   objectId: userId,
-  // };
-
-  //Not used yet: Think they are gonna be used to update category list after each new creation
-  // const [readResults, setReadResults] = useState("");
-  // const readCategories = async function () {
-  //   const parseQuery = new Parse.Query("Category");
-  //   try {
-  //     let categories = await parseQuery.find();
-  //     setReadResults(categories);
-  //     return true;
-  //   } catch (error) {
-  //     alert("Error");
-  //     return false;
-  //   }
-  // };
-
   if (currentUser === null) {
     //Nessesary, otherwise it crashes
     return (
@@ -152,8 +138,10 @@ function Dashboard() {
           <div className="visibleSavedCategory">
             {categories.map((category) => (
               <Category
-                key={category.id} //Bug: Doesn't work - not fatal, but creates an error message
+                key={category.id}
                 title={category.get("name")}
+                // value={() => getCategoryValue(category.id, userId)}
+                // value={() => calculateCategoryValue(assets, category.id)}
                 eventAddAsset={() => addAssetClick(category.id)} //HERE - changed from: eventAddAsset={() => setVisibleAddAsset(true)
               />
             ))}
@@ -208,6 +196,61 @@ function Dashboard() {
 export default Dashboard;
 
 /*
+
+  // Not working: Attempt at calculating total value of category locally
+  // function calculateCategoryValue(assets, categoryId) {
+  //   let sum = 0;
+  //   assets.forEach((asset) => {
+  //     if (asset.categoryId === categoryId) {
+  //       sum += asset.value;
+  //     }
+  //   });
+  //   return sum;
+  //   console.log(sum);
+  //   // if (asset.categoryId === categoryId) {
+  //   //   sum += asset.value;
+  //   // }
+  //   // return sum;
+  // }
+
+  // Not working: Attempt at implementing a sorting algorithm component to display categories and assets in the right order
+  // function displayCategoriesAndAssets2(categories, assets) {
+  //   //User filter and map methods (lambdas)
+  //   //const categoriesAndAssets = categories + assets;
+  //   // const sorted = categories.forEach((category) => {
+  //   //   if (category.id === assets.categoryId)
+  //   // });
+  //   // const sorted = assets.forEach((asset) => {
+  //   //   if (asset.categoryId === categoryId.categoryId)
+  //   // });
+
+  //   return <div class="categoriesAndAssets"></div>;
+  // }
+
+
+
+    //Bug: Doesn't work with userPointer
+  // var userPointer = {
+  //   __type: "Pointer",
+  //   className: "User",
+  //   objectId: userId,
+  // };
+
+  //Not used yet: Think they are gonna be used to update category list after each new creation
+  // const [readResults, setReadResults] = useState("");
+  // const readCategories = async function () {
+  //   const parseQuery = new Parse.Query("Category");
+  //   try {
+  //     let categories = await parseQuery.find();
+  //     setReadResults(categories);
+  //     return true;
+  //   } catch (error) {
+  //     alert("Error");
+  //     return false;
+  //   }
+  // };
+
+
 OLD catagory map component
  {{categoryComponents.map((item, i) => (
             <Category />

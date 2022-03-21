@@ -434,17 +434,16 @@ export default EditAsset;
           className="col-sm-2"
           style={{ margin: "auto", paddingLeft: "0px" }}
         >
-          <ButtonGroup 
+          <ButtonGroup
             primaryText="Save"
             secondaryText="Cancel"
             event1={props.eventSave}
-            event2={props.eventCancel} 
-            />
+            event2={props.eventCancel}
+          />
         </Col>
       </Row>
     );
   }
-  */
 
   /* Deleted as there should be a gathered logic for bank
   if (props.bankauto) {
@@ -493,9 +492,9 @@ export default EditAsset;
           className="col-sm-2"
           style={{ margin: "auto", paddingLeft: "0px" }}
         >
-          <ButtonGroup 
-            primaryText="Save" 
-            secondaryText="Cancel" 
+          <ButtonGroup
+            primaryText="Save"
+            secondaryText="Cancel"
             event1={props.eventSave}
             event2={props.eventCancel}
           />
