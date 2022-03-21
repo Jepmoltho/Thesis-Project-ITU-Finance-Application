@@ -142,8 +142,8 @@ function Dashboard() {
                 // value={() => getCategoryValue(category.id, userId)}
                 // value={() => calculateCategoryValue(assets, category.id)}
                 eventAddAsset={() => addAssetClick(category.id)} //HERE - changed from: eventAddAsset={() => setVisibleAddAsset(true)
+                assetID={assets.id}
                 assets={assets}
-              
               />
             ))}
             
