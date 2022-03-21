@@ -42,18 +42,34 @@ export async function postAsset(assetName, assetValue, categoryId, userId) {
 function getCatVal(assets) {
   //Map though all asset value here
   let sum = 0;
-  let iteration = 0;
+  //let iteration = 0;
   assets.map((asset) => {
     //console.log(asset[0]);
-    console.log(asset.get("value"));
+    //console.log(asset.get("value"));
     sum += parseInt(asset.get("value"));
-    console.log(sum);
+    //console.log(sum); //Sum contains the int
     //console.log(iteration);
     //iteration++;
     // let value = parseInt(asset.value);
     // sum += value;
   });
+  //console.log(sum);
   return sum;
+}
+
+async function postCatVal(categoryId, value) {
+  const Category = Parse.Object.extend("Category");
+  const thisCategory = new Category();
+  thisCategory.set("objectId", categoryId);
+  //Maybe convert value back to string here
+  let stringValue = value.toString();
+  thisCategory.set("value", stringValue);
+  try {
+    let result = thisCategory.save();
+    alert(result + " updated category value");
+  } catch (error) {
+    alert(error);
+  }
 }
 
 export async function getAssets(categoryId, userId, setAssets) {
@@ -62,7 +78,9 @@ export async function getAssets(categoryId, userId, setAssets) {
   parseQuery.contains("userId", userId);
   try {
     let assets = await parseQuery.find();
-    getCatVal(assets);
+    const catVal = getCatVal(assets);
+    //console.log(catVal); HERE - works!!!!
+    postCatVal(categoryId, catVal);
     //console.log(assets[0].get("value")); //Maybe call function that sets category value here
     setAssets(assets);
     return assets;
@@ -72,31 +90,31 @@ export async function getAssets(categoryId, userId, setAssets) {
   }
 }
 
-//Not working: 1st attempt to GET the total value of a category by fetching all assets from database - needs to be imported to work in dashboard
-export async function getCategoryValue(categoryId, userId) {
-  let sum = 0;
-  const parseQuery = new Parse.Query("Asset");
-  parseQuery.contains("categoryId", categoryId);
-  parseQuery.contains("userId", userId);
-  try {
-    let assets = await parseQuery.find();
-    assets.map((asset) => (sum += asset.get("value")));
-  } catch (error) {
-    console.log(error);
-  }
-  return sum;
-}
+// //Not working: 1st attempt to GET the total value of a category by fetching all assets from database - needs to be imported to work in dashboard
+// export async function getCategoryValue(categoryId, userId) {
+//   let sum = 0;
+//   const parseQuery = new Parse.Query("Asset");
+//   parseQuery.contains("categoryId", categoryId);
+//   parseQuery.contains("userId", userId);
+//   try {
+//     let assets = await parseQuery.find();
+//     assets.map((asset) => (sum += asset.get("value")));
+//   } catch (error) {
+//     console.log(error);
+//   }
+//   return sum;
+// }
 
-//Not working: 2nd attempt to itterate thorugh all the assets in the assets array of dashboard (passed as assets) and then to POST the total value to the category of the database. Notice that the use of ParseInt() is an attempt to solve the issue of storing strings in the database and use them as integers here - needs to be imported to work in dashboard
-export async function postCategoryValue(categoryId, userId, assets) {
-  let sum = 0;
-  //Attempt to iterate thoguh all assetvalues to get sum
-  assets.map((asset) => (sum += parseInt(asset.value)));
-  console.log(sum);
-  try {
-    const Category = Parse.Object.extend("Category");
-    const thisCategory = new Category();
-    //Filtering of right rows in category table goes here
-    thisCategory.set("value", sum);
-  } catch (error) {}
-}
+// //Not working: 2nd attempt to itterate thorugh all the assets in the assets array of dashboard (passed as assets) and then to POST the total value to the category of the database. Notice that the use of ParseInt() is an attempt to solve the issue of storing strings in the database and use them as integers here - needs to be imported to work in dashboard
+// export async function postCategoryValue(categoryId, userId, assets) {
+//   let sum = 0;
+//   //Attempt to iterate thoguh all assetvalues to get sum
+//   assets.map((asset) => (sum += parseInt(asset.value)));
+//   console.log(sum);
+//   try {
+//     const Category = Parse.Object.extend("Category");
+//     const thisCategory = new Category();
+//     //Filtering of right rows in category table goes here
+//     thisCategory.set("value", sum);
+//   } catch (error) {}
+// }
