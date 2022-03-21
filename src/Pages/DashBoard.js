@@ -137,25 +137,17 @@ function Dashboard() {
           <div className="visibleSavedCategory">
             {categories.map((category) => (
               <Category
-                key={category.id}
-                title={category.get("name")}
+                key={category.id} // key is not a prop. Trying to access it will result in `undefined`. 
+                categoryId={category.id} // Created categoryId to access hte prop in asset.
+                title={category.get("name")} 
                 // value={() => getCategoryValue(category.id, userId)}
                 // value={() => calculateCategoryValue(assets, category.id)}
                 eventAddAsset={() => addAssetClick(category.id)} //HERE - changed from: eventAddAsset={() => setVisibleAddAsset(true)
-                assetID={assets.id}
                 assets={assets}
               />
             ))}
             
           </div>
-          
-          
-          {/* <div className="visibleAsset">
-            {assets.map((asset) => (
-              <Asset key={asset.id} title={asset.get("name")} />
-            ))}
-          </div> */}
-          
           
           
           <div className="visibleAddAsset">

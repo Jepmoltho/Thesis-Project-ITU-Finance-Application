@@ -60,29 +60,15 @@ function Category(props) {
           <Icon add event1={props.eventAddAsset} />
         </Col>
       </Row>
-      
-      {/* {props.assets.map((assetEle) => assetEle.categoryId === props.key ? <div> YES</div> : <div> NO</div> )} */}
-      
-      {props.assets.categoryId === props.key ? <div>Hej</div> : <div>NO</div>}
-      
-      <Row>
-              {/* {assets.map((asset) => (
-            <Asset key={asset.id} title={asset.get("name")} />
-          ))}  */}
-          {/* console.log({props.asset}); */}
-          {/* title={asset.get("name") */}
-
-          {/* <Asset key={props.assetId} title={props.assetName}  /> */}
-          
-
-          {console.log(props.assets)}
+              
+      <Row>        
           {props.assets.map((asset) => (
-          asset.categoryId === props.key ? <Asset key={asset.id} title={asset.get("name")} /> : null 
+          asset.attributes.categoryId === props.categoryId ? 
+            <Asset key={asset.id} title={asset.get("name")} /> 
+            : null 
           ))} 
       </Row>
 
-      
-    
     </Row>
   );
 }
