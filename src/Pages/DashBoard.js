@@ -1,5 +1,5 @@
 import Parse from "parse";
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Category from "../Components/Category";
 import Container from "react-bootstrap/Container";
@@ -10,7 +10,7 @@ import NavigationBar from "../Components/NavigationBar";
 import TopComponents from "../Components/TopComponents";
 import AddCategoryBtn from "../Components/AddCategoryBtn";
 import { postCategory, getCategories, postAsset, getAssets } from "../data";
-import { Calculate } from "@mui/icons-material";
+//import { Calculate } from "@mui/icons-material";
 
 function Dashboard() {
   const navigate = useNavigate();
@@ -147,7 +147,7 @@ function Dashboard() {
                 value={category.get("value")} //HERE
                 // value={() => getCategoryValue(category.id, userId)}
                 // value={() => calculateCategoryValue(assets, category.id)}
-                eventAddAsset={() => addAssetClick(category.id)} //HERE - changed from: eventAddAsset={() => setVisibleAddAsset(true)
+                eventAddAsset={() => addAssetClick(category.id)} //Tempoary bugfix: Step 1 //HERE - changed from: eventAddAsset={() => setVisibleAddAsset(true)
               />
             ))}
           </div>

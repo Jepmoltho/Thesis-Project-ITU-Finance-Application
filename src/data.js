@@ -72,7 +72,11 @@ async function postCatVal(categoryId, value) {
     // let result = thisCategory.save();
     //alert(result + " updated category value");
   } catch (error) {
-    alert("postCatVal " + error);
+    console.log(
+      "Error in postCatVal(): This is a tempoary solution: Cannot post a category without a name. You cannot make the name field not mandatory, because then it posts a new category without name everytime the page rerenders " +
+        error
+    );
+    //alert("postCatVal " + error);
   }
 }
 
@@ -84,7 +88,7 @@ export async function getAssets(categoryId, userId, setAssets) {
     let assets = await parseQuery.find();
     const catVal = getCatVal(assets);
     //console.log(catVal); HERE - works!!!!
-    postCatVal(categoryId, catVal);
+    postCatVal(categoryId, catVal); //Technical debt: Needs to be called correctly in useEffect
     //console.log(assets[0].get("value")); //Maybe call function that sets category value here
     setAssets(assets);
     return assets;
