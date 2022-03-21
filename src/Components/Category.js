@@ -75,6 +75,7 @@ function Category(props) {
           {/* <Asset key={props.assetId} title={props.assetName}  /> */}
           
 
+          {console.log(props.assets)}
           {props.assets.map((asset) => (
           asset.categoryId === props.key ? <Asset key={asset.id} title={asset.get("name")} /> : null 
           ))} 
