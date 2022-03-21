@@ -62,7 +62,7 @@ function Asset(props) {
           <AssetName name={props.title} />
         </Col>
         <Col style={{ margin: "auto" }}>
-          <Value value="1000" />
+          <Value value={props.value} />
         </Col>
         <Col></Col>
         <Col

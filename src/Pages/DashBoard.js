@@ -10,6 +10,7 @@ import NavigationBar from "../Components/NavigationBar";
 import TopComponents from "../Components/TopComponents";
 import AddCategoryBtn from "../Components/AddCategoryBtn";
 import { postCategory, getCategories, postAsset, getAssets } from "../data";
+import { Calculate } from "@mui/icons-material";
 
 function Dashboard() {
   const navigate = useNavigate();
@@ -28,6 +29,8 @@ function Dashboard() {
 
   //Manages list of saved assets
   const [assets, setAssets] = useState([]);
+
+  //console.log(assets);
 
   //Saves a category to database by calling postCategory in data.js
   async function saveCategory() {
@@ -71,6 +74,7 @@ function Dashboard() {
       await postAsset(assetName, assetValue, categoryId, userId); //Added await
       getAssets(categoryId, userId, setAssets); //This gets all assets related to a certain category - maybe use it to solve the issue of calculating total value of a category, since it returns all relevant assets: const assetsInCategory = getAssets(categoryId, userId, setAssets);
       //await postCategoryValue(categoryId, userId, assetsInCategory); //HERE!
+
       setVisibleAddAsset(false);
     } catch (error) {
       console.log("Errors");
@@ -79,7 +83,7 @@ function Dashboard() {
 
   //Nessesary functon that wraps function calls that needs to happen in a specific order in order to save the relevant categoryId to local storage after clicking addAsset
   function addAssetClick(categoryId) {
-    console.log("clicked")
+    //console.log("clicked");
     setVisibleAddAsset(true);
     localStorage.setItem("categoryId", categoryId);
     setCategoryId(categoryId);
@@ -140,6 +144,7 @@ function Dashboard() {
               <Category
                 key={category.id}
                 title={category.get("name")}
+                value={category.get("value")} //HERE
                 // value={() => getCategoryValue(category.id, userId)}
                 // value={() => calculateCategoryValue(assets, category.id)}
                 eventAddAsset={() => addAssetClick(category.id)} //HERE - changed from: eventAddAsset={() => setVisibleAddAsset(true)
@@ -148,30 +153,38 @@ function Dashboard() {
           </div>
           <div className="visibleAsset">
             {assets.map((asset) => (
-              <Asset key={asset.id} title={asset.get("name")} />
+              <Asset
+                key={asset.id}
+                title={asset.get("name")}
+                value={asset.get("value")} //HERE
+              />
             ))}
           </div>
           <div className="visibleAddAsset">
-              {visibleAddAsset ?
-                isBankAccount() ?   // Checks if category name is equal Banck account
-                      <EditAsset category="bank"   // Renders bank asset
-                      eventCancel={() => setVisibleAddAsset(false)}
-                      eventSave={() => saveAsset()}
-                      /> 
-                  :
-                  isRealEstate() ?   // Checks if category name is equal real estate
-                      <EditAsset category="realestate"    // Renders realestate asset
-                        eventCancel={() => setVisibleAddAsset(false)}
-                        eventSave={() => saveAsset()}
-                      />
-                    :   //If category name is neither an 'Bank account' or 'Real estate'.
-                      <EditAsset  // Renders normal asset
-                        eventCancel={() => setVisibleAddAsset(false)}
-                        eventSave={() => saveAsset()}
-                      />
-                  : //Renders an empty containe, not sure how to implement
-                    <div className="Empty container"></div>  
-            }
+            {visibleAddAsset ? (
+              isBankAccount() ? ( // Checks if category name is equal Banck account
+                <EditAsset
+                  category="bank" // Renders bank asset
+                  eventCancel={() => setVisibleAddAsset(false)}
+                  eventSave={() => saveAsset()}
+                />
+              ) : isRealEstate() ? ( // Checks if category name is equal real estate
+                <EditAsset
+                  category="realestate" // Renders realestate asset
+                  eventCancel={() => setVisibleAddAsset(false)}
+                  eventSave={() => saveAsset()}
+                />
+              ) : (
+                //If category name is neither an 'Bank account' or 'Real estate'.
+                <EditAsset // Renders normal asset
+                  eventCancel={() => setVisibleAddAsset(false)}
+                  eventSave={() => saveAsset()}
+                />
+              )
+            ) : (
+              //Renders an empty containe, not sure how to implement
+              <div className="Empty container"></div>
+            )}
           </div>
           <div className="visibleAddCategory">
             {visibleAddCategory ? (

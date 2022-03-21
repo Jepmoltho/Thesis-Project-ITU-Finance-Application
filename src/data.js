@@ -39,12 +39,31 @@ export async function postAsset(assetName, assetValue, categoryId, userId) {
   } catch (error) {}
 }
 
+function getCatVal(assets) {
+  //Map though all asset value here
+  let sum = 0;
+  let iteration = 0;
+  assets.map((asset) => {
+    //console.log(asset[0]);
+    console.log(asset.get("value"));
+    sum += parseInt(asset.get("value"));
+    console.log(sum);
+    //console.log(iteration);
+    //iteration++;
+    // let value = parseInt(asset.value);
+    // sum += value;
+  });
+  return sum;
+}
+
 export async function getAssets(categoryId, userId, setAssets) {
   const parseQuery = new Parse.Query("Asset");
   parseQuery.contains("categoryId", categoryId);
   parseQuery.contains("userId", userId);
   try {
     let assets = await parseQuery.find();
+    getCatVal(assets);
+    //console.log(assets[0].get("value")); //Maybe call function that sets category value here
     setAssets(assets);
     return assets;
   } catch (error) {
