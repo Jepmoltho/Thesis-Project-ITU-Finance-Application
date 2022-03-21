@@ -10,7 +10,6 @@ import NavigationBar from "../Components/NavigationBar";
 import TopComponents from "../Components/TopComponents";
 import AddCategoryBtn from "../Components/AddCategoryBtn";
 import { postCategory, getCategories, postAsset, getAssets } from "../data";
-//import { Calculate } from "@mui/icons-material";
 
 function Dashboard() {
   const navigate = useNavigate();
@@ -70,11 +69,8 @@ function Dashboard() {
     try {
       const assetName = localStorage.getItem("assetName");
       const assetValue = localStorage.getItem("assetValue");
-      //const testAssetValue = assetValue + 100;
       await postAsset(assetName, assetValue, categoryId, userId); //Added await
       getAssets(categoryId, userId, setAssets); //This gets all assets related to a certain category - maybe use it to solve the issue of calculating total value of a category, since it returns all relevant assets: const assetsInCategory = getAssets(categoryId, userId, setAssets);
-      //await postCategoryValue(categoryId, userId, assetsInCategory); //HERE!
-
       setVisibleAddAsset(false);
     } catch (error) {
       console.log("Errors");
@@ -83,11 +79,9 @@ function Dashboard() {
 
   //Nessesary functon that wraps function calls that needs to happen in a specific order in order to save the relevant categoryId to local storage after clicking addAsset
   function addAssetClick(categoryId) {
-    //console.log("clicked");
     setVisibleAddAsset(true);
     localStorage.setItem("categoryId", categoryId);
     setCategoryId(categoryId);
-    // getAssets(categoryId, userId, setAssets);
   }
 
   //User login/logout related
@@ -144,10 +138,8 @@ function Dashboard() {
               <Category
                 key={category.id}
                 title={category.get("name")}
-                value={category.get("value")} //HERE
-                // value={() => getCategoryValue(category.id, userId)}
-                // value={() => calculateCategoryValue(assets, category.id)}
-                eventAddAsset={() => addAssetClick(category.id)} //Tempoary bugfix: Step 1 //HERE - changed from: eventAddAsset={() => setVisibleAddAsset(true)
+                value={category.get("value")}
+                eventAddAsset={() => addAssetClick(category.id)}
               />
             ))}
           </div>
@@ -156,7 +148,7 @@ function Dashboard() {
               <Asset
                 key={asset.id}
                 title={asset.get("name")}
-                value={asset.get("value")} //HERE
+                value={asset.get("value")}
               />
             ))}
           </div>
@@ -182,7 +174,7 @@ function Dashboard() {
                 />
               )
             ) : (
-              //Renders an empty containe, not sure how to implement
+              //Renders an empty container, not sure how to implement
               <div className="Empty container"></div>
             )}
           </div>

@@ -12,7 +12,6 @@ export async function postCategory(name, userId) {
   } catch (error) {}
 }
 
-//Another method to retrieve from DB, now that they are saved?
 export async function getCategories(userId, setCategories) {
   const parseQuery = new Parse.Query("Category");
   parseQuery.contains("userId", userId);
@@ -41,21 +40,12 @@ export async function postAsset(assetName, assetValue, categoryId, userId) {
 }
 
 function getCatVal(assets) {
-  //Map though all asset value here
+  //Note: Techincal debt - there is no reason we are not just treating assets as numbers/ints consistently
   let sum = 0;
-  //let iteration = 0;
   assets.map((asset) => {
-    //console.log(asset[0]);
-    //console.log(asset.get("value"));
     sum += parseInt(asset.get("value"));
-    //console.log(sum); //Sum contains the int
-    //console.log(iteration);
-    //iteration++;
-    // let value = parseInt(asset.value);
-    // sum += value;
     return sum; //If error, check what this does
   });
-  //console.log(sum);
   return sum;
 }
 
@@ -63,20 +53,16 @@ async function postCatVal(categoryId, value) {
   const Category = Parse.Object.extend("Category");
   const thisCategory = new Category();
   thisCategory.set("objectId", categoryId);
-  //Maybe convert value back to string here
-  // let stringValue = value.toString();
-  //It's because the name is required in the DB
+  //Semantic bug: Works as intented but causes console error - It's because the name is required in the DB
   thisCategory.set("value", value);
   try {
     await thisCategory.save();
-    // let result = thisCategory.save();
-    //alert(result + " updated category value");
+    console.log("Saved category value to DB");
   } catch (error) {
     console.log(
       "Error in postCatVal(): This is a tempoary solution: Cannot post a category without a name. You cannot make the name field not mandatory, because then it posts a new category without name everytime the page rerenders " +
         error
     );
-    //alert("postCatVal " + error);
   }
 }
 
@@ -86,10 +72,9 @@ export async function getAssets(categoryId, userId, setAssets) {
   parseQuery.contains("userId", userId);
   try {
     let assets = await parseQuery.find();
+    //Saves total category value in catVal which it gets from the array of asset related to a cetain category
     const catVal = getCatVal(assets);
-    //console.log(catVal); HERE - works!!!!
-    postCatVal(categoryId, catVal); //Technical debt: Needs to be called correctly in useEffect
-    //console.log(assets[0].get("value")); //Maybe call function that sets category value here
+    postCatVal(categoryId, catVal); //Technical debt: Needs to be called correctly in useEffect because we don't want it to be called when we are getting assets
     setAssets(assets);
     return assets;
   } catch (error) {
