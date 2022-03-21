@@ -21,7 +21,7 @@ function Dashboard() {
   const [visibleAddCategory, setVisibleAddCategory] = useState(false);
 
   //Manages display if addAssetComponent upon pressing addAsset and dissapear upon pressing cancel
-  const [visibleAddAsset, setVisibleAddAsset] = useState(false);
+  // const [visibleAddAsset, setVisibleAddAsset] = useState(false);
 
   //Manages list of saved categories
   const [categories, setCategories] = useState([]);
@@ -36,7 +36,7 @@ function Dashboard() {
       await postCategory(categoryName, userId); //Added await
       getCategories(userId, setCategories); //Moved this up hear insted of in useEffect
       getAssets(categoryId, userId, setAssets);
-      setVisibleAddCategory(false);
+      // setVisibleAddCategory(false);  
     } catch (error) {
       console.log("Errors");
     }
@@ -51,7 +51,7 @@ function Dashboard() {
       await postAsset(assetName, assetValue, categoryId, userId); //Added await
       getAssets(categoryId, userId, setAssets); //This gets all assets related to a certain category - maybe use it to solve the issue of calculating total value of a category, since it returns all relevant assets: const assetsInCategory = getAssets(categoryId, userId, setAssets);
       //await postCategoryValue(categoryId, userId, assetsInCategory); //HERE!
-      setVisibleAddAsset(false);
+      // setVisibleAddAsset(false); //----------DEAL HERE-----------
     } catch (error) {
       console.log("Errors");
     }
@@ -60,7 +60,7 @@ function Dashboard() {
   //Nessesary functon that wraps function calls that needs to happen in a specific order in order to save the relevant categoryId to local storage after clicking addAsset
   function addAssetClick(categoryId) {
     console.log("clicked")
-    setVisibleAddAsset(true);
+    // setVisibleAddAsset(true); //----------DEAL HERE-----------
     localStorage.setItem("categoryId", categoryId);
     setCategoryId(categoryId);
     // getAssets(categoryId, userId, setAssets);
@@ -125,7 +125,7 @@ function Dashboard() {
                 // value={() => calculateCategoryValue(assets, category.id)}
                 eventAddAsset={() => addAssetClick(category.id)} //HERE - changed from: eventAddAsset={() => setVisibleAddAsset(true)
                 assets={assets}
-                isAddAssetVisable={visibleAddAsset}
+                // isAddAssetVisable={visibleAddAsset} //----------DEAL HERE-----------
               />
             ))}
             

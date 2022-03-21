@@ -1,3 +1,4 @@
+import { useState } from "react";
 import "bootstrap/dist/css/bootstrap.css";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -14,6 +15,10 @@ import EditAsset from "../Components/EditAsset"
 
 
 function Category(props) {
+
+
+  const [visibleAddAsset, setVisibleAddAsset] = useState(false);
+
   return (
 
     // --------------Category -----------------------
@@ -81,7 +86,7 @@ function Category(props) {
      {/* -------------- Add Asset -----------------------               */}
       <Row>
       {
-        props.isAddAssetVisable ?
+        visibleAddAsset ?
           props.title === "Real Estate" ?
             <EditAsset category="realestate"    // Renders realestate asset
               //eventCancel={() => setVisibleAddAsset(false)}
