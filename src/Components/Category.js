@@ -13,7 +13,7 @@ import Asset from "../Components/Asset";
 
 function Category(props) {
   return (
-    <Row>
+    <div>
       <Row className="category">
         <Col className="col-sm-1" style={{ margin: "auto" }}>
           <CategoryIcon categoryIcon="Stocks" />
@@ -71,7 +71,7 @@ function Category(props) {
           ) : null
         )}
       </Row>
-    </Row>
+    </div>
   );
 }
 

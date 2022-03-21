@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Category from "../Components/Category";
 import Container from "react-bootstrap/Container";
-//import Asset from "../Components/Asset";
 import AddCategory from "../Components/AddCategory";
 import EditAsset from "../Components/EditAsset";
 import NavigationBar from "../Components/NavigationBar";
@@ -136,27 +135,17 @@ function Dashboard() {
           <div className="visibleSavedCategory">
             {categories.map((category) => (
               <Category
-                key={category.id} // key is not a prop. Trying to access it will result in `undefined`.
-                categoryId={category.id} // Created categoryId to access hte prop in asset.
+                key={category.id} //Key is not a prop. Trying to access it will result in `undefined`.
+                categoryId={category.id} // Created categoryId to access the prop in asset.
                 title={category.get("name")}
                 value={category.get("value")}
-                // value={() => getCategoryValue(category.id, userId)}
-                // value={() => calculateCategoryValue(assets, category.id)}
-                eventAddAsset={() => addAssetClick(category.id)} //HERE - changed from: eventAddAsset={() => setVisibleAddAsset(true)
+                eventAddAsset={() => addAssetClick(category.id)}
                 assets={assets}
               />
             ))}
           </div>
 
-          {/* <div className="visibleAsset">
-            {assets.map((asset) => (
-              <Asset
-                key={asset.id}
-                title={asset.get("name")}
-                value={asset.get("value")}
-              />
-            ))}
-          </div> */}
+          {/*Removed assets.map because it happens in categories now thorugh a passed down assets array in probs*/}
 
           <div className="visibleAddAsset">
             {visibleAddAsset ? (
@@ -205,152 +194,3 @@ function Dashboard() {
 }
 
 export default Dashboard;
-
-/*
-
-  // Not working: Attempt at calculating total value of category locally
-  // function calculateCategoryValue(assets, categoryId) {
-  //   let sum = 0;
-  //   assets.forEach((asset) => {
-  //     if (asset.categoryId === categoryId) {
-  //       sum += asset.value;
-  //     }
-  //   });
-  //   return sum;
-  //   console.log(sum);
-  //   // if (asset.categoryId === categoryId) {
-  //   //   sum += asset.value;
-  //   // }
-  //   // return sum;
-  // }
-
-  // Not working: Attempt at implementing a sorting algorithm component to display categories and assets in the right order
-  // function displayCategoriesAndAssets2(categories, assets) {
-  //   //User filter and map methods (lambdas)
-  //   //const categoriesAndAssets = categories + assets;
-  //   // const sorted = categories.forEach((category) => {
-  //   //   if (category.id === assets.categoryId)
-  //   // });
-  //   // const sorted = assets.forEach((asset) => {
-  //   //   if (asset.categoryId === categoryId.categoryId)
-  //   // });
-
-  //   return <div class="categoriesAndAssets"></div>;
-  // }
-
-
-
-    //Bug: Doesn't work with userPointer
-  // var userPointer = {
-  //   __type: "Pointer",
-  //   className: "User",
-  //   objectId: userId,
-  // };
-
-  //Not used yet: Think they are gonna be used to update category list after each new creation
-  // const [readResults, setReadResults] = useState("");
-  // const readCategories = async function () {
-  //   const parseQuery = new Parse.Query("Category");
-  //   try {
-  //     let categories = await parseQuery.find();
-  //     setReadResults(categories);
-  //     return true;
-  //   } catch (error) {
-  //     alert("Error");
-  //     return false;
-  //   }
-  // };
-
-
-OLD catagory map component
- {{categoryComponents.map((item, i) => (
-            <Category />
-          ))}
-          <br />
-          {addCategoryComponents.map((item, i) => (
-            <AddCategory
-              eventSave={addCategoryComponent}
-              eventCancel={cancelAddCategoryComponent}
-            />
-          ))}}
-          <br />
-          {<AddCategoryBtn event={addAddCategoryComponent} /> }
-
-<Category title="Stocks" />
-          <br />
-          <AddCategory type="automatic" />
-          <br />
-          <AddCategory type="manual" />
-          <br />
-          <Asset normal />
-          <br />
-          <Asset debt />
-          <br />
-          <Asset realestate />
-          <br />
-          <EditAsset />
-          <br />
-          <EditAsset realestateman />
-          <br />
-          <EditAsset realestateauto />
-          <br />
-          <EditAsset bankman />
-          <br />
-          <EditAsset bankauto />
-
-
-
-
-            // console.log(UserPointer);
-
-  // const [categoryComponents, setCategoryComponents] = useState([""]);
-  // function addCategoryComponent() {
-  //   setCategoryComponents([...categoryComponents, ""]);
-  // }
-  // //https://upmostly.com/tutorials/calling-a-react-component-on-button-click
-  // //Note to self: Empty string is needed to compile - its an array of strings. Think you can use it to pass props - read link above
-  // const [addCategoryComponents, setAddCategoryComponents] = useState([""]);
-  // function addAddCategoryComponent() {
-  //   setAddCategoryComponents([...addCategoryComponents, ""]);
-  // }
-  // //Bug: Removes all addCategory
-  // function cancelAddCategoryComponent() {
-  //   setAddCategoryComponents([...addCategoryComponents.pop(), ""]);
-  // }
-
-  // const readTodos = async function () {
-  //   // Reading parse objects is done by using Parse.Query
-  //   const parseQuery = new Parse.Query('Todo');
-  //   try {
-  //     let todos = await parseQuery.find();
-  //     // Be aware that empty or invalid queries return as an empty array
-  //     // Set results to state variable
-  //     setReadResults(todos);
-  //     return true;
-  //   } catch (error) {
-  //     // Error can be caused by lack of Internet connection
-  //     Alert.alert('Error!', error.message);
-  //     return false;
-  //   };
-  // };
-
-    // const updateTodo = async function (todoId, done) {
-  //   // Create a new todo parse object instance and set todo id
-  //   let Todo = new Parse.Object('Todo');
-  //   Todo.set('objectId', todoId);
-  //   // Set new done value and save Parse Object changes
-  //   Todo.set('done', done);
-  //   try {
-  //     await Todo.save();
-  //     // Success
-  //     Alert.alert('Success!', 'Todo updated!');
-  //     // Refresh todos list
-  //     readTodos();
-  //     return true;
-  //   } catch (error) {
-  //     // Error can be caused by lack of Internet connection
-  //     Alert.alert('Error!', error.message);
-  //     return false;
-  //   };
-  // };
-*/
