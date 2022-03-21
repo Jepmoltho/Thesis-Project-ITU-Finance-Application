@@ -11,7 +11,6 @@ import ArrowDropDownRoundedIcon from "@mui/icons-material/ArrowDropDownRounded";
 import Button from "@mui/material/Button";
 import Asset from "../Components/Asset";
 
-
 function Category(props) {
   return (
     <Row>
@@ -60,15 +59,18 @@ function Category(props) {
           <Icon add event1={props.eventAddAsset} />
         </Col>
       </Row>
-              
-      <Row>        
-          {props.assets.map((asset) => (
-          asset.attributes.categoryId === props.categoryId ? 
-            <Asset key={asset.id} title={asset.get("name")} /> 
-            : null 
-          ))} 
-      </Row>
 
+      <Row>
+        {props.assets.map((asset) =>
+          asset.attributes.categoryId === props.categoryId ? (
+            <Asset
+              key={asset.id}
+              title={asset.get("name")}
+              value={asset.get("value")}
+            />
+          ) : null
+        )}
+      </Row>
     </Row>
   );
 }

@@ -1,9 +1,9 @@
 import Parse from "parse";
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Category from "../Components/Category";
 import Container from "react-bootstrap/Container";
-import Asset from "../Components/Asset";
+//import Asset from "../Components/Asset";
 import AddCategory from "../Components/AddCategory";
 import EditAsset from "../Components/EditAsset";
 import NavigationBar from "../Components/NavigationBar";
@@ -28,6 +28,8 @@ function Dashboard() {
 
   //Manages list of saved assets
   const [assets, setAssets] = useState([]);
+
+  //console.log(assets);
 
   //Saves a category to database by calling postCategory in data.js
   async function saveCategory() {
@@ -67,10 +69,8 @@ function Dashboard() {
     try {
       const assetName = localStorage.getItem("assetName");
       const assetValue = localStorage.getItem("assetValue");
-      //const testAssetValue = assetValue + 100;
       await postAsset(assetName, assetValue, categoryId, userId); //Added await
       getAssets(categoryId, userId, setAssets); //This gets all assets related to a certain category - maybe use it to solve the issue of calculating total value of a category, since it returns all relevant assets: const assetsInCategory = getAssets(categoryId, userId, setAssets);
-      //await postCategoryValue(categoryId, userId, assetsInCategory); //HERE!
       setVisibleAddAsset(false);
     } catch (error) {
       console.log("Errors");
@@ -79,11 +79,9 @@ function Dashboard() {
 
   //Nessesary functon that wraps function calls that needs to happen in a specific order in order to save the relevant categoryId to local storage after clicking addAsset
   function addAssetClick(categoryId) {
-    console.log("clicked")
     setVisibleAddAsset(true);
     localStorage.setItem("categoryId", categoryId);
     setCategoryId(categoryId);
-    // getAssets(categoryId, userId, setAssets);
   }
 
   //User login/logout related
@@ -138,40 +136,53 @@ function Dashboard() {
           <div className="visibleSavedCategory">
             {categories.map((category) => (
               <Category
-                key={category.id} // key is not a prop. Trying to access it will result in `undefined`. 
+                key={category.id} // key is not a prop. Trying to access it will result in `undefined`.
                 categoryId={category.id} // Created categoryId to access hte prop in asset.
-                title={category.get("name")} 
+                title={category.get("name")}
+                value={category.get("value")}
                 // value={() => getCategoryValue(category.id, userId)}
                 // value={() => calculateCategoryValue(assets, category.id)}
                 eventAddAsset={() => addAssetClick(category.id)} //HERE - changed from: eventAddAsset={() => setVisibleAddAsset(true)
                 assets={assets}
               />
             ))}
-            
           </div>
-          
-          
+
+          {/* <div className="visibleAsset">
+            {assets.map((asset) => (
+              <Asset
+                key={asset.id}
+                title={asset.get("name")}
+                value={asset.get("value")}
+              />
+            ))}
+          </div> */}
+
           <div className="visibleAddAsset">
-              {visibleAddAsset ?
-                isBankAccount() ?   // Checks if category name is equal Banck account
-                      <EditAsset category="bank"   // Renders bank asset
-                      eventCancel={() => setVisibleAddAsset(false)}
-                      eventSave={() => saveAsset()}
-                      /> 
-                  :
-                  isRealEstate() ?   // Checks if category name is equal real estate
-                      <EditAsset category="realestate"    // Renders realestate asset
-                        eventCancel={() => setVisibleAddAsset(false)}
-                        eventSave={() => saveAsset()}
-                      />
-                    :   //If category name is neither an 'Bank account' or 'Real estate'.
-                      <EditAsset  // Renders normal asset
-                        eventCancel={() => setVisibleAddAsset(false)}
-                        eventSave={() => saveAsset()}
-                      />
-                  : //Renders an empty containe, not sure how to implement
-                    <div className="Empty container"></div>  
-            }
+            {visibleAddAsset ? (
+              isBankAccount() ? ( // Checks if category name is equal Banck account
+                <EditAsset
+                  category="bank" // Renders bank asset
+                  eventCancel={() => setVisibleAddAsset(false)}
+                  eventSave={() => saveAsset()}
+                />
+              ) : isRealEstate() ? ( // Checks if category name is equal real estate
+                <EditAsset
+                  category="realestate" // Renders realestate asset
+                  eventCancel={() => setVisibleAddAsset(false)}
+                  eventSave={() => saveAsset()}
+                />
+              ) : (
+                //If category name is neither an 'Bank account' or 'Real estate'.
+                <EditAsset // Renders normal asset
+                  eventCancel={() => setVisibleAddAsset(false)}
+                  eventSave={() => saveAsset()}
+                />
+              )
+            ) : (
+              //Renders an empty container, not sure how to implement
+              <div className="Empty container"></div>
+            )}
           </div>
           <div className="visibleAddCategory">
             {visibleAddCategory ? (
