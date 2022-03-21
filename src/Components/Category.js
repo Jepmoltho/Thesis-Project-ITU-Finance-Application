@@ -14,6 +14,8 @@ import Asset from "../Components/Asset";
 
 function Category(props) {
   return (
+
+    // --------------Category -----------------------
     <Row>
       <Row className="category">
         <Col className="col-sm-1" style={{ margin: "auto" }}>
@@ -60,13 +62,21 @@ function Category(props) {
           <Icon add event1={props.eventAddAsset} />
         </Col>
       </Row>
-              
+
+
+     {/* -------------- Asset -----------------------               */}
       <Row>        
           {props.assets.map((asset) => (
           asset.attributes.categoryId === props.categoryId ? 
             <Asset key={asset.id} title={asset.get("name")} /> 
             : null 
           ))} 
+      </Row>
+
+
+     {/* -------------- Add Asset -----------------------               */}
+      <Row>
+        
       </Row>
 
     </Row>
