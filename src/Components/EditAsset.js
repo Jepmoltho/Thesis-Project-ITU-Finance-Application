@@ -64,63 +64,111 @@ function EditAsset(props) {
   }, [inputName, inputValue]);
   
   switch(category){
-    case (props.realestate):
-      return ( // What should be render if switch is true
-      <Row className="asset">
-        <Col className="col-sm-1" style={{ margin: "auto" }}>
-          <Tag text="Calculate pr. m²" />
-          <Switch />
-        </Col>
-        <Col className="col-sm-3" style={{ margin: "auto" }}>
-          <TextField
-            label="Name of property"
-            value={inputName}
-            onChange={handleChangeInputName}
-            fullWidth
-            size="small"
-          />
-        </Col>
-        <Col className="col-sm-1" style={{ margin: "auto" }}>
-          <TextField
-            label="m2"
-            value={inputM2}
-            onChange={handleChangeInputM2}
-            fullWidth
-            size="small"
-          />
-        </Col>
-        <Col className="col-sm-2" style={{ margin: "auto" }}>
-          <TextField
-            label="price pr. m2"
-            value={inputPriceM2}
-            onChange={handleChangeInputPriceM2}
-            fullWidth
-            size="small"
-          />
-        </Col>
-        <Col className="col-sm-3"></Col>
-        <Col
-          className="col-sm-2"
-          style={{ margin: "auto", paddingLeft: "0px" }}
-        >
-          <ButtonGroup 
-            primaryText="Save"
-            secondaryText="Cancel"
-            event1={props.eventSave}
-            event2={props.eventCancel} 
+    case ('realestate'):
+      if (checked === true){
+        return ( // What should be render if switch is true
+        <Row className="asset">
+          <Col className="col-sm-1" style={{ margin: "auto" }}>
+            <Tag text="Calculate pr. m²" />
+            <Switch 
+              checked={checked}
+              onChange={handleChange}
             />
-        </Col>
-      </Row>
-    );
+          </Col>
+          <Col className="col-sm-3" style={{ margin: "auto" }}>
+            <TextField
+              label="Name of property"
+              value={inputName}
+              onChange={handleChangeInputName}
+              fullWidth
+              size="small"
+            />
+          </Col>
+          <Col className="col-sm-1" style={{ margin: "auto" }}>
+            <TextField
+              label="m2"
+              value={inputM2}
+              onChange={handleChangeInputM2}
+              fullWidth
+              size="small"
+            />
+          </Col>
+          <Col className="col-sm-2" style={{ margin: "auto" }}>
+            <TextField
+              label="price pr. m2"
+              value={inputPriceM2}
+              onChange={handleChangeInputPriceM2}
+              fullWidth
+              size="small"
+            />
+          </Col>
+          <Col className="col-sm-3"></Col>
+          <Col
+            className="col-sm-2"
+            style={{ margin: "auto", paddingLeft: "0px" }}
+          >
+            <ButtonGroup 
+              primaryText="Save"
+              secondaryText="Cancel"
+              event1={props.eventSave}
+              event2={props.eventCancel} 
+              />
+          </Col>
+        </Row>
+        );
+      } else {
+        return(
+          <Row className="asset">
+          <Col className="col-sm-1" style={{ margin: "auto" }}>
+            <Tag text="Calculate pr. m²" />
+            <Switch 
+              checked={checked}
+              onChange={handleChange}
+            />
+          </Col>
+          <Col style={{ margin: "auto" }}>
+            <TextField
+              label="Name of property"
+              value={inputName}
+              onChange={handleChangeInputName}
+              fullWidth
+              size="small"
+            />
+          </Col>
+          <Col style={{ margin: "auto" }}>
+            <TextField
+              label="Value"
+              value={inputValue}
+              onChange={handleChangeInputValue}
+              fullWidth
+              size="small"
+            />
+          </Col>
+          <Col></Col>
+          <Col
+            className="col-sm-2"
+            style={{ margin: "auto", paddingLeft: "0px" }}
+          >
+            <ButtonGroup 
+              primaryText="Save" 
+              secondaryText="Cancel" 
+              event1={props.eventSave}
+              event2={props.eventCancel} 
+            />
+          </Col>
+        </Row>
+        );
+      }
 
-    case (props.bank):
+    case ('bank'):
+      if (checked === true){
         return ( // copied from props.bankauto
           <Row className="asset">
             <Col className="col-sm-1" style={{ margin: "auto" }}>
               <Tag text="Connect bank" />
               <Switch 
-                checked={true}
-                onChange={props.toggle()}
+                checked={checked}
+                onChange={handleChange}
               />
             </Col>
             <Col style={{ margin: "auto" }}>
@@ -168,6 +216,49 @@ function EditAsset(props) {
             </Col>
           </Row>
         );
+      } else {
+        return (
+          <Row className="asset">
+          <Col className="col-sm-1" style={{ margin: "auto" }}>
+            <Tag text="Connect bank" />
+            <Switch 
+              checked={checked}
+              onChange={handleChange}
+            />
+          </Col>
+          <Col style={{ margin: "auto" }}>
+            <TextField
+              label="Name of bank account"
+              value={inputName}
+              onChange={handleChangeInputName}
+              fullWidth
+              size="small"
+            />{" "}
+          </Col>
+          <Col style={{ margin: "auto" }}>
+            <TextField
+              label="Value"
+              value={inputValue}
+              onChange={handleChangeInputValue}
+              fullWidth
+              size="small"
+            />
+          </Col>
+          <Col></Col>
+          <Col
+            className="col-sm-2"
+            style={{ margin: "auto", paddingLeft: "0px" }}
+          >
+            <ButtonGroup 
+              primaryText="Save" 
+              secondaryText="Cancel"
+              event1={props.eventSave}
+              event2={props.eventCancel}  
+              />
+          </Col>
+        </Row>
+        );
+      }
 
     default:
         return (
