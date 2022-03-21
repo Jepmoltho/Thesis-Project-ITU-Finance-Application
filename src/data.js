@@ -12,6 +12,7 @@ export async function postCategory(name, userId) {
   } catch (error) {}
 }
 
+//Another method to retrieve from DB, now that they are saved?
 export async function getCategories(userId, setCategories) {
   const parseQuery = new Parse.Query("Category");
   parseQuery.contains("userId", userId);
@@ -52,6 +53,7 @@ function getCatVal(assets) {
     //iteration++;
     // let value = parseInt(asset.value);
     // sum += value;
+    return sum; //If error, check what this does
   });
   //console.log(sum);
   return sum;
@@ -62,13 +64,15 @@ async function postCatVal(categoryId, value) {
   const thisCategory = new Category();
   thisCategory.set("objectId", categoryId);
   //Maybe convert value back to string here
-  let stringValue = value.toString();
-  thisCategory.set("value", stringValue);
+  // let stringValue = value.toString();
+  //It's because the name is required in the DB
+  thisCategory.set("value", value);
   try {
-    let result = thisCategory.save();
-    alert(result + " updated category value");
+    await thisCategory.save();
+    // let result = thisCategory.save();
+    //alert(result + " updated category value");
   } catch (error) {
-    alert(error);
+    alert("postCatVal " + error);
   }
 }
 
