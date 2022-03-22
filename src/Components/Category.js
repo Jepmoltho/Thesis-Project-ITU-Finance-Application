@@ -19,7 +19,7 @@ import AddAssetBtn from "../Components/AddAssetBtn"
 function Category(props) {
 
 
-  const [visibleAddAsset, setVisibleAddAsset] = useState(false);
+  // const [visibleAddAsset, setVisibleAddAsset] = useState(true);
 
 
 
@@ -70,9 +70,10 @@ function Category(props) {
         <Col className="col-sm-1">
           <Icon edit />
           
-          {/* HERE */}
+          {/* Add new asset button*/}
           
-          <Icon add event1={props.eventAddAsset} />
+          <Icon add event1={props.eventAddAsset} 
+          />
         </Col>
       </Row>
 
@@ -91,9 +92,9 @@ function Category(props) {
      {/* -------------- Add Asset -----------------------               */}
       <Row>
       {
-        visibleAddAsset ?
+        props.isAddAssetVisible ?
           props.title === "Real Estate" ?
-            <EditAsset category="realestate"    // Renders realestate asset
+            <EditAsset category="realestate"    // Renders real estate asset
               //eventCancel={() => setVisibleAddAsset(false)}
               //eventSave={() => saveAsset()}
             />
@@ -104,11 +105,10 @@ function Category(props) {
                 //eventSave={() => saveAsset()}
                 />
               :
-              <EditAsset  // Renders normal asset
+              <EditAsset  // Normal asset
                   //eventCancel={() => setVisibleAddAsset(false)}
                   //eventSave={() => saveAsset()}
               />
-
         :
           null
       }

@@ -21,7 +21,11 @@ function Dashboard() {
   const [visibleAddCategory, setVisibleAddCategory] = useState(false);
 
   //Manages display if addAssetComponent upon pressing addAsset and dissapear upon pressing cancel
-  // const [visibleAddAsset, setVisibleAddAsset] = useState(false);
+  const [visibleAddAsset, setVisibleAddAsset] = useState({
+    isVisible: false,
+    categoryId: categoryId
+  });
+
 
   //Manages list of saved categories
   const [categories, setCategories] = useState([]);
@@ -64,6 +68,11 @@ function Dashboard() {
     localStorage.setItem("categoryId", categoryId);
     setCategoryId(categoryId);
     // getAssets(categoryId, userId, setAssets);
+    // if (categoryId === visibleAddAsset.categoryId)
+    setVisibleAddAsset( prevVisible => ({
+      ...prevVisible,
+      isVisible: !prevVisible.isVisible
+    }))
   }
 
   //User login/logout related
@@ -125,7 +134,7 @@ function Dashboard() {
                 // value={() => calculateCategoryValue(assets, category.id)}
                 eventAddAsset={() => addAssetClick(category.id)} //HERE - changed from: eventAddAsset={() => setVisibleAddAsset(true)
                 assets={assets}
-                // isAddAssetVisable={visibleAddAsset} //----------DEAL HERE-----------
+                isAddAssetVisible={visibleAddAsset.isVisible} //----------DEAL HERE-----------
               />
             ))}
             
