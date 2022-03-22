@@ -101,7 +101,6 @@ function Dashboard() {
     });
     setAssetsTotal(assetsSum);
     setDebtTotal(debtSum);
-    // const netWorth = assetsSum + debtSum;
     setNetWorth(assetsSum + debtSum);
   }
 
@@ -112,10 +111,8 @@ function Dashboard() {
     getCurrentUser();
     getCategories(userId, setCategories); //Moved this up hear insted of in useEffect
     getAssets(categoryId, userId, setAssets);
-    calculateNetWorth(categories);
-    console.log(assetsTotal);
-    console.log(debtTotal);
-  }, [userId, categoryId, assetsTotal]);
+    calculateNetWorth(categories); //Bug: Doesn't render values upon login, only after you click something like add asset. Think it has something to do with this: https://reactjs.org/docs/faq-state.html#what-is-the-difference-between-state-and-props
+  }, [userId, categoryId]);
 
   //User login/logout related
   async function getCurrentUser() {
