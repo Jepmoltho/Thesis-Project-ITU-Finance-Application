@@ -50,6 +50,7 @@ function TopComponents(props) {
             <Overview
               assetsTotal={props.assetsTotal}
               debtTotal={props.debtTotal}
+              netWorth={props.netWorth}
             />
           </Col>
           <Col

@@ -31,6 +31,7 @@ function Dashboard() {
   //console.log(assets);
   const [assetsTotal, setAssetsTotal] = useState("");
   const [debtTotal, setDebtTotal] = useState("");
+  const [netWorth, setNetWorth] = useState("");
 
   //Saves a category to database by calling postCategory in data.js
   async function saveCategory() {
@@ -88,6 +89,7 @@ function Dashboard() {
   function calculateNetWorth(categories) {
     let assetsSum = 0;
     let debtSum = 0;
+    //let netWorth = 0;
     categories.map((category) => {
       if (category.get("value") >= 0) {
         assetsSum += category.get("value");
@@ -99,6 +101,8 @@ function Dashboard() {
     });
     setAssetsTotal(assetsSum);
     setDebtTotal(debtSum);
+    // const netWorth = assetsSum + debtSum;
+    setNetWorth(assetsSum + debtSum);
   }
 
   //User login/logout related
@@ -151,7 +155,11 @@ function Dashboard() {
         <NavigationBar />
         <Container>
           <h2>Welcome {currentUser.get("username")}</h2>
-          <TopComponents assetsTotal={assetsTotal} debtTotal={debtTotal} />
+          <TopComponents
+            assetsTotal={assetsTotal}
+            debtTotal={debtTotal}
+            netWorth={netWorth}
+          />
           <br />
           <div className="visibleSavedCategory">
             {categories.map((category) => (
