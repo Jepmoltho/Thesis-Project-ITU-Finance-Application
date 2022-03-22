@@ -12,7 +12,7 @@ import ArrowDropDownRoundedIcon from "@mui/icons-material/ArrowDropDownRounded";
 import Button from "@mui/material/Button";
 import Asset from "../Components/Asset";
 import EditAsset from "../Components/EditAsset"
-import { isVisible } from "@testing-library/user-event/dist/utils";
+// import { isVisible } from "@testing-library/user-event/dist/utils";
 import AddAssetBtn from "../Components/AddAssetBtn"
 
 
@@ -72,7 +72,8 @@ function Category(props) {
           
           {/* Add new asset button*/}
           
-          <Icon add event1={props.eventAddAsset} 
+          <Icon add event1={props.eventAddAsset}
+
           />
         </Col>
       </Row>
@@ -91,8 +92,11 @@ function Category(props) {
 
      {/* -------------- Add Asset -----------------------               */}
       <Row>
-      {
-        props.isAddAssetVisible ?
+      {/* {console.log("props.visibleAddAsset.isVisible = " + props.visibleAddAsset.isVisible)}
+      {console.log("props.visibleAddAsset.categoryId = " + props.visibleAddAsset.categoryId)}
+      {console.log("props.categoryId = "+props.categoryId)} */}
+      { 
+        props.visibleAddAsset.isVisible ?
           props.title === "Real Estate" ?
             <EditAsset category="realestate"    // Renders real estate asset
               //eventCancel={() => setVisibleAddAsset(false)}

@@ -10,6 +10,7 @@ import NavigationBar from "../Components/NavigationBar";
 import TopComponents from "../Components/TopComponents";
 import AddCategoryBtn from "../Components/AddCategoryBtn";
 import { postCategory, getCategories, postAsset, getAssets } from "../data";
+import { set } from "parse/lib/browser/CoreManager";
 
 function Dashboard() {
   const navigate = useNavigate();
@@ -20,16 +21,43 @@ function Dashboard() {
   //Manages display of addCategoryComponent upon pressing addCategory and dissapear upon pressing cancel
   const [visibleAddCategory, setVisibleAddCategory] = useState(false);
 
-  //Manages display if addAssetComponent upon pressing addAsset and dissapear upon pressing cancel
-  const [visibleAddAsset, setVisibleAddAsset] = useState({
-    isVisible: false,
-    categoryId: categoryId
-  });
-
-
+  
   //Manages list of saved categories
   const [categories, setCategories] = useState([]);
+  //Manages display if addAssetComponent upon pressing addAsset and dissapear upon pressing cancel
+  const [visibleAddAsset, setVisibleAddAsset] = useState(
+    initVisibleAddAsset()
+    // [{
+    // categoryId: categoryId,
+    // isVisible: false
+    // }]
+  );
+  
+  
+  // console.log("categoryId: = " + categoryId)
+  // console.log("visible.categoryId = " + visibleAddAsset.categoryId)
+  // console.log("categories = " + categories.map(e => console.log(e)))
 
+  function initVisibleAddAsset(){
+    const arr = []
+    for (let i = 0; i < categories.length; i++) {
+      const catId = categories[i].id
+      const isVis = false
+      const newElem = {
+        categoryId: catId,
+        isVisible: isVis
+      }
+      arr.push(newElem)
+      // setVisibleAddAsset(oldArray => 
+      //   [...oldArray,newElem] );
+    }
+    return arr
+  }
+
+  // console.log(initVisibleAddAsset())
+  // console.log("Array length = " + visibleAddAsset.length)
+ 
+ 
   //Manages list of saved assets
   const [assets, setAssets] = useState([]);
 
@@ -40,11 +68,20 @@ function Dashboard() {
       await postCategory(categoryName, userId); //Added await
       getCategories(userId, setCategories); //Moved this up hear insted of in useEffect
       getAssets(categoryId, userId, setAssets);
-      // setVisibleAddCategory(false);  
+      setVisibleAddCategory(false); 
+      
+      // setVisibleAddAsset( visibleAddAsset.push({
+      //   categoryId: categoryId,
+      //   isVisible: false
+      // }))
+
     } catch (error) {
       console.log("Errors");
     }
   }
+
+  // console.log("Array length = " + visibleAddAsset.length)
+  // console.log("Array  = " + visibleAddAsset[0])
 
   //Saves an asset to database by calling postAsset in data.js
   async function saveAsset() {
@@ -67,12 +104,28 @@ function Dashboard() {
     // setVisibleAddAsset(true); //----------DEAL HERE-----------
     localStorage.setItem("categoryId", categoryId);
     setCategoryId(categoryId);
-    // getAssets(categoryId, userId, setAssets);
-    // if (categoryId === visibleAddAsset.categoryId)
-    setVisibleAddAsset( prevVisible => ({
-      ...prevVisible,
-      isVisible: !prevVisible.isVisible
-    }))
+
+    getAssets(categoryId, userId, setAssets);
+
+      // if (categoryId === visibleAddAsset.categoryId)
+    // console.log(categories[0].id)
+    // console.log(categoryId)
+    // categories.map(cat => cat.id === categoryId ? console.log(cat.id):console.log("NOT"))
+
+    console.log(visibleAddAsset)
+    
+    // categories.map(cat =>  
+    //   cat.id === categoryId ?
+    //     setVisibleAddAsset( prevVisible => ({
+    //         ...prevVisible,
+    //         isVisible: !prevVisible.isVisible
+    //       }))
+    //     : 
+    //     null 
+    // )
+      
+    
+
   }
 
   //User login/logout related
@@ -134,7 +187,7 @@ function Dashboard() {
                 // value={() => calculateCategoryValue(assets, category.id)}
                 eventAddAsset={() => addAssetClick(category.id)} //HERE - changed from: eventAddAsset={() => setVisibleAddAsset(true)
                 assets={assets}
-                isAddAssetVisible={visibleAddAsset.isVisible} //----------DEAL HERE-----------
+                visibleAddAsset={visibleAddAsset} //----------DEAL HERE-----------
               />
             ))}
             
