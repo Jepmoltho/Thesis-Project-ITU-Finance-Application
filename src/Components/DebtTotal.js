@@ -1,4 +1,4 @@
-function DebtTotal() {
+function DebtTotal(props) {
   return (
     <div className="assetsTotal">
       <p style={{ color: "#00145E", float: "left", marginBottom: "0px" }}>
@@ -8,7 +8,7 @@ function DebtTotal() {
         name="-"
         style={{ color: "#00145E", float: "right", marginBottom: "0px" }}
       >
-        150000 DKK
+        {props.debtTotal} DKK
       </p>
     </div>
   );

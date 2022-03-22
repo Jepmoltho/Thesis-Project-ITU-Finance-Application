@@ -29,6 +29,8 @@ function Dashboard() {
   const [assets, setAssets] = useState([]);
 
   //console.log(assets);
+  const [assetsTotal, setAssetsTotal] = useState("");
+  const [debtTotal, setDebtTotal] = useState("");
 
   //Saves a category to database by calling postCategory in data.js
   async function saveCategory() {
@@ -83,6 +85,22 @@ function Dashboard() {
     setCategoryId(categoryId);
   }
 
+  function calculateNetWorth(categories) {
+    let assetsSum = 0;
+    let debtSum = 0;
+    categories.map((category) => {
+      if (category.get("value") >= 0) {
+        assetsSum += category.get("value");
+        return assetsSum;
+      } else {
+        debtSum += category.get("value");
+        return debtSum;
+      }
+    });
+    setAssetsTotal(assetsSum);
+    setDebtTotal(debtSum);
+  }
+
   //User login/logout related
   const [currentUser, setCurrentUser] = useState(null);
   useEffect(() => {
@@ -90,7 +108,10 @@ function Dashboard() {
     getCurrentUser();
     getCategories(userId, setCategories); //Moved this up hear insted of in useEffect
     getAssets(categoryId, userId, setAssets);
-  }, [userId, categoryId]);
+    calculateNetWorth(categories);
+    console.log(assetsTotal);
+    console.log(debtTotal);
+  }, [userId, categoryId, assetsTotal]);
 
   //User login/logout related
   async function getCurrentUser() {
@@ -130,7 +151,7 @@ function Dashboard() {
         <NavigationBar />
         <Container>
           <h2>Welcome {currentUser.get("username")}</h2>
-          <TopComponents />
+          <TopComponents assetsTotal={assetsTotal} debtTotal={debtTotal} />
           <br />
           <div className="visibleSavedCategory">
             {categories.map((category) => (
