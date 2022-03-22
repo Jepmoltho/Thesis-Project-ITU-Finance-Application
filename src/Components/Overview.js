@@ -6,19 +6,8 @@ import Icon from "./Icon";
 import AssetsTotal from "./AssetsTotal";
 import DebtTotal from "./DebtTotal";
 import NetworthNumber from "./NetworthNumber";
-import { useState, useEffect } from "react";
 
 function Overview(props) {
-  // const [netWorth, setNetworth] = useState(0);
-
-  // function calculateNetWorth(assetNum, debtNum) {
-  //   setNetworth(assetNum + debtNum);
-  // }
-
-  // useEffect(() => {
-  //   calculateNetWorth(props.assetsTotal, props.debtTotal);
-  // }, []);
-
   return (
     <div className="overviewbox">
       <Row style={{ padding: "10px 10px 10px 10px" }}>

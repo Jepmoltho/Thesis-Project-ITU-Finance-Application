@@ -104,6 +104,7 @@ function Dashboard() {
     setNetWorth(assetsSum + debtSum);
   }
 
+  //Be carefull trying to fix this error - it will kill the database if you add 'categories' to the dependency array: Line 115:6:  React Hook useEffect has a missing dependency: 'ç'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
   //User login/logout related
   const [currentUser, setCurrentUser] = useState(null);
   useEffect(() => {
