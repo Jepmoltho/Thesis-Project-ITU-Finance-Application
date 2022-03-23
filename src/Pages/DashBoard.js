@@ -8,7 +8,13 @@ import EditAsset from "../Components/EditAsset";
 import NavigationBar from "../Components/NavigationBar";
 import TopComponents from "../Components/TopComponents";
 import AddCategoryBtn from "../Components/AddCategoryBtn";
-import { postCategory, getCategories, postAsset, getAssets } from "../data";
+import {
+  postCategory,
+  getCategories,
+  postAsset,
+  getAssets,
+  postCatVal,
+} from "../data";
 
 function Dashboard() {
   const navigate = useNavigate();
@@ -74,6 +80,7 @@ function Dashboard() {
       await postAsset(assetName, assetValue, categoryId, userId); //Added await
       getAssets(categoryId, userId, setAssets); //This gets all assets related to a certain category - maybe use it to solve the issue of calculating total value of a category, since it returns all relevant assets: const assetsInCategory = getAssets(categoryId, userId, setAssets);
       setVisibleAddAsset(false);
+      saveCatValue();
     } catch (error) {
       console.log("Errors");
     }
@@ -124,6 +131,33 @@ function Dashboard() {
   useEffect(() => {
     calculateNetWorth(categories);
   }, [categories, assets]);
+
+  //Attempt at creating a postCategoryValue
+  async function saveCatValue() {
+    const categoryId = localStorage.getItem("categoryId");
+    const parseQuery = new Parse.Query("Asset");
+    parseQuery.contains("categoryId", categoryId);
+    parseQuery.contains("userId", userId);
+    try {
+      let assets = await parseQuery.find();
+      const catVal = getCatVal(assets);
+      await postCatVal(categoryId, catVal);
+      console.log("Called saveCatVal");
+    } catch (error) {
+      console.log("Error in saveCatVal: " + error);
+    }
+  }
+
+  function getCatVal(assets) {
+    //Note: I think this belongs in getCategories or in useEffect hook
+    //Note: Techincal debt - there is no reason we are not just treating assets as numbers/ints consistently
+    let sum = 0;
+    assets.map((asset) => {
+      sum += parseInt(asset.get("value"));
+      return sum; //If error, check what this does
+    });
+    return sum;
+  }
 
   //useEffect handling update of categories and assets
   useEffect(() => {

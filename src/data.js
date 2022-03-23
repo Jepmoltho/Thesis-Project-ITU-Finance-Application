@@ -39,18 +39,18 @@ export async function postAsset(assetName, assetValue, categoryId, userId) {
   } catch (error) {}
 }
 
-function getCatVal(assets) {
-  //Note: I think this belongs in getCategories or in useEffect hook
-  //Note: Techincal debt - there is no reason we are not just treating assets as numbers/ints consistently
-  let sum = 0;
-  assets.map((asset) => {
-    sum += parseInt(asset.get("value"));
-    return sum; //If error, check what this does
-  });
-  return sum;
-}
+// function getCatVal(assets) {
+//   //Note: I think this belongs in getCategories or in useEffect hook
+//   //Note: Techincal debt - there is no reason we are not just treating assets as numbers/ints consistently
+//   let sum = 0;
+//   assets.map((asset) => {
+//     sum += parseInt(asset.get("value"));
+//     return sum; //If error, check what this does
+//   });
+//   return sum;
+// }
 
-async function postCatVal(categoryId, value) {
+export async function postCatVal(categoryId, value) {
   const Category = Parse.Object.extend("Category");
   const thisCategory = new Category();
   thisCategory.set("objectId", categoryId);
@@ -74,8 +74,8 @@ export async function getAssets(categoryId, userId, setAssets) {
   try {
     let assets = await parseQuery.find();
     //Saves total category value in catVal which it gets from the array of asset related to a cetain category
-    const catVal = getCatVal(assets);
-    postCatVal(categoryId, catVal); //Technical debt: Needs to be called correctly other place or in useEffect because we don't want it to be called when we are getting assets
+    // const catVal = getCatVal(assets);
+    // postCatVal(categoryId, catVal); //Technical debt: Needs to be called correctly other place or in useEffect because we don't want it to be called when we are getting assets
     setAssets(assets);
     return assets;
   } catch (error) {
