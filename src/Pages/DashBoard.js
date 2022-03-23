@@ -147,11 +147,12 @@ function Dashboard() {
     calculateNetWorth(categories);
   }, [categories, assets]);
 
-  //useEffect handling update of categories and assets
+  //useEffect handling update of categories and assets (Warning: dont add assets or categories to dependecy array)
   useEffect(() => {
     getCategories(userId, setCategories); //Moved this up hear insted of in useEffect
     getAssets(categoryId, userId, setAssets);
-  }, [userId, categoryId]);
+    console.log("Called");
+  }, [userId, categoryId, visibleAddAsset]);
 
   //User login/logout related
   async function getCurrentUser() {
