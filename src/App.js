@@ -6,8 +6,8 @@ import UserLogin from "./Pages/UserLogin";
 import DashBoard from "./Pages/DashBoard";
 
 Parse.initialize(
-  "3YvX2ZiSGXP4ddXb18SYQoYV2UGfADetSkQ4QkQl",
-  "xgPYhct1ooVhj35GULfNUoMYefUI5EFEivmzObz7"
+  "oGOvL1CFBEnljLaloy0eCHmOmM74pmZ1XQRvdD1J", // Application ID
+  "wecgeMN28czEiIsPPmXix5HfShAu2T8GsFHzCHrZ" // JavaScript Key
 );
 
 Parse.serverURL = "https://parseapi.back4app.com/";
