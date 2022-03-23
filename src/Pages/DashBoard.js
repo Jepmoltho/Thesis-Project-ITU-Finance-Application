@@ -104,20 +104,33 @@ function Dashboard() {
     setNetWorth(assetsSum + debtSum);
   }
 
-  //User login/logout related
+  /*
+    //useEffect and stateHook handling userLogin and registration
   const [currentUser, setCurrentUser] = useState(null);
   useEffect(() => {
-    //User login/logout related
     getCurrentUser();
     getCategories(userId, setCategories); //Moved this up hear insted of in useEffect
     getAssets(categoryId, userId, setAssets);
-    //calculateNetWorth(categories); //Bug: Doesn't render values upon login, only after you click something like add asset. Think it has something to do with this: https://reactjs.org/docs/faq-state.html#what-is-the-difference-between-state-and-props
   }, [userId, categoryId]);
+  */
 
-  //NOTE: THE SOLUTION TO THE UNINTENDED CALLS TO GETCATEGORIES, GETASSETS AND CALCULATE NETWORTH IS ANOTHER USEEFFECT HOOK WITH IT'S OWN DEPENDENCIES: https://www.linkedin.com/learning/react-hooks/working-with-the-dependency-array?autoSkip=true&autoplay=true&resume=false&u=55937129
+  //useEffect and stateHook handling userLogin and registration
+  const [currentUser, setCurrentUser] = useState(null);
+  useEffect(() => {
+    getCurrentUser();
+  }, [userId]);
+
+  //useEffect handling update of overviewCard (assettotal, debttotal and networth) in topComponent //NOTE: THE SOLUTION TO THE UNINTENDED CALLS TO GETCATEGORIES, GETASSETS AND CALCULATE NETWORTH IS ANOTHER USEEFFECT HOOK WITH IT'S OWN DEPENDENCIES: https://www.linkedin.com/learning/react-hooks/working-with-the-dependency-array?autoSkip=true&autoplay=true&resume=false&u=55937129
   useEffect(() => {
     calculateNetWorth(categories);
   }, [categories, assets]);
+
+  //useEffect handling update of categories and assets
+  useEffect(() => {
+    getCategories(userId, setCategories); //Moved this up hear insted of in useEffect
+    getAssets(categoryId, userId, setAssets);
+    console.log("Called");
+  }, [userId, categoryId]);
 
   //User login/logout related
   async function getCurrentUser() {
