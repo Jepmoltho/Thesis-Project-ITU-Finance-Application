@@ -86,6 +86,22 @@ function Dashboard() {
     }
   }
 
+  //Handles saving updates to categoryValues each time a new asset is added
+  async function saveCatValue() {
+    const categoryId = localStorage.getItem("categoryId");
+    const parseQuery = new Parse.Query("Asset");
+    parseQuery.contains("categoryId", categoryId);
+    parseQuery.contains("userId", userId);
+    try {
+      let assets = await parseQuery.find();
+      const catVal = getCatVal(assets);
+      await postCatVal(categoryId, catVal);
+      console.log("Called saveCatVal");
+    } catch (error) {
+      console.log("Error in saveCatVal: " + error);
+    }
+  }
+
   //Nessesary functon that wraps function calls that needs to happen in a specific order in order to save the relevant categoryId to local storage after clicking addAsset
   function addAssetClick(categoryId) {
     setVisibleAddAsset(true);
@@ -111,15 +127,14 @@ function Dashboard() {
     setNetWorth(assetsSum + debtSum);
   }
 
-  /*
-    //useEffect and stateHook handling userLogin and registration
-  const [currentUser, setCurrentUser] = useState(null);
-  useEffect(() => {
-    getCurrentUser();
-    getCategories(userId, setCategories); //Moved this up hear insted of in useEffect
-    getAssets(categoryId, userId, setAssets);
-  }, [userId, categoryId]);
-  */
+  function getCatVal(assets) {
+    let sum = 0; //Note: Techincal debt - there is no reason we are not just treating assets as numbers/ints consistently
+    assets.map((asset) => {
+      sum += parseInt(asset.get("value"));
+      return sum; //If error, check what this does
+    });
+    return sum;
+  }
 
   //useEffect and stateHook handling userLogin and registration
   const [currentUser, setCurrentUser] = useState(null);
@@ -132,38 +147,10 @@ function Dashboard() {
     calculateNetWorth(categories);
   }, [categories, assets]);
 
-  //Attempt at creating a postCategoryValue
-  async function saveCatValue() {
-    const categoryId = localStorage.getItem("categoryId");
-    const parseQuery = new Parse.Query("Asset");
-    parseQuery.contains("categoryId", categoryId);
-    parseQuery.contains("userId", userId);
-    try {
-      let assets = await parseQuery.find();
-      const catVal = getCatVal(assets);
-      await postCatVal(categoryId, catVal);
-      console.log("Called saveCatVal");
-    } catch (error) {
-      console.log("Error in saveCatVal: " + error);
-    }
-  }
-
-  function getCatVal(assets) {
-    //Note: I think this belongs in getCategories or in useEffect hook
-    //Note: Techincal debt - there is no reason we are not just treating assets as numbers/ints consistently
-    let sum = 0;
-    assets.map((asset) => {
-      sum += parseInt(asset.get("value"));
-      return sum; //If error, check what this does
-    });
-    return sum;
-  }
-
   //useEffect handling update of categories and assets
   useEffect(() => {
     getCategories(userId, setCategories); //Moved this up hear insted of in useEffect
     getAssets(categoryId, userId, setAssets);
-    console.log("Called");
   }, [userId, categoryId]);
 
   //User login/logout related
@@ -272,3 +259,14 @@ function Dashboard() {
 }
 
 export default Dashboard;
+
+/* 
+//Old useEffect hook before Jeppes split them um into 3 useEffect hooks
+  //useEffect and stateHook handling userLogin and registration
+  const [currentUser, setCurrentUser] = useState(null);
+  useEffect(() => {
+  getCurrentUser();
+  getCategories(userId, setCategories); //Moved this up hear insted of in useEffect
+  getAssets(categoryId, userId, setAssets);
+  }, [userId, categoryId]);
+*/
