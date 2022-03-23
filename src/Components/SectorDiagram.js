@@ -15,29 +15,56 @@ import {
 ChartJS.register(LineController, LineElement, PointElement, LinearScale, Title);
 //https://www.chartjs.org/docs/latest/configuration/legend.html
 
-const primaryData = [13, 15, 60, 2, 10];
-const labels = [
-  "Stocks",
-  "Crypto",
-  "Real estate",
-  "Bank account",
-  "Gold",
-  "car",
-];
+function SectorDiagram(props) {
+  // prosentage
+  const primaryData = [10, 15, 60, 5, 10];
+  
+  // category labels
+  /*
+  const labels = [
+    "Stocks",
+    "Crypto",
+    "Real estate",
+    "Bank account",
+    "Gold",
+    "car",
+  ];
+  */
 
-function SectorDiagram() {
-  const customLabels = labels.map(
-    (label, index) => `${label} ${primaryData[index]}%`
+ 
+ // maps array at line 22
+ /*
+ const customLabels = labels.map(
+   (label, index) => `${label} ${primaryData[index]}%`
+   );
+   */
+  
+  console.log(props.categories[0])
+
+  const catLabels = props.categories.map((category) => 
+    `${category.get("name")}` //${category.get("value")}%
   );
 
+  const values = props.categories.map((category) => category.get("value"))
+  function calc(){
+    values.map((value) => ((value*100)/3000))
+  }
+  
+  console.log(values)
+  console.log(calc)
+  
+  console.log(catLabels)
+
+  // dataset properties in chart.js doc
   const data = {
-    labels: customLabels,
+    labels: catLabels,
+    // what is shown
     datasets: [
       {
         label: "# of Votes",
-        data: primaryData,
+        data: calc(),
         borderWidth: 2,
-        backgroundColor: "#18388C",
+        backgroundColor: "#18388C", // the background color needs to be different for each
         lineTension: 0.2,
         pointRadius: 1,
         // fill: true,
@@ -45,6 +72,7 @@ function SectorDiagram() {
     ],
   };
 
+  // styling and features, config options in chart.js doc
   const options = {
     layout: {
       padding: 0,

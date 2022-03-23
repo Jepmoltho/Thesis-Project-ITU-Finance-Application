@@ -157,6 +157,7 @@ function Dashboard() {
             assetsTotal={assetsTotal}
             debtTotal={debtTotal}
             netWorth={netWorth}
+            categories={categories}
           />
           <br />
           <div className="visibleSavedCategory">
