@@ -24,36 +24,17 @@ function Dashboard() {
   
   //Manages list of saved categories
   const [categories, setCategories] = useState([]);
-  //Manages display if addAssetComponent upon pressing addAsset and dissapear upon pressing cancel
-  const [visibleAddAsset, setVisibleAddAsset] = useState(
-    initVisibleAddAsset()
-    // [{
+  // [{
     // categoryId: categoryId,
     // isVisible: false
     // }]
-  );
-  
-  
-  // console.log("categoryId: = " + categoryId)
-  // console.log("visible.categoryId = " + visibleAddAsset.categoryId)
-  // console.log("categories = " + categories.map(e => console.log(e)))
-
-  function initVisibleAddAsset(){
-    const arr = []
-    for (let i = 0; i < categories.length; i++) {
-      const catId = categories[i].id
-      const isVis = false
-      const newElem = {
-        categoryId: catId,
-        isVisible: isVis
-      }
-      arr.push(newElem)
-      // setVisibleAddAsset(oldArray => 
-      //   [...oldArray,newElem] );
-    }
-    return arr
-  }
-
+    
+    // console.log(visibleAddAsset[])
+    // console.log("categoryId: = " + categoryId)
+    // console.log("visible.categoryId = " + visibleAddAsset.categoryId)
+    // console.log("categories = " + categories.map(e => console.log(e)))
+    
+    
   // console.log(initVisibleAddAsset())
   // console.log("Array length = " + visibleAddAsset.length)
  
@@ -79,6 +60,26 @@ function Dashboard() {
       console.log("Errors");
     }
   }
+  // console.log(categories)
+
+    //Manages display if addAssetComponent upon pressing addAsset and dissapear upon pressing cancel
+    const [visibleAddAsset, setVisibleAddAsset] = useState(initVisibleAddAsset());
+
+
+  function initVisibleAddAsset(){
+    const arr = []
+    for (let i = 0; i < categories.length; i++) {
+      const catId = categories[i].id
+      const isVis = false
+      const newElem = {
+        categoryId: catId,
+        isVisible: isVis
+      }
+      arr.push(newElem)
+    }
+    return arr
+  }
+
 
   // console.log("Array length = " + visibleAddAsset.length)
   // console.log("Array  = " + visibleAddAsset[0])
@@ -107,12 +108,16 @@ function Dashboard() {
 
     getAssets(categoryId, userId, setAssets);
 
-      // if (categoryId === visibleAddAsset.categoryId)
+    
+    console.log(categoryId)
+    // if (categoryId === visibleAddAsset.categoryId)
     // console.log(categories[0].id)
     // console.log(categoryId)
     // categories.map(cat => cat.id === categoryId ? console.log(cat.id):console.log("NOT"))
 
-    console.log(visibleAddAsset)
+    // console.log(initVisibleAddAsset())
+    // console.log(visibleAddAsset)
+    // console.log(categories)
     
     // categories.map(cat =>  
     //   cat.id === categoryId ?
