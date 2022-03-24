@@ -89,7 +89,7 @@ function Dashboard() {
 
 
   //Nessesary functon that wraps function calls that needs to happen in a specific order in order to save the relevant categoryId to local storage after clicking addAsset
-  function addAssetClick(categoryId) {
+  function addAssetClick( isOpen, categoryId) {
     console.log("clicked")
 
     // setVisibleAddAsset(true); //----------DEAL HERE-----------
@@ -99,6 +99,13 @@ function Dashboard() {
     getAssets(categoryId, userId, setAssets);
 
 
+    setVisibleAddAssetFunction(isOpen, categoryId)
+
+    // console.log(visibleAddAsset)
+ 
+  }
+
+  function setVisibleAddAssetFunction( isOpen, categoryId){
     setVisibleAddAsset( prevArr =>
       prevArr.map( (prevObj) => {
       
@@ -106,16 +113,13 @@ function Dashboard() {
         
         const newObj = {
           ...prevObj,
-          isVisible: true
+          isVisible: isOpen
         }
         return newObj        
       } 
       return prevObj
     })
     )
-
-    // console.log(visibleAddAsset)
- 
   }
 
 //   setSquares(prevSquares => {
@@ -224,9 +228,11 @@ function Dashboard() {
                 categoryId={category.id} // Created categoryId to access the prop in asset.
                 title={category.get("name")}
                 value={category.get("value")}
-                eventAddAsset={() => addAssetClick(category.id)}
+                eventAddAsset={() => addAssetClick(true,category.id)}
                 assets={assets}
                 visibleAddAsset={visibleAddAsset} //----------DEAL HERE-----------
+                eventSave = {() => saveAsset()}             
+                eventCancel = {() => addAssetClick(false, category.id)}             
               />
             ))}
           </div>

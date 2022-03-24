@@ -100,19 +100,24 @@ function Category(props) {
             ele.isVisible ?
               props.title === "Real Estate" ?
               <EditAsset category="realestate"    // Renders real estate asset
-              //eventCancel={() => setVisibleAddAsset(false)}
-              //eventSave={() => saveAsset()}
+              eventCancel={props.eventCancel}
+              eventSave={props.eventSave}
+
               />
               : 
               props.title === "Bank account" ?
               <EditAsset category="bank"   // Renders bank asset
               //eventCancel={() => setVisibleAddAsset(false)}
-              //eventSave={() => saveAsset()}
+              eventCancel={props.eventCancel}
+              eventSave={props.eventSave}
               />
               :
               <EditAsset  // Normal asset
               //eventCancel={() => setVisibleAddAsset(false)}
-              //eventSave={() => saveAsset()}
+              // eventSave={() => saveAsset()}
+              eventCancel={props.eventCancel}
+              eventSave={props.eventSave}
+
               />
               :
               null
