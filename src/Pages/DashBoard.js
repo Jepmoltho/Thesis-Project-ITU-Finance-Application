@@ -9,7 +9,7 @@ import NavigationBar from "../Components/NavigationBar";
 import TopComponents from "../Components/TopComponents";
 import AddCategoryBtn from "../Components/AddCategoryBtn";
 import { postCategory, getCategories, postAsset, getAssets } from "../data";
-import { set } from "parse/lib/browser/CoreManager";
+import { set } from "parse/lib/browser/CoreManager";  
 
 
 function Dashboard() {
@@ -24,94 +24,56 @@ function Dashboard() {
   
   //Manages list of saved categories
   const [categories, setCategories] = useState([]);
-  // [{
-    // categoryId: categoryId,
-    // isVisible: false
-    // }]
+
     
     
+  //Manages list of saved assets
+  const [assets, setAssets] = useState([]);
     
-    // console.log(visibleAddAsset[])
-    // console.log("categoryId: = " + categoryId)
-    // console.log("visible.categoryId = " + visibleAddAsset.categoryId)
-    // console.log("categories = " + categories.map(e => console.log(e)))
-    
-    
-    // console.log(initVisibleAddAsset())
-    // console.log("Array length = " + visibleAddAsset.length)
-    
-    
-    //Manages list of saved assets
-    const [assets, setAssets] = useState([]);
-    
-    //Saves a category to database by calling postCategory in data.js
-    async function saveCategory() {
-      try {
-        const categoryName = localStorage.getItem("categorySelect");
-        await postCategory(categoryName, userId); //Added await
-        getCategories(userId, setCategories); //Moved this up hear insted of in useEffect
-        getAssets(categoryId, userId, setAssets);
-        setVisibleAddCategory(false); 
+  //Saves a category to database by calling postCategory in data.js
+  async function saveCategory() {
+    try {
+      const categoryName = localStorage.getItem("categorySelect");
+      await postCategory(categoryName, userId); //Added await
+      getCategories(userId, setCategories); //Moved this up hear insted of in useEffect
+      getAssets(categoryId, userId, setAssets);
+      setVisibleAddCategory(false); 
+
         
-        // setVisibleAddAsset( visibleAddAsset.push({
-          //   categoryId: categoryId,
-          //   isVisible: false
-          // }))
-          
-        } catch (error) {
-          console.log("Errors");
-        } 
+      } catch (error) {
+        console.log("Errors");
+      } 
+    }
+    
+    
+    
+    
+  const [visibleAddAsset, setVisibleAddAsset] = useState([]);
+  
+
+  function initVisibleAddAsset(){  
+    
+    for (let i = 0; i < categories.length; i++) {
+      const catId = categories[i].id
+      const isVis = false
+      const newElem = {
+        categoryId: catId,
+      isVisible: isVis
       }
-      // console.log(categories)  
-      //Manages display if addAssetComponent upon pressing addAsset and dissapear upon pressing cancel
-      const [visibleAddAsset, setVisibleAddAsset] = useState([]);
-      
-      // initVisibleAddAsset()
-      console.log(visibleAddAsset)
-      
-      function initVisibleAddAsset(){
-        
-          const arr = []
-          for (let i = 0; i < categories.length; i++) {
-          const catId = categories[i].id
-          const isVis = false
-          const newElem = {
-            categoryId: catId,
-            isVisible: isVis
-          }
-          arr.push(newElem)
-        }
-        // console.log(arr)
-        // setVisibleAddAsset(arr)
-        // return arr
-      
+    setVisibleAddAsset(prevArray => [...prevArray, {newElem}])
+    }
+  }
 
-
-          // const arr = []
-        //   for (let i = 0; i < categories.length; i++) {
-        //     const catId = categories[i].id
-        //     const isVis = false
-        //     const newElem = {
-        //       categoryId: catId,
-        //     isVisible: isVis
-        //   }
-        //   setVisibleAddAsset(prevArray => {
-        //     return [...prevArray, newElem ]
-        //   })
-        // }
-        console.log(visibleAddAsset)
-      }
-
-
-
-  // console.log("Array length = " + visibleAddAsset.length)
-  // console.log (visibleAddAsset)
   useEffect(() => {
     initVisibleAddAsset() 
-    // console.log(visibleAddAsset)
-  }, []); 
+  }, [categories]); 
 
-  // console.log(visibleAddAsset)
+
+
+
+
+
+
 
   //Saves an asset to database by calling postAsset in data.js
   async function saveAsset() {
@@ -130,94 +92,46 @@ function Dashboard() {
   }
 
 
-  // useEffect(() => {
-  //   if (initVisibleAddAsset()) {
-  //     setVisibleAddAsset(initVisibleAddAsset());
-  //   }
-  //   console.log("rendering ")
-  // }, [initVisibleAddAsset()])
-
-  // console.log(visibleAddAsset)
-
   //Nessesary functon that wraps function calls that needs to happen in a specific order in order to save the relevant categoryId to local storage after clicking addAsset
   function addAssetClick(categoryId) {
     console.log("clicked")
+    console.log(categoryId)
+    console.log(visibleAddAsset.length)
 
     // setVisibleAddAsset(true); //----------DEAL HERE-----------
     localStorage.setItem("categoryId", categoryId);
     setCategoryId(categoryId);
 
     getAssets(categoryId, userId, setAssets);
-    // console.log(visibleAddAsset)
+ 
+  }
 
-    // initVisibleAddAsset()
-    // initVisibleAddAsset()
-    // console.log(visibleAddAsset)
-    // setVisibleAddAsset(initVisibleAddAsset())
-
-    // setVisibleAddAsset(prevAsset => {
-    //   return prevAsset.map( elem => {
-    //     return elem.categoryId === categoryId ? {...elem, isVisible: true} : elem
-    //   } )
-    // })
-    
-    // console.log(visibleAddAsset)
-  
-    //   function toggle(id) {
-  //     setSquares(prevSquares => {
-  //         return prevSquares.map((square) => {
-  //             return square.id === id ? {...square, on: !square.on} : square
-  //         })
-  //     })
+  // function calculateNetWorth(categories) {
+  //   let assetsSum = 0;
+  //   let debtSum = 0;
+  //   //let netWorth = 0;
+  //   categories.map((category) => {
+  //     if (category.get("value") >= 0) {
+  //       assetsSum += category.get("value");
+  //       return assetsSum;
+  //     } else {
+  //       debtSum += category.get("value");
+  //       return debtSum;
+  //     }
+  //   });
+  //   setAssetsTotal(assetsSum);
+  //   setDebtTotal(debtSum);
+  //   setNetWorth(assetsSum + debtSum);
   // }
-    
-    // if (categoryId === visibleAddAsset.categoryId)
-    // console.log(categories[0].id)
-    // console.log(categoryId)
-    // categories.map(cat => cat.id === categoryId ? console.log(cat.id):console.log("NOT"))
 
-    // console.log(initVisibleAddAsset())
-    // console.log(visibleAddAsset)
-    // console.log(categories)
-    
-    // categories.map(cat =>  
-    //   cat.id === categoryId ?
-    //     setVisibleAddAsset( prevVisible => ({
-    //         ...prevVisible,
-    //         isVisible: !prevVisible.isVisible
-    //       }))
-    //     : 
-    //     null 
-    // )
-
-  }
-
-  function calculateNetWorth(categories) {
-    let assetsSum = 0;
-    let debtSum = 0;
-    //let netWorth = 0;
-    categories.map((category) => {
-      if (category.get("value") >= 0) {
-        assetsSum += category.get("value");
-        return assetsSum;
-      } else {
-        debtSum += category.get("value");
-        return debtSum;
-      }
-    });
-    setAssetsTotal(assetsSum);
-    setDebtTotal(debtSum);
-    setNetWorth(assetsSum + debtSum);
-  }
-
-  function getCatVal(assets) {
-    let sum = 0; //Note: Techincal debt - there is no reason we are not just treating assets as numbers/ints consistently
-    assets.map((asset) => {
-      sum += parseInt(asset.get("value"));
-      return sum; //If error, check what this does
-    });
-    return sum;
-  }
+  // function getCatVal(assets) {
+  //   let sum = 0; //Note: Techincal debt - there is no reason we are not just treating assets as numbers/ints consistently
+  //   assets.map((asset) => {
+  //     sum += parseInt(asset.get("value"));
+  //     return sum; //If error, check what this does
+  //   });
+  //   return sum;
+  // }
 
   //useEffect and stateHook handling userLogin and registration
   const [currentUser, setCurrentUser] = useState(null);
@@ -226,9 +140,9 @@ function Dashboard() {
   }, [userId]);
 
   //useEffect handling update of overviewCard (assettotal, debttotal and networth) in topComponent //NOTE: THE SOLUTION TO THE UNINTENDED CALLS TO GETCATEGORIES, GETASSETS AND CALCULATE NETWORTH IS ANOTHER USEEFFECT HOOK WITH IT'S OWN DEPENDENCIES: https://www.linkedin.com/learning/react-hooks/working-with-the-dependency-array?autoSkip=true&autoplay=true&resume=false&u=55937129
-  useEffect(() => {
-    calculateNetWorth(categories);
-  }, [categories, assets]);
+  // useEffect(() => {
+  //   calculateNetWorth(categories);
+  // }, [categories, assets]);
 
   //useEffect handling update of categories and assets (Warning: dont add assets or categories to dependecy array)
   useEffect(() => {
@@ -280,9 +194,9 @@ function Dashboard() {
         <Container>
           <h2>Welcome {currentUser.get("username")}</h2>
           <TopComponents
-            assetsTotal={assetsTotal}
-            debtTotal={debtTotal}
-            netWorth={netWorth}
+            // assetsTotal={assetsTotal}
+            // debtTotal={debtTotal}
+            // netWorth={netWorth}
           />
           <br />
           <div className="visibleSavedCategory">
