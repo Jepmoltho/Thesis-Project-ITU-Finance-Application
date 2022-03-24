@@ -21,7 +21,7 @@ function Category(props) {
 
   // const [visibleAddAsset, setVisibleAddAsset] = useState(true);
 
-
+  // console.log(props.visibleAddAsset[0].categoryId)
 
   return (
 
@@ -92,11 +92,11 @@ function Category(props) {
 
      {/* -------------- Add Asset -----------------------               */}
       <Row>
-      {/* {console.log("props.visibleAddAsset.isVisible = " + props.visibleAddAsset.isVisible)}
-      {console.log("props.visibleAddAsset.categoryId = " + props.visibleAddAsset.categoryId)}
-      {console.log("props.categoryId = "+props.categoryId)} */}
+
+      {/* {console.log(props.visibleAddAsset[0].categoryId)} */}
       { 
-        props.visibleAddAsset.isVisible ?
+          // true ?
+        // props.visibleAddAsset.isVisible ?
           props.title === "Real Estate" ?
             <EditAsset category="realestate"    // Renders real estate asset
               //eventCancel={() => setVisibleAddAsset(false)}
@@ -113,8 +113,8 @@ function Category(props) {
                   //eventCancel={() => setVisibleAddAsset(false)}
                   //eventSave={() => saveAsset()}
               />
-        :
-          null
+        // :
+        //   null
       }
       {/*
       <div className="visibleAddAsset">
