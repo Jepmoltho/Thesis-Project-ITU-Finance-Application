@@ -10,6 +10,7 @@ import TopComponents from "../Components/TopComponents";
 import AddCategoryBtn from "../Components/AddCategoryBtn";
 import { postCategory, getCategories, postAsset, getAssets } from "../data";
 import { set } from "parse/lib/browser/CoreManager";  
+import { isVisible } from "@testing-library/user-event/dist/utils";
 
 
 function Dashboard() {
@@ -47,33 +48,28 @@ function Dashboard() {
     
     
     
+  /*
+  const items = [
+    {categoryId: 1, isVisible: false}, 
+    {categoryId: 2, isVisible: false}
+  ]
+  */
+  const [visibleAddAsset, setVisibleAddAsset] = useState([]); // does not have any effect
     
-  const [visibleAddAsset, setVisibleAddAsset] = useState([]);
-  
-
   function initVisibleAddAsset(){  
-    
-    for (let i = 0; i < categories.length; i++) {
-      const catId = categories[i].id
-      const isVis = false
-      const newElem = {
-        categoryId: catId,
-      isVisible: isVis
-      }
-    setVisibleAddAsset(prevArray => [...prevArray, {newElem}])
-    }
+    var arrOfCat = [{
+      id:null, 
+      isVisible:false
+    }]
+  
+    arrOfCat = categories.map((category) => ({id: category.id, isVisible: false}))
+    console.log(arrOfCat)
+    setVisibleAddAsset(arrOfCat)
   }
-
+  
   useEffect(() => {
     initVisibleAddAsset() 
   }, [categories]); 
-
-
-
-
-
-
-
 
   //Saves an asset to database by calling postAsset in data.js
   async function saveAsset() {
