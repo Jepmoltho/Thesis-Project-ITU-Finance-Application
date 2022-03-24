@@ -63,7 +63,7 @@ function Dashboard() {
     }]
   
     arrOfCat = categories.map((category) => ({id: category.id, isVisible: false}))
-    console.log(arrOfCat)
+    // console.log(arrOfCat)
     setVisibleAddAsset(arrOfCat)
   }
   
@@ -91,16 +91,38 @@ function Dashboard() {
   //Nessesary functon that wraps function calls that needs to happen in a specific order in order to save the relevant categoryId to local storage after clicking addAsset
   function addAssetClick(categoryId) {
     console.log("clicked")
-    console.log(categoryId)
-    console.log(visibleAddAsset.length)
 
     // setVisibleAddAsset(true); //----------DEAL HERE-----------
     localStorage.setItem("categoryId", categoryId);
     setCategoryId(categoryId);
 
     getAssets(categoryId, userId, setAssets);
+
+
+    setVisibleAddAsset( prevArr =>
+      prevArr.map( (prevObj) => {
+      
+      if(prevObj.id === categoryId){
+        
+        const newObj = {
+          ...prevObj,
+          isVisible: true
+        }
+        return newObj        
+      } 
+      return prevObj
+    })
+    )
+
+    // console.log(visibleAddAsset)
  
   }
+
+//   setSquares(prevSquares => {
+//     return prevSquares.map((square) => {
+//         return square.id === id ? {...square, on: !square.on} : square
+//     })
+// })
 
   // function calculateNetWorth(categories) {
   //   let assetsSum = 0;

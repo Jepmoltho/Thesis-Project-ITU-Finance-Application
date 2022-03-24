@@ -92,55 +92,43 @@ function Category(props) {
 
 
      {/* -------------- Add Asset -----------------------               */}
+      
       <Row>
-
-      {/* {console.log(props.visibleAddAsset[0].categoryId)} */}
       { 
-          // true ?
-        // props.visibleAddAsset.isVisible ?
-          props.title === "Real Estate" ?
-            <EditAsset category="realestate"    // Renders real estate asset
+        props.visibleAddAsset.map( ele => {
+          return ele.id === props.categoryId ? 
+            ele.isVisible ?
+              props.title === "Real Estate" ?
+              <EditAsset category="realestate"    // Renders real estate asset
               //eventCancel={() => setVisibleAddAsset(false)}
               //eventSave={() => saveAsset()}
-            />
-            : 
+              />
+              : 
               props.title === "Bank account" ?
-                <EditAsset category="bank"   // Renders bank asset
-                //eventCancel={() => setVisibleAddAsset(false)}
-                //eventSave={() => saveAsset()}
-                />
+              <EditAsset category="bank"   // Renders bank asset
+              //eventCancel={() => setVisibleAddAsset(false)}
+              //eventSave={() => saveAsset()}
+              />
               :
               <EditAsset  // Normal asset
-                  //eventCancel={() => setVisibleAddAsset(false)}
-                  //eventSave={() => saveAsset()}
+              //eventCancel={() => setVisibleAddAsset(false)}
+              //eventSave={() => saveAsset()}
               />
-        // :
-        //   null
-      }
-      {/*
-      <div className="visibleAddAsset">
-              {visibleAddAsset ?
-                isBankAccount() ?   // Checks if category name is equal Banck account
-                      <EditAsset category="bank"   // Renders bank asset
-                      eventCancel={() => setVisibleAddAsset(false)}
-                      eventSave={() => saveAsset()}
-                      /> 
-                  :
-                  isRealEstate() ?   // Checks if category name is equal real estate
-                      <EditAsset category="realestate"    // Renders realestate asset
-                        eventCancel={() => setVisibleAddAsset(false)}
-                        eventSave={() => saveAsset()}
-                      />
-                    :   //If category name is neither an 'Bank account' or 'Real estate'.
-                      <EditAsset  // Renders normal asset
-                        eventCancel={() => setVisibleAddAsset(false)}
-                        eventSave={() => saveAsset()}
-                      />
-                  : //Renders an empty containe, not sure how to implement
-                    <div className="Empty container"></div>  
-            }
-          </div>
-          */}
+              :
+              null
+          : 
+          null
+        }) 
+
+          
+
+
+            
+            
+        
+      
+    }
+
       </Row>
 
       <Row>
