@@ -7,7 +7,7 @@ import Overview from "./Overview";
 import Goal from "./Goal";
 import Seehowpros from "./Seehowpros";
 
-function TopComponents() {
+function TopComponents(props) {
   return (
     <Row>
       <Col
@@ -47,7 +47,11 @@ function TopComponents() {
               marginRight: "7px",
             }}
           >
-            <Overview />
+            <Overview
+              assetsTotal={props.assetsTotal}
+              debtTotal={props.debtTotal}
+              netWorth={props.netWorth}
+            />
           </Col>
           <Col
             name="goal Card"

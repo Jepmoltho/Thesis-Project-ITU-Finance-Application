@@ -15,7 +15,6 @@ import EditAsset from "../Components/EditAsset"
 // import { isVisible } from "@testing-library/user-event/dist/utils";
 import AddAssetBtn from "../Components/AddAssetBtn"
 
-
 function Category(props) {
 
 
@@ -25,8 +24,10 @@ function Category(props) {
 
   return (
 
+
     // --------------Category -----------------------
     <Row>
+
       <Row className="category">
         <Col className="col-sm-1" style={{ margin: "auto" }}>
           <CategoryIcon categoryIcon="Stocks" />

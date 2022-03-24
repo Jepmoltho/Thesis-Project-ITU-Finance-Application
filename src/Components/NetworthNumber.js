@@ -9,7 +9,7 @@ function NetworthNumber(props) {
           name="-"
           style={{ color: "#00145E", float: "right", marginBottom: "0px" }}
         >
-          <b>1500000 DKK</b>
+          <b>{props.networth} DKK</b>
         </p>
       </div>
     );

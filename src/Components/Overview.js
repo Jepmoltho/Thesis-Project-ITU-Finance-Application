@@ -7,7 +7,7 @@ import AssetsTotal from "./AssetsTotal";
 import DebtTotal from "./DebtTotal";
 import NetworthNumber from "./NetworthNumber";
 
-function Overview() {
+function Overview(props) {
   return (
     <div className="overviewbox">
       <Row style={{ padding: "10px 10px 10px 10px" }}>
@@ -18,17 +18,17 @@ function Overview() {
       </Row>
       <Row style={{ padding: "10px 10px 10px 10px" }}>
         <Col style={{ paddingLeft: "0px" }}>
-          <AssetsTotal />
+          <AssetsTotal assetsTotal={props.assetsTotal} />
         </Col>
       </Row>
       <Row style={{ padding: "0px 10px 0px 10px" }}>
         <Col style={{ paddingLeft: "0px", paddingBottom: "0px" }}>
-          <DebtTotal />
+          <DebtTotal debtTotal={props.debtTotal} />
         </Col>
       </Row>
       <Row style={{ padding: "10px 10px 10px 10px" }}>
         <Col style={{ paddingLeft: "0px" }}>
-          <NetworthNumber overviewcard />
+          <NetworthNumber overviewcard networth={props.netWorth} />
         </Col>
       </Row>
     </div>
