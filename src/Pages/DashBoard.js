@@ -1,5 +1,5 @@
 import Parse from "parse";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useReducer } from "react";
 import { useNavigate } from "react-router-dom";
 import Category from "../Components/Category";
 import Container from "react-bootstrap/Container";
@@ -39,6 +39,7 @@ function Dashboard() {
   const [debtTotal, setDebtTotal] = useState("");
   const [netWorth, setNetWorth] = useState("");
 
+
   //Saves a category to database by calling postCategory in data.js
   async function saveCategory() {
     try {
@@ -46,31 +47,55 @@ function Dashboard() {
       await postCategory(categoryName, userId); //Added await
       getCategories(userId, setCategories); //Moved this up hear insted of in useEffect
       getAssets(categoryId, userId, setAssets);
-      setVisibleAddCategory(false);
-    } catch (error) {
-      console.log("Errors");
+
+      setVisibleAddCategory(false); 
+
+        
+      } catch (error) {
+        console.log("Errors");
+      } 
     }
+    
+    // ------------------Start------------------------
+    
+  const [visibleAddAsset, setVisibleAddAsset] = useState([]); // does not have any effect
+    
+  function initVisibleAddAsset(){  
+    var arrOfCat = [{
+      id:null, 
+      isVisible:false
+    }]
+  
+    arrOfCat = categories.map((category) => ({id: category.id, isVisible: false}))
+    setVisibleAddAsset(arrOfCat)
   }
 
-  function isRealEstate() {
-    //Doesnt work: Need to take into account that there in a lot of cases will be saved an item to local storage
-    const categoryName = "placeholder for bugfix"; //localStorage.getItem("categorySelect");
-    if (categoryName === "Real Estate") {
-      return true;
-    } else {
-      return false;
-    }
+  useEffect(() => {
+    initVisibleAddAsset() ;
+    console.log(visibleAddAsset)
+    console.log(categories)
+  }, [categoryId]); 
+
+  function setVisibleAddAssetFunction(isOpen, categoryId){
+    setVisibleAddAsset( prevArr =>
+      prevArr.map( (prevObj) => {
+      
+      if(prevObj.id === categoryId){
+        
+        const newObj = {
+          ...prevObj,
+          isVisible: isOpen
+        }
+        return newObj        
+      } 
+      return prevObj
+    })
+    )
   }
 
-  function isBankAccount() {
-    //Doesnt work: Need to take into account that there in a lot of cases will be saved an item to local storage
-    const categoryName = "placeholder for bugfix"; //localStorage.getItem("categorySelect");
-    if (categoryName === "Bank account") {
-      return true;
-    } else {
-      return false;
-    }
-  }
+    // ------------------end------------------------
+  
+
 
   //Saves an asset to database by calling postAsset in data.js
   async function saveAsset() {
@@ -85,6 +110,7 @@ function Dashboard() {
       console.log("Errors");
     }
   }
+
 
   //Handles saving updates to categoryValues each time a new asset is added
   async function saveCatValue() {
@@ -102,52 +128,46 @@ function Dashboard() {
     }
   }
 
-  //Nessesary functon that wraps function calls that needs to happen in a specific order in order to save the relevant categoryId to local storage after clicking addAsset
-  function addAssetClick(categoryId) {
-    setVisibleAddAsset(true);
+
+    
+    
+    //Nessesary functon that wraps function calls that needs to happen in a specific order in order to save the relevant categoryId to local storage after clicking addAsset
+  function addAssetClick( isOpen, categoryId) {
+    console.log("clicked")  
+    
+
     localStorage.setItem("categoryId", categoryId);
+    
+    // ------------------Start------------------------
     setCategoryId(categoryId);
+
+    getAssets(categoryId, userId, setAssets);
+    setVisibleAddAssetFunction(isOpen, categoryId)
+    // ------------------END------------------------
+
   }
 
-  function calculateNetWorth(categories) {
-    let assetsSum = 0;
-    let debtSum = 0;
-    //let netWorth = 0;
-    categories.map((category) => {
-      if (category.get("value") >= 0) {
-        assetsSum += category.get("value");
-        return assetsSum;
-      } else {
-        debtSum += category.get("value");
-        return debtSum;
-      }
-    });
-    setAssetsTotal(assetsSum);
-    setDebtTotal(debtSum);
-    setNetWorth(assetsSum + debtSum);
-  }
+  
 
-  function getCatVal(assets) {
-    let sum = 0; //Note: Techincal debt - there is no reason we are not just treating assets as numbers/ints consistently
-    assets.map((asset) => {
-      sum += parseInt(asset.get("value"));
-      return sum; //If error, check what this does
-    });
-    return sum;
-  }
+
+
 
   //useEffect and stateHook handling userLogin and registration
   const [currentUser, setCurrentUser] = useState(null);
   useEffect(() => {
+    console.log("userID")
     getCurrentUser();
-    console.log("UseEffect called");
+    initVisibleAddAsset() ;
   }, [userId]);
 
+
+  
   //useEffect handling update of overviewCard (assettotal, debttotal and networth) in topComponent //NOTE: THE SOLUTION TO THE UNINTENDED CALLS TO GETCATEGORIES, GETASSETS AND CALCULATE NETWORTH IS ANOTHER USEEFFECT HOOK WITH IT'S OWN DEPENDENCIES: https://www.linkedin.com/learning/react-hooks/working-with-the-dependency-array?autoSkip=true&autoplay=true&resume=false&u=55937129
   useEffect(() => {
     calculateNetWorth(categories);
     console.log("UseEffect called");
   }, [categories, assets]);
+
 
   //useEffect handling update of categories and assets (Warning: dont add assets or categories to dependecy array)
   useEffect(() => {
@@ -155,6 +175,7 @@ function Dashboard() {
     getAssets(categoryId, userId, setAssets);
     console.log("UseEffect called");
   }, [userId, categoryId, visibleAddAsset]);
+
 
   //User login/logout related
   async function getCurrentUser() {
@@ -208,39 +229,17 @@ function Dashboard() {
                 categoryId={category.id} // Created categoryId to access the prop in asset.
                 title={category.get("name")}
                 value={category.get("value")}
-                eventAddAsset={() => addAssetClick(category.id)}
+                eventAddAsset={() => addAssetClick(true,category.id)}
                 assets={assets}
+
+    // ------------------Start------------------------
+                visibleAddAsset={visibleAddAsset} 
+                eventSave = {() => saveAsset()}             
+                eventCancel = {() => addAssetClick(false, category.id)}             
+    // ------------------End------------------------
+              
               />
             ))}
-          </div>
-
-          {/*Removed assets.map because it happens in categories now thorugh a passed down assets array in probs*/}
-
-          <div className="visibleAddAsset">
-            {visibleAddAsset ? (
-              isBankAccount() ? ( // Checks if category name is equal Banck account
-                <EditAsset
-                  category="bank" // Renders bank asset
-                  eventCancel={() => setVisibleAddAsset(false)}
-                  eventSave={() => saveAsset()}
-                />
-              ) : isRealEstate() ? ( // Checks if category name is equal real estate
-                <EditAsset
-                  category="realestate" // Renders realestate asset
-                  eventCancel={() => setVisibleAddAsset(false)}
-                  eventSave={() => saveAsset()}
-                />
-              ) : (
-                //If category name is neither an 'Bank account' or 'Real estate'.
-                <EditAsset // Renders normal asset
-                  eventCancel={() => setVisibleAddAsset(false)}
-                  eventSave={() => saveAsset()}
-                />
-              )
-            ) : (
-              //Renders an empty container, not sure how to implement
-              <div className="Empty container"></div>
-            )}
           </div>
           <div className="visibleAddCategory">
             {visibleAddCategory ? (
@@ -263,14 +262,3 @@ function Dashboard() {
 }
 
 export default Dashboard;
-
-/* 
-//Old useEffect hook before Jeppes split them um into 3 useEffect hooks
-  //useEffect and stateHook handling userLogin and registration
-  const [currentUser, setCurrentUser] = useState(null);
-  useEffect(() => {
-  getCurrentUser();
-  getCategories(userId, setCategories); //Moved this up hear insted of in useEffect
-  getAssets(categoryId, userId, setAssets);
-  }, [userId, categoryId]);
-*/
