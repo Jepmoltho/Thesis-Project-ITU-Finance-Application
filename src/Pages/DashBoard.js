@@ -25,8 +25,6 @@ function Dashboard() {
   
   //Manages list of saved categories
   const [categories, setCategories] = useState([]);
-
-    
     
   //Manages list of saved assets
   const [assets, setAssets] = useState([]);
@@ -47,13 +45,6 @@ function Dashboard() {
     }
     
     
-    
-  /*
-  const items = [
-    {categoryId: 1, isVisible: false}, 
-    {categoryId: 2, isVisible: false}
-  ]
-  */
   const [visibleAddAsset, setVisibleAddAsset] = useState([]); // does not have any effect
     
   function initVisibleAddAsset(){  
@@ -63,13 +54,14 @@ function Dashboard() {
     }]
   
     arrOfCat = categories.map((category) => ({id: category.id, isVisible: false}))
-    // console.log(arrOfCat)
     setVisibleAddAsset(arrOfCat)
   }
   
-  useEffect(() => {
-    initVisibleAddAsset() 
-  }, [categories]); 
+
+  // useEffect(() => {
+  //   // initVisibleAddAsset() 
+  //   console.log("Use effect visible")
+  // }, [visibleAddAsset]); 
 
   //Saves an asset to database by calling postAsset in data.js
   async function saveAsset() {
@@ -105,7 +97,7 @@ function Dashboard() {
  
   }
 
-  function setVisibleAddAssetFunction( isOpen, categoryId){
+  function setVisibleAddAssetFunction(isOpen, categoryId){
     setVisibleAddAsset( prevArr =>
       prevArr.map( (prevObj) => {
       
@@ -155,10 +147,23 @@ function Dashboard() {
   //   return sum;
   // }
 
+
+  // setTimeout(() => { }, 10000);
+
+  // useEffect(() => {
+  //   initVisibleAddAsset() ;
+  //   console.log(visibleAddAsset)
+  //   console.log(categories)
+  // }, [userId]); 
+
+
   //useEffect and stateHook handling userLogin and registration
   const [currentUser, setCurrentUser] = useState(null);
   useEffect(() => {
+    console.log("userID")
     getCurrentUser();
+    initVisibleAddAsset() ;
+    console.log(visibleAddAsset)
   }, [userId]);
 
   //useEffect handling update of overviewCard (assettotal, debttotal and networth) in topComponent //NOTE: THE SOLUTION TO THE UNINTENDED CALLS TO GETCATEGORIES, GETASSETS AND CALCULATE NETWORTH IS ANOTHER USEEFFECT HOOK WITH IT'S OWN DEPENDENCIES: https://www.linkedin.com/learning/react-hooks/working-with-the-dependency-array?autoSkip=true&autoplay=true&resume=false&u=55937129
@@ -170,6 +175,8 @@ function Dashboard() {
   useEffect(() => {
     getCategories(userId, setCategories); //Moved this up hear insted of in useEffect
     getAssets(categoryId, userId, setAssets);
+    // console.log("init visible")
+    console.log("categortyID and userID")
 
     // initVisibleAddAsset()
     // console.log(c)
@@ -236,37 +243,6 @@ function Dashboard() {
               />
             ))}
           </div>
-
-          
-          {/*
-
-          <div className="visibleAddAsset">
-            {visibleAddAsset ? (
-              isBankAccount() ? ( // Checks if category name is equal Banck account
-                <EditAsset
-                  category="bank" // Renders bank asset
-                  eventCancel={() => setVisibleAddAsset(false)}
-                  eventSave={() => saveAsset()}
-                />
-              ) : isRealEstate() ? ( // Checks if category name is equal real estate
-                <EditAsset
-                  category="realestate" // Renders realestate asset
-                  eventCancel={() => setVisibleAddAsset(false)}
-                  eventSave={() => saveAsset()}
-                />
-              ) : (
-                //If category name is neither an 'Bank account' or 'Real estate'.
-                <EditAsset // Renders normal asset
-                  eventCancel={() => setVisibleAddAsset(false)}
-                  eventSave={() => saveAsset()}
-                />
-              )
-            ) : (
-              //Renders an empty container, not sure how to implement
-              <div className="Empty container"></div>
-            )}
-          </div>
-          */}
           <div className="visibleAddCategory">
             {visibleAddCategory ? (
               <AddCategory
@@ -288,14 +264,3 @@ function Dashboard() {
 }
 
 export default Dashboard;
-
-/* 
-//Old useEffect hook before Jeppes split them um into 3 useEffect hooks
-  //useEffect and stateHook handling userLogin and registration
-  const [currentUser, setCurrentUser] = useState(null);
-  useEffect(() => {
-  getCurrentUser();
-  getCategories(userId, setCategories); //Moved this up hear insted of in useEffect
-  getAssets(categoryId, userId, setAssets);
-  }, [userId, categoryId]);
-*/

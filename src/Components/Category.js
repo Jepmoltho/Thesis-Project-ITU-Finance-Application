@@ -12,18 +12,11 @@ import ArrowDropDownRoundedIcon from "@mui/icons-material/ArrowDropDownRounded";
 import Button from "@mui/material/Button";
 import Asset from "../Components/Asset";
 import EditAsset from "../Components/EditAsset"
-// import { isVisible } from "@testing-library/user-event/dist/utils";
 import AddAssetBtn from "../Components/AddAssetBtn"
 
 function Category(props) {
 
-
-  // const [visibleAddAsset, setVisibleAddAsset] = useState(true);
-
-  // console.log(props.visibleAddAsset[0].categoryId)
-
   return (
-
 
     // --------------Category -----------------------
     <Row>
