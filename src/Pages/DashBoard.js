@@ -140,18 +140,20 @@ function Dashboard() {
   const [currentUser, setCurrentUser] = useState(null);
   useEffect(() => {
     getCurrentUser();
+    console.log("UseEffect called");
   }, [userId]);
 
   //useEffect handling update of overviewCard (assettotal, debttotal and networth) in topComponent //NOTE: THE SOLUTION TO THE UNINTENDED CALLS TO GETCATEGORIES, GETASSETS AND CALCULATE NETWORTH IS ANOTHER USEEFFECT HOOK WITH IT'S OWN DEPENDENCIES: https://www.linkedin.com/learning/react-hooks/working-with-the-dependency-array?autoSkip=true&autoplay=true&resume=false&u=55937129
   useEffect(() => {
     calculateNetWorth(categories);
+    console.log("UseEffect called");
   }, [categories, assets]);
 
   //useEffect handling update of categories and assets (Warning: dont add assets or categories to dependecy array)
   useEffect(() => {
     getCategories(userId, setCategories); //Moved this up hear insted of in useEffect
     getAssets(categoryId, userId, setAssets);
-    console.log("Called");
+    console.log("UseEffect called");
   }, [userId, categoryId, visibleAddAsset]);
 
   //User login/logout related
