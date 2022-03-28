@@ -10,10 +10,12 @@ import Icon from "./Icon";
 import ArrowDropDownRoundedIcon from "@mui/icons-material/ArrowDropDownRounded";
 import Button from "@mui/material/Button";
 import Asset from "../Components/Asset";
+import EditAsset from "./EditAsset";
+import AddAssetBtn from "./AddAssetBtn"
 
 function Category(props) {
   return (
-    <div>
+    <Row>
       <Row className="category">
         <Col className="col-sm-1" style={{ margin: "auto" }}>
           <CategoryIcon categoryIcon="Stocks" />
@@ -71,8 +73,60 @@ function Category(props) {
             />
           ) : null
         )}
+
+        {/* {props.assets.map((asset) => (
+          asset.attributes.categoryId === props.categoryId ? 
+            <Asset 
+            key={asset.id} 
+            title={asset.get("name")} /> 
+            : null 
+        ))}  */}
       </Row>
-    </div>
+
+       {/* -------------- Add Asset -----------------------               */}
+      
+       <Row>
+      { 
+        props.visibleAddAsset.map( ele => {
+          return ele.id === props.categoryId ? 
+            ele.isVisible ?
+              props.title === "Real Estate" ?
+              <EditAsset category="realestate"    // Renders real estate asset
+              eventCancel={props.eventCancel}
+              eventSave={props.eventSave}
+
+              />
+              : 
+              props.title === "Bank account" ?
+              <EditAsset category="bank"   // Renders bank asset
+              //eventCancel={() => setVisibleAddAsset(false)}
+              eventCancel={props.eventCancel}
+              eventSave={props.eventSave}
+              />
+              :
+              <EditAsset  // Normal asset
+              //eventCancel={() => setVisibleAddAsset(false)}
+              // eventSave={() => saveAsset()}
+              eventCancel={props.eventCancel}
+              eventSave={props.eventSave}
+
+              />
+              :
+              null
+          : 
+          null
+        }) 
+    }
+    </Row>
+    
+    <Row>
+        <AddAssetBtn event1={props.eventAddAsset}/>
+    </Row>
+
+
+
+
+    </Row>
   );
 }
 

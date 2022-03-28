@@ -26,7 +26,7 @@ function Dashboard() {
   const [visibleAddCategory, setVisibleAddCategory] = useState(false);
 
   //Manages display if addAssetComponent upon pressing addAsset and dissapear upon pressing cancel
-  const [visibleAddAsset, setVisibleAddAsset] = useState([]);
+  // const [visibleAddAsset, setVisibleAddAsset] = useState([]);
 
   //Manages list of saved categories
   const [categories, setCategories] = useState([]);
@@ -52,25 +52,45 @@ function Dashboard() {
     }
   }
 
-  function isRealEstate() {
-    //Doesnt work: Need to take into account that there in a lot of cases will be saved an item to local storage
-    const categoryName = "placeholder for bugfix"; //localStorage.getItem("categorySelect");
-    if (categoryName === "Real Estate") {
-      return true;
-    } else {
-      return false;
-    }
+  // ------------------Start------------------------
+    
+  const [visibleAddAsset, setVisibleAddAsset] = useState([]); // does not have any effect
+    
+  function initVisibleAddAsset(){  
+    var arrOfCat = [{
+      id:null, 
+      isVisible:false
+    }]
+  
+    arrOfCat = categories.map((category) => ({id: category.id, isVisible: false}))
+    setVisibleAddAsset(arrOfCat)
   }
 
-  function isBankAccount() {
-    //Doesnt work: Need to take into account that there in a lot of cases will be saved an item to local storage
-    const categoryName = "placeholder for bugfix"; //localStorage.getItem("categorySelect");
-    if (categoryName === "Bank account") {
-      return true;
-    } else {
-      return false;
-    }
+  useEffect(() => {
+    initVisibleAddAsset() ;
+    console.log(visibleAddAsset)
+    console.log(categories)
+  }, [categoryId]); 
+
+  function setVisibleAddAssetFunction(isOpen, categoryId){
+    setVisibleAddAsset( prevArr =>
+      prevArr.map( (prevObj) => {
+      
+      if(prevObj.id === categoryId){
+        
+        const newObj = {
+          ...prevObj,
+          isVisible: isOpen
+        }
+        return newObj        
+      } 
+      return prevObj
+    })
+    )
   }
+
+    // ------------------end------------------------
+  
 
   //Saves an asset to database by calling postAsset in data.js
   async function saveAsset() {
@@ -103,10 +123,11 @@ function Dashboard() {
   }
 
   //Nessesary functon that wraps function calls that needs to happen in a specific order in order to save the relevant categoryId to local storage after clicking addAsset
-  function addAssetClick(categoryId) {
+  function addAssetClick(isOpen, categoryId) {
     // setVisibleAddAsset(true);
     localStorage.setItem("categoryId", categoryId);
     setCategoryId(categoryId);
+    setVisibleAddAssetFunction(isOpen, categoryId)
   }
 
   function calculateNetWorth(categories) {
@@ -208,8 +229,11 @@ function Dashboard() {
                 categoryId={category.id} // Created categoryId to access the prop in asset.
                 title={category.get("name")}
                 value={category.get("value")}
-                eventAddAsset={() => addAssetClick(category.id)}
+                eventAddAsset={() => addAssetClick(true, category.id)}
                 assets={assets}
+                visibleAddAsset={visibleAddAsset} 
+                eventSave = {() => saveAsset()}             
+                eventCancel = {() => addAssetClick(false, category.id)} 
               />
             ))}
           </div>
