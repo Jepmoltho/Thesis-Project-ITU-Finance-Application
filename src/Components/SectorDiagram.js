@@ -15,12 +15,14 @@ import {
 ChartJS.register(LineController, LineElement, PointElement, LinearScale, Title);
 //https://www.chartjs.org/docs/latest/configuration/legend.html
 
-/* BUGS:
-    Does not work if there is a category that doesn't have an asset under
-      - Could be solved if categories has default value of 0 
+/* Known Bugs:
+    - Does not work if there is a category that doesn't have an asset under
+      Could probably be solved if categories has default value of 0 
 */
 
 function SectorDiagram(props) {
+  
+  // Initialises a list of categories with given properties. 
   var listOfCategories = [{
     id: null,
     name: null,
@@ -28,6 +30,7 @@ function SectorDiagram(props) {
     procentage: 0
   }]
 
+  // Creates a list of categories based on categories props passed from dashboard.
   listOfCategories = props.categories.map(category => (
     { id: category.id, 
       name: category.get("name"), 
@@ -35,7 +38,8 @@ function SectorDiagram(props) {
       procentage: (((category.get("value"))*100)/(props.netWorth)).toFixed(1) 
     }
   ));
-
+  
+  // Array of colors for the diagram
   var arrColors = [
     "#00145E",
     "#18388C",
@@ -53,18 +57,17 @@ function SectorDiagram(props) {
     // what is shown
     datasets: [
       {
-        label: listOfCategories.map((e) => e.name),
-        data: listOfCategories.map((e) => e.value),
+        label: listOfCategories.map((e) => e.name), // Takes the name properties for each category in the list of categories
+        data: listOfCategories.map((e) => e.value), // Same as above only with values. 
         borderWidth: 2,
-        backgroundColor: arrColors, // the background color needs to be different for each
+        backgroundColor: arrColors, // Loops through the array of colors
         lineTension: 0.2,
         pointRadius: 1,
-        // fill: true,
       },
     ],
   };
   
-  // styling and features, config options in chart.js doc
+  // Styling and features, config options in chart.js doc
   const options = {
     layout: {
       padding: 0,
@@ -80,14 +83,6 @@ function SectorDiagram(props) {
           padding: 5,
         },
       },
-      // tooltip: {
-        //   callbacks: {
-          //     label: (context) => {
-            //       let label = `${context.label.split(`${context.parsed}`)[0]}: ${context.parsed}%`;
-            //       return label;
-            //     }
-            //   }
-            // }
           },
         };
         
@@ -109,49 +104,3 @@ function SectorDiagram(props) {
 }
 
 export default SectorDiagram;
-
-
-  // ---- DONE ---- step 1. fix % calc in the left display
-  // ---- DONE ---- step 2. Try to display the % icon when hovering
-  // ---- DONE ---- step 3. Spend 30 min trying to solve colors issue.PoC - 10 stk. 
-  // ---- DONE ---- step 4. reduce decimals to two
-  // when you add new category it fucks up until you add an asset
-
-// prosentage
-//onst primaryData = [10, 15, 60, 5, 10];
-
-// category labels
-/*
-const labels = [
-  "Stocks",
-  "Crypto",
-  "Real estate",
-  "Bank account",
-  "Gold",
-  "car",
-];
-*/
-
-
-// maps array at line 22
-/*
-const customLabels = labels.map(
- (label, index) => `${label} ${primaryData[index]}%`
- );
-
- // Map values and calculate procentage
-  const values = props.categories.map((category) => category.get("value"))
-  const calc = values.map((value) => ((value*100)/(props.netWorth)))
-
- */
-
-   // Information displayed on the side of the diagram
-  /*
-  const catLabels = props.categories.map((category) => 
-  `${category.get("name")}`  //${(category.get("value"))}%
-  );
-
-  const catLabels = listOfCategories.map((category) => 
-    `${category.name} ${(category.procentage)}%`
-  );
-  */
