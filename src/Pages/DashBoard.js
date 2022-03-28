@@ -26,7 +26,7 @@ function Dashboard() {
   const [visibleAddCategory, setVisibleAddCategory] = useState(false);
 
   //Manages display if addAssetComponent upon pressing addAsset and dissapear upon pressing cancel
-  const [visibleAddAsset, setVisibleAddAsset] = useState(false);
+  // const [visibleAddAsset, setVisibleAddAsset] = useState([]);
 
   //Manages list of saved categories
   const [categories, setCategories] = useState([]);
@@ -52,25 +52,45 @@ function Dashboard() {
     }
   }
 
-  function isRealEstate() {
-    //Doesnt work: Need to take into account that there in a lot of cases will be saved an item to local storage
-    const categoryName = "placeholder for bugfix"; //localStorage.getItem("categorySelect");
-    if (categoryName === "Real Estate") {
-      return true;
-    } else {
-      return false;
-    }
+  // ------------------Start------------------------
+    
+  const [visibleAddAsset, setVisibleAddAsset] = useState([]); // does not have any effect
+    
+  function initVisibleAddAsset(){  
+    var arrOfCat = [{
+      id:null, 
+      isVisible:false
+    }]
+  
+    arrOfCat = categories.map((category) => ({id: category.id, isVisible: false}))
+    setVisibleAddAsset(arrOfCat)
   }
 
-  function isBankAccount() {
-    //Doesnt work: Need to take into account that there in a lot of cases will be saved an item to local storage
-    const categoryName = "placeholder for bugfix"; //localStorage.getItem("categorySelect");
-    if (categoryName === "Bank account") {
-      return true;
-    } else {
-      return false;
-    }
+  useEffect(() => {
+    initVisibleAddAsset() ;
+    console.log(visibleAddAsset)
+    console.log(categories)
+  }, [categoryId]); 
+
+  function setVisibleAddAssetFunction(isOpen, categoryId){
+    setVisibleAddAsset( prevArr =>
+      prevArr.map( (prevObj) => {
+      
+      if(prevObj.id === categoryId){
+        
+        const newObj = {
+          ...prevObj,
+          isVisible: isOpen
+        }
+        return newObj        
+      } 
+      return prevObj
+    })
+    )
   }
+
+    // ------------------end------------------------
+  
 
   //Saves an asset to database by calling postAsset in data.js
   async function saveAsset() {
@@ -79,7 +99,7 @@ function Dashboard() {
       const assetValue = localStorage.getItem("assetValue");
       await postAsset(assetName, assetValue, categoryId, userId); //Added await
       getAssets(categoryId, userId, setAssets); //This gets all assets related to a certain category - maybe use it to solve the issue of calculating total value of a category, since it returns all relevant assets: const assetsInCategory = getAssets(categoryId, userId, setAssets);
-      setVisibleAddAsset(false);
+      // setVisibleAddAsset(false);
       saveCatValue();
     } catch (error) {
       console.log("Errors");
@@ -103,10 +123,11 @@ function Dashboard() {
   }
 
   //Nessesary functon that wraps function calls that needs to happen in a specific order in order to save the relevant categoryId to local storage after clicking addAsset
-  function addAssetClick(categoryId) {
-    setVisibleAddAsset(true);
+  function addAssetClick(isOpen, categoryId) {
+    // setVisibleAddAsset(true);
     localStorage.setItem("categoryId", categoryId);
     setCategoryId(categoryId);
+    setVisibleAddAssetFunction(isOpen, categoryId)
   }
 
   function calculateNetWorth(categories) {
@@ -208,40 +229,16 @@ function Dashboard() {
                 categoryId={category.id} // Created categoryId to access the prop in asset.
                 title={category.get("name")}
                 value={category.get("value")}
-                eventAddAsset={() => addAssetClick(category.id)}
+                eventAddAsset={() => addAssetClick(true, category.id)}
                 assets={assets}
+                visibleAddAsset={visibleAddAsset} 
+                eventSave = {() => saveAsset()}             
+                eventCancel = {() => addAssetClick(false, category.id)} 
               />
             ))}
           </div>
 
-          {/*Removed assets.map because it happens in categories now thorugh a passed down assets array in probs*/}
-
-          <div className="visibleAddAsset">
-            {visibleAddAsset ? (
-              isBankAccount() ? ( // Checks if category name is equal Banck account
-                <EditAsset
-                  category="bank" // Renders bank asset
-                  eventCancel={() => setVisibleAddAsset(false)}
-                  eventSave={() => saveAsset()}
-                />
-              ) : isRealEstate() ? ( // Checks if category name is equal real estate
-                <EditAsset
-                  category="realestate" // Renders realestate asset
-                  eventCancel={() => setVisibleAddAsset(false)}
-                  eventSave={() => saveAsset()}
-                />
-              ) : (
-                //If category name is neither an 'Bank account' or 'Real estate'.
-                <EditAsset // Renders normal asset
-                  eventCancel={() => setVisibleAddAsset(false)}
-                  eventSave={() => saveAsset()}
-                />
-              )
-            ) : (
-              //Renders an empty container, not sure how to implement
-              <div className="Empty container"></div>
-            )}
-          </div>
+    
           <div className="visibleAddCategory">
             {visibleAddCategory ? (
               <AddCategory
