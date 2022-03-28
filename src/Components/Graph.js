@@ -25,15 +25,48 @@ const primaryData = [50000, 150000, 155000, 160000, 145000, 160000];
 const labels = ["Jan22", "feb22", "mar22", "apr22", "may22", "jun21"];
 
 function Graph() {
+
+  //Get previous data from database.
+  //If: current date === previous data from database
+  //do: nothing
+  //else: add current networth to database 
+
+  const currentDate = new Date();
+
+  const currentDayOfMonth = currentDate.getDate();
+  const currentMonth = currentDate.getMonth(); //Note: Be careful! January is 0 not 1
+  const currentYear = currentDate.getFullYear();
+
+  const dateString = currentDayOfMonth + "-" + (currentMonth + 1) + "-" + currentYear;
+
+  console.log(dateString)
+  
+  
+  
+  
   const userId = localStorage.getItem("userId")
+  
+  
+  const value = localGetHistoricNetworth(userId, setHistoricNetworth)
+  
+  const [historicNetworth, setHistoricNetworth] = useState([])
   
   async function localGetHistoricNetworth(userId, setHistoricNetworth){
     getHistoricNetworth(userId, setHistoricNetworth)
   }
 
-  const value = localGetHistoricNetworth(userId, setHistoricNetworth)
-  
-  const [historicNetworth, setHistoricNetworth] = useState([])
+
+
+
+
+
+
+
+
+
+
+
+
 
   const data = {
     labels: labels,
