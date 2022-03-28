@@ -4,8 +4,10 @@
 // import Col from "react-bootstrap/Col";
 import Tag from "./Tag";
 import NetworthNumber from "./NetworthNumber";
+import { useState } from "react"
+import { getHistoricNetworth } from "../data";
+//import React from "react";
 
-import React from "react";
 import "chart.js/auto";
 import { Chart } from "react-chartjs-2";
 import {
@@ -23,6 +25,16 @@ const primaryData = [50000, 150000, 155000, 160000, 145000, 160000];
 const labels = ["Jan22", "feb22", "mar22", "apr22", "may22", "jun21"];
 
 function Graph() {
+  const userId = localStorage.getItem("userId")
+  
+  async function localGetHistoricNetworth(userId, setHistoricNetworth){
+    getHistoricNetworth(userId, setHistoricNetworth)
+  }
+
+  const value = localGetHistoricNetworth(userId, setHistoricNetworth)
+  
+  const [historicNetworth, setHistoricNetworth] = useState([])
+
   const data = {
     labels: labels,
     labelColor: "#18388C",
@@ -74,8 +86,10 @@ function Graph() {
         <NetworthNumber value={150000} />
       </div>
       <Chart type="line" data={data} options={options} style={{ bottom: 0 }} />
+      <div> hej {console.log(value)}</div>
     </div>
-  );
+  ); //      
+
 }
 
 export default Graph;

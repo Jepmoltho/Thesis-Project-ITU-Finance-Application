@@ -75,6 +75,36 @@ export async function getAssets(categoryId, userId, setAssets) {
 }
 
 /*
+export async function postHistoricNetworth(userId, setHistoricNetworth){
+  const parseQuery = new Parse.Object.extend("HistoricNetworth");
+  parseQuery.contains("userId", userId);
+  const thisHistoricNetworth = new HistoricNetworth();
+  //thisHistoricNetworth.set("objectId", categoryId);
+  try{
+    let values = await parseQuery.find();
+    setHistoricNetworth(values);
+    return values;
+  } catch {
+    alert("errors");
+    return false;
+  }
+}
+*/
+
+export async function getHistoricNetworth(userId, setHistoricNetworth){
+  const parseQuery = new Parse.Query("HistoricNetworth");
+  parseQuery.contains("userId", userId);
+  try{
+    let netWorthValues = await parseQuery.find();
+    setHistoricNetworth(netWorthValues);
+    return netWorthValues;
+  } catch {
+    alert("error in getHistoricNetworth");
+    return false;
+  }
+}
+
+/*
 //Moved this method to dashboard
 // function getCatVal(assets) {
 //   //Note: I think this belongs in getCategories or in useEffect hook
