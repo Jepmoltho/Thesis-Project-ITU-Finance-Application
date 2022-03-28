@@ -1,5 +1,5 @@
 import Parse from "parse";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useReducer } from "react";
 import { useNavigate } from "react-router-dom";
 import Category from "../Components/Category";
 import Container from "react-bootstrap/Container";
@@ -9,8 +9,6 @@ import NavigationBar from "../Components/NavigationBar";
 import TopComponents from "../Components/TopComponents";
 import AddCategoryBtn from "../Components/AddCategoryBtn";
 import { postCategory, getCategories, postAsset, getAssets } from "../data";
-import { set } from "parse/lib/browser/CoreManager";  
-import { isVisible } from "@testing-library/user-event/dist/utils";
 
 
 function Dashboard() {
@@ -44,6 +42,7 @@ function Dashboard() {
       } 
     }
     
+    // ------------------Start------------------------
     
   const [visibleAddAsset, setVisibleAddAsset] = useState([]); // does not have any effect
     
@@ -56,46 +55,12 @@ function Dashboard() {
     arrOfCat = categories.map((category) => ({id: category.id, isVisible: false}))
     setVisibleAddAsset(arrOfCat)
   }
-  
 
-  // useEffect(() => {
-  //   // initVisibleAddAsset() 
-  //   console.log("Use effect visible")
-  // }, [visibleAddAsset]); 
-
-  //Saves an asset to database by calling postAsset in data.js
-  async function saveAsset() {
-    try {
-      const assetName = localStorage.getItem("assetName");
-      const assetValue = localStorage.getItem("assetValue");
-      await postAsset(assetName, assetValue, categoryId, userId); //Added await
-      getAssets(categoryId, userId, setAssets); //This gets all assets related to a certain category - maybe use it to solve the issue of calculating total value of a category, since it returns all relevant assets: const assetsInCategory = getAssets(categoryId, userId, setAssets);
-
-      //await postCategoryValue(categoryId, userId, assetsInCategory); //HERE!
-      
-      // setVisibleAddAsset(false); //----------DEAL HERE-----------
-    } catch (error) {
-      console.log("Errors");
-    }
-  }
-
-
-  //Nessesary functon that wraps function calls that needs to happen in a specific order in order to save the relevant categoryId to local storage after clicking addAsset
-  function addAssetClick( isOpen, categoryId) {
-    console.log("clicked")
-
-    // setVisibleAddAsset(true); //----------DEAL HERE-----------
-    localStorage.setItem("categoryId", categoryId);
-    setCategoryId(categoryId);
-
-    getAssets(categoryId, userId, setAssets);
-
-
-    setVisibleAddAssetFunction(isOpen, categoryId)
-
-    // console.log(visibleAddAsset)
- 
-  }
+  useEffect(() => {
+    initVisibleAddAsset() ;
+    console.log(visibleAddAsset)
+    console.log(categories)
+  }, [categoryId]); 
 
   function setVisibleAddAssetFunction(isOpen, categoryId){
     setVisibleAddAsset( prevArr =>
@@ -114,47 +79,40 @@ function Dashboard() {
     )
   }
 
-//   setSquares(prevSquares => {
-//     return prevSquares.map((square) => {
-//         return square.id === id ? {...square, on: !square.on} : square
-//     })
-// })
+    // ------------------end------------------------
+  
 
-  // function calculateNetWorth(categories) {
-  //   let assetsSum = 0;
-  //   let debtSum = 0;
-  //   //let netWorth = 0;
-  //   categories.map((category) => {
-  //     if (category.get("value") >= 0) {
-  //       assetsSum += category.get("value");
-  //       return assetsSum;
-  //     } else {
-  //       debtSum += category.get("value");
-  //       return debtSum;
-  //     }
-  //   });
-  //   setAssetsTotal(assetsSum);
-  //   setDebtTotal(debtSum);
-  //   setNetWorth(assetsSum + debtSum);
-  // }
+  //Saves an asset to database by calling postAsset in data.js
+  async function saveAsset() {
+    try {
+      const assetName = localStorage.getItem("assetName");
+      const assetValue = localStorage.getItem("assetValue");
+      await postAsset(assetName, assetValue, categoryId, userId); //Added await
+      getAssets(categoryId, userId, setAssets); //This gets all assets related to a certain category - maybe use it to solve the issue of calculating total value of a category, since it returns all relevant assets: const assetsInCategory = getAssets(categoryId, userId, setAssets);
 
-  // function getCatVal(assets) {
-  //   let sum = 0; //Note: Techincal debt - there is no reason we are not just treating assets as numbers/ints consistently
-  //   assets.map((asset) => {
-  //     sum += parseInt(asset.get("value"));
-  //     return sum; //If error, check what this does
-  //   });
-  //   return sum;
-  // }
+    } catch (error) {
+      console.log("Errors");
+    }
+  }
 
 
-  // setTimeout(() => { }, 10000);
+  //Nessesary functon that wraps function calls that needs to happen in a specific order in order to save the relevant categoryId to local storage after clicking addAsset
+  function addAssetClick( isOpen, categoryId) {
+    console.log("clicked")
 
-  // useEffect(() => {
-  //   initVisibleAddAsset() ;
-  //   console.log(visibleAddAsset)
-  //   console.log(categories)
-  // }, [userId]); 
+    localStorage.setItem("categoryId", categoryId);
+    
+    // ------------------Start------------------------
+    setCategoryId(categoryId);
+    getAssets(categoryId, userId, setAssets);
+    setVisibleAddAssetFunction(isOpen, categoryId)
+    // ------------------END------------------------
+
+  }
+
+  
+
+
 
 
   //useEffect and stateHook handling userLogin and registration
@@ -163,13 +121,8 @@ function Dashboard() {
     console.log("userID")
     getCurrentUser();
     initVisibleAddAsset() ;
-    console.log(visibleAddAsset)
   }, [userId]);
 
-  //useEffect handling update of overviewCard (assettotal, debttotal and networth) in topComponent //NOTE: THE SOLUTION TO THE UNINTENDED CALLS TO GETCATEGORIES, GETASSETS AND CALCULATE NETWORTH IS ANOTHER USEEFFECT HOOK WITH IT'S OWN DEPENDENCIES: https://www.linkedin.com/learning/react-hooks/working-with-the-dependency-array?autoSkip=true&autoplay=true&resume=false&u=55937129
-  // useEffect(() => {
-  //   calculateNetWorth(categories);
-  // }, [categories, assets]);
 
   //useEffect handling update of categories and assets (Warning: dont add assets or categories to dependecy array)
   useEffect(() => {
@@ -178,8 +131,6 @@ function Dashboard() {
     // console.log("init visible")
     console.log("categortyID and userID")
 
-    // initVisibleAddAsset()
-    // console.log(c)
   }, [userId, categoryId]);
 
 
@@ -237,9 +188,12 @@ function Dashboard() {
                 value={category.get("value")}
                 eventAddAsset={() => addAssetClick(true,category.id)}
                 assets={assets}
-                visibleAddAsset={visibleAddAsset} //----------DEAL HERE-----------
+    // ------------------Start------------------------
+                visibleAddAsset={visibleAddAsset} 
                 eventSave = {() => saveAsset()}             
                 eventCancel = {() => addAssetClick(false, category.id)}             
+    // ------------------End------------------------
+              
               />
             ))}
           </div>
