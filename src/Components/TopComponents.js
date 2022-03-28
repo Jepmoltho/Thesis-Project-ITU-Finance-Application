@@ -31,7 +31,11 @@ function TopComponents(props) {
         >
           <Col style={{ paddingLeft: "0px" }}>
             <Seehowpros />
-            <SectorDiagram />
+            <SectorDiagram 
+              categories={props.categories}
+              netWorth={props.netWorth}
+
+            />
           </Col>
         </Row>
         <Row

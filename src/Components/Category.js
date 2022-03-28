@@ -1,4 +1,3 @@
-import { useState } from "react";
 import "bootstrap/dist/css/bootstrap.css";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -11,6 +10,7 @@ import Icon from "./Icon";
 import ArrowDropDownRoundedIcon from "@mui/icons-material/ArrowDropDownRounded";
 import Button from "@mui/material/Button";
 import Asset from "../Components/Asset";
+
 import EditAsset from "../Components/EditAsset"
 import AddAssetBtn from "../Components/AddAssetBtn"
 
@@ -20,6 +20,7 @@ function Category(props) {
 
     // --------------Category -----------------------
     <Row>
+
 
       <Row className="category">
         <Col className="col-sm-1" style={{ margin: "auto" }}>
@@ -41,7 +42,8 @@ function Category(props) {
         </Col>
         <Col style={{ margin: "auto" }}>
           <Tag text="Value" />
-          <Value value={props.value} />
+          {props.value ? <Value value={props.value} /> : <Value value={0} />}
+          {/*<Value value={props.value} />*/}
         </Col>
         <Col style={{ margin: "auto" }}>
           <Tag text="Profit" />
@@ -63,14 +65,10 @@ function Category(props) {
         </Col>
         <Col className="col-sm-1">
           <Icon edit />
-          
-          {/* Add new asset button*/}
-          
-          <Icon add event1={props.eventAddAsset}
-
-          />
+          <Icon add event1={props.eventAddAsset} />
         </Col>
       </Row>
+
 
 
      {/* -------------- Asset -----------------------               */}
@@ -128,13 +126,7 @@ function Category(props) {
     }
 
       </Row>
-
-      <Row>
-        <AddAssetBtn event1={props.eventAddAsset}/>
-      </Row>
-
-
-    </Row>
+    </div>
   );
 }
 
