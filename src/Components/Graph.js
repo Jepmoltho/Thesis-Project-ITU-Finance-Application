@@ -4,7 +4,7 @@
 // import Col from "react-bootstrap/Col";
 import Tag from "./Tag";
 import NetworthNumber from "./NetworthNumber";
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { getHistoricNetworth } from "../data";
 //import React from "react";
 
@@ -31,6 +31,22 @@ function Graph() {
   //do: nothing
   //else: add current networth to database 
 
+  const userId = localStorage.getItem("userId")
+  
+  const [historicNetworth, setHistoricNetworth] = useState([])
+  
+  useEffect(() => {
+    getHistoricNetworth(userId, setHistoricNetworth)
+  }, []);
+
+  // const value = localGetHistoricNetworth(userId, setHistoricNetworth)
+  
+  
+  // async function localGetHistoricNetworth(userId, setHistoricNetworth){
+  //   getHistoricNetworth(userId, setHistoricNetworth)
+  // }
+
+
   const currentDate = new Date();
 
   const currentDayOfMonth = currentDate.getDate();
@@ -44,16 +60,6 @@ function Graph() {
   
   
   
-  const userId = localStorage.getItem("userId")
-  
-  
-  const value = localGetHistoricNetworth(userId, setHistoricNetworth)
-  
-  const [historicNetworth, setHistoricNetworth] = useState([])
-  
-  async function localGetHistoricNetworth(userId, setHistoricNetworth){
-    getHistoricNetworth(userId, setHistoricNetworth)
-  }
 
 
 
@@ -119,7 +125,7 @@ function Graph() {
         <NetworthNumber value={150000} />
       </div>
       <Chart type="line" data={data} options={options} style={{ bottom: 0 }} />
-      <div> hej {console.log(value)}</div>
+      <div> hej {console.log(historicNetworth)}</div>
     </div>
   ); //      
 
