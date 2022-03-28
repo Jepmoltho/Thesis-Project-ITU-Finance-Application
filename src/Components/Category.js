@@ -1,4 +1,3 @@
-import { useState } from "react";
 import "bootstrap/dist/css/bootstrap.css";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -11,23 +10,10 @@ import Icon from "./Icon";
 import ArrowDropDownRoundedIcon from "@mui/icons-material/ArrowDropDownRounded";
 import Button from "@mui/material/Button";
 import Asset from "../Components/Asset";
-import EditAsset from "../Components/EditAsset"
-// import { isVisible } from "@testing-library/user-event/dist/utils";
-import AddAssetBtn from "../Components/AddAssetBtn"
 
 function Category(props) {
-
-
-  // const [visibleAddAsset, setVisibleAddAsset] = useState(true);
-
-  // console.log(props.visibleAddAsset[0].categoryId)
-
   return (
-
-
-    // --------------Category -----------------------
-    <Row>
-
+    <div>
       <Row className="category">
         <Col className="col-sm-1" style={{ margin: "auto" }}>
           <CategoryIcon categoryIcon="Stocks" />
@@ -70,85 +56,22 @@ function Category(props) {
         </Col>
         <Col className="col-sm-1">
           <Icon edit />
-          
-          {/* Add new asset button*/}
-          
-          <Icon add event1={props.eventAddAsset}
-
-          />
+          <Icon add event1={props.eventAddAsset} />
         </Col>
       </Row>
 
-
-     {/* -------------- Asset -----------------------               */}
-      <Row>        
-          {props.assets.map((asset) => (
-          asset.attributes.categoryId === props.categoryId ? 
-            <Asset key={asset.id} title={asset.get("name")} /> 
-            : null 
-          ))} 
-      </Row>
-
-
-
-     {/* -------------- Add Asset -----------------------               */}
       <Row>
-
-      {/* {console.log(props.visibleAddAsset[0].categoryId)} */}
-      { 
-          // true ?
-        // props.visibleAddAsset.isVisible ?
-          props.title === "Real Estate" ?
-            <EditAsset category="realestate"    // Renders real estate asset
-              //eventCancel={() => setVisibleAddAsset(false)}
-              //eventSave={() => saveAsset()}
+        {props.assets.map((asset) =>
+          asset.attributes.categoryId === props.categoryId ? (
+            <Asset
+              key={asset.id}
+              title={asset.get("name")}
+              value={asset.get("value")}
             />
-            : 
-              props.title === "Bank account" ?
-                <EditAsset category="bank"   // Renders bank asset
-                //eventCancel={() => setVisibleAddAsset(false)}
-                //eventSave={() => saveAsset()}
-                />
-              :
-              <EditAsset  // Normal asset
-                  //eventCancel={() => setVisibleAddAsset(false)}
-                  //eventSave={() => saveAsset()}
-              />
-        // :
-        //   null
-      }
-      {/*
-      <div className="visibleAddAsset">
-              {visibleAddAsset ?
-                isBankAccount() ?   // Checks if category name is equal Banck account
-                      <EditAsset category="bank"   // Renders bank asset
-                      eventCancel={() => setVisibleAddAsset(false)}
-                      eventSave={() => saveAsset()}
-                      /> 
-                  :
-                  isRealEstate() ?   // Checks if category name is equal real estate
-                      <EditAsset category="realestate"    // Renders realestate asset
-                        eventCancel={() => setVisibleAddAsset(false)}
-                        eventSave={() => saveAsset()}
-                      />
-                    :   //If category name is neither an 'Bank account' or 'Real estate'.
-                      <EditAsset  // Renders normal asset
-                        eventCancel={() => setVisibleAddAsset(false)}
-                        eventSave={() => saveAsset()}
-                      />
-                  : //Renders an empty containe, not sure how to implement
-                    <div className="Empty container"></div>  
-            }
-          </div>
-          */}
+          ) : null
+        )}
       </Row>
-
-      <Row>
-        <AddAssetBtn event1={props.eventAddAsset}/>
-      </Row>
-
-
-    </Row>
+    </div>
   );
 }
 
