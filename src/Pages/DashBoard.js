@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 import Category from "../Components/Category";
 import Container from "react-bootstrap/Container";
 import AddCategory from "../Components/AddCategory";
-import EditAsset from "../Components/EditAsset";
 import NavigationBar from "../Components/NavigationBar";
 import TopComponents from "../Components/TopComponents";
 import AddCategoryBtn from "../Components/AddCategoryBtn";
@@ -22,11 +21,11 @@ function Dashboard() {
   const userId = localStorage.getItem("userId");
   const [categoryId, setCategoryId] = useState("");
 
-  //Manages display of addCategoryComponent upon pressing addCategory and dissapear upon pressing cancel
+  //Manages display of addCategoryComponent upon pressing addCategory and disappear upon pressing cancel
   const [visibleAddCategory, setVisibleAddCategory] = useState(false);
 
-  //Manages display if addAssetComponent upon pressing addAsset and dissapear upon pressing cancel
-  // const [visibleAddAsset, setVisibleAddAsset] = useState([]);
+  //Manages display if addAssetComponent upon pressing addAsset and disappear upon pressing cancel
+  const [visibleAddAsset, setVisibleAddAsset] = useState([]); 
 
   //Manages list of saved categories
   const [categories, setCategories] = useState([]);
@@ -52,26 +51,35 @@ function Dashboard() {
     }
   }
 
-  // ------------------Start------------------------
-    
-  const [visibleAddAsset, setVisibleAddAsset] = useState([]); // does not have any effect
-    
+  /**
+   * Sets the visibleAddAsset stateHook to array of objects. 
+   * Each object has an id (String) and isVisible (boolean). 
+   */
   function initVisibleAddAsset(){  
     var arrOfCat = [{
       id:null, 
       isVisible:false
     }]
-  
     arrOfCat = categories.map((category) => ({id: category.id, isVisible: false}))
     setVisibleAddAsset(arrOfCat)
   }
 
+   /**
+   * Initializes the visibleAddAsset stateHook each time the categoryId stateHook changes.
+   */
   useEffect(() => {
     initVisibleAddAsset() ;
     console.log(visibleAddAsset)
     console.log(categories)
   }, [categoryId]); 
 
+
+  /**
+   * Sets the visibility of an AddAsset to true/false.
+   * 
+   * @param {boolean} isOpen Pass true to display the Add Asset component.
+   * @param {string} categoryId The ID of a category.
+   */
   function setVisibleAddAssetFunction(isOpen, categoryId){
     setVisibleAddAsset( prevArr =>
       prevArr.map( (prevObj) => {
@@ -89,9 +97,6 @@ function Dashboard() {
     )
   }
 
-    // ------------------end------------------------
-  
-
   //Saves an asset to database by calling postAsset in data.js
   async function saveAsset() {
     try {
@@ -99,7 +104,6 @@ function Dashboard() {
       const assetValue = localStorage.getItem("assetValue");
       await postAsset(assetName, assetValue, categoryId, userId); //Added await
       getAssets(categoryId, userId, setAssets); //This gets all assets related to a certain category - maybe use it to solve the issue of calculating total value of a category, since it returns all relevant assets: const assetsInCategory = getAssets(categoryId, userId, setAssets);
-      // setVisibleAddAsset(false);
       saveCatValue();
     } catch (error) {
       console.log("Errors");
@@ -122,9 +126,14 @@ function Dashboard() {
     }
   }
 
-  //Nessesary functon that wraps function calls that needs to happen in a specific order in order to save the relevant categoryId to local storage after clicking addAsset
+  /**
+   * Save the relevant categoryId to local storage after clicking addAsset 
+   * and sets the visibility of an AddAsset to true/false.
+   * 
+   * @param {boolean} isOpen Pass true to display the Add Asset component.
+   * @param {String} categoryId The ID of a category.
+   */
   function addAssetClick(isOpen, categoryId) {
-    // setVisibleAddAsset(true);
     localStorage.setItem("categoryId", categoryId);
     setCategoryId(categoryId);
     setVisibleAddAssetFunction(isOpen, categoryId)
@@ -229,16 +238,14 @@ function Dashboard() {
                 categoryId={category.id} // Created categoryId to access the prop in asset.
                 title={category.get("name")}
                 value={category.get("value")}
-                eventAddAsset={() => addAssetClick(true, category.id)}
+                eventAddAsset={() => addAssetClick(true, category.id)} //Sets the visibility of AddAsset to true
                 assets={assets}
                 visibleAddAsset={visibleAddAsset} 
                 eventSave = {() => saveAsset()}             
-                eventCancel = {() => addAssetClick(false, category.id)} 
+                eventCancel = {() => addAssetClick(false, category.id)} //Sets the visibility of AddAsset to false
               />
             ))}
           </div>
-
-    
           <div className="visibleAddCategory">
             {visibleAddCategory ? (
               <AddCategory
@@ -258,6 +265,7 @@ function Dashboard() {
     );
   }
 }
+
 
 export default Dashboard;
 
