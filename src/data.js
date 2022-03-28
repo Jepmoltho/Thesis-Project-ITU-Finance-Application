@@ -74,22 +74,21 @@ export async function getAssets(categoryId, userId, setAssets) {
   }
 }
 
-/*
-export async function postHistoricNetworth(userId, setHistoricNetworth){
-  const parseQuery = new Parse.Object.extend("HistoricNetworth");
-  parseQuery.contains("userId", userId);
-  const thisHistoricNetworth = new HistoricNetworth();
-  //thisHistoricNetworth.set("objectId", categoryId);
+
+export async function postHistoricNetworth(userId, networth, date){
   try{
-    let values = await parseQuery.find();
-    setHistoricNetworth(values);
-    return values;
+    const HistoricNetworth = new Parse.Object.extend("HistoricNetworth");
+    const thisHistoricNetworth = new HistoricNetworth();
+    thisHistoricNetworth.set("userId", userId);
+    thisHistoricNetworth.set("networth", networth)
+    thisHistoricNetworth.set("date", date)
+    await thisHistoricNetworth.save()
+    alert("Historic Network saved")
   } catch {
-    alert("errors");
-    return false;
+    alert("error in postHistoricNetwork");
   }
 }
-*/
+
 
 export async function getHistoricNetworth(userId, setHistoricNetworth){
   const parseQuery = new Parse.Query("HistoricNetworth");
