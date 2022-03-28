@@ -218,7 +218,7 @@ function Dashboard() {
           <TopComponents
             // assetsTotal={assetsTotal}
             // debtTotal={debtTotal}
-            // netWorth={netWorth}
+            // netWorth={netWorth}sadas
           />
           <br />
           <div className="visibleSavedCategory">
