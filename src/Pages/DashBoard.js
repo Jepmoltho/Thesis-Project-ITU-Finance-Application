@@ -239,7 +239,7 @@ function Dashboard() {
 
           
           {/*
-
+            WhaTAWHWAR
           <div className="visibleAddAsset">
             {visibleAddAsset ? (
               isBankAccount() ? ( // Checks if category name is equal Banck account
