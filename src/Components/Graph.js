@@ -23,35 +23,28 @@ import { async } from "parse/lib/browser/Storage";
 
 ChartJS.register(LineController, LineElement, PointElement, LinearScale, Title);
 
+//Get previous data from database.
+//If: current date === previous data from database
+//do: nothing
+//else: add current networth to database 
+
 
 function Graph(props) {
-  
-  //Get previous data from database.
-  //If: current date === previous data from database
-  //do: nothing
-  //else: add current networth to database 
-  
-  
-  // const [historicNetworth, setHistoricNetworth] = useState([])
-  /*
-  */
- // const value = localGetHistoricNetworth(userId, setHistoricNetworth)
-//  isNewMonth()
-const [graphData, setGraphData] = useState([])
+   
+  const hisNetworth = props.historicNetworth.map( hisEle => hisEle.get("networth"))
+  const hisDate = props.historicNetworth.map( hisEle => {
+    return hisEle.get("date")
+  })
+
+  // const [graphData, setGraphData] = useState( hisNetworth || [])
 
 
-function initGraph(){
-  const hisData = props.historicNetworth.map( hisEle => hisEle.get("networth"))
-  setGraphData(hisData)
-}
 
-useEffect(() => {
-  initGraph()
-  // console.log(graphData)
-},[])
+  const primaryData = hisNetworth;
+  const labels = hisDate;
 
-const primaryData = [50000, 150000, 155000, 160000, 145000, 160000];
-const labels = ["Jan22", "feb22", "mar22", "apr22", "may22", "jun21"];
+// const primaryData = [50000, 150000, 155000, 160000, 145000, 160000];
+// const labels = ["Jan22", "feb22", "mar22", "apr22", "may22", "jun21"];
 
 // console.log(props.historicNetworth[0])
   
@@ -65,7 +58,7 @@ const labels = ["Jan22", "feb22", "mar22", "apr22", "may22", "jun21"];
     } catch(error){
       alert("Error in saveHistoricNetworth")
     }
- }
+  }
 
 
  
