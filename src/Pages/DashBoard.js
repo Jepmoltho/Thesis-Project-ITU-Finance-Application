@@ -25,6 +25,7 @@ function Dashboard() {
   const [visibleAddCategory, setVisibleAddCategory] = useState(false);
 
   //Manages display if addAssetComponent upon pressing addAsset and disappear upon pressing cancel
+  //STEP 4!!!
   const [visibleAddAsset, setVisibleAddAsset] = useState([]);
 
   //Manages list of saved categories
@@ -52,6 +53,8 @@ function Dashboard() {
   }
 
   /**
+   * STEP 3!!!
+   *
    * Sets the visibleAddAsset stateHook to array of objects.
    * Each object has an id (String) and isVisible (boolean).
    */
@@ -66,25 +69,30 @@ function Dashboard() {
       id: category.id,
       isVisible: false,
     }));
+    //STEP 4!!!
     setVisibleAddAsset(arrOfCat);
   }
 
   /**
    * Initializes the visibleAddAsset stateHook each time the categoryId stateHook changes.
    */
-  useEffect(() => {
-    initVisibleAddAsset();
-    console.log(visibleAddAsset);
-    console.log(categories);
-  }, [categoryId]);
+  // useEffect(() => {
+  //   initVisibleAddAsset();
+  //   // console.log(visibleAddAsset);
+  //   // console.log(categories);
+  // }, [categoryId]);
 
   /**
+   * STEP 2!!!
    * Sets the visibility of an AddAsset to true/false.
    *
    * @param {boolean} isOpen Pass true to display the Add Asset component.
    * @param {string} categoryId The ID of a category.
    */
   function setVisibleAddAssetFunction(isOpen, categoryId) {
+    //Step 3!!!!
+    initVisibleAddAsset(); //Set all visible to false (sets the id to all, thats why you need to call this first)
+    //Step 4!!!! //Set correct category visible to true
     setVisibleAddAsset((prevArr) =>
       prevArr.map((prevObj) => {
         if (prevObj.id === categoryId) {
@@ -97,6 +105,7 @@ function Dashboard() {
         return prevObj;
       })
     );
+    //initVisibleAddAsset();
   }
 
   //Saves an asset to database by calling postAsset in data.js
@@ -107,6 +116,7 @@ function Dashboard() {
       await postAsset(assetName, assetValue, categoryId, userId); //Added await
       getAssets(categoryId, userId, setAssets); //This gets all assets related to a certain category - maybe use it to solve the issue of calculating total value of a category, since it returns all relevant assets: const assetsInCategory = getAssets(categoryId, userId, setAssets);
       saveCatValue();
+      setVisibleAddAssetFunction(false, categoryId); //HERE!!!!!!!
     } catch (error) {
       console.log("Errors");
     }
@@ -129,6 +139,7 @@ function Dashboard() {
   }
 
   /**
+   * STEP 1!
    * Save the relevant categoryId to local storage after clicking addAsset
    * and sets the visibility of an AddAsset to true/false.
    *
@@ -138,7 +149,9 @@ function Dashboard() {
   function addAssetClick(isOpen, categoryId) {
     localStorage.setItem("categoryId", categoryId);
     setCategoryId(categoryId);
+    //STEP 2
     setVisibleAddAssetFunction(isOpen, categoryId);
+    //setVisibleAddAssetFunction(false, categoryId);
   }
 
   //Calculates the networth
@@ -242,6 +255,7 @@ function Dashboard() {
                 categoryId={category.id} // Created categoryId to access the prop in asset.
                 title={category.get("name")}
                 value={category.get("value")}
+                //STEP 1: Pass addAssetClick
                 eventAddAsset={() => addAssetClick(true, category.id)} //Sets the visibility of AddAsset to true
                 assets={assets}
                 visibleAddAsset={visibleAddAsset}
