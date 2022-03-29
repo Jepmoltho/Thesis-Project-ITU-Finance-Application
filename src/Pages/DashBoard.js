@@ -25,7 +25,7 @@ function Dashboard() {
   const [visibleAddCategory, setVisibleAddCategory] = useState(false);
 
   //Manages display if addAssetComponent upon pressing addAsset and disappear upon pressing cancel
-  const [visibleAddAsset, setVisibleAddAsset] = useState([]); 
+  const [visibleAddAsset, setVisibleAddAsset] = useState([]);
 
   //Manages list of saved categories
   const [categories, setCategories] = useState([]);
@@ -33,7 +33,7 @@ function Dashboard() {
   //Manages list of saved assets
   const [assets, setAssets] = useState([]);
 
-  //console.log(assets);
+  //Manages all values in overviewCard
   const [assetsTotal, setAssetsTotal] = useState("");
   const [debtTotal, setDebtTotal] = useState("");
   const [netWorth, setNetWorth] = useState("");
@@ -52,49 +52,51 @@ function Dashboard() {
   }
 
   /**
-   * Sets the visibleAddAsset stateHook to array of objects. 
-   * Each object has an id (String) and isVisible (boolean). 
+   * Sets the visibleAddAsset stateHook to array of objects.
+   * Each object has an id (String) and isVisible (boolean).
    */
-  function initVisibleAddAsset(){  
-    var arrOfCat = [{
-      id:null, 
-      isVisible:false
-    }]
-    arrOfCat = categories.map((category) => ({id: category.id, isVisible: false}))
-    setVisibleAddAsset(arrOfCat)
+  function initVisibleAddAsset() {
+    var arrOfCat = [
+      {
+        id: null,
+        isVisible: false,
+      },
+    ];
+    arrOfCat = categories.map((category) => ({
+      id: category.id,
+      isVisible: false,
+    }));
+    setVisibleAddAsset(arrOfCat);
   }
 
-   /**
+  /**
    * Initializes the visibleAddAsset stateHook each time the categoryId stateHook changes.
    */
   useEffect(() => {
-    initVisibleAddAsset() ;
-    console.log(visibleAddAsset)
-    console.log(categories)
-  }, [categoryId]); 
-
+    initVisibleAddAsset();
+    console.log(visibleAddAsset);
+    console.log(categories);
+  }, [categoryId]);
 
   /**
    * Sets the visibility of an AddAsset to true/false.
-   * 
+   *
    * @param {boolean} isOpen Pass true to display the Add Asset component.
    * @param {string} categoryId The ID of a category.
    */
-  function setVisibleAddAssetFunction(isOpen, categoryId){
-    setVisibleAddAsset( prevArr =>
-      prevArr.map( (prevObj) => {
-      
-      if(prevObj.id === categoryId){
-        
-        const newObj = {
-          ...prevObj,
-          isVisible: isOpen
+  function setVisibleAddAssetFunction(isOpen, categoryId) {
+    setVisibleAddAsset((prevArr) =>
+      prevArr.map((prevObj) => {
+        if (prevObj.id === categoryId) {
+          const newObj = {
+            ...prevObj,
+            isVisible: isOpen,
+          };
+          return newObj;
         }
-        return newObj        
-      } 
-      return prevObj
-    })
-    )
+        return prevObj;
+      })
+    );
   }
 
   //Saves an asset to database by calling postAsset in data.js
@@ -127,18 +129,19 @@ function Dashboard() {
   }
 
   /**
-   * Save the relevant categoryId to local storage after clicking addAsset 
+   * Save the relevant categoryId to local storage after clicking addAsset
    * and sets the visibility of an AddAsset to true/false.
-   * 
+   *
    * @param {boolean} isOpen Pass true to display the Add Asset component.
    * @param {String} categoryId The ID of a category.
    */
   function addAssetClick(isOpen, categoryId) {
     localStorage.setItem("categoryId", categoryId);
     setCategoryId(categoryId);
-    setVisibleAddAssetFunction(isOpen, categoryId)
+    setVisibleAddAssetFunction(isOpen, categoryId);
   }
 
+  //Calculates the networth
   function calculateNetWorth(categories) {
     let assetsSum = 0;
     let debtSum = 0;
@@ -157,6 +160,7 @@ function Dashboard() {
     setNetWorth(assetsSum + debtSum);
   }
 
+  //Gets the category value for specific assets
   function getCatVal(assets) {
     let sum = 0; //Note: Techincal debt - there is no reason we are not just treating assets as numbers/ints consistently
     assets.map((asset) => {
@@ -240,9 +244,9 @@ function Dashboard() {
                 value={category.get("value")}
                 eventAddAsset={() => addAssetClick(true, category.id)} //Sets the visibility of AddAsset to true
                 assets={assets}
-                visibleAddAsset={visibleAddAsset} 
-                eventSave = {() => saveAsset()}             
-                eventCancel = {() => addAssetClick(false, category.id)} //Sets the visibility of AddAsset to false
+                visibleAddAsset={visibleAddAsset}
+                eventSave={() => saveAsset()}
+                eventCancel={() => addAssetClick(false, category.id)} //Sets the visibility of AddAsset to false
               />
             ))}
           </div>
@@ -265,7 +269,6 @@ function Dashboard() {
     );
   }
 }
-
 
 export default Dashboard;
 
