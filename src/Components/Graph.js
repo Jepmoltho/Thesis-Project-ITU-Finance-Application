@@ -54,7 +54,7 @@ function Graph() {
 
  useEffect(() => {
   // saveHistoricNetworth()
-  s
+  
 }, []);
 
 
