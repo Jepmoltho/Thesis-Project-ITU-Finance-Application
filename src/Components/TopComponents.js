@@ -15,7 +15,9 @@ function TopComponents(props) {
         className="col-sm-7"
         style={{ marginRight: "0px", paddingRight: "0px", paddingLeft: "0px" }}
       >
-        <Graph />
+        <Graph 
+          historicNetworth={props.historicNetworth}
+        />
       </Col>
       <Col
         className="col-sm-5"

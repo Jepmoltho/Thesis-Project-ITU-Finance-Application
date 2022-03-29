@@ -23,27 +23,42 @@ import { async } from "parse/lib/browser/Storage";
 
 ChartJS.register(LineController, LineElement, PointElement, LinearScale, Title);
 
-const primaryData = [50000, 150000, 155000, 160000, 145000, 160000];
-const labels = ["Jan22", "feb22", "mar22", "apr22", "may22", "jun21"];
 
-function Graph() {
-
+function Graph(props) {
+  
   //Get previous data from database.
   //If: current date === previous data from database
   //do: nothing
   //else: add current networth to database 
-
-  const [historicNetworth, setHistoricNetworth] = useState([])
+  
+  
+  // const [historicNetworth, setHistoricNetworth] = useState([])
   /*
   */
-  // const value = localGetHistoricNetworth(userId, setHistoricNetworth)
+ // const value = localGetHistoricNetworth(userId, setHistoricNetworth)
+//  isNewMonth()
+const [graphData, setGraphData] = useState([])
+
+
+function initGraph(){
+  const hisData = props.historicNetworth.map( hisEle => hisEle.get("networth"))
+  setGraphData(hisData)
+}
+
+useEffect(() => {
+  initGraph()
+  // console.log(graphData)
+},[])
+
+const primaryData = [50000, 150000, 155000, 160000, 145000, 160000];
+const labels = ["Jan22", "feb22", "mar22", "apr22", "may22", "jun21"];
+
+// console.log(props.historicNetworth[0])
   
-  
- async function saveHistoricNetworth(){
+ function saveHistoricNetworth(){
     try{
       const userId = localStorage.getItem("userId")
       const networth = 10000
-      // const date = new Date().getMonth() + 1
       const date = new Date()
       postHistoricNetworth(userId, networth, date)
       console.log("inserted data")
@@ -52,11 +67,39 @@ function Graph() {
     }
  }
 
- useEffect(() => {
-  // saveHistoricNetworth()
-  
-}, []);
 
+ 
+ 
+//  useEffect(() => {
+//   //  saveHistoricNetworth()
+//   const userId = localStorage.getItem("userId")
+//   getHistoricNetworth(userId, setHistoricNetworth)
+//   console.log(historicNetworth)
+//   }, []);
+  
+  // useEffect(() => {
+  //   isNewMonth()
+  //   console.log(historicNetworth)
+  // },[historicNetworth]);
+  // console.log(historicNetworth[0].get("date"))
+  // console.log(historicNetworth[0].get("date"))
+  // useEffect(() => {
+  //   isNewMonth()
+  //   console.log(props.historicNetworth)
+  // },[props.historicNetworth]);
+
+  // // function isNewMonth(){
+  // //   const currentDate = new Date().getMonth() +1; //Note! January is 0 not 1
+  // //   // const dbDate = historicNetworth[0].get("networth")
+  // //   const dbDate = props.historicNetworth[0].get("networth")
+
+
+  //   if (currentDate === dbDate){
+  //     console.log("yes set new date to networth")
+  //   } else {
+  //     console.log("No render nothing")
+  //   }
+  // }
 
 //  console.log(saveHistoricNetworth()
 // const date = new Date().getMonth() + 1

@@ -14,6 +14,8 @@ import {
   postAsset,
   getAssets,
   postCatVal,
+  getHistoricNetworth,
+  postHistoricNetworth
 } from "../data";
 
 function Dashboard() {
@@ -34,6 +36,9 @@ function Dashboard() {
   //Manages list of saved assets
   const [assets, setAssets] = useState([]);
 
+  const [historicNetworth, setHistoricNetworth] = useState([])
+
+
   //console.log(assets);
   const [assetsTotal, setAssetsTotal] = useState("");
   const [debtTotal, setDebtTotal] = useState("");
@@ -53,7 +58,7 @@ function Dashboard() {
   }
 
   // ------------------Start------------------------
-    
+  // console.log(assets)
   const [visibleAddAsset, setVisibleAddAsset] = useState([]); // does not have any effect
     
   function initVisibleAddAsset(){  
@@ -174,6 +179,7 @@ function Dashboard() {
   useEffect(() => {
     getCategories(userId, setCategories); //Moved this up hear insted of in useEffect
     getAssets(categoryId, userId, setAssets);
+    getHistoricNetworth(userId, setHistoricNetworth)
     console.log("UseEffect called");
   }, [userId, categoryId, visibleAddAsset]);
 
@@ -220,6 +226,7 @@ function Dashboard() {
             debtTotal={debtTotal}
             netWorth={netWorth}
             categories={categories}
+            historicNetworth={historicNetworth}
           />
           <br />
           <div className="visibleSavedCategory">
