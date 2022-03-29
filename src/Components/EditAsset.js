@@ -68,7 +68,7 @@ function EditAsset(props) {
       if (checked === true) {
         return (
           // What should be render if switch is true
-          <div className="Edit asset row">
+          <div className="Edit asset">
             <Row className="asset">
               <Col className="col-sm-1" style={{ margin: "auto" }}>
                 <Tag text="Calculate pr. m²" />
@@ -118,7 +118,7 @@ function EditAsset(props) {
         );
       } else {
         return (
-          <div className="Edit asset row">
+          <div className="Edit asset">
             <Row className="asset">
               <Col className="col-sm-1" style={{ margin: "auto" }}>
                 <Tag text="Calculate pr. m²" />
@@ -163,7 +163,7 @@ function EditAsset(props) {
       if (checked === true) {
         return (
           // copied from props.bankauto
-          <div className="Edit asset row">
+          <div className="Edit asset">
             <Row className="asset">
               <Col className="col-sm-1" style={{ margin: "auto" }}>
                 <Tag text="Connect bank" />
@@ -217,7 +217,7 @@ function EditAsset(props) {
         );
       } else {
         return (
-          <div className="Edit asset row">
+          <div className="Edit asset">
             <Row className="asset">
               <Col className="col-sm-1" style={{ margin: "auto" }}>
                 <Tag text="Connect bank" />
@@ -260,7 +260,7 @@ function EditAsset(props) {
 
     default:
       return (
-        <div className="Edit asset row">
+        <div className="Edit asset">
           <Row className="asset">
             <Col className="col-sm-1" style={{ margin: "auto" }}></Col>
             <Col style={{ margin: "auto" }}>
