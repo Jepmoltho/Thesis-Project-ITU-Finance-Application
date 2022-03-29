@@ -18,6 +18,8 @@ import {
   LinearScale,
   Title,
 } from "chart.js";
+import { set } from "parse/lib/browser/CoreManager";
+import { async } from "parse/lib/browser/Storage";
 
 ChartJS.register(LineController, LineElement, PointElement, LinearScale, Title);
 
@@ -33,26 +35,32 @@ function Graph() {
 
   const [historicNetworth, setHistoricNetworth] = useState([])
   /*
-  useEffect(() => {
-    getHistoricNetworth(userId, setHistoricNetworth)
-  }, []);
   */
   // const value = localGetHistoricNetworth(userId, setHistoricNetworth)
   
   
-  async function saveHistoricNetworth(){
+ async function saveHistoricNetworth(){
     try{
       const userId = localStorage.getItem("userId")
       const networth = 10000
-      const date = new Date();
+      // const date = new Date().getMonth() + 1
+      const date = new Date()
       postHistoricNetworth(userId, networth, date)
+      console.log("inserted data")
     } catch(error){
       alert("Error in saveHistoricNetworth")
     }
  }
 
- console.log(saveHistoricNetworth())
+ useEffect(() => {
+  // saveHistoricNetworth()
+  s
+}, []);
 
+
+//  console.log(saveHistoricNetworth()
+// const date = new Date().getMonth() + 1
+// console.log(date)
   /*
   const currentDate = new Date();
   const currentDayOfMonth = currentDate.getDate();
@@ -64,20 +72,6 @@ function Graph() {
   console.log(dateString)
   */
   
-  
-  
-
-
-
-
-
-
-
-
-
-
-
-
 
 
   const data = {

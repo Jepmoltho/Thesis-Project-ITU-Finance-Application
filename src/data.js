@@ -74,7 +74,6 @@ export async function getAssets(categoryId, userId, setAssets) {
   }
 }
 
-
 export async function postHistoricNetworth(userId, networth, date){
   try{
     const HistoricNetworth = new Parse.Object.extend("HistoricNetworth");
@@ -88,6 +87,19 @@ export async function postHistoricNetworth(userId, networth, date){
     alert("error in postHistoricNetwork");
   }
 }
+// export async function postHistoricNetworth(userId, networth, date){
+//   try{
+//     const HistoricNetworth = new Parse.Object.extend("HistoricNetworth");
+//     const thisHistoricNetworth = new HistoricNetworth();
+//     thisHistoricNetworth.set("userId", userId);
+//     thisHistoricNetworth.set("networth", networth)
+//     thisHistoricNetworth.set("date", date)
+//     await thisHistoricNetworth.save()
+//     alert("Historic Network saved")
+//   } catch {
+//     alert("error in postHistoricNetwork");
+//   }
+// }
 
 
 export async function getHistoricNetworth(userId, setHistoricNetworth){
