@@ -12,11 +12,19 @@ import Button from "@mui/material/Button";
 import Asset from "../Components/Asset";
 import EditAsset from "./EditAsset";
 import AddAssetBtn from "./AddAssetBtn";
-import { deleteAsset } from "../data";
+import { deleteAsset, putAsset } from "../data";
 
 function Category(props) {
+  //Manages the delete asset event
   function deleteAssetHandler(assetId) {
     deleteAsset(assetId);
+    //Rerender after: Add an await above and rerender here
+  }
+
+  function updateAssetHandler(assetId) {
+    putAsset(assetId);
+
+    //Rerender after: Add an await above and rerender here
   }
 
   return (
@@ -75,6 +83,7 @@ function Category(props) {
               key={asset.id}
               title={asset.get("name")}
               value={asset.get("value")}
+              eventUpdate={() => updateAssetHandler(asset.id)}
               eventDelete={() => deleteAssetHandler(asset.id)}
             />
           ) : null

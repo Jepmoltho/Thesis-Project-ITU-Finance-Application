@@ -86,3 +86,32 @@ export async function deleteAsset(assetId) {
     return false;
   }
 }
+
+export async function putAsset(assetId) {
+  const Asset = new Parse.Object("Asset");
+  Asset.set("objectId", assetId);
+  try {
+    await Asset.destroy();
+    alert("Please insert the updated values of your asset");
+    return true;
+  } catch (error) {
+    alert("Error " + error + " caught");
+    return false;
+  }
+}
+
+//Doesnt work for now: Suprinsingly complex problem -
+// export async function putAsset(assetId, assetName, assetValue) {
+//   let Asset = new Parse.Object("Asset");
+//   Asset.set("objectId", assetId);
+//   Asset.set("name", assetName);
+//   Asset.set("value", assetValue);
+//   try {
+//     await Asset.save();
+//     alert(assetId + " updated");
+//     return true;
+//   } catch (error) {
+//     alert("Error " + error);
+//     return false;
+//   }
+// }

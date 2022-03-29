@@ -80,7 +80,7 @@ function Asset(props) {
             <ButtonGroup
               primaryText="Edit"
               secondaryText="Delete"
-              event1={props.edit}
+              event1={props.eventUpdate}
               event2={props.eventDelete}
             />
           </Col>
