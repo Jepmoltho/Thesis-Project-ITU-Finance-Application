@@ -77,7 +77,12 @@ function Asset(props) {
             className="col-sm-2"
             style={{ margin: "auto", paddingLeft: "0px" }}
           >
-            <ButtonGroup primaryText="Edit" secondaryText="Delete" />
+            <ButtonGroup
+              primaryText="Edit"
+              secondaryText="Delete"
+              event1={props.edit}
+              event2={props.eventDelete}
+            />
           </Col>
         </Row>
       </div>

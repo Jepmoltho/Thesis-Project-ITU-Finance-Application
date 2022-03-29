@@ -12,8 +12,13 @@ import Button from "@mui/material/Button";
 import Asset from "../Components/Asset";
 import EditAsset from "./EditAsset";
 import AddAssetBtn from "./AddAssetBtn";
+import { deleteAsset } from "../data";
 
 function Category(props) {
+  function deleteAssetHandler(assetId) {
+    deleteAsset(assetId);
+  }
+
   return (
     <div>
       <Row className="category">
@@ -70,6 +75,7 @@ function Category(props) {
               key={asset.id}
               title={asset.get("name")}
               value={asset.get("value")}
+              eventDelete={() => deleteAssetHandler(asset.id)}
             />
           ) : null
         )}
@@ -81,12 +87,14 @@ function Category(props) {
             ele.isVisible ? (
               props.title === "Real Estate" ? (
                 <EditAsset
+                  key={ele.id}
                   category="realestate" // Renders real estate asset
                   eventCancel={props.eventCancel}
                   eventSave={props.eventSave}
                 />
               ) : props.title === "Bank account" ? (
                 <EditAsset
+                  key={ele.id}
                   category="bank" // Renders bank asset
                   //eventCancel={() => setVisibleAddAsset(false)}
                   eventCancel={props.eventCancel}
@@ -94,6 +102,7 @@ function Category(props) {
                 />
               ) : (
                 <EditAsset // Normal asset
+                  key={ele.id}
                   eventCancel={props.eventCancel}
                   eventSave={props.eventSave}
                 />

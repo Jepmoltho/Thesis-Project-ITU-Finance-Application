@@ -73,3 +73,16 @@ export async function getAssets(categoryId, userId, setAssets) {
     return false;
   }
 }
+
+export async function deleteAsset(assetId) {
+  const Asset = new Parse.Object("Asset");
+  Asset.set("objectId", assetId);
+  try {
+    await Asset.destroy();
+    alert("Success! Asset " + assetId + " deleted");
+    return true;
+  } catch (error) {
+    alert("Error " + error + " caught");
+    return false;
+  }
+}

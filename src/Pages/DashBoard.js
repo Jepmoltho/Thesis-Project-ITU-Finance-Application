@@ -132,6 +132,13 @@ function Dashboard() {
     setVisibleAddAssetFunction(isOpen, categoryId);
   }
 
+  // //Delete asset
+  // const [assetId, setAssetId] = useState("");
+  // function deleteAssetHandler(setAssetId) {
+  //   setAssetId(assetId);
+  //   deleteAsset(assetId);
+  // }
+
   //Calculates the networth
   function calculateNetWorth(categories) {
     let assetsSum = 0;
@@ -233,7 +240,6 @@ function Dashboard() {
                 categoryId={category.id} // Created categoryId to access the prop in asset.
                 title={category.get("name")}
                 value={category.get("value")}
-                //STEP 1: Pass addAssetClick
                 eventAddAsset={() => addAssetClick(true, category.id)} //Sets the visibility of AddAsset to true
                 assets={assets}
                 visibleAddAsset={visibleAddAsset}
