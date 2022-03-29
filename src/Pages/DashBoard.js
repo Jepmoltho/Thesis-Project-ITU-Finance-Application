@@ -25,7 +25,6 @@ function Dashboard() {
   const [visibleAddCategory, setVisibleAddCategory] = useState(false);
 
   //Manages display if addAssetComponent upon pressing addAsset and disappear upon pressing cancel
-  //STEP 4!!!
   const [visibleAddAsset, setVisibleAddAsset] = useState([]);
 
   //Manages list of saved categories
@@ -53,8 +52,6 @@ function Dashboard() {
   }
 
   /**
-   * STEP 3!!!
-   *
    * Sets the visibleAddAsset stateHook to array of objects.
    * Each object has an id (String) and isVisible (boolean).
    */
@@ -69,30 +66,16 @@ function Dashboard() {
       id: category.id,
       isVisible: false,
     }));
-    //STEP 4!!!
     setVisibleAddAsset(arrOfCat);
   }
 
   /**
-   * Initializes the visibleAddAsset stateHook each time the categoryId stateHook changes.
-   */
-  // useEffect(() => {
-  //   initVisibleAddAsset();
-  //   // console.log(visibleAddAsset);
-  //   // console.log(categories);
-  // }, [categoryId]);
-
-  /**
-   * STEP 2!!!
    * Sets the visibility of an AddAsset to true/false.
-   *
    * @param {boolean} isOpen Pass true to display the Add Asset component.
    * @param {string} categoryId The ID of a category.
    */
   function setVisibleAddAssetFunction(isOpen, categoryId) {
-    //Step 3!!!!
     initVisibleAddAsset(); //Set all visible to false (sets the id to all, thats why you need to call this first)
-    //Step 4!!!! //Set correct category visible to true
     setVisibleAddAsset((prevArr) =>
       prevArr.map((prevObj) => {
         if (prevObj.id === categoryId) {
@@ -105,7 +88,6 @@ function Dashboard() {
         return prevObj;
       })
     );
-    //initVisibleAddAsset();
   }
 
   //Saves an asset to database by calling postAsset in data.js
@@ -116,7 +98,7 @@ function Dashboard() {
       await postAsset(assetName, assetValue, categoryId, userId); //Added await
       getAssets(categoryId, userId, setAssets); //This gets all assets related to a certain category - maybe use it to solve the issue of calculating total value of a category, since it returns all relevant assets: const assetsInCategory = getAssets(categoryId, userId, setAssets);
       saveCatValue();
-      setVisibleAddAssetFunction(false, categoryId); //HERE!!!!!!!
+      setVisibleAddAssetFunction(false, categoryId); //Closes the visibleAddAsset after saving an asset
     } catch (error) {
       console.log("Errors");
     }
@@ -139,19 +121,15 @@ function Dashboard() {
   }
 
   /**
-   * STEP 1!
    * Save the relevant categoryId to local storage after clicking addAsset
    * and sets the visibility of an AddAsset to true/false.
-   *
    * @param {boolean} isOpen Pass true to display the Add Asset component.
    * @param {String} categoryId The ID of a category.
    */
   function addAssetClick(isOpen, categoryId) {
     localStorage.setItem("categoryId", categoryId);
     setCategoryId(categoryId);
-    //STEP 2
     setVisibleAddAssetFunction(isOpen, categoryId);
-    //setVisibleAddAssetFunction(false, categoryId);
   }
 
   //Calculates the networth
@@ -178,7 +156,7 @@ function Dashboard() {
     let sum = 0; //Note: Techincal debt - there is no reason we are not just treating assets as numbers/ints consistently
     assets.map((asset) => {
       sum += parseInt(asset.get("value"));
-      return sum; //If error, check what this does
+      return sum;
     });
     return sum;
   }
@@ -285,14 +263,3 @@ function Dashboard() {
 }
 
 export default Dashboard;
-
-/* 
-//Old useEffect hook before Jeppes split them um into 3 useEffect hooks
-  //useEffect and stateHook handling userLogin and registration
-  const [currentUser, setCurrentUser] = useState(null);
-  useEffect(() => {
-  getCurrentUser();
-  getCategories(userId, setCategories); //Moved this up hear insted of in useEffect
-  getAssets(categoryId, userId, setAssets);
-  }, [userId, categoryId]);
-*/

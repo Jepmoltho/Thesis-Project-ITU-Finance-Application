@@ -73,17 +73,3 @@ export async function getAssets(categoryId, userId, setAssets) {
     return false;
   }
 }
-
-/*
-//Moved this method to dashboard
-// function getCatVal(assets) {
-//   //Note: I think this belongs in getCategories or in useEffect hook
-//   //Note: Techincal debt - there is no reason we are not just treating assets as numbers/ints consistently
-//   let sum = 0;
-//   assets.map((asset) => {
-//     sum += parseInt(asset.get("value"));
-//     return sum; //If error, check what this does
-//   });
-//   return sum;
-// }
-*/

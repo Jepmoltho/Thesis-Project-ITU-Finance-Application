@@ -62,7 +62,7 @@ function Category(props) {
           <Icon add event1={props.eventAddAsset} />
         </Col>
       </Row>
-
+      {/* -------------- Assets ----------------------- */}
       <Row>
         {props.assets.map((asset) =>
           asset.attributes.categoryId === props.categoryId ? (
@@ -74,7 +74,7 @@ function Category(props) {
           ) : null
         )}
       </Row>
-      {/* -------------- Add Asset ----------------------- */}
+      {/* -------------- Add new asset ----------------------- */}
       <Row>
         {props.visibleAddAsset.map((ele) => {
           return ele.id === props.categoryId ? (
@@ -94,8 +94,6 @@ function Category(props) {
                 />
               ) : (
                 <EditAsset // Normal asset
-                  //eventCancel={() => setVisibleAddAsset(false)}
-                  // eventSave={() => saveAsset()}
                   eventCancel={props.eventCancel}
                   eventSave={props.eventSave}
                 />
