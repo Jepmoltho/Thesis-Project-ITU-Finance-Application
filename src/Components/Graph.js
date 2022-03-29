@@ -31,23 +31,31 @@ ChartJS.register(LineController, LineElement, PointElement, LinearScale, Title);
 
 function Graph(props) {
    
-  const hisNetworth = props.historicNetworth.map( hisEle => hisEle.get("networth"))
-  const hisDate = props.historicNetworth.map( hisEle => {
-    return hisEle.get("date")
-  })
+  const historicNetworth = props.historicNetworth.map( hisEle => hisEle.get("networth"));
+  const historicMonth = props.historicNetworth.map( hisEle => {
+    return hisEle.get("date").getMonth() + 1
+  });
 
-  // const [graphData, setGraphData] = useState( hisNetworth || [])
+  const LastHistoricDate = props.historicNetworth[props.historicNetworth.length - 1]
+  // .get("date").getMonth()
+  // const LastHistoricMonth = LastHistoricDate.get("date").getMonth()+1
+  console.log(LastHistoricDate)
+  // hisEle.get("date").getMonth()+1
+  // arr[arr.length - 1]
+
+  const primaryData = historicNetworth;
+  const labels = historicMonth;
 
 
+  const currentMonth = new Date().getMonth() + 1
+  console.log("historicMonth = " + historicMonth)
+  console.log("currentMonth = " + currentMonth)
 
-  const primaryData = hisNetworth;
-  const labels = hisDate;
+  if(historicMonth === currentMonth){
+    saveHistoricNetworth()
+  } 
 
-// const primaryData = [50000, 150000, 155000, 160000, 145000, 160000];
-// const labels = ["Jan22", "feb22", "mar22", "apr22", "may22", "jun21"];
 
-// console.log(props.historicNetworth[0])
-  
  function saveHistoricNetworth(){
     try{
       const userId = localStorage.getItem("userId")
@@ -61,43 +69,7 @@ function Graph(props) {
   }
 
 
- 
- 
-//  useEffect(() => {
-//   //  saveHistoricNetworth()
-//   const userId = localStorage.getItem("userId")
-//   getHistoricNetworth(userId, setHistoricNetworth)
-//   console.log(historicNetworth)
-//   }, []);
-  
-  // useEffect(() => {
-  //   isNewMonth()
-  //   console.log(historicNetworth)
-  // },[historicNetworth]);
-  // console.log(historicNetworth[0].get("date"))
-  // console.log(historicNetworth[0].get("date"))
-  // useEffect(() => {
-  //   isNewMonth()
-  //   console.log(props.historicNetworth)
-  // },[props.historicNetworth]);
-
-  // // function isNewMonth(){
-  // //   const currentDate = new Date().getMonth() +1; //Note! January is 0 not 1
-  // //   // const dbDate = historicNetworth[0].get("networth")
-  // //   const dbDate = props.historicNetworth[0].get("networth")
-
-
-  //   if (currentDate === dbDate){
-  //     console.log("yes set new date to networth")
-  //   } else {
-  //     console.log("No render nothing")
-  //   }
-  // }
-
-//  console.log(saveHistoricNetworth()
-// const date = new Date().getMonth() + 1
-// console.log(date)
-  /*
+   /*
   const currentDate = new Date();
   const currentDayOfMonth = currentDate.getDate();
   const currentMonth = currentDate.getMonth(); //Note: Be careful! January is 0 not 1
