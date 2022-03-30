@@ -179,7 +179,7 @@ function Dashboard() {
   useEffect(() => {
     getCategories(userId, setCategories); //Moved this up hear insted of in useEffect
     getAssets(categoryId, userId, setAssets);
-    //Get historic data from db, then sets historicnetworth state, then checks 
+    //Get historic data from db, then sets historicNetworth state, then if we are in a new month we save the historic data else nothing.
     getHistoricNetworth(userId, setHistoricNetworth)
       .then((hisData) => setHistoricNetworth(hisData))
       .then(() => isNewMonth() ? saveHistoricNetworth() : null);
