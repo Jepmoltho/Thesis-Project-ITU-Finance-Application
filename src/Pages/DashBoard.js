@@ -13,6 +13,7 @@ import {
   postAsset,
   getAssets,
   postCatVal,
+  deleteCategory,
 } from "../data";
 
 function Dashboard() {
@@ -168,6 +169,12 @@ function Dashboard() {
     return sum;
   }
 
+  //Manages deletion of a category
+  function deleteCategoryHandler(categoryId) {
+    deleteCategory(categoryId);
+    console.log("Delete category handler called");
+  }
+
   //useEffect and stateHook handling userLogin and registration
   const [currentUser, setCurrentUser] = useState(null);
   useEffect(() => {
@@ -245,6 +252,7 @@ function Dashboard() {
                 visibleAddAsset={visibleAddAsset}
                 eventSave={() => saveAsset()}
                 eventCancel={() => addAssetClick(false, category.id)} //Sets the visibility of AddAsset to false
+                eventDeleteCategory={() => deleteCategoryHandler(category.id)}
               />
             ))}
           </div>

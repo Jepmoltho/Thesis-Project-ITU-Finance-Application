@@ -38,7 +38,11 @@ function Icon(props) {
   }
   if (props.delete) {
     return (
-      <IconButton aria-label="delete" style={{ float: "right" }}>
+      <IconButton
+        onClick={props.event1}
+        aria-label="delete"
+        style={{ float: "right" }}
+      >
         <DeleteIcon sx={{ color: "#8c8c8c", padding: "3px" }} />
       </IconButton>
     );

@@ -74,6 +74,7 @@ export async function getAssets(categoryId, userId, setAssets) {
   }
 }
 
+//Deletes an asset
 export async function deleteAsset(assetId) {
   const Asset = new Parse.Object("Asset");
   Asset.set("objectId", assetId);
@@ -87,15 +88,36 @@ export async function deleteAsset(assetId) {
   }
 }
 
+//Supposed to be the update function - right now it's just a slightly different delete function
 export async function putAsset(assetId) {
   const Asset = new Parse.Object("Asset");
   Asset.set("objectId", assetId);
   try {
     await Asset.destroy();
-    alert("Please insert the updated values of your asset");
+    alert(
+      "Please press add a new asset and insert the updated name and value of your asset"
+    );
     return true;
   } catch (error) {
     alert("Error " + error + " caught");
+    return false;
+  }
+}
+
+//Delete category - Need to delete from both category table and asset table
+export async function deleteCategory(categoryId) {
+  // const Asset = new Parse.Object("Asset"); //Note: Doesn't work but it only affects the database by not removing assets connected to a category after the category have been deleted. It doesn't affect the user experience. Need to figure out a way to loop though all assets with a given categoryId and destroy them
+  // Asset.set("categoryId", categoryId);
+  const Category = new Parse.Object("Category");
+  Category.set("objectId", categoryId);
+  try {
+    // await Asset.destroy();
+    // alert("Asset destroyed");
+    await Category.destroy();
+    alert("Category destroyed");
+    return true;
+  } catch (error) {
+    alert("Error caught in deleteCategory " + error);
     return false;
   }
 }

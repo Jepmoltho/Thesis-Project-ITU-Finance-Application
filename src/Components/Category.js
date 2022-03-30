@@ -15,6 +15,7 @@ import AddAssetBtn from "./AddAssetBtn";
 import { deleteAsset, putAsset } from "../data";
 
 function Category(props) {
+  //Do we pass down categoryId via props? (hence avaliable here)
   //Manages the delete asset event
   function deleteAssetHandler(assetId) {
     deleteAsset(assetId);
@@ -23,7 +24,6 @@ function Category(props) {
 
   function updateAssetHandler(assetId) {
     putAsset(assetId);
-
     //Rerender after: Add an await above and rerender here
   }
 
@@ -71,8 +71,9 @@ function Category(props) {
           </nobr>
         </Col>
         <Col className="col-sm-1">
-          <Icon edit />
-          <Icon add event1={props.eventAddAsset} />
+          {/*<Icon edit /> //Removed untill implementation */}
+          {/*<Icon delete event1={props.eventAddAsset} /> */}
+          <Icon delete event1={props.eventDeleteCategory} />
         </Col>
       </Row>
       {/* -------------- Assets ----------------------- */}
