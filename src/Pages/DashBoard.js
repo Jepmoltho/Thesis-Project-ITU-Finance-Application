@@ -36,6 +36,9 @@ function Dashboard() {
   //Manages list of saved assets
   const [assets, setAssets] = useState([]);
 
+
+  // --------------Here----------------
+
   const [historicNetworth, setHistoricNetworth] = useState([])
 
 
@@ -57,8 +60,7 @@ function Dashboard() {
     }
   }
 
-  // ------------------Start------------------------
-  // console.log(assets)
+
   const [visibleAddAsset, setVisibleAddAsset] = useState([]); // does not have any effect
     
   function initVisibleAddAsset(){  
@@ -73,8 +75,6 @@ function Dashboard() {
 
   useEffect(() => {
     initVisibleAddAsset() ;
-    // console.log(visibleAddAsset)
-    // console.log(categories)
   }, [categoryId]); 
 
   function setVisibleAddAssetFunction(isOpen, categoryId){
@@ -94,8 +94,6 @@ function Dashboard() {
     )
   }
 
-    // ------------------end------------------------
-  
 
   //Saves an asset to database by calling postAsset in data.js
   async function saveAsset() {
@@ -179,6 +177,9 @@ function Dashboard() {
   useEffect(() => {
     getCategories(userId, setCategories); //Moved this up hear insted of in useEffect
     getAssets(categoryId, userId, setAssets);
+    
+  // --------------Start----------------
+    
     //Get historic data from db, then sets historicNetworth state, then if we are in a new month we save the historic data else nothing.
     getHistoricNetworth(userId, setHistoricNetworth)
       .then((hisData) => setHistoricNetworth(hisData))
@@ -215,6 +216,10 @@ function Dashboard() {
       alert("Error in saveHistoricNetworth")
     }
   }
+
+
+  // --------------End----------------
+
 
 
 

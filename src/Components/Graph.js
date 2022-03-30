@@ -21,23 +21,35 @@ import {
 
 ChartJS.register(LineController, LineElement, PointElement, LinearScale, Title);
 
+
+// -----------------Start------------------------------
 function Graph(props) {
-   
+
   const historicNetworth = props.historicNetworth.map( hisEle => hisEle.get("networth"));
   
   const historicMonth = props.historicNetworth.map( hisEle => {
-    return hisEle.get("date").getMonth() + 1
+    return hisEle.get("date").getMonth() + 1 + "/" + hisEle.get("date").getFullYear()
   });
   
 
-  // const realPrimaryData = historicNetworth.push(props.networth)
+ historicNetworth.push(props.networth)
   
-  // const currentDate = new Date().getMonth() +1 
-  // const realLabels = historicMonth.push(currentDate);
+
+  const currentDate = new Date()
+  const currentMonth = currentDate.getMonth() + 1
+  const currentYear = currentDate.getFullYear() 
+
+  console.log(currentDate)
+  console.log(currentMonth)
+  console.log(currentYear)
+  
+  historicMonth.push("Networth");
 
 
   const primaryData = historicNetworth ;
   const labels = historicMonth;
+
+// -----------------end------------------------------
 
 
   const data = {
