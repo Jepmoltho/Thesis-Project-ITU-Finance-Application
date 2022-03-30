@@ -17,6 +17,7 @@ function TopComponents(props) {
       >
         <Graph 
           historicNetworth={props.historicNetworth}
+          networth={props.netWorth}
         />
       </Col>
       <Col

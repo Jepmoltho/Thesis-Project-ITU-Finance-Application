@@ -29,8 +29,14 @@ function Graph(props) {
     return hisEle.get("date").getMonth() + 1
   });
   
+
+  // const realPrimaryData = historicNetworth.push(props.networth)
   
-  const primaryData = historicNetworth;
+  // const currentDate = new Date().getMonth() +1 
+  // const realLabels = historicMonth.push(currentDate);
+
+
+  const primaryData = historicNetworth ;
   const labels = historicMonth;
 
 
@@ -82,7 +88,7 @@ function Graph(props) {
         style={{ position: "absolute", top: "10px", left: "70px" }}
       >
         <Tag text="Networth" />
-        <NetworthNumber value={150000} />
+        <NetworthNumber value={props.networth} />
       </div>
       <Chart type="line" data={data} options={options} style={{ bottom: 0 }} />
     </div>
