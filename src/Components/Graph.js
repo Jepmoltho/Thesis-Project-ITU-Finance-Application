@@ -18,6 +18,7 @@ import {
   LinearScale,
   Title,
 } from "chart.js";
+import { set } from "parse/lib/browser/CoreManager";
 
 ChartJS.register(LineController, LineElement, PointElement, LinearScale, Title);
 
@@ -35,25 +36,25 @@ function Graph(props) {
     return hisEle.get("date").getMonth() + 1
   });
 
-  const lastHistoricMonth = historicMonth[ historicMonth.length -1 ]
+  var lastHistoricMonth = historicMonth[historicMonth.length - 1]
   
-  const [historiMonthState, setHistoriMonthState] = useState( lastHistoricMonth || 0 )
+  const [historiMonthState, setHistoriMonthState] = useState( props.historicNetworth  )
   
-  // setHistoriMonthState(historicMonth)
+  console.log(historiMonthState)
+  // const currentMonth = new Date().getMonth() + 1
+  const currentMonth = 4
   
-  const currentMonth = new Date().getMonth() + 1
+  console.log("lastHistoricMonth = " + lastHistoricMonth)
+  console.log("currentMonth = " + currentMonth)
 
 
   //asd
-  useEffect(() => {
-    console.log("lastHistoricMonth = " + lastHistoricMonth)
-    console.log("currentMonth = " + currentMonth)
-    if(lastHistoricMonth === currentMonth){
-      
+    if(lastHistoricMonth !== currentMonth && lastHistoricMonth !== undefined ){
       console.log("Saving to database")
+      // setHistoriMonthState(prev => prev + 1)
+      // saveHistoricNetworth()
     } 
 
-  }, [historiMonthState])
 
   
   
@@ -61,8 +62,9 @@ function Graph(props) {
   function saveHistoricNetworth(){
     try{
       const userId = localStorage.getItem("userId")
-      const networth = 10000
+      const networth = 25000
       const date = new Date()
+      // const date = 4
       postHistoricNetworth(userId, networth, date)
       console.log("inserted data")
     } catch(error){
