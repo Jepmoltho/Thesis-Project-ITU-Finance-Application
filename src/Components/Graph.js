@@ -1,7 +1,3 @@
-// import "bootstrap/dist/css/bootstrap.css";
-// //import Container from "react-bootstrap/Container";
-// import Row from "react-bootstrap/Row";
-// import Col from "react-bootstrap/Col";
 import Tag from "./Tag";
 import NetworthNumber from "./NetworthNumber";
 
@@ -19,10 +15,29 @@ import {
 
 ChartJS.register(LineController, LineElement, PointElement, LinearScale, Title);
 
-const primaryData = [50000, 150000, 155000, 160000, 145000, 160000];
-const labels = ["Jan22", "feb22", "mar22", "apr22", "may22", "jun21"];
 
-function Graph() {
+function Graph(props) {
+  const historicNetworth = props.historicNetworth.map( hisEle => hisEle.get("networth"));
+  
+  const historicMonth = props.historicNetworth.map( hisEle => {
+    return hisEle.get("date").getMonth() + 1 + "/" + hisEle.get("date").getFullYear()
+  });
+  
+  historicNetworth.push(props.networth)
+
+  const currentDate = new Date()
+  const currentMonth = currentDate.getMonth() + 1
+  const currentYear = currentDate.getFullYear() 
+
+  console.log(currentDate)
+  console.log(currentMonth)
+  console.log(currentYear)
+  
+  historicMonth.push("Networth");
+
+  const primaryData = historicNetworth ;
+  const labels = historicMonth;
+  
   const data = {
     labels: labels,
     labelColor: "#18388C",
@@ -71,7 +86,7 @@ function Graph() {
         style={{ position: "absolute", top: "10px", left: "70px" }}
       >
         <Tag text="Networth" />
-        <NetworthNumber value={150000} />
+        <NetworthNumber value={props.networth} />
       </div>
       <Chart type="line" data={data} options={options} style={{ bottom: 0 }} />
     </div>
