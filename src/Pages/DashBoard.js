@@ -106,6 +106,7 @@ function Dashboard() {
     }
   }
 
+  //Saves an asset of type realestate price pr. m2 calculatioj to database by calling postAssetRealestateM2 in data.js
   async function saveAssetRealestateM2Handler() {
     try {
       const assetName = localStorage.getItem("assetName");
@@ -123,6 +124,7 @@ function Dashboard() {
       );
       getAssets(categoryId, userId, setAssets); //This gets all assets related to a certain category - maybe use it to solve the issue of calculating total value of a category, since it returns all relevant assets: const assetsInCategory = getAssets(categoryId, userId, setAssets);
       saveCatValue();
+      setVisibleAddAssetFunction(false, categoryId); //Closes the visibleAddAsset after saving an asset
     } catch (error) {
       alert("Error caught in saveAssetRealestateM2 " + error);
     }
@@ -155,13 +157,6 @@ function Dashboard() {
     setCategoryId(categoryId);
     setVisibleAddAssetFunction(isOpen, categoryId);
   }
-
-  // //Delete asset
-  // const [assetId, setAssetId] = useState("");
-  // function deleteAssetHandler(setAssetId) {
-  //   setAssetId(assetId);
-  //   deleteAsset(assetId);
-  // }
 
   //Calculates the networth
   function calculateNetWorth(categories) {

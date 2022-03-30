@@ -19,10 +19,6 @@ function Icon(props) {
       <IconButton aria-label="edit" style={{ float: "right" }}>
         <EditIcon sx={{ color: "#8c8c8c", padding: "3px" }} />
       </IconButton>
-      // <EditIcon
-      //   sx={{ color: "#8c8c8c" }}
-      //   style={{ float: "right", paddingTop: "8px" }}
-      // />
     );
   }
   if (props.editgoal) {
@@ -30,10 +26,6 @@ function Icon(props) {
       <IconButton aria-label="edit" style={{ float: "right", padding: "0px" }}>
         <EditIcon sx={{ color: "#8c8c8c", padding: "3px" }} />
       </IconButton>
-      // <EditIcon
-      //   sx={{ color: "#8c8c8c" }}
-      //   style={{ float: "right", paddingTop: "8px" }}
-      // />
     );
   }
   if (props.delete) {

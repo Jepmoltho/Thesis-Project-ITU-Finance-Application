@@ -15,7 +15,6 @@ import AddAssetBtn from "./AddAssetBtn";
 import { deleteAsset, putAsset } from "../data";
 
 function Category(props) {
-  //Do we pass down categoryId via props? (hence avaliable here)
   //Manages the delete asset event
   function deleteAssetHandler(assetId) {
     deleteAsset(assetId);
@@ -71,8 +70,7 @@ function Category(props) {
           </nobr>
         </Col>
         <Col className="col-sm-1">
-          {/*<Icon edit /> //Removed untill implementation */}
-          {/*<Icon delete event1={props.eventAddAsset} /> */}
+          {/*<Icon edit /> //Removed for now untill implementation - Editing assets and categories is a very complex problem due to the way we have build it. We can achieve same funcitonality of letting users "update" stuff by letting them delete assets and categories and then they can add new ones */}
           <Icon delete event1={props.eventDeleteCategory} />
         </Col>
       </Row>
@@ -107,7 +105,6 @@ function Category(props) {
                 <EditAsset
                   key={ele.id}
                   category="bank" // Renders bank asset
-                  //eventCancel={() => setVisibleAddAsset(false)}
                   eventCancel={props.eventCancel}
                   eventSave={props.eventSave}
                 />

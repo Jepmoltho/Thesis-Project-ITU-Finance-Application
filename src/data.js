@@ -47,8 +47,6 @@ export async function postAssetRealestateM2(
   categoryId,
   userId
 ) {
-  // let valueCalc = m2 * priceprm2;
-  // console.log(valueCalc);
   try {
     const Asset = Parse.Object.extend("Asset");
     const thisAsset = new Asset();
@@ -70,7 +68,6 @@ export async function postCatVal(categoryId, value) {
   const Category = Parse.Object.extend("Category");
   const thisCategory = new Category();
   thisCategory.set("objectId", categoryId);
-  //Semantic bug: Works as intented but causes console error - It's because the name is required in the DB
   thisCategory.set("value", value);
   try {
     await thisCategory.save();
@@ -89,10 +86,6 @@ export async function getAssets(categoryId, userId, setAssets) {
   parseQuery.contains("userId", userId);
   try {
     let assets = await parseQuery.find();
-    // Note: Removed this logic to its own method
-    // Saves total category value in catVal which it gets from the array of asset related to a cetain category
-    // const catVal = getCatVal(assets);
-    // postCatVal(categoryId, catVal); //Technical debt: Needs to be called correctly other place or in useEffect because we don't want it to be called when we are getting assets
     setAssets(assets);
     return assets;
   } catch (error) {
@@ -131,9 +124,9 @@ export async function putAsset(assetId) {
   }
 }
 
-//Delete category - Need to delete from both category table and asset table
+//Delete category - Need to delete from both category table and asset table: //Note: Doesn't work but it only affects the database by not removing assets connected to a category after the category have been deleted. It doesn't affect the user experience. Need to figure out a way to loop though all assets with a given categoryId and destroy them. Left the comments in for illustration
 export async function deleteCategory(categoryId) {
-  // const Asset = new Parse.Object("Asset"); //Note: Doesn't work but it only affects the database by not removing assets connected to a category after the category have been deleted. It doesn't affect the user experience. Need to figure out a way to loop though all assets with a given categoryId and destroy them
+  // const Asset = new Parse.Object("Asset");
   // Asset.set("categoryId", categoryId);
   const Category = new Parse.Object("Category");
   Category.set("objectId", categoryId);
@@ -149,7 +142,7 @@ export async function deleteCategory(categoryId) {
   }
 }
 
-//Doesnt work for now: Suprinsingly complex problem -
+//Updating assets and categories attempt: Doesnt work for now: Suprinsingly complex problem.
 // export async function putAsset(assetId, assetName, assetValue) {
 //   let Asset = new Parse.Object("Asset");
 //   Asset.set("objectId", assetId);
