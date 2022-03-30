@@ -18,15 +18,8 @@ import {
   LinearScale,
   Title,
 } from "chart.js";
-import { set } from "parse/lib/browser/CoreManager";
 
 ChartJS.register(LineController, LineElement, PointElement, LinearScale, Title);
-
-//Get previous data from database.
-//If: current date === previous data from database
-//do: nothing
-//else: add current networth to database 
-
 
 function Graph(props) {
    
@@ -35,46 +28,10 @@ function Graph(props) {
   const historicMonth = props.historicNetworth.map( hisEle => {
     return hisEle.get("date").getMonth() + 1
   });
-
-  var lastHistoricMonth = historicMonth[historicMonth.length - 1]
-  
-  // const [historiMonthState, setHistoriMonthState] = useState( props.historicNetworth  )
-  
-  // console.log(historiMonthState)
-  // const currentMonth = new Date().getMonth() + 1
-  // const currentMonth = 4
-  
-  // console.log("lastHistoricMonth = " + lastHistoricMonth)
-  // console.log("currentMonth = " + currentMonth)
-
-
-  //asd
-    // if(lastHistoricMonth !== currentMonth && lastHistoricMonth !== undefined ){
-    //   console.log("Saving to database")
-    //   // setHistoriMonthState(prev => prev + 1)
-    //   // saveHistoricNetworth()
-    // } 
-
-
-  
-  
-  
-
   
   
   const primaryData = historicNetworth;
   const labels = historicMonth;
-   /*
-  const currentDate = new Date();
-  const currentDayOfMonth = currentDate.getDate();
-  const currentMonth = currentDate.getMonth(); //Note: Be careful! January is 0 not 1
-  const currentYear = currentDate.getFullYear();
-
-  const dateString = currentDayOfMonth + "-" + (currentMonth + 1) + "-" + currentYear;
-
-  console.log(dateString)
-  */
-  
 
 
   const data = {
