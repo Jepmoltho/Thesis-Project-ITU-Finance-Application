@@ -180,8 +180,26 @@ function Dashboard() {
     getCategories(userId, setCategories); //Moved this up hear insted of in useEffect
     getAssets(categoryId, userId, setAssets);
     getHistoricNetworth(userId, setHistoricNetworth)
+    isNewMonth()
     console.log("UseEffect called");
   }, [userId, categoryId, visibleAddAsset]);
+
+  function isNewMonth(){
+    const historicMonth = historicNetworth.map( hisEle => {
+      return hisEle.get("date").getMonth() + 1
+    });
+
+    const lastHistoricMonth = historicMonth[historicMonth.length - 1]
+
+    console.log("LAsthisMOnth = " + lastHistoricMonth)
+    // if(lastHistoricMonth !== currentMonth && lastHistoricMonth !== undefined ){
+    //   console.log("Saving to database")
+    //   // setHistoriMonthState(prev => prev + 1)
+    //   // saveHistoricNetworth()
+    // } 
+  }
+
+
 
   //User login/logout related
   async function getCurrentUser() {

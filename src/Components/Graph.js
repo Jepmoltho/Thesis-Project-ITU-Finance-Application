@@ -38,22 +38,22 @@ function Graph(props) {
 
   var lastHistoricMonth = historicMonth[historicMonth.length - 1]
   
-  const [historiMonthState, setHistoriMonthState] = useState( props.historicNetworth  )
+  // const [historiMonthState, setHistoriMonthState] = useState( props.historicNetworth  )
   
-  console.log(historiMonthState)
+  // console.log(historiMonthState)
   // const currentMonth = new Date().getMonth() + 1
-  const currentMonth = 4
+  // const currentMonth = 4
   
-  console.log("lastHistoricMonth = " + lastHistoricMonth)
-  console.log("currentMonth = " + currentMonth)
+  // console.log("lastHistoricMonth = " + lastHistoricMonth)
+  // console.log("currentMonth = " + currentMonth)
 
 
   //asd
-    if(lastHistoricMonth !== currentMonth && lastHistoricMonth !== undefined ){
-      console.log("Saving to database")
-      // setHistoriMonthState(prev => prev + 1)
-      // saveHistoricNetworth()
-    } 
+    // if(lastHistoricMonth !== currentMonth && lastHistoricMonth !== undefined ){
+    //   console.log("Saving to database")
+    //   // setHistoriMonthState(prev => prev + 1)
+    //   // saveHistoricNetworth()
+    // } 
 
 
   
