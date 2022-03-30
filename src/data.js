@@ -39,6 +39,33 @@ export async function postAsset(assetName, assetValue, categoryId, userId) {
   } catch (error) {}
 }
 
+export async function postAssetRealestateM2(
+  assetName,
+  m2,
+  priceprm2,
+  value,
+  categoryId,
+  userId
+) {
+  // let valueCalc = m2 * priceprm2;
+  // console.log(valueCalc);
+  try {
+    const Asset = Parse.Object.extend("Asset");
+    const thisAsset = new Asset();
+    thisAsset.set("name", assetName);
+    thisAsset.set("m2", m2);
+    thisAsset.set("pricePrM2", priceprm2);
+    thisAsset.set("value", value);
+    thisAsset.set("categoryId", categoryId);
+    thisAsset.set("userId", userId);
+    //thisAsset.set("userPointer", userPointer); Bug: Doesn't work with pointers
+    await thisAsset.save();
+    alert("Saved asset to database");
+  } catch (error) {
+    alert("Error caught in postAssetRealestateM2 " + error);
+  }
+}
+
 export async function postCatVal(categoryId, value) {
   const Category = Parse.Object.extend("Category");
   const thisCategory = new Category();

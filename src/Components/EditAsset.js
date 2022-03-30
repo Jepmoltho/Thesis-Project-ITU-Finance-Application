@@ -61,7 +61,9 @@ function EditAsset(props) {
   useEffect(() => {
     localStorage.setItem("assetName", inputName);
     localStorage.setItem("assetValue", inputValue);
-  }, [inputName, inputValue]);
+    localStorage.setItem("m2", inputM2);
+    localStorage.setItem("pricem2", inputPriceM2);
+  }, [inputName, inputValue, inputM2, inputPriceM2]);
 
   switch (category) {
     case "realestate":
@@ -109,7 +111,7 @@ function EditAsset(props) {
                 <ButtonGroup
                   primaryText="Save"
                   secondaryText="Cancel"
-                  event1={props.eventSave}
+                  event1={props.eventSaveAssetRealestateM2}
                   event2={props.eventCancel}
                 />
               </Col>

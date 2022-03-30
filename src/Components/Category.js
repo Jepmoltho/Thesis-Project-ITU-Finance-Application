@@ -101,6 +101,7 @@ function Category(props) {
                   category="realestate" // Renders real estate asset
                   eventCancel={props.eventCancel}
                   eventSave={props.eventSave}
+                  eventSaveAssetRealestateM2={props.eventSaveAssetRealestateM2}
                 />
               ) : props.title === "Bank account" ? (
                 <EditAsset

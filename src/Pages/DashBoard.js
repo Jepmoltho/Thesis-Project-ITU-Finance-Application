@@ -14,6 +14,7 @@ import {
   getAssets,
   postCatVal,
   deleteCategory,
+  postAssetRealestateM2,
 } from "../data";
 
 function Dashboard() {
@@ -102,6 +103,28 @@ function Dashboard() {
       setVisibleAddAssetFunction(false, categoryId); //Closes the visibleAddAsset after saving an asset
     } catch (error) {
       console.log("Errors");
+    }
+  }
+
+  async function saveAssetRealestateM2Handler() {
+    try {
+      const assetName = localStorage.getItem("assetName");
+      const m2 = parseInt(localStorage.getItem("m2"));
+      const pricem2 = parseInt(localStorage.getItem("pricem2"));
+      let value = (m2 * pricem2).toString();
+      console.log("This is the value " + value);
+      await postAssetRealestateM2(
+        assetName,
+        m2,
+        pricem2,
+        value,
+        categoryId,
+        userId
+      );
+      getAssets(categoryId, userId, setAssets); //This gets all assets related to a certain category - maybe use it to solve the issue of calculating total value of a category, since it returns all relevant assets: const assetsInCategory = getAssets(categoryId, userId, setAssets);
+      saveCatValue();
+    } catch (error) {
+      alert("Error caught in saveAssetRealestateM2 " + error);
     }
   }
 
@@ -253,6 +276,9 @@ function Dashboard() {
                 eventSave={() => saveAsset()}
                 eventCancel={() => addAssetClick(false, category.id)} //Sets the visibility of AddAsset to false
                 eventDeleteCategory={() => deleteCategoryHandler(category.id)}
+                eventSaveAssetRealestateM2={() =>
+                  saveAssetRealestateM2Handler()
+                }
               />
             ))}
           </div>
