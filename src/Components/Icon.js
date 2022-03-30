@@ -5,8 +5,8 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import IconButton from "@mui/material/IconButton";
 import PhotoCamera from "@mui/icons-material/PhotoCamera";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
-
 //Note: You probably need IconButton and not Button components from Mui. Find them under button components
+
 function Icon(props) {
   if (props.info) {
     return <InfoIcon sx={{ color: "#8c8c8c" }} />;
