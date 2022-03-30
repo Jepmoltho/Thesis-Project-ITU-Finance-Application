@@ -59,18 +59,7 @@ function Graph(props) {
   
   
   
-  function saveHistoricNetworth(){
-    try{
-      const userId = localStorage.getItem("userId")
-      const networth = 25000
-      const date = new Date()
-      // const date = 4
-      postHistoricNetworth(userId, networth, date)
-      console.log("inserted data")
-    } catch(error){
-      alert("Error in saveHistoricNetworth")
-    }
-  }
+
   
   
   const primaryData = historicNetworth;

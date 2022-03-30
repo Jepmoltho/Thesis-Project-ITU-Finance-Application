@@ -73,8 +73,8 @@ function Dashboard() {
 
   useEffect(() => {
     initVisibleAddAsset() ;
-    console.log(visibleAddAsset)
-    console.log(categories)
+    // console.log(visibleAddAsset)
+    // console.log(categories)
   }, [categoryId]); 
 
   function setVisibleAddAssetFunction(isOpen, categoryId){
@@ -179,24 +179,41 @@ function Dashboard() {
   useEffect(() => {
     getCategories(userId, setCategories); //Moved this up hear insted of in useEffect
     getAssets(categoryId, userId, setAssets);
+    //Get historic data from db, then sets historicnetworth state, then checks 
     getHistoricNetworth(userId, setHistoricNetworth)
-    isNewMonth()
-    console.log("UseEffect called");
+      .then((hisData) => setHistoricNetworth(hisData))
+      .then(() => isNewMonth() ? saveHistoricNetworth() : null);
   }, [userId, categoryId, visibleAddAsset]);
+
+
 
   function isNewMonth(){
     const historicMonth = historicNetworth.map( hisEle => {
       return hisEle.get("date").getMonth() + 1
     });
-
     const lastHistoricMonth = historicMonth[historicMonth.length - 1]
+    const currentMonth = new Date().getMonth() + 1
 
-    console.log("LAsthisMOnth = " + lastHistoricMonth)
-    // if(lastHistoricMonth !== currentMonth && lastHistoricMonth !== undefined ){
-    //   console.log("Saving to database")
-    //   // setHistoriMonthState(prev => prev + 1)
-    //   // saveHistoricNetworth()
-    // } 
+    if(lastHistoricMonth !== currentMonth && lastHistoricMonth !== undefined ){
+      console.log("Saving to database")
+      return true;
+    } else {
+      console.log("Did Not save to database")
+      return false;
+    }
+  }
+
+  function saveHistoricNetworth(){
+    try{
+      const userId = localStorage.getItem("userId")
+      const networth = 25000
+      const date = new Date()
+      // const date = 4
+      postHistoricNetworth(userId, networth, date)
+      console.log("inserted data")
+    } catch(error){
+      alert("Error in saveHistoricNetworth")
+    }
   }
 
 
