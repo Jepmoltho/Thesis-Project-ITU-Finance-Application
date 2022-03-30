@@ -18,8 +18,6 @@ import {
   LinearScale,
   Title,
 } from "chart.js";
-import { set } from "parse/lib/browser/CoreManager";
-import { async } from "parse/lib/browser/Storage";
 
 ChartJS.register(LineController, LineElement, PointElement, LinearScale, Title);
 
@@ -32,31 +30,35 @@ ChartJS.register(LineController, LineElement, PointElement, LinearScale, Title);
 function Graph(props) {
    
   const historicNetworth = props.historicNetworth.map( hisEle => hisEle.get("networth"));
+  
   const historicMonth = props.historicNetworth.map( hisEle => {
     return hisEle.get("date").getMonth() + 1
   });
 
-  const LastHistoricDate = props.historicNetworth[props.historicNetworth.length - 1]
-  // .get("date").getMonth()
-  // const LastHistoricMonth = LastHistoricDate.get("date").getMonth()+1
-  console.log(LastHistoricDate)
-  // hisEle.get("date").getMonth()+1
-  // arr[arr.length - 1]
-
-  const primaryData = historicNetworth;
-  const labels = historicMonth;
-
-
+  const lastHistoricMonth = historicMonth[ historicMonth.length -1 ]
+  
+  const [historiMonthState, setHistoriMonthState] = useState( lastHistoricMonth || 0 )
+  
+  // setHistoriMonthState(historicMonth)
+  
   const currentMonth = new Date().getMonth() + 1
-  console.log("historicMonth = " + historicMonth)
-  console.log("currentMonth = " + currentMonth)
-
-  if(historicMonth === currentMonth){
-    saveHistoricNetworth()
-  } 
 
 
- function saveHistoricNetworth(){
+  //asd
+  useEffect(() => {
+    console.log("lastHistoricMonth = " + lastHistoricMonth)
+    console.log("currentMonth = " + currentMonth)
+    if(lastHistoricMonth === currentMonth){
+      
+      console.log("Saving to database")
+    } 
+
+  }, [historiMonthState])
+
+  
+  
+  
+  function saveHistoricNetworth(){
     try{
       const userId = localStorage.getItem("userId")
       const networth = 10000
@@ -67,8 +69,10 @@ function Graph(props) {
       alert("Error in saveHistoricNetworth")
     }
   }
-
-
+  
+  
+  const primaryData = historicNetworth;
+  const labels = historicMonth;
    /*
   const currentDate = new Date();
   const currentDayOfMonth = currentDate.getDate();
