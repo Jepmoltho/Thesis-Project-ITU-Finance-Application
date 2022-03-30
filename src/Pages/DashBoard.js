@@ -53,7 +53,7 @@ function Dashboard() {
     }
   }
 
-  /**
+  /** 
    * Sets the visibleAddAsset stateHook to array of objects.
    * Each object has an id (String) and isVisible (boolean).
    */
