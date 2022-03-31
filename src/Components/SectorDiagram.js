@@ -30,12 +30,24 @@ function SectorDiagram(props) {
     procentage: 0
   }]
 
+
+  
+  function isNegative(number){
+    if(number < 0){
+      return true
+    } else {
+      return false
+    }
+  }
+ 
+  //INFO!! Cannot calculate the Sectordiagram percentage if the networth is negative !!!!!!!!!!!!
+
   // Creates a list of categories based on categories props passed from dashboard.
-  listOfCategories = props.categories.map(category => (
+listOfCategories = props.categories.map(category => (
     { id: category.id, 
       name: category.get("name"), 
       value: category.get("value"),
-      procentage: (((category.get("value"))*100)/(props.netWorth)).toFixed(1) 
+      procentage:  ( ((category.get("value"))*100)/(props.netWorth)).toFixed(1) 
     }
   ));
   
@@ -53,7 +65,7 @@ function SectorDiagram(props) {
   
   // dataset properties in chart.js doc
   const data = {
-    labels: listOfCategories.map((e) => `${e.name} ${e.procentage}%`),
+    labels: listOfCategories.map((e) => `${e.procentage}% ${e.name}`),
     // what is shown
     datasets: [
       {
