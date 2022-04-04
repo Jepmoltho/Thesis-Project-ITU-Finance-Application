@@ -169,6 +169,19 @@ export async function postHistoricNetworth(userId, networth, date) {
   }
 }
 
+// export async function getNoOfAssetsPrCategory(userId, categoryId) {
+//   const parseQuery = new Parse.Query("Asset");
+//   parseQuery.contains("categoryId", categoryId);
+//   parseQuery.contains("userId", userId);
+//   try {
+//     let assets = await parseQuery.find();
+//     let noOfAssets = assets.length;
+//     return noOfAssets;
+//   } catch (error) {
+//     alert("Error in getNoOfAssetsPrCategory " + error);
+//   }
+// }
+
 //Updating assets and categories attempt: Doesnt work for now: Suprinsingly complex problem.
 // export async function putAsset(assetId, assetName, assetValue) {
 //   let Asset = new Parse.Object("Asset");

@@ -13,8 +13,30 @@ import Asset from "../Components/Asset";
 import EditAsset from "./EditAsset";
 import AddAssetBtn from "./AddAssetBtn";
 import { deleteAsset, putAsset } from "../data";
+import { useState, useEffect } from "react";
+import { getNoOfAssetsPrCategory } from "../data";
 
 function Category(props) {
+  let noOfAssets = props.assets.length;
+
+  // const [catNoOfAssets, setcatNoOfAssets] = useState([]);
+
+  // function catNoOfAssetsHandler() {
+  //   let categoryIdAsString = toString(props.categoryId);
+  //   setcatNoOfAssets(getNoOfAssetsPrCategory(categoryIdAsString));
+  // }
+
+  // useEffect(() => {
+  //   catNoOfAssetsHandler();
+  // }, []);
+
+  //const [noOfAssets, setNoOfAssets] = useState(0);
+
+  let no = 0;
+  function setNoOfAssets() {
+    no++;
+  }
+
   //Manages the delete asset event
   function deleteAssetHandler(assetId) {
     deleteAsset(assetId);
@@ -52,7 +74,7 @@ function Category(props) {
           >
             <b>{props.title}</b>
           </p>
-          <NumberOfAssets amount="3" />
+          <NumberOfAssets amount={noOfAssets} /> {/*HERE*/}
         </Col>
         <Col style={{ margin: "auto" }}>
           <Tag text="Value" />
@@ -86,13 +108,18 @@ function Category(props) {
       <Row>
         {props.assets.map((asset) =>
           asset.attributes.categoryId === props.categoryId ? (
-            <Asset
-              key={asset.id}
-              title={asset.get("name")}
-              value={asset.get("value")}
-              eventUpdate={() => updateAssetHandler(asset.id)}
-              eventDelete={() => deleteAssetHandler(asset.id)}
-            />
+            <>
+              {console.log(props.categoryId)}
+              {setNoOfAssets()}
+              {console.log(no)}
+              <Asset
+                key={asset.id}
+                title={asset.get("name")}
+                value={asset.get("value")}
+                eventUpdate={() => updateAssetHandler(asset.id)}
+                eventDelete={() => deleteAssetHandler(asset.id)}
+              />
+            </>
           ) : null
         )}
       </Row>
