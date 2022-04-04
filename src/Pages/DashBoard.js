@@ -16,7 +16,7 @@ import {
   deleteCategory,
   postAssetRealestateM2,
   getHistoricNetworth,
-  postHistoricNetworth
+  postHistoricNetworth,
 } from "../data";
 
 function Dashboard() {
@@ -37,7 +37,7 @@ function Dashboard() {
   //Manages list of saved assets
   const [assets, setAssets] = useState([]);
 
-  const [historicNetworth, setHistoricNetworth] = useState([])
+  const [historicNetworth, setHistoricNetworth] = useState([]);
 
   //Manages all values in overviewCard
   const [assetsTotal, setAssetsTotal] = useState("");
@@ -57,7 +57,7 @@ function Dashboard() {
     }
   }
 
-  /** 
+  /**
    * Sets the visibleAddAsset stateHook to array of objects.
    * Each object has an id (String) and isVisible (boolean).
    */
@@ -216,39 +216,38 @@ function Dashboard() {
     //Get historic data from db, then sets historicNetworth state, then if we are in a new month we save the historic data else nothing.
     getHistoricNetworth(userId, setHistoricNetworth)
       .then((hisData) => setHistoricNetworth(hisData))
-      .then(() => isNewMonth() ? saveHistoricNetworth() : null);
+      .then(() => (isNewMonth() ? saveHistoricNetworth() : null));
     console.log("UseEffect for getCategories and getAssets called");
   }, [userId, categoryId, visibleAddAsset]);
 
-  function isNewMonth(){
-    const historicMonth = historicNetworth.map( hisEle => {
-      return hisEle.get("date").getMonth() + 1
+  function isNewMonth() {
+    const historicMonth = historicNetworth.map((hisEle) => {
+      return hisEle.get("date").getMonth() + 1;
     });
-    const lastHistoricMonth = historicMonth[historicMonth.length - 1]
-    const currentMonth = new Date().getMonth() + 1
+    const lastHistoricMonth = historicMonth[historicMonth.length - 1];
+    const currentMonth = new Date().getMonth() + 1;
 
-    if(lastHistoricMonth !== currentMonth && lastHistoricMonth !== undefined ){
-      console.log("Saving to database")
+    if (lastHistoricMonth !== currentMonth && lastHistoricMonth !== undefined) {
+      console.log("Saving to database");
       return true;
     } else {
-      console.log("Did Not save to database")
+      console.log("Did Not save to database");
       return false;
     }
   }
 
-  function saveHistoricNetworth(){
-    try{
-      const userId = localStorage.getItem("userId")
-      const networth = 25000
-      const date = new Date()
+  function saveHistoricNetworth() {
+    try {
+      const userId = localStorage.getItem("userId");
+      const networth = 25000;
+      const date = new Date();
       // const date = 4
-      postHistoricNetworth(userId, networth, date)
-      console.log("inserted data")
-    } catch(error){
-      alert("Error in saveHistoricNetworth")
+      postHistoricNetworth(userId, networth, date);
+      console.log("inserted data");
+    } catch (error) {
+      alert("Error in saveHistoricNetworth");
     }
   }
-
 
   //User login/logout related
   async function getCurrentUser() {
@@ -285,7 +284,7 @@ function Dashboard() {
   if (currentUser !== null) {
     return (
       <div>
-        <NavigationBar />
+        <NavigationBar welcome={"Welcome " + currentUser.get("username")} />
         <Container>
           <h2>Welcome {currentUser.get("username")}</h2>
           <TopComponents

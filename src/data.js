@@ -142,10 +142,10 @@ export async function deleteCategory(categoryId) {
   }
 }
 
-export async function getHistoricNetworth(userId, setHistoricNetworth){
+export async function getHistoricNetworth(userId, setHistoricNetworth) {
   const parseQuery = new Parse.Query("HistoricNetworth");
   parseQuery.contains("userId", userId);
-  try{
+  try {
     let netWorthValues = await parseQuery.find();
     setHistoricNetworth(netWorthValues);
     return netWorthValues;
@@ -155,20 +155,19 @@ export async function getHistoricNetworth(userId, setHistoricNetworth){
   }
 }
 
-export async function postHistoricNetworth(userId, networth, date){
-  try{
+export async function postHistoricNetworth(userId, networth, date) {
+  try {
     const HistoricNetworth = new Parse.Object.extend("HistoricNetworth");
     const thisHistoricNetworth = new HistoricNetworth();
     thisHistoricNetworth.set("userId", userId);
-    thisHistoricNetworth.set("networth", networth)
-    thisHistoricNetworth.set("date", date)
-    await thisHistoricNetworth.save()
-    alert("Historic Network saved")
+    thisHistoricNetworth.set("networth", networth);
+    thisHistoricNetworth.set("date", date);
+    await thisHistoricNetworth.save();
+    //alert("Historic Network saved")
   } catch {
     alert("error in postHistoricNetwork");
   }
 }
-
 
 //Updating assets and categories attempt: Doesnt work for now: Suprinsingly complex problem.
 // export async function putAsset(assetId, assetName, assetValue) {
