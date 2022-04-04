@@ -16,7 +16,7 @@ function Overview(props) {
           <Icon infosmall style={{ position: "relative", top: "-10px" }} />
         </Col>
       </Row>
-      <Row style={{ padding: "10px 10px 10px 10px" }}>
+      <Row style={{ padding: "20px 10px 10px 10px" }}>
         <Col style={{ paddingLeft: "0px" }}>
           <AssetsTotal assetsTotal={props.assetsTotal} />
         </Col>

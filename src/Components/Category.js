@@ -27,7 +27,7 @@ function Category(props) {
   }
 
   return (
-    <div>
+    <div className="mt-4">
       <Row className="category">
         <Col className="col-sm-1" style={{ margin: "auto" }}>
           {props.title === "Stocks" ? (

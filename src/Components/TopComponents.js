@@ -14,7 +14,7 @@ function TopComponents(props) {
         className="col-sm-7"
         style={{ marginRight: "0px", paddingRight: "0px", paddingLeft: "0px" }}
       >
-        <Graph 
+        <Graph
           networth={props.netWorth}
           historicNetworth={props.historicNetworth}
         />
@@ -34,16 +34,19 @@ function TopComponents(props) {
         >
           <Col style={{ paddingLeft: "0px" }}>
             <Seehowpros />
-            <SectorDiagram 
+            <SectorDiagram
               categories={props.categories}
               netWorth={props.netWorth}
-
             />
           </Col>
         </Row>
         <Row
           name="overview and goal"
-          style={{ marginTop: "14px", marginLeft: "0px", marginRight: "0px" }}
+          style={{
+            marginTop: "14px",
+            marginRight: "0px",
+            marginLeft: "0px",
+          }}
         >
           <Col
             name="overview Card"

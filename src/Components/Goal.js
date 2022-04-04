@@ -16,7 +16,7 @@ function Goal(props) {
           <Icon editgoal style={{ position: "relative", float: "right" }} />
         </Col>
       </Row>
-      <Row style={{ padding: "10px" }}>
+      <Row style={{ padding: "20px 10px 10px 10px" }}>
         <Col>
           <p style={{ color: "#00145E", float: "left", marginBottom: "7px" }}>
             Goal
