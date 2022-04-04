@@ -75,7 +75,8 @@ function Category(props) {
           >
             <b>{props.title}</b>
           </p>
-          <NumberOfAssets amount={noOfAssets} /> {/*HERE*/}
+          <NumberOfAssets amount={localStorage.getItem(props.categoryId)} />{" "}
+          {/*HERE*/}
         </Col>
         <Col style={{ margin: "auto" }}>
           <Tag text="Value" />
