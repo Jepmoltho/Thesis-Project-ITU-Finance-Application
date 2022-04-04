@@ -13,25 +13,9 @@ import Asset from "../Components/Asset";
 import EditAsset from "./EditAsset";
 import AddAssetBtn from "./AddAssetBtn";
 import { deleteAsset, putAsset } from "../data";
-import { useState, useEffect } from "react";
-import { getNoOfAssetsPrCategory } from "../data";
 
 function Category(props) {
-  let noOfAssets = props.assets.length;
-
-  // const [catNoOfAssets, setcatNoOfAssets] = useState([]);
-
-  // function catNoOfAssetsHandler() {
-  //   let categoryIdAsString = toString(props.categoryId);
-  //   setcatNoOfAssets(getNoOfAssetsPrCategory(categoryIdAsString));
-  // }
-
-  // useEffect(() => {
-  //   catNoOfAssetsHandler();
-  // }, []);
-
-  //const [noOfAssets, setNoOfAssets] = useState(0);
-
+  //Saves the number of assets in a category to localStorage using this category's id as key value pair
   let no = 0;
   function setNoOfAssets(catId) {
     no++;
@@ -75,13 +59,18 @@ function Category(props) {
           >
             <b>{props.title}</b>
           </p>
-          <NumberOfAssets amount={localStorage.getItem(props.categoryId)} />{" "}
-          {/*HERE*/}
+          {/*Display number of assets retrived from localstorage*/}
+          <NumberOfAssets
+            amount={
+              localStorage.getItem(props.categoryId) > 0
+                ? localStorage.getItem(props.categoryId)
+                : 0
+            }
+          />
         </Col>
         <Col style={{ margin: "auto" }}>
           <Tag text="Value" />
           {props.value ? <Value value={props.value} /> : <Value value={0} />}
-          {/*<Value value={props.value} />*/}
         </Col>
         <Col style={{ margin: "auto" }}>
           <Tag text="Profit" />
@@ -111,13 +100,7 @@ function Category(props) {
         {props.assets.map((asset) =>
           asset.attributes.categoryId === props.categoryId ? (
             <>
-              {/* {console.log(props.categoryId)}
-              {setNoOfAssets()}
-              {console.log(no)} */}
-              {console.log(props.categoryId)}
               {setNoOfAssets(props.categoryId)}
-              {console.log(no)}
-
               <Asset
                 key={asset.id}
                 title={asset.get("name")}
@@ -171,3 +154,39 @@ function Category(props) {
 }
 
 export default Category;
+
+// let noOfAssets = props.assets.length; //If you need the total number of assets across all categories
+
+// const [catNoOfAssets, setcatNoOfAssets] = useState([]);
+
+// function catNoOfAssetsHandler() {
+//   let categoryIdAsString = toString(props.categoryId);
+//   setcatNoOfAssets(getNoOfAssetsPrCategory(categoryIdAsString));
+// }
+
+// useEffect(() => {
+//   catNoOfAssetsHandler();
+// }, []);
+
+//const [noOfAssets, setNoOfAssets] = useState(0);
+
+// Debugging code for noOfAsset logic
+// <Row>
+//   {props.assets.map((asset) =>
+//     asset.attributes.categoryId === props.categoryId ? (
+//       <>
+//         {console.log(props.categoryId)}
+//         {setNoOfAssets(props.categoryId)}
+//         {console.log(no)}
+
+//         <Asset
+//           key={asset.id}
+//           title={asset.get("name")}
+//           value={asset.get("value")}
+//           eventUpdate={() => updateAssetHandler(asset.id)}
+//           eventDelete={() => deleteAssetHandler(asset.id)}
+//         />
+//       </>
+//     ) : null
+//   )}
+// </Row>

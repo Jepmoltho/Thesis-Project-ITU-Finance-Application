@@ -290,7 +290,6 @@ function Dashboard() {
         />
         <Container>
           <br />
-          {/*<h2>Welcome {currentUser.get("username")}</h2> Is now passed down to NavigationBar */}
           <TopComponents
             assetsTotal={assetsTotal}
             debtTotal={debtTotal}
