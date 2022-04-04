@@ -33,8 +33,9 @@ function Category(props) {
   //const [noOfAssets, setNoOfAssets] = useState(0);
 
   let no = 0;
-  function setNoOfAssets() {
+  function setNoOfAssets(catId) {
     no++;
+    localStorage.setItem(catId, no);
   }
 
   //Manages the delete asset event
@@ -109,9 +110,13 @@ function Category(props) {
         {props.assets.map((asset) =>
           asset.attributes.categoryId === props.categoryId ? (
             <>
-              {console.log(props.categoryId)}
+              {/* {console.log(props.categoryId)}
               {setNoOfAssets()}
+              {console.log(no)} */}
+              {console.log(props.categoryId)}
+              {setNoOfAssets(props.categoryId)}
               {console.log(no)}
+
               <Asset
                 key={asset.id}
                 title={asset.get("name")}
