@@ -284,9 +284,13 @@ function Dashboard() {
   if (currentUser !== null) {
     return (
       <div>
-        <NavigationBar welcome={"Welcome " + currentUser.get("username")} />
+        <NavigationBar
+          welcome={"Welcome " + currentUser.get("username")}
+          username={currentUser.get("username")}
+        />
         <Container>
-          <h2>Welcome {currentUser.get("username")}</h2>
+          <br />
+          {/*<h2>Welcome {currentUser.get("username")}</h2> Is now passed down to NavigationBar */}
           <TopComponents
             assetsTotal={assetsTotal}
             debtTotal={debtTotal}
