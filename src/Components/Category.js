@@ -30,7 +30,18 @@ function Category(props) {
     <div>
       <Row className="category">
         <Col className="col-sm-1" style={{ margin: "auto" }}>
-          <CategoryIcon categoryIcon="Stocks" />
+          {
+            props.title === "Stocks" ? 
+              <CategoryIcon categoryIcon="Stocks"/> 
+            : 
+              props.title === "Real Estate" ? 
+                <CategoryIcon categoryIcon="RealEstate"/> 
+              : 
+                props.title === "Crypto" ?
+                  <CategoryIcon categoryIcon="Crypto"/>
+                : 
+                  <CategoryIcon categoryIcon="Savings"/>
+          }
         </Col>
         <Col style={{ margin: "auto" }}>
           <p
