@@ -7,9 +7,10 @@ import Tag from "./Tag";
 import ButtonGroup from "./ButtonGroup";
 
 function Asset(props) {
+  //Note: Conditional rendering for props.debt is not active
   if (props.debt) {
     return (
-      <div className="asset">
+      <div className="assetDebt">
         <Row>
           <Col className="col-sm-1" style={{ margin: "auto" }}></Col>
           <Col style={{ margin: "auto" }}>
@@ -29,9 +30,10 @@ function Asset(props) {
       </div>
     );
   }
+  //Note: Conditional rendering for props.realestate is not active
   if (props.realestate) {
     return (
-      <div className="asset">
+      <div className="assetRealestate">
         <Row>
           <Col className="col-sm-1" style={{ margin: "auto" }}></Col>
           <Col className="col-sm-3" style={{ margin: "auto" }}>
@@ -61,6 +63,7 @@ function Asset(props) {
         </Row>
       </div>
     );
+    //Note: Currently always returns an asset
   } else {
     return (
       <div className="asset">

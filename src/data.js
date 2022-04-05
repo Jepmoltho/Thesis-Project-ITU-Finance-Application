@@ -109,17 +109,17 @@ export async function deleteAsset(assetId) {
 }
 
 //Supposed to be the update function - right now it's just a slightly different delete function
-export async function putAsset(assetId) {
+export async function putAsset(assetId, newName, newValue) {
   const Asset = new Parse.Object("Asset");
   Asset.set("objectId", assetId);
+  Asset.set("name", newName);
+  Asset.set("value", newValue);
   try {
-    await Asset.destroy();
-    alert(
-      "Please press add a new asset and insert the updated name and value of your asset"
-    );
+    await Asset.save();
+    alert(assetId + " updated");
     return true;
   } catch (error) {
-    alert("Error " + error + " caught");
+    alert("Error in putAsset " + error);
     return false;
   }
 }

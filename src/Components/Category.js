@@ -12,7 +12,17 @@ import Button from "@mui/material/Button";
 import Asset from "../Components/Asset";
 import EditAsset from "./EditAsset";
 import AddAssetBtn from "./AddAssetBtn";
-import { deleteAsset, putAsset } from "../data";
+import { deleteAsset, putAsset, getAssets } from "../data";
+//Dialogue components from here
+import * as React from "react"; //Maybe delete "* as" to save computational power
+import TextField from "@mui/material/TextField";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
+import { useState } from "react";
+import { useEffect } from "react";
 
 function Category(props) {
   //Saves the number of assets in a category to localStorage using this category's id as key value pair
@@ -28,10 +38,47 @@ function Category(props) {
     //Rerender after: Add an await above and rerender here
   }
 
-  function updateAssetHandler(assetId) {
-    putAsset(assetId);
+  //Save button in dialogue box needs to do this
+  async function updateAssetHandler(assetId, newName, newValue) {
+    putAsset(assetId, newName, newValue);
+    //getAssets();
+    handleClose();
     //Rerender after: Add an await above and rerender here
   }
+
+  //Logic for dialogue box from here
+  const [open, setOpen] = React.useState(false);
+
+  //Edit button on asset needs to do this
+  const [newAssetName, setNewAssetName] = useState("");
+  const setNewAssetNameHandler = (e) => {
+    setNewAssetName(e.target.value);
+  };
+
+  //UseEffect for updating new asset name
+  // useEffect(() => {
+  //   console.log(newAssetName);
+  // }, [newAssetName]);
+
+  //Edit button on asset needs to do this (maybe use ints)
+  const [newAssetValue, setNewAssetValue] = useState("");
+  const setNewAssetValueHandler = (e) => {
+    setNewAssetValue(e.target.value);
+  };
+
+  //UseEffect for updating new asset name
+  // useEffect(() => {
+  //   console.log(newAssetValue);
+  // }, [newAssetValue]);
+
+  function handleClickOpen(assetId) {
+    localStorage.setItem("assetIdForEdit", assetId); //HERE
+    setOpen(true);
+  }
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   return (
     <div className="mt-4">
@@ -105,7 +152,7 @@ function Category(props) {
                 key={asset.id}
                 title={asset.get("name")}
                 value={asset.get("value")}
-                eventUpdate={() => updateAssetHandler(asset.id)}
+                eventUpdate={() => handleClickOpen(asset.id)} //Make the state of newname and value from dialogue box live here
                 eventDelete={() => deleteAssetHandler(asset.id)}
               />
             </>
@@ -148,6 +195,57 @@ function Category(props) {
         <center>
           <AddAssetBtn event1={props.eventAddAsset} />
         </center>
+      </div>
+      {/* JSX for dialgoue box from here */}
+      <div>
+        <Button variant="outlined" onClick={handleClickOpen}>
+          Open form dialog
+        </Button>
+        <Dialog open={open} onClose={handleClose}>
+          <DialogTitle>Update asset</DialogTitle>
+          <DialogContent>
+            <DialogContentText>
+              Enter a new name and value for the asset you want to update
+            </DialogContentText>
+            <TextField
+              autoFocus
+              margin="dense"
+              id="name"
+              label="New name"
+              type=""
+              placeholder=""
+              fullWidth
+              variant="standard"
+              value={newAssetName} //You can do conditional rendering here for oldname and newnave
+              onChange={setNewAssetNameHandler}
+            />
+            <TextField
+              autoFocus
+              margin="dense"
+              id="value"
+              label="New value"
+              type=""
+              fullWidth
+              variant="standard"
+              value={newAssetValue}
+              onChange={setNewAssetValueHandler}
+            />
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleClose}>Cancel</Button>
+            <Button
+              onClick={() =>
+                updateAssetHandler(
+                  localStorage.getItem("assetIdForEdit"),
+                  newAssetName,
+                  newAssetValue
+                )
+              }
+            >
+              Save
+            </Button>
+          </DialogActions>
+        </Dialog>
       </div>
     </div>
   );
