@@ -48,18 +48,24 @@ function Category(props) {
   //Logic for dialogue box from here
   const [open, setOpen] = React.useState(false);
 
-  //Edit button on asset needs to do this
+  //Edit button on asset needs to do this // HERE?
   const [newAssetName, setNewAssetName] = useState("");
   const setNewAssetNameHandler = (e) => {
-    setNewAssetName(e.target.value);
+    let no = 0;
+    if (no < 1) {
+      setNewAssetName(localStorage.getItem("assetName"));
+      no++;
+    } else {
+      setNewAssetName(e.target.value);
+    }
   };
 
-  //UseEffect for updating new asset name
+  // //UseEffect for updating new asset name
   // useEffect(() => {
-  //   console.log(newAssetName);
-  // }, [newAssetName]);
+  //   setNewAssetName(localStorage.getItem("assetName"));
+  // }, []);
 
-  //Edit button on asset needs to do this (maybe use ints)
+  //Edit button on asset needs to do this (maybe use ints). Initial state is the old assetName
   const [newAssetValue, setNewAssetValue] = useState("");
   const setNewAssetValueHandler = (e) => {
     setNewAssetValue(e.target.value);
@@ -73,6 +79,7 @@ function Category(props) {
   function handleClickOpen(assetId, assetName) {
     localStorage.setItem("assetIdForEdit", assetId); //HERE
     localStorage.setItem("assetName", assetName);
+    setNewAssetName(assetName);
     setOpen(true);
   }
 
@@ -215,7 +222,7 @@ function Category(props) {
               label="Name"
               type=""
               fullWidth
-              //defaultValue={localStorage.getItem("assetName")}
+              //defaultValue={localStorage.getItem("assetName")} //Can I equal theese upon render
               variant="standard"
               value={newAssetName} //Before: newAssetName - You can do conditional rendering here for oldname and newnave
               onChange={setNewAssetNameHandler}
