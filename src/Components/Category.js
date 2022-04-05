@@ -51,13 +51,15 @@ function Category(props) {
   //Edit button on asset needs to do this // HERE?
   const [newAssetName, setNewAssetName] = useState("");
   const setNewAssetNameHandler = (e) => {
-    let no = 0;
-    if (no < 1) {
-      setNewAssetName(localStorage.getItem("assetName"));
-      no++;
-    } else {
-      setNewAssetName(e.target.value);
-    }
+    setNewAssetName(e.target.value);
+
+    // let no = 0;
+    // if (no < 1) {
+    //   setNewAssetName(localStorage.getItem("assetName"));
+    //   no++;
+    // } else {
+    //   setNewAssetName(e.target.value);
+    // }
   };
 
   // //UseEffect for updating new asset name
@@ -78,7 +80,7 @@ function Category(props) {
 
   function handleClickOpen(assetId, assetName) {
     localStorage.setItem("assetIdForEdit", assetId); //HERE
-    localStorage.setItem("assetName", assetName);
+    //localStorage.setItem("assetName", assetName);
     setNewAssetName(assetName);
     setOpen(true);
   }
