@@ -45,42 +45,25 @@ function Category(props) {
     //Rerender after: Add an await above and rerender here
   }
 
-  //Logic for dialogue box from here
+  //Logic for dialogue box starts from here
   const [open, setOpen] = React.useState(false);
 
-  //Edit button on asset needs to do this // HERE?
+  //Edit button on asset needs to do this
   const [newAssetName, setNewAssetName] = useState("");
   const setNewAssetNameHandler = (e) => {
     setNewAssetName(e.target.value);
-
-    // let no = 0;
-    // if (no < 1) {
-    //   setNewAssetName(localStorage.getItem("assetName"));
-    //   no++;
-    // } else {
-    //   setNewAssetName(e.target.value);
-    // }
   };
 
-  // //UseEffect for updating new asset name
-  // useEffect(() => {
-  //   setNewAssetName(localStorage.getItem("assetName"));
-  // }, []);
-
-  //Edit button on asset needs to do this (maybe use ints). Initial state is the old assetName
+  //Edit button on asset needs to do this
   const [newAssetValue, setNewAssetValue] = useState("");
   const setNewAssetValueHandler = (e) => {
     setNewAssetValue(e.target.value);
   };
 
-  //UseEffect for updating new asset name
-  // useEffect(() => {
-  //   console.log(newAssetValue);
-  // }, [newAssetValue]);
-
+  //Opens dialogue box upon editAsset
   function handleClickOpen(assetId, assetName) {
-    localStorage.setItem("assetIdForEdit", assetId); //HERE
-    //localStorage.setItem("assetName", assetName);
+    //Note that it sets the initial assetName. Nessesary for the edit asset functionality so you don't have to type in the same name every time you update the value
+    localStorage.setItem("assetIdForEdit", assetId);
     setNewAssetName(assetName);
     setOpen(true);
   }
@@ -207,9 +190,6 @@ function Category(props) {
       </div>
       {/* JSX for dialgoue box from here */}
       <div>
-        {/* <Button variant="outlined" onClick={handleClickOpen}>
-          Open form dialog
-        </Button> */}
         <Dialog open={open} onClose={handleClose}>
           <DialogTitle>Update asset</DialogTitle>
           <DialogContent>
@@ -224,9 +204,8 @@ function Category(props) {
               label="Name"
               type=""
               fullWidth
-              //defaultValue={localStorage.getItem("assetName")} //Can I equal theese upon render
               variant="standard"
-              value={newAssetName} //Before: newAssetName - You can do conditional rendering here for oldname and newnave
+              value={newAssetName}
               onChange={setNewAssetNameHandler}
             />
             <TextField
@@ -262,39 +241,3 @@ function Category(props) {
 }
 
 export default Category;
-
-// let noOfAssets = props.assets.length; //If you need the total number of assets across all categories
-
-// const [catNoOfAssets, setcatNoOfAssets] = useState([]);
-
-// function catNoOfAssetsHandler() {
-//   let categoryIdAsString = toString(props.categoryId);
-//   setcatNoOfAssets(getNoOfAssetsPrCategory(categoryIdAsString));
-// }
-
-// useEffect(() => {
-//   catNoOfAssetsHandler();
-// }, []);
-
-//const [noOfAssets, setNoOfAssets] = useState(0);
-
-// Debugging code for noOfAsset logic
-// <Row>
-//   {props.assets.map((asset) =>
-//     asset.attributes.categoryId === props.categoryId ? (
-//       <>
-//         {console.log(props.categoryId)}
-//         {setNoOfAssets(props.categoryId)}
-//         {console.log(no)}
-
-//         <Asset
-//           key={asset.id}
-//           title={asset.get("name")}
-//           value={asset.get("value")}
-//           eventUpdate={() => updateAssetHandler(asset.id)}
-//           eventDelete={() => deleteAssetHandler(asset.id)}
-//         />
-//       </>
-//     ) : null
-//   )}
-// </Row>
