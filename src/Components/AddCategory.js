@@ -21,31 +21,25 @@ import DialogTitle from "@mui/material/DialogTitle";
 
 function AddCategory(props) {
   //Constants and lifecycle methods for manual input
-
   const [input, setInput] = useState("");
   const handleChangeInput = (e) => {
     setInput(e.target.value);
   };
 
-  //Constants and lifecycle methods for input that selected from dropdown
+  //Constants and lifecycle methods for input that selected from dropdown - if ypu select category manually, it activates form dialogue box with handleClickOpen
   const [inputSelect, setInputSelect] = useState("");
   const handleChangeInputSelect = (e) => {
     if (e.target.value !== "Create your own category") {
       setInputSelect(e.target.value);
     } else {
       //Open form dialogue here
-      handleClickOpen(); //Can I do it in the funciton instead? Create two new input constants
+      handleClickOpen();
     }
-    //setInputSelect(e.target.value);
-    //Implement here -
   };
-  //console.log(inputSelect);
-  //localStorage.setItem()
-  //console.log(inputSelect);
 
+  //Saves the current version op categorySelect to localstorage by key categorySelect
   useEffect(() => {
     localStorage.setItem("categorySelect", inputSelect);
-    //Maybe add one for manCatName here and move it from method to fix one character problem
   }, [inputSelect]);
 
   const [isIconListvisible, setIsIconListvisible] = React.useState(false);
@@ -57,32 +51,24 @@ function AddCategory(props) {
   //Form dialogue logic from here
   const [open, setOpen] = React.useState(false);
 
-  //Con
+  //State handling manual input of category name retrieved from dialogue box input field
   const [manualCatName, setManualCatName] = useState("");
   const handleChangeManCatName = (e) => {
     setManualCatName(e.target.value);
-    console.log(manualCatName); //Works with delay of one character!
-    //localStorage.setItem("categorySelect", manualCatName);
   };
 
+  //Saves the current version op manCatName to localstorage by key categorySelect
   useEffect(() => {
     localStorage.setItem("categorySelect", manualCatName);
-    console.log(manualCatName);
-    //Maybe add one for manCatName here and move it from method to fix one character problem
   }, [manualCatName]);
 
   const handleClickOpen = () => {
     setOpen(true);
-    //HERE
-    //setManualCatName(e.target.value)
   };
 
   const handleClose = () => {
-    //Put in useEffect instead
     setOpen(false);
   };
-
-  //To here
 
   if (props.type === "manual") {
     return (
@@ -170,11 +156,6 @@ function AddCategory(props) {
         </Row>
         {/*Form dialogue from here*/}
         <div>
-          {/*
-          <Button variant="outlined" onClick={handleClickOpen}>
-            Open form dialog
-          </Button>
-          */}
           <Dialog open={open} onClose={handleClose}>
             <DialogTitle>Name your category</DialogTitle>
             <DialogContent>
@@ -205,47 +186,3 @@ function AddCategory(props) {
   }
 }
 export default AddCategory;
-
-/*
-function FormDialog() {
-  const [open, setOpen] = React.useState(false);
-
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
-
-  return (
-    <div>
-      <Button variant="outlined" onClick={handleClickOpen}>
-        Open form dialog
-      </Button>
-      <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>Subscribe</DialogTitle>
-        <DialogContent>
-          <DialogContentText>
-            To subscribe to this website, please enter your email address here.
-            We will send updates occasionally.
-          </DialogContentText>
-          <TextField
-            autoFocus
-            margin="dense"
-            id="name"
-            label="Email Address"
-            type="email"
-            fullWidth
-            variant="standard"
-          />
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={handleClose}>Subscribe</Button>
-        </DialogActions>
-      </Dialog>
-    </div>
-  );
-}
-*/
