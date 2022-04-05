@@ -12,7 +12,7 @@ import Button from "@mui/material/Button";
 import Asset from "../Components/Asset";
 import EditAsset from "./EditAsset";
 import AddAssetBtn from "./AddAssetBtn";
-import { deleteAsset, putAsset, getAssets } from "../data";
+import { deleteAsset, putAsset } from "../data";
 //Dialogue components from here
 import * as React from "react"; //Maybe delete "* as" to save computational power
 import TextField from "@mui/material/TextField";
@@ -22,7 +22,6 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import { useState } from "react";
-import { useEffect } from "react";
 
 function Category(props) {
   //Saves the number of assets in a category to localStorage using this category's id as key value pair
@@ -71,8 +70,9 @@ function Category(props) {
   //   console.log(newAssetValue);
   // }, [newAssetValue]);
 
-  function handleClickOpen(assetId) {
+  function handleClickOpen(assetId, assetName) {
     localStorage.setItem("assetIdForEdit", assetId); //HERE
+    localStorage.setItem("assetName", assetName);
     setOpen(true);
   }
 
@@ -152,7 +152,7 @@ function Category(props) {
                 key={asset.id}
                 title={asset.get("name")}
                 value={asset.get("value")}
-                eventUpdate={() => handleClickOpen(asset.id)} //Make the state of newname and value from dialogue box live here
+                eventUpdate={() => handleClickOpen(asset.id, asset.get("name"))} //Make the state of newname and value from dialogue box live here
                 eventDelete={() => deleteAssetHandler(asset.id)}
               />
             </>
@@ -198,33 +198,34 @@ function Category(props) {
       </div>
       {/* JSX for dialgoue box from here */}
       <div>
-        <Button variant="outlined" onClick={handleClickOpen}>
+        {/* <Button variant="outlined" onClick={handleClickOpen}>
           Open form dialog
-        </Button>
+        </Button> */}
         <Dialog open={open} onClose={handleClose}>
           <DialogTitle>Update asset</DialogTitle>
           <DialogContent>
             <DialogContentText>
-              Enter a new name and value for the asset you want to update
+              Update the value of your asset
             </DialogContentText>
+
             <TextField
-              autoFocus
+              required
               margin="dense"
               id="name"
-              label="New name"
+              label="Name"
               type=""
-              placeholder=""
               fullWidth
+              //defaultValue={localStorage.getItem("assetName")}
               variant="standard"
-              value={newAssetName} //You can do conditional rendering here for oldname and newnave
+              value={newAssetName} //Before: newAssetName - You can do conditional rendering here for oldname and newnave
               onChange={setNewAssetNameHandler}
             />
             <TextField
-              autoFocus
+              required
               margin="dense"
               id="value"
-              label="New value"
-              type=""
+              label="Value"
+              type="email"
               fullWidth
               variant="standard"
               value={newAssetValue}
