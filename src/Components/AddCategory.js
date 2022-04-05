@@ -11,6 +11,13 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import CategoryIconList from "./CategoryIconList";
+//Form dialogue imports
+import Button from "@mui/material/Button";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
 
 function AddCategory(props) {
   //Constants and lifecycle methods for manual input
@@ -23,14 +30,22 @@ function AddCategory(props) {
   //Constants and lifecycle methods for input that selected from dropdown
   const [inputSelect, setInputSelect] = useState("");
   const handleChangeInputSelect = (e) => {
-    setInputSelect(e.target.value);
-    //localStorage.setItem()
-    //console.log(inputSelect);
+    if (e.target.value !== "Create your own category") {
+      setInputSelect(e.target.value);
+    } else {
+      //Open form dialogue here
+      handleClickOpen(); //Can I do it in the funciton instead? Create two new input constants
+    }
+    //setInputSelect(e.target.value);
+    //Implement here -
   };
+  //console.log(inputSelect);
+  //localStorage.setItem()
   //console.log(inputSelect);
 
   useEffect(() => {
     localStorage.setItem("categorySelect", inputSelect);
+    //Maybe add one for manCatName here and move it from method to fix one character problem
   }, [inputSelect]);
 
   const [isIconListvisible, setIsIconListvisible] = React.useState(false);
@@ -38,6 +53,36 @@ function AddCategory(props) {
   const isListvisible = () => {
     setIsIconListvisible(!isIconListvisible);
   };
+
+  //Form dialogue logic from here
+  const [open, setOpen] = React.useState(false);
+
+  //Con
+  const [manualCatName, setManualCatName] = useState("");
+  const handleChangeManCatName = (e) => {
+    setManualCatName(e.target.value);
+    console.log(manualCatName); //Works with delay of one character!
+    //localStorage.setItem("categorySelect", manualCatName);
+  };
+
+  useEffect(() => {
+    localStorage.setItem("categorySelect", manualCatName);
+    console.log(manualCatName);
+    //Maybe add one for manCatName here and move it from method to fix one character problem
+  }, [manualCatName]);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+    //HERE
+    //setManualCatName(e.target.value)
+  };
+
+  const handleClose = () => {
+    //Put in useEffect instead
+    setOpen(false);
+  };
+
+  //To here
 
   if (props.type === "manual") {
     return (
@@ -123,8 +168,84 @@ function AddCategory(props) {
             <Icon delete />
           </Col>
         </Row>
+        {/*Form dialogue from here*/}
+        <div>
+          {/*
+          <Button variant="outlined" onClick={handleClickOpen}>
+            Open form dialog
+          </Button>
+          */}
+          <Dialog open={open} onClose={handleClose}>
+            <DialogTitle>Name your category</DialogTitle>
+            <DialogContent>
+              <DialogContentText>
+                Please enter the name of you your custom castegory
+              </DialogContentText>
+              <TextField
+                autoFocus
+                margin="dense"
+                id="name"
+                label="Category name"
+                type="name"
+                fullWidth
+                variant="standard"
+                onChange={handleChangeManCatName} //Added
+                value={manualCatName} //Added
+              />
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={props.eventCancel}>Cancel</Button>
+              <Button onClick={props.eventSave}>Save</Button>
+            </DialogActions>
+          </Dialog>
+        </div>
+        {/* To here*/}
       </div>
     );
   }
 }
 export default AddCategory;
+
+/*
+function FormDialog() {
+  const [open, setOpen] = React.useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  return (
+    <div>
+      <Button variant="outlined" onClick={handleClickOpen}>
+        Open form dialog
+      </Button>
+      <Dialog open={open} onClose={handleClose}>
+        <DialogTitle>Subscribe</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            To subscribe to this website, please enter your email address here.
+            We will send updates occasionally.
+          </DialogContentText>
+          <TextField
+            autoFocus
+            margin="dense"
+            id="name"
+            label="Email Address"
+            type="email"
+            fullWidth
+            variant="standard"
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose}>Cancel</Button>
+          <Button onClick={handleClose}>Subscribe</Button>
+        </DialogActions>
+      </Dialog>
+    </div>
+  );
+}
+*/
