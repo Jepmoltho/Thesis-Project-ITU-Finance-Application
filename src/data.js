@@ -169,6 +169,29 @@ export async function postHistoricNetworth(userId, networth, date){
   }
 }
 
+export async function postGoal(userId, goal){
+  const Goal = new Parse.Object.extend("User");
+  const thisGoal = new Goal();
+  thisGoal.set("userId", userId)
+  thisGoal.set("goal", goal)
+  try{
+    await thisGoal.save()
+    console.log("Saved category value to DB");
+  } catch (error){
+    alert("Error in postGoal")
+  }
+}
+
+export async function getGoal(userId){
+  const ParseQuery = new Parse.Query("User")
+  ParseQuery.contains("userId", userId)
+  try{
+
+  } catch (error){
+    alert("Error in getGoal")
+  }
+}
+
 
 //Updating assets and categories attempt: Doesnt work for now: Suprinsingly complex problem.
 // export async function putAsset(assetId, assetName, assetValue) {
