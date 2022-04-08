@@ -15,9 +15,7 @@ import DialogTitle from "@mui/material/DialogTitle";
 import { useState } from "react";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
-import {putGoal} from "../data"
-
-
+import {putGoal, getGoal} from "../data"
 
 function TopComponents(props) {
   const userId = localStorage.getItem("userId");
@@ -29,24 +27,23 @@ function TopComponents(props) {
     handleClose();
     //Rerender after: Add an await above and rerender here
   }
-  
+
   //Logic for dialogue box starts from here
   const [open, setOpen] = React.useState(false);
 
   //Edit button on goalBox needs to do this
-  
   const [newGoal, setNewGoal] = useState("");
   const setNewGoalHandler = (e) => {
     setNewGoal(e.target.value);
   };
-  
+
+  /*
+  const initialGoal = getGoal()
+  const [goal, setGoal] = useState(initialGoal)
+  */
 
   //Opens dialogue box upon edit goal button ## Need to review this one 
-
-  function handleClickOpen() { // input assetId, assetName
-    //Note that it sets the initial assetName. Nessesary for the edit asset functionality so you don't have to type in the same name every time you update the value
-    //localStorage.setItem("assetIdForEdit", assetId);
-    //setNewGoalName(assetName);
+  function handleClickOpen() { 
     setOpen(true);
     console.log("Dialogbox for Goal is open")
   }
@@ -121,8 +118,9 @@ function TopComponents(props) {
             }}
           >
             <Goal 
-              goal="100000" 
+              goal={props.goal} 
               eventEdit={() => handleClickOpen()} // open dialog box
+              netWorth={props.netWorth}
             />
           </Col>
         </Row>

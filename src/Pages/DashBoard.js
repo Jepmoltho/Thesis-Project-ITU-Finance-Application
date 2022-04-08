@@ -17,6 +17,7 @@ import {
   postAssetRealestateM2,
   getHistoricNetworth,
   postHistoricNetworth,
+  getGoal
 } from "../data";
 
 function Dashboard() {
@@ -43,6 +44,7 @@ function Dashboard() {
   const [assetsTotal, setAssetsTotal] = useState("");
   const [debtTotal, setDebtTotal] = useState("");
   const [netWorth, setNetWorth] = useState("");
+  const [goal, setGoal] = useState("")
 
   //Saves a category to database by calling postCategory in data.js
   async function saveCategory() {
@@ -218,6 +220,7 @@ function Dashboard() {
       .then((hisData) => setHistoricNetworth(hisData))
       .then(() => (isNewMonth() ? saveHistoricNetworth() : null));
     console.log("UseEffect for getCategories and getAssets called");
+    setGoal(getGoal(userId))
   }, [userId, categoryId, visibleAddAsset]);
 
   function isNewMonth() {
@@ -296,6 +299,7 @@ function Dashboard() {
             netWorth={netWorth}
             categories={categories}
             historicNetworth={historicNetworth}
+            goal={goal}
           />
           <br />
           <div className="visibleSavedCategory">

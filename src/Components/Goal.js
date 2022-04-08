@@ -7,6 +7,13 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 
 function Goal(props) {
+
+  function goalCalculation(goal){
+    // Del av tallet / Det hele tallet * 100 = (x) %
+    const progress = goal / props.netWorth * 100
+    return progress.toString()
+  }
+
   return (
     <div className="goalbox">
       <Row style={{ padding: "10px" }}>
@@ -33,9 +40,9 @@ function Goal(props) {
         </Col>
       </Row>
       <Row style={{ padding: "10px", paddingBottom: "20px" }}>
-        <ProgressBar completed="80" style={{ position: "relative" }} />
+        <ProgressBar completed={goalCalculation()} style={{ position: "relative" }} />
       </Row>
-    </div>
+    </div> 
   );
 }
 
