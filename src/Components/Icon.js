@@ -23,7 +23,11 @@ function Icon(props) {
   }
   if (props.editgoal) {
     return (
-      <IconButton aria-label="edit" style={{ float: "right", padding: "0px" }}>
+      <IconButton 
+        aria-label="edit" 
+        style={{ float: "right", padding: "0px" }}
+        onClick={props.eventEdit}
+      >
         <EditIcon sx={{ color: "#8c8c8c", padding: "3px" }} />
       </IconButton>
     );
