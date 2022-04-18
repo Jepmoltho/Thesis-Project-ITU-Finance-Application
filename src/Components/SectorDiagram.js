@@ -22,20 +22,34 @@ ChartJS.register(LineController, LineElement, PointElement, LinearScale, Title);
 
 function SectorDiagram(props) {
   
-  // Initialises a list of categories with given properties. 
+
+  /**
+   * Checks if a number is negative
+   * @param {number} number - 
+   * @returns {boolean} - true if the number is negative
+   */
+  function isNegative(number) {
+    return number < 0 ? true : false
+  }
+
+
+  // Initializes a list of categories with default values of the properties id, name, value, percentage. 
   var listOfCategories = [{
     id: null,
     name: null,
     value: 0, 
-    procentage: 0
+    percentage: 0
   }]
 
-  // Creates a list of categories based on categories props passed from dashboard.
+  // populates the list of categories based on categories props passed from dashboard.
   listOfCategories = props.categories.map(category => (
     { id: category.id, 
       name: category.get("name"), 
       value: category.get("value"),
-      procentage: (((category.get("value"))*100)/(props.netWorth)).toFixed(1) 
+      percentage: (
+        ((category.get("value"))*100)
+        /(props.netWorth))
+        .toFixed(1) 
     }
   ));
   
@@ -53,7 +67,8 @@ function SectorDiagram(props) {
   
   // dataset properties in chart.js doc
   const data = {
-    labels: listOfCategories.map((e) => `${e.name} ${e.procentage}%`),
+    labels: listOfCategories.map((e) => `${e.name} ${e.percentage }%` ),
+    // labels: listOfCategories.map((e) => `${e.name} ${isNegative(props.netWorth) ? " " : e.percentage }` ),
     // what is shown
     datasets: [
       {
