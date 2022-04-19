@@ -142,27 +142,20 @@ function Category(props) {
         {
           props.visibleAsset.map((asset) => {
             return (
-
-              
-              
               asset.categoryId === props.categoryId && asset.isVisible ?
-              
-              <>
-               {setNoOfAssets(props.categoryId)}
-               <Asset
-                key={asset.id}
-                title={asset.name}
-                value={asset.value}
-                eventUpdate={() => handleClickOpen(asset.id, asset.name)} //Make the state of newname and value from dialogue box live here
-                eventDelete={() => deleteAssetHandler(asset.id)}
-                />
-            </>  
-            :
-            null
-            )
-            
-            // console.log("hej")
-                
+                <>
+                {setNoOfAssets(props.categoryId)}
+                <Asset
+                  key={asset.id}
+                  title={asset.name}
+                  value={asset.value}
+                  eventUpdate={() => handleClickOpen(asset.id, asset.name)} //Make the state of newname and value from dialogue box live here
+                  eventDelete={() => deleteAssetHandler(asset.id)}
+                  />
+                </>  
+              :
+              null
+              )  
           })
 
         }

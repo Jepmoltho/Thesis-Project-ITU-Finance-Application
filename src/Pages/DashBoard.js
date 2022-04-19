@@ -92,7 +92,7 @@ function Dashboard() {
       value: assets.attributes.value,
       isVisible: false,
     }));
-    setVisibleAsset(arrOfAsset);
+    setVisibleAsset( prev => arrOfAsset);
   }
 
   /**
@@ -116,14 +116,14 @@ function Dashboard() {
     );
   }
 
-  function setVisibleAssetFunction(isOpen, categoryId) {
-    initVisibleAsset()
+  function setVisibleAssetFunction(categoryId) {
+      initVisibleAsset()
     setVisibleAsset((prevArr) =>
       prevArr.map((prevObj) => {
         if (prevObj.categoryId === categoryId) {
           const newObj = {
             ...prevObj,
-            isVisible: isOpen,
+            isVisible: !prevObj.isVisible,
           };
           return newObj;
         }
@@ -258,6 +258,7 @@ function Dashboard() {
     console.log("UseEffect for getCategories and getAssets called");
   }, [userId, categoryId, visibleAddAsset]);
 
+
   function isNewMonth() {
     const historicMonth = historicNetworth.map((hisEle) => {
       return hisEle.get("date").getMonth() + 1;
@@ -350,7 +351,7 @@ function Dashboard() {
                 eventCancel={() => addAssetClick(false, category.id)} //Sets the visibility of AddAsset to false
                 eventDeleteCategory={() => deleteCategoryHandler(category.id)}
                 eventSaveAssetRealestateM2={() => saveAssetRealestateM2Handler()}
-                viewAsset={ () => setVisibleAssetFunction(true, category.id) }
+                viewAsset={ () => setVisibleAssetFunction(category.id)}
                 visibleAsset={visibleAsset}
 
               />
