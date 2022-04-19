@@ -22,16 +22,8 @@ ChartJS.register(LineController, LineElement, PointElement, LinearScale, Title);
 
 function SectorDiagram(props) {
   
-
-  /**
-   * Checks if a number is negative
-   * @param {number} number - 
-   * @returns {boolean} - true if the number is negative
-   */
-  function isNegative(number) {
-    return number < 0 ? true : false
-  }
-
+  // Filter the categories array to only have categories with positive values.
+  var onlyPositiveAsset = props.categories.filter( cat => cat.get("value") > 0)
 
   // Initializes a list of categories with default values of the properties id, name, value, percentage. 
   var listOfCategories = [{
@@ -42,14 +34,11 @@ function SectorDiagram(props) {
   }]
 
   // populates the list of categories based on categories props passed from dashboard.
-  listOfCategories = props.categories.map(category => (
+  listOfCategories = onlyPositiveAsset.map(category => (
     { id: category.id, 
       name: category.get("name"), 
       value: category.get("value"),
-      percentage: (
-        ((category.get("value"))*100)
-        /(props.netWorth))
-        .toFixed(1) 
+      percentage: (((category.get("value"))*100)/(props.assetsTotal)).toFixed(1) 
     }
   ));
   

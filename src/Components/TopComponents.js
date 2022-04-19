@@ -36,6 +36,7 @@ function TopComponents(props) {
             <Seehowpros />
             <SectorDiagram
               categories={props.categories}
+              assetsTotal={props.assetsTotal}
               netWorth={props.netWorth}
             />
           </Col>
