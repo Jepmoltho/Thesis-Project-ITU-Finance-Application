@@ -88,6 +88,8 @@ function Dashboard() {
     arrOfAsset = assets.map((assets) => ({
       id: assets.id,
       categoryId: assets.attributes.categoryId,
+      name: assets.attributes.name,
+      value: assets.attributes.value,
       isVisible: false,
     }));
     setVisibleAsset(arrOfAsset);

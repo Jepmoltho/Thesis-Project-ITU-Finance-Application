@@ -140,33 +140,31 @@ function Category(props) {
       <Row>
         
         {
+          props.visibleAsset.map((asset) => {
+            return (
 
-          // console.log("Clicked")
-          // props.visibleAsset.map((visible) => {
-          //   props.assets.map((asset) =>
-          //     asset.attributes.categoryId === props.categoryId && visible.isVisible ? (
-          //       <>
-          //         {setNoOfAssets(props.categoryId)}
-          //         <Asset
-          //           key={asset.id}
-          //           title={asset.get("name")}
-          //           value={asset.get("value")}
-          //           eventUpdate={() => handleClickOpen(asset.id, asset.get("name"))} //Make the state of newname and value from dialogue box live here
-          //           eventDelete={() => deleteAssetHandler(asset.id)}
-          //         />
-          //       </>
-          //     ) : null
-          //   )
-          // })
+              
+              
+              asset.categoryId === props.categoryId && asset.isVisible ?
+              
+              <>
+               {setNoOfAssets(props.categoryId)}
+               <Asset
+                key={asset.id}
+                title={asset.name}
+                value={asset.value}
+                eventUpdate={() => handleClickOpen(asset.id, asset.name)} //Make the state of newname and value from dialogue box live here
+                eventDelete={() => deleteAssetHandler(asset.id)}
+                />
+            </>  
+            :
+            null
+            )
+            
+            // console.log("hej")
+                
+          })
 
-          // props.visibleAsset.map((visible) => {
-          //   props.assets.map((asset) => {
-          //     return asset.attributes.categoryId === props.categoryId && visible.isVisible ?
-          //     console.log(asset.id)
-          //     :
-          //     console.log("null")
-          //   })
-          // })
         }
 
 
