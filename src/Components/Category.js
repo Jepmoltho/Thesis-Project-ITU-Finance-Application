@@ -118,12 +118,14 @@ function Category(props) {
         <Col className="col-sm-1" style={{ margin: "auto", padding: "0px" }}>
           <nobr>
             <Button
+            // --------------------Here-----------------------------
               variant="text"
               style={{
                 fontSize: "12px",
                 color: "#18388C",
                 left: "-10px",
               }}
+              onClick={props.viewAsset}
             >
               View assets <ArrowDropDownRoundedIcon sx={{ color: "#18388C" }} />
             </Button>
@@ -136,20 +138,55 @@ function Category(props) {
       </Row>
       {/* -------------- Assets ----------------------- */}
       <Row>
-        {props.assets.map((asset) =>
-          asset.attributes.categoryId === props.categoryId ? (
-            <>
-              {setNoOfAssets(props.categoryId)}
-              <Asset
-                key={asset.id}
-                title={asset.get("name")}
-                value={asset.get("value")}
-                eventUpdate={() => handleClickOpen(asset.id, asset.get("name"))} //Make the state of newname and value from dialogue box live here
-                eventDelete={() => deleteAssetHandler(asset.id)}
-              />
-            </>
-          ) : null
-        )}
+        
+        {
+
+          // console.log("Clicked")
+          // props.visibleAsset.map((visible) => {
+          //   props.assets.map((asset) =>
+          //     asset.attributes.categoryId === props.categoryId && visible.isVisible ? (
+          //       <>
+          //         {setNoOfAssets(props.categoryId)}
+          //         <Asset
+          //           key={asset.id}
+          //           title={asset.get("name")}
+          //           value={asset.get("value")}
+          //           eventUpdate={() => handleClickOpen(asset.id, asset.get("name"))} //Make the state of newname and value from dialogue box live here
+          //           eventDelete={() => deleteAssetHandler(asset.id)}
+          //         />
+          //       </>
+          //     ) : null
+          //   )
+          // })
+
+          // props.visibleAsset.map((visible) => {
+          //   props.assets.map((asset) => {
+          //     return asset.attributes.categoryId === props.categoryId && visible.isVisible ?
+          //     console.log(asset.id)
+          //     :
+          //     console.log("null")
+          //   })
+          // })
+        }
+
+
+        {
+        // props.assets.map((asset) =>
+        //   asset.attributes.categoryId === props.categoryId ? (
+        //     <>
+        //       {setNoOfAssets(props.categoryId)}
+        //       <Asset
+        //         key={asset.id}
+        //         title={asset.get("name")}
+        //         value={asset.get("value")}
+        //         eventUpdate={() => handleClickOpen(asset.id, asset.get("name"))} //Make the state of newname and value from dialogue box live here
+        //         eventDelete={() => deleteAssetHandler(asset.id)}
+        //       />
+        //     </>
+        //   ) : null
+        // )
+        }
+
       </Row>
       {/* -------------- Add new asset ----------------------- */}
       <Row>

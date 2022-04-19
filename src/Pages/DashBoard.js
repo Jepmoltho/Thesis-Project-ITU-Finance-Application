@@ -31,6 +31,8 @@ function Dashboard() {
   //Manages display if addAssetComponent upon pressing addAsset and disappear upon pressing cancel
   const [visibleAddAsset, setVisibleAddAsset] = useState([]);
 
+  const [visibleAsset, setVisibleAsset] = useState([]);
+
   //Manages list of saved categories
   const [categories, setCategories] = useState([]);
 
@@ -75,6 +77,22 @@ function Dashboard() {
     setVisibleAddAsset(arrOfCat);
   }
 
+
+  function initVisibleAsset() {
+    var arrOfAsset = [
+      {
+        id: null,
+        isVisible: false,
+      },
+    ];
+    arrOfAsset = assets.map((assets) => ({
+      id: assets.id,
+      categoryId: assets.attributes.categoryId,
+      isVisible: false,
+    }));
+    setVisibleAsset(arrOfAsset);
+  }
+
   /**
    * Sets the visibility of an AddAsset to true/false.
    * @param {boolean} isOpen Pass true to display the Add Asset component.
@@ -95,6 +113,24 @@ function Dashboard() {
       })
     );
   }
+
+  function setVisibleAssetFunction(isOpen, categoryId) {
+    initVisibleAsset()
+    setVisibleAsset((prevArr) =>
+      prevArr.map((prevObj) => {
+        if (prevObj.categoryId === categoryId) {
+          const newObj = {
+            ...prevObj,
+            isVisible: isOpen,
+          };
+          return newObj;
+        }
+        return prevObj;
+      })
+    );
+  }
+
+
 
   //Saves an asset to database by calling postAsset in data.js
   async function saveAsset() {
@@ -311,9 +347,10 @@ function Dashboard() {
                 eventSave={() => saveAsset()}
                 eventCancel={() => addAssetClick(false, category.id)} //Sets the visibility of AddAsset to false
                 eventDeleteCategory={() => deleteCategoryHandler(category.id)}
-                eventSaveAssetRealestateM2={() =>
-                  saveAssetRealestateM2Handler()
-                }
+                eventSaveAssetRealestateM2={() => saveAssetRealestateM2Handler()}
+                viewAsset={ () => setVisibleAssetFunction(true, category.id) }
+                visibleAsset={visibleAsset}
+
               />
             ))}
           </div>
