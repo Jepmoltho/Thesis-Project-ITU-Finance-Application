@@ -138,11 +138,12 @@ function Category(props) {
       </Row>
       {/* -------------- Assets ----------------------- */}
       <Row>
-        
         {
           props.visibleAsset.map((asset) => {
             return (
-              asset.categoryId === props.categoryId && asset.isVisible ?
+              // open/close assets of the matches with the categoryId and checks if their visibility is true.
+              asset.categoryId === props.categoryId && asset.isVisible 
+              ?
                 <>
                 {setNoOfAssets(props.categoryId)}
                 <Asset
@@ -155,29 +156,9 @@ function Category(props) {
                 </>  
               :
               null
-              )  
+            )  
           })
-
         }
-
-
-        {
-        // props.assets.map((asset) =>
-        //   asset.attributes.categoryId === props.categoryId ? (
-        //     <>
-        //       {setNoOfAssets(props.categoryId)}
-        //       <Asset
-        //         key={asset.id}
-        //         title={asset.get("name")}
-        //         value={asset.get("value")}
-        //         eventUpdate={() => handleClickOpen(asset.id, asset.get("name"))} //Make the state of newname and value from dialogue box live here
-        //         eventDelete={() => deleteAssetHandler(asset.id)}
-        //       />
-        //     </>
-        //   ) : null
-        // )
-        }
-
       </Row>
       {/* -------------- Add new asset ----------------------- */}
       <Row>
