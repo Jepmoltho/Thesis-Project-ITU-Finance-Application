@@ -6,9 +6,55 @@ import SectorDiagram from "./SectorDiagram";
 import Overview from "./Overview";
 import Goal from "./Goal";
 import Seehowpros from "./Seehowpros";
+import React from "react"
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
+import { useState, useEffect } from "react";
+import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
+import {putGoal, getGoal} from "../data"
 
 function TopComponents(props) {
+  const userId = localStorage.getItem("userId");
+
+  //Save button in dialogue box needs to do this
+  async function updateGoalHandler(userId, newGoal) {
+    putGoal(userId, newGoal);
+    handleClose();
+    props.setGoal(newGoal)
+    //Rerender after: Add an await above and rerender here
+  }
+
+  //Logic for dialogue box starts from here
+  const [open, setOpen] = React.useState(false);
+
+  //Edit button on goalBox needs to do this
+  const [newGoal, setNewGoal] = useState("");
+  const setNewGoalHandler = (e) => {
+    setNewGoal(e.target.value);
+  };
+
+  
+  //const initialGoal = getGoal(userId, setNewGoal())
+  /*
+   [goal, setGoal] = useState(initialGoal)
+  */
+
+  //Opens dialogue box upon edit goal button ## Need to review this one 
+  function handleClickOpen() { 
+    setOpen(true);
+    console.log("Dialogbox for Goal is open")
+  }
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   return (
+    <div>
     <Row>
       <Col
         className="col-sm-7"
@@ -73,11 +119,55 @@ function TopComponents(props) {
               marginLeft: "0px",
             }}
           >
-            <Goal goal="100000" />
+            <Goal 
+              goal={props.goal} 
+              eventEdit={() => handleClickOpen()} // open dialog box
+              netWorth={props.netWorth}
+            />
           </Col>
         </Row>
       </Col>
     </Row>
+
+    {/* JSX for Goal dialgoue box from here */}
+    <Dialog open={open} onClose={handleClose}>
+      <DialogTitle> Update Goal </DialogTitle>
+      <DialogContent>
+          <DialogContentText>
+            Update the value of your Goal
+          </DialogContentText>
+        
+          <TextField
+              required
+              margin="dense"
+              id="name"
+              label="Goal"
+              type=""
+              fullWidth
+              variant="standard"
+              value={newGoal}
+              onChange={setNewGoalHandler}
+            />
+
+      </DialogContent>
+      <DialogActions>
+            <Button onClick={handleClose}>Cancel</Button>
+            <Button
+              onClick={() =>
+                updateGoalHandler(
+                  userId,
+                  newGoal,
+                )
+              }
+            >
+              Save
+            </Button>
+          </DialogActions>
+        
+    </Dialog>
+
+    </div>
+
   );
 }
 

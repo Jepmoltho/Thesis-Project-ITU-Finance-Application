@@ -124,6 +124,38 @@ export async function putAsset(assetId, newName, newValue) {
   }
 }
 
+// Updating Goal
+export async function putGoal(userId, newGoal) {
+  const User = new Parse.Object.extend("User");
+  const user = new User();
+  user.set("objectId", userId);
+  user.set("goal", newGoal);
+  try {
+    await user.save();
+    alert(userId + " updated");
+    return true;
+  } catch (error) {
+    alert("Error in putGoal " + error);
+    return false;
+  }
+}
+
+// Getting Goal
+export async function getGoal(userId, setGoal) {
+  const parseQuery = new Parse.Query("User");
+  parseQuery.contains("objectId", userId);
+  try {
+    let goalValue = await parseQuery.find();
+    let goal = goalValue.map((e) => e.get("goal"))
+    setGoal(goal[0]);
+    console.log(goal[0])
+  } catch {
+    alert("error in getGoal");
+    return false;
+  }
+  
+}
+
 //Delete category - Need to delete from both category table and asset table: //Note: Doesn't work but it only affects the database by not removing assets connected to a category after the category have been deleted. It doesn't affect the user experience. Need to figure out a way to loop though all assets with a given categoryId and destroy them. Left the comments in for illustration
 export async function deleteCategory(categoryId) {
   // const Asset = new Parse.Object("Asset");
