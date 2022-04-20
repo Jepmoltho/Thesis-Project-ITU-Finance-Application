@@ -87,7 +87,7 @@ function Dashboard() {
   }
 
 
-  function initVisibleAsset() {
+  function initVisibleAsset(assetsArr) {
     var arrOfAsset = [
       {
         id: null,
@@ -97,7 +97,7 @@ function Dashboard() {
         isVisible: false,
       },
     ];
-    arrOfAsset = assets.map((assets) => ({
+    arrOfAsset = assetsArr.map((assets) => ({
       id: assets.id,
       categoryId: assets.attributes.categoryId,
       name: assets.attributes.name,
@@ -255,27 +255,37 @@ function Dashboard() {
   //useEffect and stateHook handling userLogin and registration
   const [currentUser, setCurrentUser] = useState(null);
   useEffect(() => {
-    getCurrentUser();
-    console.log("UseEffect for userlogin called");
-  }, [userId]);
+    console.log("start [userId]");
+    getCurrentUser()
+    .then(() => getCategories(userId, setCategories) )
+    .then(() => getAssets("", userId, setAssets))
+    .then((assetsArr) => initVisibleAsset(assetsArr))
 
+    calculateNetWorth(categories);
+
+    getHistoricNetworth(userId, setHistoricNetworth)
+    .then((hisData) => setHistoricNetworth(hisData))
+    .then(() => (isNewMonth() ? saveHistoricNetworth() : null));
+    
+    getGoal(userId, setGoal)
+
+    console.log("end [userId]");
+  }, [userId]);
+  
   //useEffect handling update of overviewCard (assettotal, debttotal and networth) in topComponent //NOTE: THE SOLUTION TO THE UNINTENDED CALLS TO GETCATEGORIES, GETASSETS AND CALCULATE NETWORTH IS ANOTHER USEEFFECT HOOK WITH IT'S OWN DEPENDENCIES: https://www.linkedin.com/learning/react-hooks/working-with-the-dependency-array?autoSkip=true&autoplay=true&resume=false&u=55937129
   useEffect(() => {
-    calculateNetWorth(categories);
-    console.log("UseEffect for overviewCard called");
-    initVisibleAsset()
+    // calculateNetWorth(categories);
+    console.log("[categories, assets]");
+    // initVisibleAsset() 
   }, [categories, assets]);
-
+  
   //useEffect handling update of categories and assets (Warning: dont add assets or categories to dependency array)
   useEffect(() => {
-    getCategories(userId, setCategories); //Moved this up hear instead of in useEffect
-    getAssets("", userId, setAssets); // NOTE!!! changed the parameter from the current categoryId to "" to target all assets. This is to make the isVisibleAsset array to work.
+    // getCategories(userId, setCategories); //Moved this up hear instead of in useEffect
+    // getAssets("", userId, setAssets); // NOTE!!! changed the parameter from the current categoryId to "" to target all assets. This is to make the isVisibleAsset array to work.
     //Get historic data from db, then sets historicNetworth state, then if we are in a new month we save the historic data else nothing.
-    getHistoricNetworth(userId, setHistoricNetworth)
-      .then((hisData) => setHistoricNetworth(hisData))
-      .then(() => (isNewMonth() ? saveHistoricNetworth() : null));
-    console.log("UseEffect for getCategories and getAssets called");
-    getGoal(userId, setGoal)
+    console.log("[userId, categoryId, visibleAddAsset]");
+
   }, [userId, categoryId, visibleAddAsset]);
 
 

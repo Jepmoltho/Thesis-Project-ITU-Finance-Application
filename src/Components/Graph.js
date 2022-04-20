@@ -25,13 +25,10 @@ function Graph(props) {
   
   historicNetworth.push(props.networth)
 
-  const currentDate = new Date()
-  const currentMonth = currentDate.getMonth() + 1
-  const currentYear = currentDate.getFullYear() 
+  // const currentDate = new Date()
+  // const currentMonth = currentDate.getMonth() + 1
+  // const currentYear = currentDate.getFullYear() 
 
-  console.log(currentDate)
-  console.log(currentMonth)
-  console.log(currentYear)
   
   historicMonth.push("Networth");
 
