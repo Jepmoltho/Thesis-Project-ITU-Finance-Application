@@ -31,6 +31,8 @@ function Dashboard() {
   //Manages display if addAssetComponent upon pressing addAsset and disappear upon pressing cancel
   const [visibleAddAsset, setVisibleAddAsset] = useState([]);
 
+  const [visibleAsset, setVisibleAsset] = useState([]);
+
   //Manages list of saved categories
   const [categories, setCategories] = useState([]);
 
@@ -75,10 +77,30 @@ function Dashboard() {
     setVisibleAddAsset(arrOfCat);
   }
 
+
+  function initVisibleAsset() {
+    var arrOfAsset = [
+      {
+        id: null,
+        isVisible: false,
+      },
+    ];
+    arrOfAsset = assets.map((assets) => ({
+      id: assets.id,
+      categoryId: assets.attributes.categoryId,
+      name: assets.attributes.name,
+      value: assets.attributes.value,
+      isVisible: false,
+    }));
+    setVisibleAsset( prev => arrOfAsset);
+  }
+
   /**
-   * Sets the visibility of an AddAsset to true/false.
-   * @param {boolean} isOpen Pass true to display the Add Asset component.
-   * @param {string} categoryId The ID of a category.
+   * Sets the all of the AddAssets to false and
+   * open/closes the visibility of a categories assets that 
+   * matches with its categoryId.
+   * @param {boolean} isOpen - Pass true to display the Add Asset component.
+   * @param {String} categoryId - The ID of a category.
    */
   function setVisibleAddAssetFunction(isOpen, categoryId) {
     initVisibleAddAsset(); //Set all visible to false (sets the id to all, thats why you need to call this first)
@@ -95,6 +117,28 @@ function Dashboard() {
       })
     );
   }
+
+  /**
+   * open/closes the visibility of a categories assets that 
+   * matches with its categoryId.
+   * @param {String} categoryId - The ID of a category.
+   */
+  function setVisibleAssetFunction(categoryId) {
+    setVisibleAsset((prevArr) =>
+      prevArr.map((prevObj) => {
+        if (prevObj.categoryId === categoryId) {
+          const newObj = {
+            ...prevObj,
+            isVisible: !prevObj.isVisible,
+          };
+          return newObj;
+        }
+        return prevObj;
+      })
+    );
+  }
+
+
 
   //Saves an asset to database by calling postAsset in data.js
   async function saveAsset() {
@@ -207,6 +251,7 @@ function Dashboard() {
   useEffect(() => {
     calculateNetWorth(categories);
     console.log("UseEffect for overviewCard called");
+    initVisibleAsset()
   }, [categories, assets]);
 
   //useEffect handling update of categories and assets (Warning: dont add assets or categories to dependecy array)
@@ -217,8 +262,10 @@ function Dashboard() {
     getHistoricNetworth(userId, setHistoricNetworth)
       .then((hisData) => setHistoricNetworth(hisData))
       .then(() => (isNewMonth() ? saveHistoricNetworth() : null));
+
     console.log("UseEffect for getCategories and getAssets called");
   }, [userId, categoryId, visibleAddAsset]);
+
 
   function isNewMonth() {
     const historicMonth = historicNetworth.map((hisEle) => {
@@ -307,13 +354,14 @@ function Dashboard() {
                 value={category.get("value")}
                 eventAddAsset={() => addAssetClick(true, category.id)} //Sets the visibility of AddAsset to true
                 assets={assets}
-                visibleAddAsset={visibleAddAsset}
+                visibleAddAsset={visibleAddAsset} //pass a array that tells whether add a new assets box is visible.
                 eventSave={() => saveAsset()}
                 eventCancel={() => addAssetClick(false, category.id)} //Sets the visibility of AddAsset to false
                 eventDeleteCategory={() => deleteCategoryHandler(category.id)}
-                eventSaveAssetRealestateM2={() =>
-                  saveAssetRealestateM2Handler()
-                }
+                eventSaveAssetRealestateM2={() => saveAssetRealestateM2Handler()}
+                viewAsset={ () => setVisibleAssetFunction(category.id)} //Open/closes the visibility of a categories assets
+                visibleAsset={visibleAsset} //pass a array that tells whether assets are visible.
+
               />
             ))}
           </div>

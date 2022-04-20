@@ -118,12 +118,14 @@ function Category(props) {
         <Col className="col-sm-1" style={{ margin: "auto", padding: "0px" }}>
           <nobr>
             <Button
+            // --------------------Here-----------------------------
               variant="text"
               style={{
                 fontSize: "12px",
                 color: "#18388C",
                 left: "-10px",
               }}
+              onClick={props.viewAsset}
             >
               View assets <ArrowDropDownRoundedIcon sx={{ color: "#18388C" }} />
             </Button>
@@ -136,20 +138,27 @@ function Category(props) {
       </Row>
       {/* -------------- Assets ----------------------- */}
       <Row>
-        {props.assets.map((asset) =>
-          asset.attributes.categoryId === props.categoryId ? (
-            <>
-              {setNoOfAssets(props.categoryId)}
-              <Asset
-                key={asset.id}
-                title={asset.get("name")}
-                value={asset.get("value")}
-                eventUpdate={() => handleClickOpen(asset.id, asset.get("name"))} //Make the state of newname and value from dialogue box live here
-                eventDelete={() => deleteAssetHandler(asset.id)}
-              />
-            </>
-          ) : null
-        )}
+        {
+          props.visibleAsset.map((asset) => {
+            return (
+              // open/close assets of the matches with the categoryId and checks if their visibility is true.
+              asset.categoryId === props.categoryId && asset.isVisible 
+              ?
+                <>
+                {setNoOfAssets(props.categoryId)}
+                <Asset
+                  key={asset.id}
+                  title={asset.name}
+                  value={asset.value}
+                  eventUpdate={() => handleClickOpen(asset.id, asset.name)} //Make the state of newname and value from dialogue box live here
+                  eventDelete={() => deleteAssetHandler(asset.id)}
+                  />
+                </>  
+              :
+              null
+            )  
+          })
+        }
       </Row>
       {/* -------------- Add new asset ----------------------- */}
       <Row>
