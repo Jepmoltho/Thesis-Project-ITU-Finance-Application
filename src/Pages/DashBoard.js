@@ -82,6 +82,9 @@ function Dashboard() {
     var arrOfAsset = [
       {
         id: null,
+        categoryId: null,
+        name: null,
+        value: 0,  
         isVisible: false,
       },
     ];
@@ -254,15 +257,14 @@ function Dashboard() {
     initVisibleAsset()
   }, [categories, assets]);
 
-  //useEffect handling update of categories and assets (Warning: dont add assets or categories to dependecy array)
+  //useEffect handling update of categories and assets (Warning: dont add assets or categories to dependency array)
   useEffect(() => {
-    getCategories(userId, setCategories); //Moved this up hear insted of in useEffect
-    getAssets(categoryId, userId, setAssets);
+    getCategories(userId, setCategories); //Moved this up hear instead of in useEffect
+    getAssets("", userId, setAssets); // NOTE!!! changed the parameter from the current categoryId to "" to target all assets. This is to make the isVisibleAsset array to work.
     //Get historic data from db, then sets historicNetworth state, then if we are in a new month we save the historic data else nothing.
     getHistoricNetworth(userId, setHistoricNetworth)
       .then((hisData) => setHistoricNetworth(hisData))
       .then(() => (isNewMonth() ? saveHistoricNetworth() : null));
-
     console.log("UseEffect for getCategories and getAssets called");
   }, [userId, categoryId, visibleAddAsset]);
 
