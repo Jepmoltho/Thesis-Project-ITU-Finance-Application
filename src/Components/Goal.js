@@ -9,10 +9,16 @@ import Col from "react-bootstrap/Col";
 function Goal(props) {
 
   function goalCalculation(){
-    // Del av tallet / Det hele tallet * 100 = (x) %
-    const progress = props.goal / props.netWorth * 100
-    const decimals = progress.toFixed(2)
-    return decimals.toString()
+    if ((props.goal === undefined || '') || props.netWorth === 0 ){
+      return "0"
+    } else if (props.goal <= props.netWorth) {
+      return "100"
+    } else {
+      // Del av tallet / Det hele tallet * 100 = (x) %
+      const progress = props.netWorth / props.goal * 100
+      const progressDecimals = progress.toFixed(2)
+      return progressDecimals.toString()
+    }
   }
 
   return (
@@ -35,7 +41,7 @@ function Goal(props) {
           <p
             name="-"
             style={{ color: "#00145E", float: "right", marginBottom: "0px" }}
-          > {props.goal === '' ? "-" : props.goal}
+          > {props.goal === undefined || '' ? "-" : props.goal}
           </p>
         </Col>
       </Row>
