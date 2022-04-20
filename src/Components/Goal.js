@@ -8,10 +8,11 @@ import Col from "react-bootstrap/Col";
 
 function Goal(props) {
 
-  function goalCalculation(goal){
+  function goalCalculation(){
     // Del av tallet / Det hele tallet * 100 = (x) %
-    const progress = goal / props.netWorth * 100
-    return progress.toString()
+    const progress = props.goal / props.netWorth * 100
+    const decimals = progress.toFixed(2)
+    return decimals.toString()
   }
 
   return (
@@ -34,16 +35,18 @@ function Goal(props) {
           <p
             name="-"
             style={{ color: "#00145E", float: "right", marginBottom: "0px" }}
-          >
-            {props.goal === undefined ? "-" : props.goal}
+          > {props.goal}
           </p>
         </Col>
       </Row>
       <Row style={{ padding: "10px", paddingBottom: "20px" }}>
         <ProgressBar completed={goalCalculation()} style={{ position: "relative" }} />
       </Row>
-    </div> 
+    </div>                      
   );
 }
 
 export default Goal;
+
+// {props.goal === undefined ? "-" : props.goal}
+

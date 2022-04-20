@@ -12,7 +12,7 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import {putGoal, getGoal} from "../data"
@@ -23,7 +23,6 @@ function TopComponents(props) {
   //Save button in dialogue box needs to do this
   async function updateGoalHandler(userId, newGoal) {
     putGoal(userId, newGoal);
-    //getAssets();
     handleClose();
     //Rerender after: Add an await above and rerender here
   }
@@ -37,9 +36,10 @@ function TopComponents(props) {
     setNewGoal(e.target.value);
   };
 
+  
+  //const initialGoal = getGoal(userId, setNewGoal())
   /*
-  const initialGoal = getGoal()
-  const [goal, setGoal] = useState(initialGoal)
+   [goal, setGoal] = useState(initialGoal)
   */
 
   //Opens dialogue box upon edit goal button ## Need to review this one 

@@ -44,8 +44,15 @@ function Dashboard() {
   const [assetsTotal, setAssetsTotal] = useState("");
   const [debtTotal, setDebtTotal] = useState("");
   const [netWorth, setNetWorth] = useState("");
+
   const [goal, setGoal] = useState("")
 
+  /*
+  useEffect(() => {
+    getGoal(userId, setGoal)
+    }, [userId]
+  );
+*/
   //Saves a category to database by calling postCategory in data.js
   async function saveCategory() {
     try {
@@ -220,7 +227,7 @@ function Dashboard() {
       .then((hisData) => setHistoricNetworth(hisData))
       .then(() => (isNewMonth() ? saveHistoricNetworth() : null));
     console.log("UseEffect for getCategories and getAssets called");
-    setGoal(getGoal(userId))
+    getGoal(userId, setGoal)
   }, [userId, categoryId, visibleAddAsset]);
 
   function isNewMonth() {
@@ -231,10 +238,10 @@ function Dashboard() {
     const currentMonth = new Date().getMonth() + 1;
 
     if (lastHistoricMonth !== currentMonth && lastHistoricMonth !== undefined) {
-      console.log("Saving to database");
+      console.log("Saving historicNetworth to database");
       return true;
     } else {
-      console.log("Did Not save to database");
+      console.log("Did Not save historicNetworth to database");
       return false;
     }
   }
