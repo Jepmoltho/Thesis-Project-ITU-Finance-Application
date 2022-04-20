@@ -35,7 +35,7 @@ function Goal(props) {
           <p
             name="-"
             style={{ color: "#00145E", float: "right", marginBottom: "0px" }}
-          > {props.goal}
+          > {props.goal === '' ? "-" : props.goal}
           </p>
         </Col>
       </Row>
