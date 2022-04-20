@@ -24,6 +24,7 @@ function TopComponents(props) {
   async function updateGoalHandler(userId, newGoal) {
     putGoal(userId, newGoal);
     handleClose();
+    props.setGoal(newGoal)
     //Rerender after: Add an await above and rerender here
   }
 

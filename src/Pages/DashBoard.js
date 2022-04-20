@@ -307,6 +307,7 @@ function Dashboard() {
             categories={categories}
             historicNetworth={historicNetworth}
             goal={goal}
+            setGoal={setGoal}
           />
           <br />
           <div className="visibleSavedCategory">
