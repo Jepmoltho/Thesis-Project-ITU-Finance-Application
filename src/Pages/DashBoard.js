@@ -116,8 +116,10 @@ function Dashboard() {
     );
   }
 
+
   function setVisibleAssetFunction(categoryId) {
-      initVisibleAsset()
+    // initVisibleAsset()
+
     setVisibleAsset((prevArr) =>
       prevArr.map((prevObj) => {
         if (prevObj.categoryId === categoryId) {
@@ -245,6 +247,8 @@ function Dashboard() {
   useEffect(() => {
     calculateNetWorth(categories);
     console.log("UseEffect for overviewCard called");
+    initVisibleAsset()
+
   }, [categories, assets]);
 
   //useEffect handling update of categories and assets (Warning: dont add assets or categories to dependecy array)
@@ -255,6 +259,7 @@ function Dashboard() {
     getHistoricNetworth(userId, setHistoricNetworth)
       .then((hisData) => setHistoricNetworth(hisData))
       .then(() => (isNewMonth() ? saveHistoricNetworth() : null));
+
     console.log("UseEffect for getCategories and getAssets called");
   }, [userId, categoryId, visibleAddAsset]);
 
