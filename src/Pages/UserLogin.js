@@ -53,7 +53,7 @@ function UserLogin() {
           }}
         >
           <p style={{ fontSize: "30px", color: "#18388C" }}>
-            Login to manage you investments
+            Login to manage your investments
           </p>
           <TextField
             label="Username"
@@ -85,13 +85,13 @@ function UserLogin() {
           <br />
           <br />
           <p style={{ display: "inline-block", paddingRight: "5px" }}>
-            Don't have a user?
+            Don't have an account?
           </p>
           <p
             style={{ display: "inline-block", color: "#18388C" }}
             onClick={() => navigate("/")}
           >
-            <b>Create a profile</b>
+            <b>Create account</b>
           </p>
         </Col>
         <Col className="col-sm-3"></Col>

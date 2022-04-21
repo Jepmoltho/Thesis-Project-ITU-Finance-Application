@@ -10,7 +10,7 @@ function Seehowpros() {
         }}
         href="https://investorjunkie.com/create-asset-allocation/"
       >
-        See how the pros does it
+        See how the pros do it
       </a>
       <Icon info />
     </span>
