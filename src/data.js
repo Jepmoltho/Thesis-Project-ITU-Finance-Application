@@ -81,6 +81,7 @@ export async function postCatVal(categoryId, value) {
 }
 
 export async function getAssets(categoryId, userId, setAssets) {
+  categoryId = "";
   const parseQuery = new Parse.Query("Asset");
   parseQuery.contains("categoryId", categoryId);
   parseQuery.contains("userId", userId);

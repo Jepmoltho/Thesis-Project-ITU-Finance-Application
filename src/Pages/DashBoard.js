@@ -104,7 +104,27 @@ function Dashboard() {
       value: assets.attributes.value,
       isVisible: false,
     }));
-    setVisibleAsset( prev => arrOfAsset);
+    setVisibleAsset( prevArr => arrOfAsset);
+  }
+
+  function updateVisibleAsset(assetsArr) {
+    const lastAsset = assetsArr[assetsArr.length-1] //Getting the recently added asset object. 
+
+    // Making a new object similar to "lastAsset" but with a isVisible property added to it. 
+    const lastAssetWithIsVisible = 
+      {
+        id: lastAsset.id,
+        categoryId: lastAsset.attributes.categoryId,
+        name: lastAsset.attributes.name,
+        value: lastAsset.attributes.value,  
+        isVisible: true,
+      };
+
+    // Adding the new object to the end of visibleAsset array
+    const VisibleAssetWithLastAssetObj = [...visibleAsset, lastAssetWithIsVisible]
+
+    // Setting isVisible array to the array with the new object added.
+    setVisibleAsset( prevArr => VisibleAssetWithLastAssetObj);
   }
 
   /**
@@ -150,6 +170,22 @@ function Dashboard() {
     );
   }
 
+  function setVisibleAssetFunction(categoryId) {
+    setVisibleAsset((prevArr) =>
+      prevArr.map((prevObj) => {
+        if (prevObj.categoryId === categoryId) {
+          const newObj = {
+            ...prevObj,
+            isVisible: !prevObj.isVisible,
+          };
+          return newObj;
+        }
+        return prevObj;
+      })
+    );
+  }
+  
+
 
 
   //Saves an asset to database by calling postAsset in data.js
@@ -158,9 +194,15 @@ function Dashboard() {
       const assetName = localStorage.getItem("assetName");
       const assetValue = localStorage.getItem("assetValue");
       await postAsset(assetName, assetValue, categoryId, userId); //Added await
-      getAssets(categoryId, userId, setAssets); //This gets all assets related to a certain category - maybe use it to solve the issue of calculating total value of a category, since it returns all relevant assets: const assetsInCategory = getAssets(categoryId, userId, setAssets);
+      // -----Here----- Needs an array that has an isVisible defined.
+      //This gets all assets related to a certain category - maybe use it to solve the issue of calculating total value of a category, since it returns all relevant assets: const assetsInCategory = getAssets(categoryId, userId, setAssets);
+      getAssets(categoryId, userId, setAssets)
+      .then((assetsArr) => updateVisibleAsset(assetsArr))
+      
+      
       saveCatValue();
       setVisibleAddAssetFunction(false, categoryId); //Closes the visibleAddAsset after saving an asset
+      // ----------HERE-----------------------
     } catch (error) {
       console.log("Errors");
     }
@@ -254,10 +296,11 @@ function Dashboard() {
 
   //useEffect and stateHook handling userLogin and registration
   const [currentUser, setCurrentUser] = useState(null);
+  
   useEffect(() => {
     console.log("start [userId]");
     getCurrentUser()
-    .then(() => getCategories(userId, setCategories) )
+    .then(() => getCategories(userId, setCategories))
     .then(() => getAssets("", userId, setAssets))
     .then((assetsArr) => initVisibleAsset(assetsArr))
 
@@ -272,21 +315,20 @@ function Dashboard() {
     console.log("end [userId]");
   }, [userId]);
   
+
   //useEffect handling update of overviewCard (assettotal, debttotal and networth) in topComponent //NOTE: THE SOLUTION TO THE UNINTENDED CALLS TO GETCATEGORIES, GETASSETS AND CALCULATE NETWORTH IS ANOTHER USEEFFECT HOOK WITH IT'S OWN DEPENDENCIES: https://www.linkedin.com/learning/react-hooks/working-with-the-dependency-array?autoSkip=true&autoplay=true&resume=false&u=55937129
   useEffect(() => {
-    // calculateNetWorth(categories);
     console.log("[categories, assets]");
-    // initVisibleAsset() 
   }, [categories, assets]);
   
   //useEffect handling update of categories and assets (Warning: dont add assets or categories to dependency array)
-  useEffect(() => {
-    // getCategories(userId, setCategories); //Moved this up hear instead of in useEffect
-    // getAssets("", userId, setAssets); // NOTE!!! changed the parameter from the current categoryId to "" to target all assets. This is to make the isVisibleAsset array to work.
-    //Get historic data from db, then sets historicNetworth state, then if we are in a new month we save the historic data else nothing.
-    console.log("[userId, categoryId, visibleAddAsset]");
+  // useEffect(() => {
+  //   // getCategories(userId, setCategories); //Moved this up hear instead of in useEffect
+  //   // getAssets("", userId, setAssets); // NOTE!!! changed the parameter from the current categoryId to "" to target all assets. This is to make the isVisibleAsset array to work.
+  //   //Get historic data from db, then sets historicNetworth state, then if we are in a new month we save the historic data else nothing.
+  //   console.log("[userId, categoryId, visibleAddAsset]");
 
-  }, [userId, categoryId, visibleAddAsset]);
+  // }, [userId, categoryId, visibleAddAsset]);
 
 
   function isNewMonth() {
