@@ -12,7 +12,7 @@ function Overview(props) {
     <div className="overviewbox">
       <Row style={{ padding: "10px 10px 10px 10px" }}>
         <Col style={{ paddingLeft: "0px" }}>
-          <Tag inline text="Goal" style={{ display: "inline" }} />
+          <Tag inline text="Overview" style={{ display: "inline" }} />
           <Icon infosmall style={{ position: "relative", top: "-10px" }} />
         </Col>
       </Row>
