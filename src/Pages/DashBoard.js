@@ -12,6 +12,7 @@ import {
   getCategories,
   postAsset,
   getAssets,
+  getAsset,
   postCatVal,
   deleteCategory,
   postAssetRealestateM2,
@@ -192,7 +193,8 @@ function Dashboard() {
         }
         return prevObj;
       })
-    );
+      );
+      console.log(visibleAsset)
   }
 
   // function setVisibleAssetFunction(categoryId) {
@@ -220,17 +222,17 @@ function Dashboard() {
       const assetValue = localStorage.getItem("assetValue");
       // -----Here----- Needs an array that has an isVisible defined.
       //This gets all assets related to a certain category - maybe use it to solve the issue of calculating total value of a category, since it returns all relevant assets: const assetsInCategory = getAssets(categoryId, userId, setAssets);
-      
-      let saveAss = await postAsset(assetName, assetValue, categoryId, userId); //Added await
-      console.log(saveAss)
-      let r = getAssets(true, saveAss.id, userId, setAssets);
-      console.log(r)
-      setAssets(prev => [...prev, saveAss])
-      
-      updateVisibleAsset(saveAss)
-      
-      saveCatValue();
-      setVisibleAddAssetFunction(false, categoryId); //Closes the visibleAddAsset after saving an asset
+        let saveAss = await postAsset(assetName, assetValue, categoryId, userId); //Added await
+        console.log(saveAss)  
+        
+        let r = await getAsset(true, saveAss.id, userId, setLastAddedAsset);
+        console.log(r)
+        setAssets(prev => [...prev, saveAss])
+        
+        updateVisibleAsset(saveAss)
+        
+        setVisibleAddAssetFunction(false, categoryId); //Closes the visibleAddAsset after saving an asset
+        saveCatValue();
       // ----------HERE-----------------------
 
     } catch (error) {
@@ -348,7 +350,12 @@ function Dashboard() {
 
   //useEffect handling update of overviewCard (assettotal, debttotal and networth) in topComponent //NOTE: THE SOLUTION TO THE UNINTENDED CALLS TO GETCATEGORIES, GETASSETS AND CALCULATE NETWORTH IS ANOTHER USEEFFECT HOOK WITH IT'S OWN DEPENDENCIES: https://www.linkedin.com/learning/react-hooks/working-with-the-dependency-array?autoSkip=true&autoplay=true&resume=false&u=55937129
   useEffect(() => {
-    saveAsset()
+    if (categoryId !== ""){
+      let e = saveAsset()
+      setAssets( prev => [...prev, lastAddedAsset])
+      alert("categoryId = '' ")
+    }
+    console.log(assets)
   }, [updateEffectOfVisibleAsset]);
   
   //useEffect handling update of categories and assets (Warning: dont add assets or categories to dependency array)

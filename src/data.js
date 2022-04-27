@@ -82,6 +82,28 @@ export async function postCatVal(categoryId, value) {
   }
 }
 
+export async function getAsset(isAsset, categoryId, userId, setLastAddedAsset) {
+  const parseQuery = new Parse.Query("Asset");
+  // parseQuery.contains("categoryId", categoryId);
+  if (isAsset){
+    parseQuery.contains("objectId", categoryId);
+  } else {
+    parseQuery.contains("categoryId", categoryId);
+  }
+  parseQuery.contains("userId", userId);
+  try {
+    let assets = await parseQuery.find();
+    // setAssets(prev => assets);
+    setLastAddedAsset(prev => [...prev, assets]);
+
+    return assets;
+  } catch (error) {
+    alert("errors");
+    return false;
+  }
+}
+
+
 export async function getAssets(isAsset, categoryId, userId, setAssets) {
   const parseQuery = new Parse.Query("Asset");
   // parseQuery.contains("categoryId", categoryId);
@@ -94,6 +116,7 @@ export async function getAssets(isAsset, categoryId, userId, setAssets) {
   try {
     let assets = await parseQuery.find();
     setAssets(prev => assets);
+
     return assets;
   } catch (error) {
     alert("errors");
