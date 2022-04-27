@@ -33,6 +33,9 @@ function Dashboard() {
   const [visibleAddAsset, setVisibleAddAsset] = useState([]);
 
   const [visibleAsset, setVisibleAsset] = useState([]);
+  const [updateEffectOfVisibleAsset, setUpdateEffectOfVisibleAsset] = useState(false);
+
+  const [lastAddedAsset, setLastAddedAsset] = useState([])
 
   //Manages list of saved categories
   const [categories, setCategories] = useState([]);
@@ -49,6 +52,8 @@ function Dashboard() {
 
   const [goal, setGoal] = useState("")
 
+
+
   /*
   useEffect(() => {
     getGoal(userId, setGoal)
@@ -61,7 +66,7 @@ function Dashboard() {
       const categoryName = localStorage.getItem("categorySelect");
       await postCategory(categoryName, userId); //Added await
       getCategories(userId, setCategories); //Moved this up hear insted of in useEffect
-      getAssets(categoryId, userId, setAssets);
+      getAssets(false, categoryId, userId, setAssets);
       setVisibleAddCategory(false);
     } catch (error) {
       console.log("Errors");
@@ -106,25 +111,45 @@ function Dashboard() {
     }));
     setVisibleAsset( prevArr => arrOfAsset);
   }
-
+  
   function updateVisibleAsset(assetsArr) {
-    const lastAsset = assetsArr[assetsArr.length-1] //Getting the recently added asset object. 
+    // const lastAsset = assetsArr[assetsArr.length-1] //Getting the recently added asset object. 
+      // let lastAsset = lastAddedAsset[assetsArr.length - 1] 
 
-    // Making a new object similar to "lastAsset" but with a isVisible property added to it. 
-    const lastAssetWithIsVisible = 
+
+      
+      
+      let newAssetCatID = assetsArr.attributes.categoryId
+      
+      let b = visibleAsset.find(a => a.categoryId === newAssetCatID)
+
+      let visiValue
+      
+      if (typeof b === 'undefined'){
+        visiValue = false
+      } else {
+        visiValue = b.isVisible
+      }
+
+      let lastAsset = assetsArr; 
+      
+      //Getting the recently added asset object. 
+      
+      // Making a new object similar to "lastAsset" but with a isVisible property added to it. 
+      const lastAssetWithIsVisible = 
       {
         id: lastAsset.id,
         categoryId: lastAsset.attributes.categoryId,
         name: lastAsset.attributes.name,
         value: lastAsset.attributes.value,  
-        isVisible: true,
+        isVisible: visiValue,
       };
-
-    // Adding the new object to the end of visibleAsset array
-    const VisibleAssetWithLastAssetObj = [...visibleAsset, lastAssetWithIsVisible]
-
-    // Setting isVisible array to the array with the new object added.
-    setVisibleAsset( prevArr => VisibleAssetWithLastAssetObj);
+      
+      // Adding the new object to the end of visibleAsset array
+      const VisibleAssetWithLastAssetObj = [...visibleAsset, lastAssetWithIsVisible]
+      
+      // Setting isVisible array to the array with the new object added.
+      setVisibleAsset( prevArr => VisibleAssetWithLastAssetObj);
   }
 
   /**
@@ -170,20 +195,20 @@ function Dashboard() {
     );
   }
 
-  function setVisibleAssetFunction(categoryId) {
-    setVisibleAsset((prevArr) =>
-      prevArr.map((prevObj) => {
-        if (prevObj.categoryId === categoryId) {
-          const newObj = {
-            ...prevObj,
-            isVisible: !prevObj.isVisible,
-          };
-          return newObj;
-        }
-        return prevObj;
-      })
-    );
-  }
+  // function setVisibleAssetFunction(categoryId) {
+  //   setVisibleAsset((prevArr) =>
+  //     prevArr.map((prevObj) => {
+  //       if (prevObj.categoryId === categoryId) {
+  //         const newObj = {
+  //           ...prevObj,
+  //           isVisible: !prevObj.isVisible,
+  //         };
+  //         return newObj;
+  //       }
+  //       return prevObj;
+  //     })
+  //   );
+  // }
   
 
 
@@ -193,16 +218,21 @@ function Dashboard() {
     try {
       const assetName = localStorage.getItem("assetName");
       const assetValue = localStorage.getItem("assetValue");
-      await postAsset(assetName, assetValue, categoryId, userId); //Added await
       // -----Here----- Needs an array that has an isVisible defined.
       //This gets all assets related to a certain category - maybe use it to solve the issue of calculating total value of a category, since it returns all relevant assets: const assetsInCategory = getAssets(categoryId, userId, setAssets);
-      getAssets(categoryId, userId, setAssets)
-      .then((assetsArr) => updateVisibleAsset(assetsArr))
       
+      let saveAss = await postAsset(assetName, assetValue, categoryId, userId); //Added await
+      console.log(saveAss)
+      let r = getAssets(true, saveAss.id, userId, setAssets);
+      console.log(r)
+      setAssets(prev => [...prev, saveAss])
+      
+      updateVisibleAsset(saveAss)
       
       saveCatValue();
       setVisibleAddAssetFunction(false, categoryId); //Closes the visibleAddAsset after saving an asset
       // ----------HERE-----------------------
+
     } catch (error) {
       console.log("Errors");
     }
@@ -224,7 +254,7 @@ function Dashboard() {
         categoryId,
         userId
       );
-      getAssets(categoryId, userId, setAssets); //This gets all assets related to a certain category - maybe use it to solve the issue of calculating total value of a category, since it returns all relevant assets: const assetsInCategory = getAssets(categoryId, userId, setAssets);
+      getAssets(true, categoryId, userId, setAssets); //This gets all assets related to a certain category - maybe use it to solve the issue of calculating total value of a category, since it returns all relevant assets: const assetsInCategory = getAssets(categoryId, userId, setAssets);
       saveCatValue();
       setVisibleAddAssetFunction(false, categoryId); //Closes the visibleAddAsset after saving an asset
     } catch (error) {
@@ -301,7 +331,7 @@ function Dashboard() {
     console.log("start [userId]");
     getCurrentUser()
     .then(() => getCategories(userId, setCategories))
-    .then(() => getAssets("", userId, setAssets))
+    .then(() => getAssets(false, "", userId, setAssets))
     .then((assetsArr) => initVisibleAsset(assetsArr))
 
     calculateNetWorth(categories);
@@ -318,8 +348,8 @@ function Dashboard() {
 
   //useEffect handling update of overviewCard (assettotal, debttotal and networth) in topComponent //NOTE: THE SOLUTION TO THE UNINTENDED CALLS TO GETCATEGORIES, GETASSETS AND CALCULATE NETWORTH IS ANOTHER USEEFFECT HOOK WITH IT'S OWN DEPENDENCIES: https://www.linkedin.com/learning/react-hooks/working-with-the-dependency-array?autoSkip=true&autoplay=true&resume=false&u=55937129
   useEffect(() => {
-    console.log("[categories, assets]");
-  }, [categories, assets]);
+    saveAsset()
+  }, [updateEffectOfVisibleAsset]);
   
   //useEffect handling update of categories and assets (Warning: dont add assets or categories to dependency array)
   // useEffect(() => {
@@ -421,7 +451,8 @@ function Dashboard() {
                 eventAddAsset={() => addAssetClick(true, category.id)} //Sets the visibility of AddAsset to true
                 assets={assets}
                 visibleAddAsset={visibleAddAsset} //pass a array that tells whether add a new assets box is visible.
-                eventSave={() => saveAsset()}
+                // eventSave={() => saveAsset()}
+                eventSave={() => setUpdateEffectOfVisibleAsset(prevState => !prevState)}
                 eventCancel={() => addAssetClick(false, category.id)} //Sets the visibility of AddAsset to false
                 eventDeleteCategory={() => deleteCategoryHandler(category.id)}
                 eventSaveAssetRealestateM2={() => saveAssetRealestateM2Handler()}

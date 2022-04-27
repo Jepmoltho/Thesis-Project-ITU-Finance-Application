@@ -34,8 +34,10 @@ export async function postAsset(assetName, assetValue, categoryId, userId) {
     thisAsset.set("categoryId", categoryId);
     thisAsset.set("userId", userId);
     //thisAsset.set("userPointer", userPointer); Bug: Doesn't work with pointers
-    await thisAsset.save();
+    return await thisAsset.save();
+    
     alert("Saved asset to database");
+    // return thisAsset;
   } catch (error) {}
 }
 
@@ -80,14 +82,18 @@ export async function postCatVal(categoryId, value) {
   }
 }
 
-export async function getAssets(categoryId, userId, setAssets) {
-  categoryId = "";
+export async function getAssets(isAsset, categoryId, userId, setAssets) {
   const parseQuery = new Parse.Query("Asset");
-  parseQuery.contains("categoryId", categoryId);
+  // parseQuery.contains("categoryId", categoryId);
+  if (isAsset){
+    parseQuery.contains("objectId", categoryId);
+  } else {
+    parseQuery.contains("categoryId", categoryId);
+  }
   parseQuery.contains("userId", userId);
   try {
     let assets = await parseQuery.find();
-    setAssets(assets);
+    setAssets(prev => assets);
     return assets;
   } catch (error) {
     alert("errors");
