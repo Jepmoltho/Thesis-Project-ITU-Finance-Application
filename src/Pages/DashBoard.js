@@ -231,10 +231,11 @@ function Dashboard() {
         
         updateVisibleAsset(saveAss)
         
+        await saveCatValue();
+        
         setVisibleAddAssetFunction(false, categoryId); //Closes the visibleAddAsset after saving an asset
-        saveCatValue();
+      
       // ----------HERE-----------------------
-
     } catch (error) {
       console.log("Errors");
     }
@@ -353,10 +354,15 @@ function Dashboard() {
   useEffect(() => {
     if (categoryId !== ""){
       saveAsset()
-      setAssets( prev => [...prev, lastAddedAsset])
+        .then()
+      // setAssets( prev => [...prev, lastAddedAsset])
       alert("categoryId = '' ")
+    
     }
     console.log(assets)
+    console.log(categories)
+    console.log(lastAddedAsset)
+    
   }, [updateEffectOfVisibleAsset]);
 
   

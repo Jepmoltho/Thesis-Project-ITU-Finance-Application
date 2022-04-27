@@ -74,6 +74,7 @@ export async function postCatVal(categoryId, value) {
   try {
     await thisCategory.save();
     console.log("Saved category value to DB");
+    return thisCategory
   } catch (error) {
     console.log(
       "Error in postCatVal(): This is a tempoary solution: Cannot post a category without a name. You cannot make the name field not mandatory, because then it posts a new category without name everytime the page rerenders " +
