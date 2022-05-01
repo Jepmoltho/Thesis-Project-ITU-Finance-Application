@@ -94,7 +94,7 @@ export async function getAsset(isAsset, categoryId, userId, setLastAddedAsset) {
   parseQuery.contains("userId", userId);
   try {
     let assets = await parseQuery.find();
-    // setAssets(prev => assets);
+
     setLastAddedAsset(prev => [...prev, assets]);
 
     return assets;
