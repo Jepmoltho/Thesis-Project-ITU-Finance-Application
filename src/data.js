@@ -34,8 +34,10 @@ export async function postAsset(assetName, assetValue, categoryId, userId) {
     thisAsset.set("categoryId", categoryId);
     thisAsset.set("userId", userId);
     //thisAsset.set("userPointer", userPointer); Bug: Doesn't work with pointers
-    await thisAsset.save();
     alert("Saved asset to database");
+    return await thisAsset.save();
+    
+    // return thisAsset;
   } catch (error) {}
 }
 
@@ -57,8 +59,8 @@ export async function postAssetRealestateM2(
     thisAsset.set("categoryId", categoryId);
     thisAsset.set("userId", userId);
     //thisAsset.set("userPointer", userPointer); Bug: Doesn't work with pointers
-    await thisAsset.save();
     alert("Saved asset to database");
+    return await thisAsset.save();
   } catch (error) {
     alert("Error caught in postAssetRealestateM2 " + error);
   }
@@ -72,6 +74,7 @@ export async function postCatVal(categoryId, value) {
   try {
     await thisCategory.save();
     console.log("Saved category value to DB");
+    return thisCategory
   } catch (error) {
     console.log(
       "Error in postCatVal(): This is a tempoary solution: Cannot post a category without a name. You cannot make the name field not mandatory, because then it posts a new category without name everytime the page rerenders " +
@@ -80,13 +83,41 @@ export async function postCatVal(categoryId, value) {
   }
 }
 
-export async function getAssets(categoryId, userId, setAssets) {
+export async function getAsset(isAsset, categoryId, userId, setLastAddedAsset) {
   const parseQuery = new Parse.Query("Asset");
-  parseQuery.contains("categoryId", categoryId);
+  // parseQuery.contains("categoryId", categoryId);
+  if (isAsset){
+    parseQuery.contains("objectId", categoryId);
+  } else {
+    parseQuery.contains("categoryId", categoryId);
+  }
   parseQuery.contains("userId", userId);
   try {
     let assets = await parseQuery.find();
-    setAssets(assets);
+
+    setLastAddedAsset(prev => [...prev, assets]);
+
+    return assets;
+  } catch (error) {
+    alert("errors");
+    return false;
+  }
+}
+
+
+export async function getAssets(isAsset, categoryId, userId, setAssets) {
+  const parseQuery = new Parse.Query("Asset");
+  // parseQuery.contains("categoryId", categoryId);
+  if (isAsset){
+    parseQuery.contains("objectId", categoryId);
+  } else {
+    parseQuery.contains("categoryId", categoryId);
+  }
+  parseQuery.contains("userId", userId);
+  try {
+    let assets = await parseQuery.find();
+    setAssets(prev => assets);
+
     return assets;
   } catch (error) {
     alert("errors");
