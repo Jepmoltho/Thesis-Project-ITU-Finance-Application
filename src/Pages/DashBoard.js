@@ -190,7 +190,10 @@ function Dashboard() {
     try {
       const assetName = localStorage.getItem("assetName");
       const assetValue = localStorage.getItem("assetValue");
-      //This gets all assets related to a certain category - maybe use it to solve the issue of calculating total value of a category, since it returns all relevant assets: const assetsInCategory = getAssets(categoryId, userId, setAssets);
+      if (isNaN(assetValue)){
+        alert("The value most be a number. Could not add item")
+      } else {
+        //This gets all assets related to a certain category - maybe use it to solve the issue of calculating total value of a category, since it returns all relevant assets: const assetsInCategory = getAssets(categoryId, userId, setAssets);
         let saveAss = await postAsset(assetName, assetValue, categoryId, userId); //Added await        
         // await getAsset(true, saveAss.id, userId, setLastAddedAsset);
         setAssets(prev => [...prev, saveAss])
@@ -198,6 +201,7 @@ function Dashboard() {
         await saveCatValue();
         setVisibleAddAssetFunction(false, categoryId); //Closes the visibleAddAsset after saving an asset
         calculateNetWorth(categories)
+      } 
     } catch (error) {
       console.log("Errors");
     }
@@ -245,6 +249,8 @@ function Dashboard() {
       console.log("Error in saveCatVal: " + error);
     }
   }
+
+ 
 
   /**
    * Save the relevant categoryId to local storage after clicking addAsset
@@ -312,11 +318,13 @@ function Dashboard() {
   }, []);
   
 
-  function isRealEstate(categoryId){
-    const onlyStockCategories = categories.filter( category => category.attributes.name === "Real Estate")
-    const stock = onlyStockCategories.some( stockCategory => stockCategory.id === categoryId)
-    return stock 
-  }
+  // function isRealEstate(categoryId){
+  //   const onlyStockCategories = categories.filter( category => category.attributes.name === "Real Estate")
+  //   const stock = onlyStockCategories.some( stockCategory => stockCategory.id === categoryId)
+  //   return stock 
+  // }
+
+
   // Handling updates of assets 
   useEffect(() => {
     if (categoryId !== ""){

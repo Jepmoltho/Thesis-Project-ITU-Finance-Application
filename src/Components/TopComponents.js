@@ -20,12 +20,23 @@ import {putGoal, getGoal} from "../data"
 function TopComponents(props) {
   const userId = localStorage.getItem("userId");
 
+  //Return true if a number is negative
+  function isNegative(number){
+    return number < 0 ? true : false 
+  }
+  
   //Save button in dialogue box needs to do this
   async function updateGoalHandler(userId, newGoal) {
-    putGoal(userId, newGoal);
-    handleClose();
-    props.setGoal(newGoal)
-    //Rerender after: Add an await above and rerender here
+    if (isNaN(newGoal)) {
+      alert("The value most be a number.")
+    } else if (isNegative(newGoal)){
+      alert("The inserted value most be positive.")
+    } else {
+      putGoal(userId, newGoal);
+      handleClose();
+      props.setGoal(newGoal)
+      //Rerender after: Add an await above and rerender here
+    }
   }
 
   //Logic for dialogue box starts from here
@@ -33,15 +44,11 @@ function TopComponents(props) {
 
   //Edit button on goalBox needs to do this
   const [newGoal, setNewGoal] = useState("");
+  
+  //Note! Makes the page render each time a new character is inserted
   const setNewGoalHandler = (e) => {
     setNewGoal(e.target.value);
   };
-
-  
-  //const initialGoal = getGoal(userId, setNewGoal())
-  /*
-   [goal, setGoal] = useState(initialGoal)
-  */
 
   //Opens dialogue box upon edit goal button ## Need to review this one 
   function handleClickOpen() { 
