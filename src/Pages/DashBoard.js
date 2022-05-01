@@ -223,18 +223,26 @@ function Dashboard() {
       // -----Here----- Needs an array that has an isVisible defined.
       //This gets all assets related to a certain category - maybe use it to solve the issue of calculating total value of a category, since it returns all relevant assets: const assetsInCategory = getAssets(categoryId, userId, setAssets);
         let saveAss = await postAsset(assetName, assetValue, categoryId, userId); //Added await
-    
+
+        console.log("saveAss ="+saveAss)
         
-        await getAsset(true, saveAss.id, userId, setLastAddedAsset);
+        let getAss = await getAsset(true, saveAss.id, userId, setLastAddedAsset);
+
+        console.log("getAss ="+getAss)
 
         setAssets(prev => [...prev, saveAss])
         
         updateVisibleAsset(saveAss)
         
-        await saveCatValue();
-        
+        let saveCatVal = await saveCatValue();
+
+        console.log("saveCatVal ="+saveCatVal)
+
         setVisibleAddAssetFunction(false, categoryId); //Closes the visibleAddAsset after saving an asset
-      
+        
+        calculateNetWorth(categories)
+
+
       // ----------HERE-----------------------
     } catch (error) {
       console.log("Errors");
@@ -274,8 +282,8 @@ function Dashboard() {
     try {
       let assets = await parseQuery.find();
       const catVal = getCatVal(assets);
-      await postCatVal(categoryId, catVal);
-      console.log("Called saveCatVal");
+      let postCatValue = await postCatVal(categoryId, catVal);
+      console.log("postCatValue = " +postCatValue );
     } catch (error) {
       console.log("Error in saveCatVal: " + error);
     }
@@ -306,9 +314,9 @@ function Dashboard() {
         return debtSum;
       }
     });
-    setAssetsTotal(assetsSum);
-    setDebtTotal(debtSum);
-    setNetWorth(assetsSum + debtSum);
+    setAssetsTotal( prev => assetsSum);
+    setDebtTotal(prev => debtSum);
+    setNetWorth(prev => assetsSum + debtSum);
   }
 
   //Gets the category value for specific assets
@@ -334,13 +342,13 @@ function Dashboard() {
     console.log("start [userId]");
     getCurrentUser()
     .then( () => getCategories(userId, setCategories))
+    .then( categori => calculateNetWorth(categori))
     .then(() => getAssets(false, "", userId, setAssets))
     .then((assetsArr) => initVisibleAsset(assetsArr))
 
-
     // ----------- From here -----------------
-    // calculateNetWorth(categories);
-
+    
+    
     getHistoricNetworth(userId, setHistoricNetworth)
     .then((hisData) => setHistoricNetworth(hisData))
     .then(() => (isNewMonth() ? saveHistoricNetworth() : null));
@@ -354,16 +362,21 @@ function Dashboard() {
   useEffect(() => {
     if (categoryId !== ""){
       saveAsset()
-        .then()
-      // setAssets( prev => [...prev, lastAddedAsset])
+        // setAssets( prev => [...prev, lastAddedAsset])
       alert("categoryId = '' ")
     
+    } else {
+      // calculateNetWorth(categories)
     }
-    console.log(assets)
+    console.log(assetsTotal)
     console.log(categories)
     console.log(lastAddedAsset)
     
   }, [updateEffectOfVisibleAsset]);
+
+  // useEffect(() => {
+  //   calculateNetWorth(categories)
+  // }, [categories])
 
   
   //useEffect handling update of categories and assets (Warning: dont add assets or categories to dependency array)

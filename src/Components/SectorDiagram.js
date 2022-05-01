@@ -56,7 +56,7 @@ function SectorDiagram(props) {
   
   // dataset properties in chart.js doc
   const data = {
-    labels: listOfCategories.map((e) => `${e.name} ${e.percentage }%` ),
+    labels: listOfCategories.map((e) => ` ${e.percentage}%  ${e.name}` ),
     // labels: listOfCategories.map((e) => `${e.name} ${isNegative(props.netWorth) ? " " : e.percentage }` ),
     // what is shown
     datasets: [

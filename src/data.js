@@ -34,9 +34,9 @@ export async function postAsset(assetName, assetValue, categoryId, userId) {
     thisAsset.set("categoryId", categoryId);
     thisAsset.set("userId", userId);
     //thisAsset.set("userPointer", userPointer); Bug: Doesn't work with pointers
+    alert("Saved asset to database");
     return await thisAsset.save();
     
-    alert("Saved asset to database");
     // return thisAsset;
   } catch (error) {}
 }
