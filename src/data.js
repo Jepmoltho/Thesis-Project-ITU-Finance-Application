@@ -59,8 +59,8 @@ export async function postAssetRealestateM2(
     thisAsset.set("categoryId", categoryId);
     thisAsset.set("userId", userId);
     //thisAsset.set("userPointer", userPointer); Bug: Doesn't work with pointers
-    await thisAsset.save();
     alert("Saved asset to database");
+    return await thisAsset.save();
   } catch (error) {
     alert("Error caught in postAssetRealestateM2 " + error);
   }

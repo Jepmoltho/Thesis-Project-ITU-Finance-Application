@@ -37,6 +37,8 @@ function Dashboard() {
   
   const [updateEffectOfVisibleAsset, setUpdateEffectOfVisibleAsset] = useState(false);
 
+  const [updateEffectOfVisibleAssetRealM2, setUpdateEffectOfVisibleAssetRealM2] = useState(false);
+
   //Manages list of saved categories
   const [categories, setCategories] = useState([]);
 
@@ -209,7 +211,7 @@ function Dashboard() {
       const pricem2 = parseInt(localStorage.getItem("pricem2"));
       let value = (m2 * pricem2).toString();
       console.log("This is the value " + value);
-      await postAssetRealestateM2(
+      let saveAss = await postAssetRealestateM2(
         assetName,
         m2,
         pricem2,
@@ -217,9 +219,12 @@ function Dashboard() {
         categoryId,
         userId
       );
-      getAssets(true, categoryId, userId, setAssets); //This gets all assets related to a certain category - maybe use it to solve the issue of calculating total value of a category, since it returns all relevant assets: const assetsInCategory = getAssets(categoryId, userId, setAssets);
-      saveCatValue();
+      // getAssets(true, categoryId, userId, setAssets); //This gets all assets related to a certain category - maybe use it to solve the issue of calculating total value of a category, since it returns all relevant assets: const assetsInCategory = getAssets(categoryId, userId, setAssets);
+      setAssets(prev => [...prev, saveAss])
+      updateVisibleAsset(saveAss)        
+      await saveCatValue();
       setVisibleAddAssetFunction(false, categoryId); //Closes the visibleAddAsset after saving an asset
+      calculateNetWorth(categories)
     } catch (error) {
       alert("Error caught in saveAssetRealestateM2 " + error);
     }
@@ -298,7 +303,6 @@ function Dashboard() {
     .then(() => getAssets(false, "", userId, setAssets))
     .then((assetsArr) => initVisibleAsset(assetsArr))
     
-    
     getHistoricNetworth(userId, setHistoricNetworth)
     .then((hisData) => setHistoricNetworth(hisData))
     .then(() => (isNewMonth() ? saveHistoricNetworth() : null));
@@ -307,12 +311,25 @@ function Dashboard() {
 
   }, []);
   
+
+  function isRealEstate(categoryId){
+    const onlyStockCategories = categories.filter( category => category.attributes.name === "Real Estate")
+    const stock = onlyStockCategories.some( stockCategory => stockCategory.id === categoryId)
+    return stock 
+  }
   // Handling updates of assets 
   useEffect(() => {
     if (categoryId !== ""){
-      saveAsset()    
+      saveAsset() 
     } 
   }, [updateEffectOfVisibleAsset]);
+
+  useEffect(() => {
+    if (categoryId !== ""){
+      saveAssetRealestateM2Handler() 
+    } 
+  }, [updateEffectOfVisibleAssetRealM2]);
+
 
   function isNewMonth() {
     const historicMonth = historicNetworth.map((hisEle) => {
@@ -404,11 +421,10 @@ function Dashboard() {
                 eventAddAsset={() => addAssetClick(true, category.id)} //Sets the visibility of AddAsset to true
                 assets={assets}
                 visibleAddAsset={visibleAddAsset} //pass a array that tells whether add a new assets box is visible.
-                // eventSave={() => saveAsset()}
                 eventSave={() => setUpdateEffectOfVisibleAsset(prevState => !prevState)}
                 eventCancel={() => addAssetClick(false, category.id)} //Sets the visibility of AddAsset to false
                 eventDeleteCategory={() => deleteCategoryHandler(category.id)}
-                eventSaveAssetRealestateM2={() => saveAssetRealestateM2Handler()}
+                eventSaveAssetRealestateM2={() => setUpdateEffectOfVisibleAssetRealM2(prevState => !prevState)}
                 viewAsset={ () => setVisibleAssetFunction(category.id)} //Open/closes the visibility of a categories assets
                 visibleAsset={visibleAsset} //pass a array that tells whether assets are visible.
 
