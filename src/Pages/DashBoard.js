@@ -141,6 +141,13 @@ function Dashboard() {
       setVisibleAsset( prevArr => VisibleAssetWithLastAssetObj);
   }
 
+  function isNegative(value){
+    return value <= 0 ? true : false
+  }
+
+  function isZero(value){
+    return value === 0 ? true : false
+  }
   /**
    * Sets the all of the AddAssets to false and
    * open/closes the visibility of a categories assets that 
@@ -213,22 +220,29 @@ function Dashboard() {
       const assetName = localStorage.getItem("assetName");
       const m2 = parseInt(localStorage.getItem("m2"));
       const pricem2 = parseInt(localStorage.getItem("pricem2"));
-      let value = (m2 * pricem2).toString();
-      console.log("This is the value " + value);
-      let saveAss = await postAssetRealestateM2(
-        assetName,
-        m2,
-        pricem2,
-        value,
-        categoryId,
-        userId
-      );
-      // getAssets(true, categoryId, userId, setAssets); //This gets all assets related to a certain category - maybe use it to solve the issue of calculating total value of a category, since it returns all relevant assets: const assetsInCategory = getAssets(categoryId, userId, setAssets);
-      setAssets(prev => [...prev, saveAss])
-      updateVisibleAsset(saveAss)        
-      await saveCatValue();
-      setVisibleAddAssetFunction(false, categoryId); //Closes the visibleAddAsset after saving an asset
-      calculateNetWorth(categories)
+      
+      if (isNaN(m2) || isZero(m2) || isNegative(m2)){
+        alert("The value in 'm2' most be a positive number. Could not add item")
+      } else if (isNaN(pricem2)|| isZero(pricem2)){
+        alert("The value in 'Price pr. m2' most be a number. Could not add item")
+      } else {
+        let value = (m2 * pricem2).toString();
+        console.log("This is the value " + value);
+        let saveAss = await postAssetRealestateM2(
+          assetName,
+          m2,
+          pricem2,
+          value,
+          categoryId,
+          userId
+          );
+          // getAssets(true, categoryId, userId, setAssets); //This gets all assets related to a certain category - maybe use it to solve the issue of calculating total value of a category, since it returns all relevant assets: const assetsInCategory = getAssets(categoryId, userId, setAssets);
+          setAssets(prev => [...prev, saveAss])
+          updateVisibleAsset(saveAss)        
+          await saveCatValue();
+          setVisibleAddAssetFunction(false, categoryId); //Closes the visibleAddAsset after saving an asset
+          calculateNetWorth(categories)
+        }
     } catch (error) {
       alert("Error caught in saveAssetRealestateM2 " + error);
     }
