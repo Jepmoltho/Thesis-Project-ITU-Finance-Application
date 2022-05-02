@@ -104,7 +104,7 @@ function Dashboard() {
       categoryId: assets.attributes.categoryId,
       name: assets.attributes.name,
       value: assets.attributes.value,
-      isVisible: false,
+      isVisible: true,
     }));
     setVisibleAsset((prevArr) => arrOfAsset);
   }
