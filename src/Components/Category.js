@@ -12,7 +12,7 @@ import Button from "@mui/material/Button";
 import Asset from "../Components/Asset";
 import EditAsset from "./EditAsset";
 import AddAssetBtn from "./AddAssetBtn";
-import { deleteAsset, putAsset } from "../data";
+import { deleteAsset, putAsset, saveCatValue } from "../data";
 //Dialogue components from here
 import * as React from "react"; //Maybe delete "* as" to save computational power
 import TextField from "@mui/material/TextField";
@@ -21,7 +21,7 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 function Category(props) {
   //Saves the number of assets in a category to localStorage using this category's id as key value pair
@@ -31,10 +31,20 @@ function Category(props) {
     localStorage.setItem(catId, no);
   }
 
-  //Manages the delete asset event
-  function deleteAssetHandler(assetId) {
-    deleteAsset(assetId);
-    //Rerender after: Add an await above and rerender here
+  // const [didAssetGetDeleted, setDidAssetGetDeleted] = useState(false);
+  // useEffect(() => {}, [didAssetGetDeleted]);
+
+  //Manages the delete asset event //Maybe try and add await
+  async function deleteAssetHandler(assetId, rerenderState) {
+    console.log("DeleteAssetHandlerCalled");
+    await deleteAsset(assetId);
+    await saveCatValue();
+    rerenderState();
+
+    //rerenderStateHandler();
+
+    //setDidAssetGetDeleted(!didAssetGetDeleted);
+    //Rerender after: Add an await above and rerender here. HERE!!!
   }
 
   //Save button in dialogue box needs to do this
@@ -118,7 +128,7 @@ function Category(props) {
         <Col className="col-sm-1" style={{ margin: "auto", padding: "0px" }}>
           <nobr>
             <Button
-            // --------------------Here-----------------------------
+              // --------------------Here-----------------------------
               variant="text"
               style={{
                 fontSize: "12px",
@@ -138,27 +148,25 @@ function Category(props) {
       </Row>
       {/* -------------- Assets ----------------------- */}
       <Row>
-        {
-          props.visibleAsset.map((asset) => {
-            return (
-              // open/close assets of the matches with the categoryId and checks if their visibility is true.
-              asset.categoryId === props.categoryId && asset.isVisible 
-              ?
-                <>
+        {props.visibleAsset.map((asset) => {
+          return (
+            // open/close assets of the matches with the categoryId and checks if their visibility is true.
+            asset.categoryId === props.categoryId && asset.isVisible ? (
+              <>
                 {setNoOfAssets(props.categoryId)}
                 <Asset
                   key={asset.id}
                   title={asset.name}
                   value={asset.value}
                   eventUpdate={() => handleClickOpen(asset.id, asset.name)} //Make the state of newname and value from dialogue box live here
-                  eventDelete={() => deleteAssetHandler(asset.id)}
-                  />
-                </>  
-              :
-              null
-            )  
-          })
-        }
+                  eventDelete={() =>
+                    deleteAssetHandler(asset.id, props.eventRerenderState)
+                  }
+                />
+              </>
+            ) : null
+          );
+        })}
       </Row>
       {/* -------------- Add new asset ----------------------- */}
       <Row>
