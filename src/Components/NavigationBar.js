@@ -13,8 +13,6 @@ import MenuItem from "@mui/material/MenuItem";
 import Logo from "../Components/Logo";
 import Col from "react-bootstrap/Col";
 
-const settings = ["Profile", "Logout"];
-
 function NavigationBar(props) {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -123,11 +121,8 @@ function NavigationBar(props) {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
-                </MenuItem>
-              ))}
+              <MenuItem onClick={handleCloseUserMenu}>Profile</MenuItem>
+              <MenuItem onClick={props.logout}>Logout</MenuItem>
             </Menu>
           </Box>
         </Toolbar>
