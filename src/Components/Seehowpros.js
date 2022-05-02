@@ -7,12 +7,16 @@ function Seehowpros() {
         style={{
           fontStyle: "italic",
           display: "inline",
+          float: "left"
         }}
         href="https://investorjunkie.com/create-asset-allocation/"
       >
         See how the pros do it
       </a>
-      <Icon info />
+      <Icon 
+        infosmall 
+        textInfo={"seeHowPros"}
+      />
     </span>
   );
 }

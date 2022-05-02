@@ -8,12 +8,20 @@ import DebtTotal from "./DebtTotal";
 import NetworthNumber from "./NetworthNumber";
 
 function Overview(props) {
+
+
+
   return (
     <div className="overviewbox">
       <Row style={{ padding: "10px 10px 10px 10px" }}>
-        <Col style={{ paddingLeft: "0px" }}>
-          <Tag inline text="Overview" style={{ display: "inline" }} />
-          <Icon infosmall style={{ position: "relative", top: "-10px" }} />
+        <Col style={{ paddingLeft: "0px", display: "flex" }}>
+          
+          <Icon 
+            infosmall
+            textInfo={"overview"}
+            style={{ position: "relative", top: "-10px", display: "inline" }}             
+          />
+          <Tag inline text="Overview" style={{ display: "inline" }} />  
         </Col>
       </Row>
       <Row style={{ padding: "20px 10px 10px 10px" }}>
