@@ -420,6 +420,7 @@ function Dashboard() {
         <NavigationBar
           welcome={"Welcome " + currentUser.get("username")}
           username={currentUser.get("username")}
+          logout={() => doUserLogOut()}
         />
         <Container>
           <br />
@@ -466,7 +467,6 @@ function Dashboard() {
           <br />
           <AddCategoryBtn event={() => setVisibleAddCategory(true)} />
           <br />
-          <button onClick={doUserLogOut}>Logout</button>
         </Container>
       </div>
     );
