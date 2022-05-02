@@ -101,7 +101,7 @@ function SectorDiagram(props) {
         style={{
           width: "",
           maxHeight: "270px",
-          padding: "50px 70px 0px 50px",
+          padding: "50px 70px 0px 40px",
           position: "relative",
           top: "-117px",
         }}

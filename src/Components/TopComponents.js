@@ -87,6 +87,7 @@ function TopComponents(props) {
         >
           <Col style={{ paddingLeft: "0px" }}>
             <Seehowpros />
+            
             <SectorDiagram
               categories={props.categories}
               assetsTotal={props.assetsTotal}

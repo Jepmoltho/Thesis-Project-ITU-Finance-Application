@@ -25,12 +25,17 @@ function Goal(props) {
     <div className="goalbox">
       <Row style={{ padding: "10px" }}>
         <Col style={{}}>
-          <Tag inline text="Goal" style={{ display: "inline" }} />
-          <Icon infosmall style={{ position: "relative", top: "-10px" }} />
+          <Tag inline text="Goal" style={{}} />
           <Icon 
-            editgoal style={{ position: "relative", float: "right" }} 
+            infosmall 
+            textInfo={"goal"}
+            />
+          <Icon 
+            editgoal 
             eventEdit={props.eventEdit} 
+            style={{ }} 
           />
+
         </Col>
       </Row>
       <Row style={{ padding: "20px 10px 10px 10px" }}>
