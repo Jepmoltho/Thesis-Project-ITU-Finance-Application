@@ -109,6 +109,26 @@ function Dashboard() {
     setVisibleAsset((prevArr) => arrOfAsset);
   }
 
+  function initVisibleAsset2(assetsArr) {
+    var arrOfAsset = [
+      {
+        id: null,
+        categoryId: null,
+        name: null,
+        value: 0,
+        isVisible: false,
+      },
+    ];
+    arrOfAsset = assetsArr.map((assets) => ({
+      id: assets.id,
+      categoryId: assets.attributes.categoryId,
+      name: assets.attributes.name,
+      value: assets.attributes.value,
+      isVisible: true,
+    }));
+    setVisibleAsset((prevArr) => arrOfAsset);
+  }
+
   function updateVisibleAsset(assetsArr) {
     let newAssetCatID = assetsArr.attributes.categoryId;
 
@@ -364,6 +384,22 @@ function Dashboard() {
       .then((categori) => calculateNetWorth(categori))
       .then(() => getAssets(false, "", userId, setAssets))
       .then((assetsArr) => initVisibleAsset(assetsArr)); //1
+
+    getHistoricNetworth(userId, setHistoricNetworth)
+      .then((hisData) => setHistoricNetworth(hisData))
+      .then(() => (isNewMonth() ? saveHistoricNetworth() : null));
+
+    getGoal(userId, setGoal);
+  }, []);
+
+  //This does everything
+  useEffect(() => {
+    console.log("start [userId]");
+    getCurrentUser()
+      .then(() => getCategories(userId, setCategories))
+      .then((categori) => calculateNetWorth(categori))
+      .then(() => getAssets(false, "", userId, setAssets))
+      .then((assetsArr) => initVisibleAsset2(assetsArr)); //1
 
     getHistoricNetworth(userId, setHistoricNetworth)
       .then((hisData) => setHistoricNetworth(hisData))
