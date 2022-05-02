@@ -79,6 +79,11 @@ function SectorDiagram(props) {
     responsive: true,
     cutout: "70%",
     
+    animation: {
+      animateRotate: false, //If true, the chart will animate in with a rotation animation
+      animateScale: false, //If true, will animate scaling the chart from the center outwards.
+    },
+
     plugins: {
       legend: {
         display: true,
