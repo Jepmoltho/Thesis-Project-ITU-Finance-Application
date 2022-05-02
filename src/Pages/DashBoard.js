@@ -328,6 +328,8 @@ function Dashboard() {
   const [currentUser, setCurrentUser] = useState(null);
 
   const [rerenderState, setRerenderState] = useState(false);
+  const [rerenderStateEdit, setRerenderStateEdit] = useState(false);
+
   // function rerenderStateHandler() {
   //   setRerenderState(!rerenderState);
   //   console.log("Rerender state handler called");
@@ -347,7 +349,7 @@ function Dashboard() {
       .then(() => (isNewMonth() ? saveHistoricNetworth() : null));
 
     getGoal(userId, setGoal);
-  }, [rerenderState]);
+  }, [rerenderState, rerenderStateEdit]);
 
   // Handling updates of assets
   useEffect(() => {
@@ -463,6 +465,9 @@ function Dashboard() {
                 viewAsset={() => setVisibleAssetFunction(category.id)} //Open/closes the visibility of a categories assets
                 visibleAsset={visibleAsset} //pass a array that tells whether assets are visible.
                 eventRerenderState={() => setRerenderState(!rerenderState)}
+                eventRerenderStateEdit={() =>
+                  setRerenderStateEdit(!rerenderStateEdit)
+                }
               />
             ))}
           </div>

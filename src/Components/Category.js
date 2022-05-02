@@ -40,11 +40,16 @@ function Category(props) {
   }
 
   //Save button in dialogue box needs to do this
-  async function updateAssetHandler(assetId, newName, newValue, rerenderState) {
+  async function updateAssetHandler(
+    assetId,
+    newName,
+    newValue,
+    rerenderStateEdit
+  ) {
     await putAsset(assetId, newName, newValue);
     await saveCatValue();
     handleClose();
-    rerenderState();
+    rerenderStateEdit();
   }
 
   //Logic for dialogue box starts from here
@@ -237,7 +242,7 @@ function Category(props) {
                   localStorage.getItem("assetIdForEdit"),
                   newAssetName,
                   newAssetValue,
-                  props.eventRerenderState
+                  props.eventRerenderStateEdit
                 )
               }
             >
