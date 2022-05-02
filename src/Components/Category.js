@@ -31,28 +31,20 @@ function Category(props) {
     localStorage.setItem(catId, no);
   }
 
-  // const [didAssetGetDeleted, setDidAssetGetDeleted] = useState(false);
-  // useEffect(() => {}, [didAssetGetDeleted]);
-
   //Manages the delete asset event //Maybe try and add await
   async function deleteAssetHandler(assetId, rerenderState) {
     console.log("DeleteAssetHandlerCalled");
     await deleteAsset(assetId);
     await saveCatValue();
     rerenderState();
-
-    //rerenderStateHandler();
-
-    //setDidAssetGetDeleted(!didAssetGetDeleted);
-    //Rerender after: Add an await above and rerender here. HERE!!!
   }
 
   //Save button in dialogue box needs to do this
-  async function updateAssetHandler(assetId, newName, newValue) {
-    putAsset(assetId, newName, newValue);
-    //getAssets();
+  async function updateAssetHandler(assetId, newName, newValue, rerenderState) {
+    await putAsset(assetId, newName, newValue);
+    await saveCatValue();
     handleClose();
-    //Rerender after: Add an await above and rerender here
+    rerenderState();
   }
 
   //Logic for dialogue box starts from here
@@ -244,7 +236,8 @@ function Category(props) {
                 updateAssetHandler(
                   localStorage.getItem("assetIdForEdit"),
                   newAssetName,
-                  newAssetValue
+                  newAssetValue,
+                  props.eventRerenderState
                 )
               }
             >
