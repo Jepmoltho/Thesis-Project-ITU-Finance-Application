@@ -109,7 +109,7 @@ function Dashboard() {
     setVisibleAsset((prevArr) => arrOfAsset);
   }
 
-  function initVisibleAssetAfterUpdate(assetsArr) {
+  function initVisibleAsset2(assetsArr) {
     var arrOfAsset = [
       {
         id: null,
@@ -201,6 +201,27 @@ function Dashboard() {
    * @param {String} categoryId - The ID of a category.
    */
   function setVisibleAssetFunction(categoryId) {
+    setVisibleAsset((prevArr) =>
+      prevArr.map((prevObj) => {
+        if (prevObj.categoryId === categoryId) {
+          const newObj = {
+            ...prevObj,
+            isVisible: !prevObj.isVisible, //2
+          };
+          return newObj;
+        }
+        return prevObj;
+      })
+    );
+    console.log(visibleAsset);
+  }
+
+  /**
+   * open/closes the visibility of a categories assets that
+   * matches with its categoryId.
+   * @param {String} categoryId - The ID of a category.
+   */
+  function setVisibleAssetFunctionEditDelete(categoryId) {
     setVisibleAsset((prevArr) =>
       prevArr.map((prevObj) => {
         if (prevObj.categoryId === categoryId) {
@@ -378,7 +399,7 @@ function Dashboard() {
       .then(() => getCategories(userId, setCategories))
       .then((categori) => calculateNetWorth(categori))
       .then(() => getAssets(false, "", userId, setAssets))
-      .then((assetsArr) => initVisibleAssetAfterUpdate(assetsArr)); //1
+      .then((assetsArr) => initVisibleAsset2(assetsArr)); //1
 
     getHistoricNetworth(userId, setHistoricNetworth)
       .then((hisData) => setHistoricNetworth(hisData))
