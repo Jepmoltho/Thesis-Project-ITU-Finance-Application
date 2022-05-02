@@ -9,7 +9,7 @@ import Col from "react-bootstrap/Col";
 function Goal(props) {
 
   function goalCalculation(){
-    if ((props.goal === undefined || '') || props.netWorth === 0 ){
+    if ((props.goal === undefined || '') || props.netWorth <= 0 ){
       return "0"
     } else if (props.goal <= props.netWorth) {
       return "100"
