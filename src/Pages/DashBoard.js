@@ -109,7 +109,7 @@ function Dashboard() {
     setVisibleAsset((prevArr) => arrOfAsset);
   }
 
-  function initVisibleAsset2(assetsArr) {
+  function initVisibleAssetAfterUpdate(assetsArr) {
     var arrOfAsset = [
       {
         id: null,
@@ -216,26 +216,26 @@ function Dashboard() {
     console.log(visibleAsset);
   }
 
-  /**
-   * open/closes the visibility of a categories assets that
-   * matches with its categoryId.
-   * @param {String} categoryId - The ID of a category.
-   */
-  function setVisibleAssetFunctionEditDelete(categoryId) {
-    setVisibleAsset((prevArr) =>
-      prevArr.map((prevObj) => {
-        if (prevObj.categoryId === categoryId) {
-          const newObj = {
-            ...prevObj,
-            isVisible: !prevObj.isVisible, //2
-          };
-          return newObj;
-        }
-        return prevObj;
-      })
-    );
-    console.log(visibleAsset);
-  }
+  // /**
+  //  * open/closes the visibility of a categories assets that
+  //  * matches with its categoryId.
+  //  * @param {String} categoryId - The ID of a category.
+  //  */
+  // function setVisibleAssetFunctionEditDelete(categoryId) {
+  //   setVisibleAsset((prevArr) =>
+  //     prevArr.map((prevObj) => {
+  //       if (prevObj.categoryId === categoryId) {
+  //         const newObj = {
+  //           ...prevObj,
+  //           isVisible: !prevObj.isVisible, //2
+  //         };
+  //         return newObj;
+  //       }
+  //       return prevObj;
+  //     })
+  //   );
+  //   console.log(visibleAsset);
+  // }
 
   //Saves an asset to database by calling postAsset in data.js
   async function saveAsset() {
@@ -325,10 +325,18 @@ function Dashboard() {
    * @param {String} categoryId The ID of a category.
    */
   function addAssetClick(isOpen, categoryId) {
+    //HERE 1
     localStorage.setItem("categoryId", categoryId);
     setCategoryId(categoryId);
     setVisibleAddAssetFunction(isOpen, categoryId);
   }
+
+  // function updateAssetClick(isOpen, categoryId) {
+  //   //HERE 1
+  //   localStorage.setItem("categoryId", categoryId);
+  //   setCategoryId(categoryId);
+  //   setVisibleAddAssetFunction(isOpen, categoryId);
+  // }
 
   //Calculates the networth
   function calculateNetWorth(categories) {
@@ -399,7 +407,7 @@ function Dashboard() {
       .then(() => getCategories(userId, setCategories))
       .then((categori) => calculateNetWorth(categori))
       .then(() => getAssets(false, "", userId, setAssets))
-      .then((assetsArr) => initVisibleAsset2(assetsArr)); //1
+      .then((assetsArr) => initVisibleAssetAfterUpdate(assetsArr)); //1
 
     getHistoricNetworth(userId, setHistoricNetworth)
       .then((hisData) => setHistoricNetworth(hisData))
@@ -525,6 +533,9 @@ function Dashboard() {
                 eventRerenderStateEdit={() =>
                   setRerenderStateEdit(!rerenderStateEdit)
                 }
+                // eventUpdateAssetClick={() =>
+                //   updateAssetClick(true, category.id)
+                // }
               />
             ))}
           </div>
