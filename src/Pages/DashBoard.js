@@ -20,6 +20,7 @@ import {
   getHistoricNetworth,
   postHistoricNetworth,
   getGoal,
+  putCategory,
 } from "../data";
 //Dialogue box from here
 import Button from "@mui/material/Button";
@@ -77,6 +78,25 @@ function Dashboard() {
       setVisibleAddCategory(false);
     } catch (error) {
       console.log("Errors");
+    }
+  }
+
+  const [newCatName, setNewCatName] = useState("");
+  const handleChangeNewCatName = (e) => {
+    setNewCatName(e.target.value);
+  };
+
+  useEffect(() => {
+    localStorage.setItem("newCategoryName", newCatName);
+    console.log(newCatName);
+  }, [newCatName]);
+
+  async function putCategoryHandler() {
+    try {
+      await putCategory(categoryId, userId, newCatName);
+      alert("succes");
+    } catch (error) {
+      console.log("Errors in putCatHandler");
     }
   }
 
@@ -600,13 +620,13 @@ function Dashboard() {
                 type="name"
                 fullWidth
                 variant="standard"
-                onChange={newCategoryNameHandler}
-                value={newCategoryName}
+                onChange={handleChangeNewCatName}
+                value={newCatName}
               />
             </DialogContent>
             <DialogActions>
               <Button onClick={handleClose}>Cancel</Button>
-              <Button onClick={handleClose}>Save</Button>
+              <Button onClick={putCategoryHandler}>Save</Button>
             </DialogActions>
           </Dialog>
         </div>

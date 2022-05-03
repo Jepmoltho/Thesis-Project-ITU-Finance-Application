@@ -171,6 +171,23 @@ export async function putGoal(userId, newGoal) {
   }
 }
 
+// Updating category
+export async function putCategory(categoryId, userId, newName) {
+  const Category = new Parse.Object.extend("Category");
+  const cat = new Category();
+  cat.set("objectId", categoryId);
+  cat.set("userId", userId);
+  cat.set("name", newName);
+  try {
+    await cat.save();
+    alert(cat + " updated");
+    return true;
+  } catch (error) {
+    alert("Error in putCategory " + error);
+    return false;
+  }
+}
+
 // Getting Goal
 export async function getGoal(userId, setGoal) {
   const parseQuery = new Parse.Query("User");
