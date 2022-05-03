@@ -143,7 +143,10 @@ function Category(props) {
         </Col>
         <Col className="col-sm-1">
           {/*<Icon edit /> //Removed for now untill implementation - Editing assets and categories is a very complex problem due to the way we have build it. We can achieve same funcitonality of letting users "update" stuff by letting them delete assets and categories and then they can add new ones */}
-          <BurgerButton event1={props.eventDeleteCategory} />
+          <BurgerButton
+            event1={props.eventDeleteCategory}
+            event2={props.eventUpdateCategory}
+          />
           {/* <Icon delete event1={props.eventDeleteCategory} /> */}
         </Col>
       </Row>
