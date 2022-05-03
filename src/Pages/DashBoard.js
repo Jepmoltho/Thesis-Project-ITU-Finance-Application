@@ -515,8 +515,10 @@ function Dashboard() {
   //Dialogue box from here
   const [open, setOpen] = React.useState(false);
 
-  const handleClickOpen = () => {
+  const handleClickOpen = (catId) => {
+    addAssetClick(true, catId);
     setOpen(true);
+    localStorage.setItem("categoryId", catId);
   };
 
   const handleClose = () => {
