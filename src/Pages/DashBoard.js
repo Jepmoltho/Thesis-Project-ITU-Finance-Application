@@ -13,7 +13,6 @@ import {
   getCategories,
   postAsset,
   getAssets,
-  // getAsset,
   postCatVal,
   deleteCategory,
   postAssetRealestateM2,
@@ -94,7 +93,6 @@ function Dashboard() {
   async function putCategoryHandler() {
     try {
       await putCategory(categoryId, userId, newCatName);
-      alert("succes");
       setOpen(false);
     } catch (error) {
       console.log("Errors in putCatHandler");
@@ -246,27 +244,6 @@ function Dashboard() {
     console.log(visibleAsset);
   }
 
-  // /**
-  //  * open/closes the visibility of a categories assets that
-  //  * matches with its categoryId.
-  //  * @param {String} categoryId - The ID of a category.
-  //  */
-  // function setVisibleAssetFunctionEditDelete(categoryId) {
-  //   setVisibleAsset((prevArr) =>
-  //     prevArr.map((prevObj) => {
-  //       if (prevObj.categoryId === categoryId) {
-  //         const newObj = {
-  //           ...prevObj,
-  //           isVisible: !prevObj.isVisible, //2
-  //         };
-  //         return newObj;
-  //       }
-  //       return prevObj;
-  //     })
-  //   );
-  //   console.log(visibleAsset);
-  // }
-
   //Saves an asset to database by calling postAsset in data.js
   async function saveAsset() {
     try {
@@ -361,13 +338,6 @@ function Dashboard() {
     setVisibleAddAssetFunction(isOpen, categoryId);
   }
 
-  // function updateAssetClick(isOpen, categoryId) {
-  //   //HERE 1
-  //   localStorage.setItem("categoryId", categoryId);
-  //   setCategoryId(categoryId);
-  //   setVisibleAddAssetFunction(isOpen, categoryId);
-  // }
-
   //Calculates the networth
   function calculateNetWorth(categories) {
     let assetsSum = 0;
@@ -410,12 +380,7 @@ function Dashboard() {
   const [rerenderState, setRerenderState] = useState(false);
   const [rerenderStateEdit, setRerenderStateEdit] = useState(false);
 
-  // function rerenderStateHandler() {
-  //   setRerenderState(!rerenderState);
-  //   console.log("Rerender state handler called");
-  // }
-
-  //This does everything
+  //Main useEffect for total render upon start
   useEffect(() => {
     console.log("start [userId]");
     getCurrentUser()
@@ -431,7 +396,7 @@ function Dashboard() {
     getGoal(userId, setGoal);
   }, []);
 
-  //This does everything
+  //Main useEffect for total render upon update
   useEffect(() => {
     console.log("start [userId]");
     getCurrentUser()
@@ -527,11 +492,6 @@ function Dashboard() {
     setOpen(false);
   };
 
-  const [newCategoryName, setNewCategoryName] = useState("");
-  const newCategoryNameHandler = (e) => {
-    setNewCategoryName(e.target.value);
-  };
-
   if (currentUser === null) {
     //Nessesary, otherwise it crashes
     return (
@@ -585,9 +545,6 @@ function Dashboard() {
                   setRerenderStateEdit(!rerenderStateEdit)
                 }
                 eventUpdateCategory={() => handleClickOpen(category.id)}
-                // eventUpdateAssetClick={() =>
-                //   updateAssetClick(true, category.id)
-                // }
               />
             ))}
           </div>
@@ -607,11 +564,6 @@ function Dashboard() {
         </Container>
         {/*Form dialogue from here*/}
         <div>
-          {/*
-          <Button variant="outlined" onClick={handleClickOpen}>
-            Open form dialog
-          </Button>
-          */}
           <Dialog open={open} onClose={handleClose}>
             <DialogTitle>Enter new category name</DialogTitle>
             <DialogContent>
