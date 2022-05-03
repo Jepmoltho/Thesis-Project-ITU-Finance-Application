@@ -21,7 +21,7 @@ import {
   postHistoricNetworth,
   getGoal,
 } from "../data";
-//Dialogue box frmo here
+//Dialogue box from here
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Dialog from "@mui/material/Dialog";
@@ -492,6 +492,7 @@ function Dashboard() {
     }
   };
 
+  //Dialogue box from here
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -500,6 +501,11 @@ function Dashboard() {
 
   const handleClose = () => {
     setOpen(false);
+  };
+
+  const [newCategoryName, setNewCategoryName] = useState("");
+  const newCategoryNameHandler = (e) => {
+    setNewCategoryName(e.target.value);
   };
 
   if (currentUser === null) {
@@ -592,6 +598,8 @@ function Dashboard() {
                 type="name"
                 fullWidth
                 variant="standard"
+                onChange={newCategoryNameHandler}
+                value={newCategoryName}
               />
             </DialogContent>
             <DialogActions>
