@@ -368,8 +368,9 @@ function Dashboard() {
   }
 
   //Manages deletion of a category
-  function deleteCategoryHandler(categoryId) {
-    deleteCategory(categoryId);
+  async function deleteCategoryHandler(categoryId) {
+    await deleteCategory(categoryId);
+    setRerenderState(!rerenderState);
     console.log("Delete category handler called");
   }
 
