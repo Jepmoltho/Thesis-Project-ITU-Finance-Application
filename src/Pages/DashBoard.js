@@ -583,9 +583,11 @@ function Dashboard() {
         </Container>
         {/*Form dialogue from here*/}
         <div>
+          {/*
           <Button variant="outlined" onClick={handleClickOpen}>
             Open form dialog
           </Button>
+          */}
           <Dialog open={open} onClose={handleClose}>
             <DialogTitle>Enter new category name</DialogTitle>
             <DialogContent>
