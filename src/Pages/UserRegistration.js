@@ -8,6 +8,7 @@ import Button from "@mui/material/Button";
 
 function UserRegistration() {
   const navigate = useNavigate("");
+
   const [username, setUsername] = useState("");
   const handleChangeUser = (e) => {
     setUsername(e.target.value);
@@ -69,7 +70,7 @@ function UserRegistration() {
           }}
         >
           <p style={{ fontSize: "30px", color: "#18388C" }}>
-            Create a user to get started
+            Create an account to get started
           </p>
           <TextField
             label="Username"
@@ -96,18 +97,18 @@ function UserRegistration() {
             }}
             style={{ fontSize: "12px" }}
           >
-            Create user
+            Create Account
           </Button>
           <br />
           <br />
           <p style={{ display: "inline-block", paddingRight: "5px" }}>
-            Already have a user?
+            Already have an account?
           </p>
           <p
             style={{ display: "inline-block", color: "#18388C" }}
             onClick={() => navigate("/login")}
           >
-            <b>Continue to login</b>
+            <b>Go to login page</b>
           </p>
         </Col>
         <Col className="col-sm-3"></Col>

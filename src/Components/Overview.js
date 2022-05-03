@@ -7,28 +7,36 @@ import AssetsTotal from "./AssetsTotal";
 import DebtTotal from "./DebtTotal";
 import NetworthNumber from "./NetworthNumber";
 
-function Overview() {
+function Overview(props) {
+
+
+
   return (
     <div className="overviewbox">
       <Row style={{ padding: "10px 10px 10px 10px" }}>
-        <Col style={{ paddingLeft: "0px" }}>
-          <Tag inline text="Goal" style={{ display: "inline" }} />
-          <Icon infosmall style={{ position: "relative", top: "-10px" }} />
+        <Col style={{ paddingLeft: "0px", display: "flex" }}>
+          
+          <Icon 
+            infosmall
+            textInfo={"overview"}
+            style={{ position: "relative", top: "-10px", display: "inline" }}             
+          />
+          <Tag inline text="Overview" style={{ display: "inline" }} />  
         </Col>
       </Row>
-      <Row style={{ padding: "10px 10px 10px 10px" }}>
+      <Row style={{ padding: "20px 10px 10px 10px" }}>
         <Col style={{ paddingLeft: "0px" }}>
-          <AssetsTotal />
+          <AssetsTotal assetsTotal={props.assetsTotal} />
         </Col>
       </Row>
       <Row style={{ padding: "0px 10px 0px 10px" }}>
         <Col style={{ paddingLeft: "0px", paddingBottom: "0px" }}>
-          <DebtTotal />
+          <DebtTotal debtTotal={props.debtTotal} />
         </Col>
       </Row>
       <Row style={{ padding: "10px 10px 10px 10px" }}>
         <Col style={{ paddingLeft: "0px" }}>
-          <NetworthNumber overviewcard />
+          <NetworthNumber overviewcard networth={props.netWorth} />
         </Col>
       </Row>
     </div>

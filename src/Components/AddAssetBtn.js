@@ -1,14 +1,10 @@
 import React from 'react';
 
 
-function AddAssetBtn(){
-
-    function myFunction() {
-        console.log("CLICKED");
-    };
+function AddAssetBtn(props){
 
     return (
-        <button type='button' style={{border: 0, backgroundColor: 'transparent', paddingTop: '0px'}} onClick={myFunction}> <img src="/AddAssetBtn.svg" alt="AddAssetBtn"/></button>
+        <button type='button' style={{border: 0, backgroundColor: 'transparent', paddingTop: '0px'}} onClick={props.event1}> <img src="images/AddAssetBtn.svg" alt="AddAssetBtn"/></button>
         );
     }
     

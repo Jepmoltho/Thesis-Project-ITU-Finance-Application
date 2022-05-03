@@ -39,6 +39,42 @@ h4 {
   border-radius: 3px;
 }
 
+.onboardingCard{
+  background: #18388C;
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.15);
+  border-radius: 3px;
+  text-align: 'center';
+  padding-left: 54px;  
+  padding-right: 54px;
+}
+
+.primaryWalkthroughBtn{
+  margin-top: 45; 
+  border-radius:6px; 
+  background: #9ABE54;
+  color:white;
+  box-shadow: 5px 4px 3px rgba(0, 0, 0, 0.25);
+  font-weight: 'bold';
+  border: none;
+  padding: 13px 24px 13px 24px;
+  display: 'flex';
+  text-align: 'center'; 
+  justify-content: 'center';
+  font-size:14;
+  font-weight: bold
+}
+
+.secondaryWalkthroughBtn{
+  border-radius:6; 
+  background: #18388C; 
+  color:white; 
+  border: none;
+  font-weight: semibold;
+  margin-top:37px;
+  font-size:14;
+  font-weight: 'semibold';
+}
+
 .OnboardingBubble {
   border-radius: 49px 65px 65px 0px;
   background-color: #c5cde2;
@@ -54,7 +90,9 @@ h4 {
   vertical-align: middle;
   -o-text-overflow: clip;
   text-overflow: clip;
-  padding: 10px;
+  padding-top: 15px;
+  padding-left: 10px;
+  padding-right:10px;
 }
 
 .button {
