@@ -95,6 +95,7 @@ function Dashboard() {
     try {
       await putCategory(categoryId, userId, newCatName);
       alert("succes");
+      setOpen(false);
     } catch (error) {
       console.log("Errors in putCatHandler");
     }
@@ -515,10 +516,11 @@ function Dashboard() {
   //Dialogue box from here
   const [open, setOpen] = React.useState(false);
 
+  //GO HERE
   const handleClickOpen = (catId) => {
-    addAssetClick(true, catId);
+    addAssetClick(false, catId);
     setOpen(true);
-    localStorage.setItem("categoryId", catId);
+    //localStorage.setItem("categoryId", catId);
   };
 
   const handleClose = () => {
