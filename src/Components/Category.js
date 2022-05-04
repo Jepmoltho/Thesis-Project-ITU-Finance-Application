@@ -36,8 +36,10 @@ function Category(props) {
   async function deleteAssetHandler(assetId, rerenderState, categoryId) {
     localStorage.setItem("categoryId", categoryId);
     console.log("DeleteAssetHandlerCalled");
+    console.log(assetId)
     await deleteAsset(assetId);
     await saveCatValue();
+    handleDeleteClose();
     rerenderState();
   }
 
@@ -50,12 +52,14 @@ function Category(props) {
   ) {
     await putAsset(assetId, newName, newValue);
     await saveCatValue();
-    handleClose();
+    handleEditClose();
     rerenderStateEdit();
   }
 
   //Logic for dialogue box starts from here
-  const [open, setOpen] = React.useState(false);
+  const [editOpen, setEditOpen] = React.useState(false);
+  // const [open, setOpen] = React.useState(false);
+  const [deleteOpen, setDeleteOpen] = React.useState(false);
 
   //Edit button on asset needs to do this
   const [newAssetName, setNewAssetName] = useState("");
@@ -70,17 +74,29 @@ function Category(props) {
   };
 
   //Opens dialogue box upon editAsset
-  function handleClickOpen(assetId, assetName, categoryId) {
+  function handleEditClickOpen(assetId, assetName, categoryId) {
     //Note that it sets the initial assetName. Nessesary for the edit asset functionality so you don't have to type in the same name every time you update the value
     localStorage.setItem("categoryId", categoryId);
     localStorage.setItem("assetIdForEdit", assetId);
     setNewAssetName(assetName);
-    setOpen(true);
+    setEditOpen(true);
   }
 
-  const handleClose = () => {
-    setOpen(false);
+  function handleDeleteClickOpen(assetId, assetName, categoryId) {
+    localStorage.setItem("categoryId", categoryId);
+    localStorage.setItem("assetIdForEdit", assetId);
+    setDeleteOpen(true);
+  }
+
+  const handleEditClose = () => {
+    setEditOpen(false);
   };
+
+  const handleDeleteClose = () => {
+    setDeleteOpen(false);
+  };
+
+  
 
   return (
     <div className="mt-4">
@@ -163,14 +179,15 @@ function Category(props) {
                   title={asset.name}
                   value={asset.value}
                   eventUpdate={() =>
-                    handleClickOpen(asset.id, asset.name, props.categoryId)
+                    handleEditClickOpen(asset.id, asset.name, props.categoryId)
                   } //Make the state of newname and value from dialogue box live here
                   eventDelete={() =>
-                    deleteAssetHandler(
-                      asset.id,
-                      props.eventRerenderState,
-                      props.categoryId
-                    )
+                    handleDeleteClickOpen(asset.id, asset.name, props.categoryId)
+                    // deleteAssetHandler(
+                    //   asset.id,
+                    //   props.eventRerenderState,
+                    //   props.categoryId
+                    // )
                   }
                 />
               </>
@@ -215,9 +232,9 @@ function Category(props) {
           <AddAssetBtn event1={props.eventAddAsset} />
         </center>
       </div>
-      {/* JSX for dialgoue box from here */}
+      {/* -----------Edit dialog box---------------  */}
       <div>
-        <Dialog open={open} onClose={handleClose}>
+        <Dialog open={editOpen} onClose={handleEditClose}>
           <DialogTitle>Update asset</DialogTitle>
           <DialogContent>
             <DialogContentText>
@@ -248,7 +265,9 @@ function Category(props) {
             />
           </DialogContent>
           <DialogActions>
-            <Button onClick={handleClose}>Cancel</Button>
+            <Button onClick={handleEditClose}>
+              Cancel
+            </Button>
             <Button
               onClick={() =>
                 updateAssetHandler(
@@ -260,6 +279,42 @@ function Category(props) {
               }
             >
               Save
+            </Button>
+          </DialogActions>
+        </Dialog>
+      </div>
+
+      {/* -----------Delete dialog box---------------  */}
+
+      <div>
+        <Dialog
+          open={deleteOpen}
+          onClose={handleDeleteClose}
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description"
+        >
+          <DialogTitle id="alert-dialog-title">
+            {"Delete"}
+          </DialogTitle>
+          <DialogContent>
+            <DialogContentText id="alert-dialog-description">
+              Are you sure you want to delete?
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button 
+              onClick={handleDeleteClose}
+              >
+              No
+            </Button>
+            <Button onClick={() => 
+              deleteAssetHandler(
+                 localStorage.getItem("assetIdForEdit"),
+                 props.eventRerenderState, 
+                 props.categoryId
+                 )} 
+                 autoFocus>
+              Yes
             </Button>
           </DialogActions>
         </Dialog>
