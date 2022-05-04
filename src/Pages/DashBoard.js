@@ -9,13 +9,7 @@ import AddCategory from "../Components/AddCategory";
 import NavigationBar from "../Components/NavigationBar";
 import TopComponents from "../Components/TopComponents";
 import AddCategoryBtn from "../Components/AddCategoryBtn";
-import TextField from "@mui/material/TextField";
-import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
-import DialogContent from "@mui/material/DialogContent";
-import DialogContentText from "@mui/material/DialogContentText";
-import DialogTitle from "@mui/material/DialogTitle";
-import Button from "@mui/material/Button";
+import React from "react";
 import {
   postCategory,
   getCategories,
@@ -29,6 +23,14 @@ import {
   postHistoricNetworth,
   getGoal,
 } from "../data";
+//Dialogue box from here
+import Button from "@mui/material/Button";
+import TextField from "@mui/material/TextField";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
 
 function Dashboard() {
   const navigate = useNavigate();
@@ -504,6 +506,22 @@ function Dashboard() {
     }
   };
 
+  //Dialogue box from here
+  const [open, setOpen] = React.useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const [newCategoryName, setNewCategoryName] = useState("");
+  const newCategoryNameHandler = (e) => {
+    setNewCategoryName(e.target.value);
+  };
+
   if (currentUser === null) {
     //Nessesary, otherwise it crashes
     return (
@@ -556,6 +574,7 @@ function Dashboard() {
                 eventRerenderStateEdit={() =>
                   setRerenderStateEdit(!rerenderStateEdit)
                 }
+                eventUpdateCategory={() => handleClickOpen(category.id)}
                 // eventUpdateAssetClick={() =>
                 //   updateAssetClick(true, category.id)
                 // }
@@ -576,6 +595,7 @@ function Dashboard() {
           <AddCategoryBtn event={() => setVisibleAddCategory(true)} />
           <br />
         </Container>
+        
                {/* -------------Delete Category dialog bog---------------- */}
         <div>
           <Dialog

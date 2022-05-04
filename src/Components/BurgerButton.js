@@ -36,7 +36,7 @@ export default function BasicMenu(props) {
           "aria-labelledby": "basic-button",
         }}
       >
-        <MenuItem onClick={handleClose}>Edit category</MenuItem>
+        <MenuItem onClick={props.event2}>Edit category</MenuItem>
         <MenuItem onClick={props.event1}>Delete category</MenuItem>
       </Menu>
     </div>
