@@ -35,8 +35,6 @@ function Category(props) {
   //Manages the delete asset event //Maybe try and add await
   async function deleteAssetHandler(assetId, rerenderState, categoryId) {
     localStorage.setItem("categoryId", categoryId);
-    console.log("DeleteAssetHandlerCalled");
-    console.log(assetId)
     await deleteAsset(assetId);
     await saveCatValue();
     handleDeleteClose();
@@ -82,7 +80,7 @@ function Category(props) {
     setEditOpen(true);
   }
 
-  function handleDeleteClickOpen(assetId, assetName, categoryId) {
+  function handleDeleteClickOpen(assetId, categoryId) {
     localStorage.setItem("categoryId", categoryId);
     localStorage.setItem("assetIdForEdit", assetId);
     setDeleteOpen(true);
@@ -182,12 +180,7 @@ function Category(props) {
                     handleEditClickOpen(asset.id, asset.name, props.categoryId)
                   } //Make the state of newname and value from dialogue box live here
                   eventDelete={() =>
-                    handleDeleteClickOpen(asset.id, asset.name, props.categoryId)
-                    // deleteAssetHandler(
-                    //   asset.id,
-                    //   props.eventRerenderState,
-                    //   props.categoryId
-                    // )
+                    handleDeleteClickOpen(asset.id, props.categoryId)
                   }
                 />
               </>
@@ -285,7 +278,6 @@ function Category(props) {
       </div>
 
       {/* -----------Delete dialog box---------------  */}
-
       <div>
         <Dialog
           open={deleteOpen}
