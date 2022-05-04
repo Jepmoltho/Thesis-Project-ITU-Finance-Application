@@ -1,3 +1,5 @@
+
+import * as React from "react"; //Maybe delete "* as" to save computational power
 import Parse from "parse";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -7,6 +9,13 @@ import AddCategory from "../Components/AddCategory";
 import NavigationBar from "../Components/NavigationBar";
 import TopComponents from "../Components/TopComponents";
 import AddCategoryBtn from "../Components/AddCategoryBtn";
+import TextField from "@mui/material/TextField";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
+import Button from "@mui/material/Button";
 import {
   postCategory,
   getCategories,
@@ -57,6 +66,17 @@ function Dashboard() {
   const [netWorth, setNetWorth] = useState("");
 
   const [goal, setGoal] = useState("");
+
+  // Open/close dialog box when deleting category
+  const [openDeleteDialog, setOpenDeleteDialog] = React.useState(false);
+
+  function handleDeleteClickOpen() {
+    setOpenDeleteDialog(true);
+  }
+
+  const handleDeleteClose = () => {
+    setOpenDeleteDialog(false);
+  };
 
   //Saves a category to database by calling postCategory in data.js
   async function saveCategory() {
@@ -370,7 +390,8 @@ function Dashboard() {
   //Manages deletion of a category
   async function deleteCategoryHandler(categoryId) {
     await deleteCategory(categoryId);
-    setRerenderState(!rerenderState);
+    handleDeleteClose()
+    setRerenderState(prevState => !rerenderState);
     console.log("Delete category handler called");
   }
 
@@ -525,7 +546,7 @@ function Dashboard() {
                   setUpdateEffectOfVisibleAsset((prevState) => !prevState)
                 }
                 eventCancel={() => addAssetClick(false, category.id)} //Sets the visibility of AddAsset to false
-                eventDeleteCategory={() => deleteCategoryHandler(category.id)}
+                eventDeleteCategory={() => handleDeleteClickOpen()}
                 eventSaveAssetRealestateM2={() =>
                   setUpdateEffectOfVisibleAssetRealM2((prevState) => !prevState)
                 }
@@ -555,6 +576,35 @@ function Dashboard() {
           <AddCategoryBtn event={() => setVisibleAddCategory(true)} />
           <br />
         </Container>
+               {/* -------------Delete Category dialog bog---------------- */}
+        <div>
+          <Dialog
+            open={openDeleteDialog}
+            onClose={handleDeleteClose}
+            aria-labelledby="alert-dialog-title"
+            aria-describedby="alert-dialog-description"
+          >
+            <DialogTitle id="alert-dialog-title">
+              {"Delete"}
+            </DialogTitle>
+            <DialogContent>
+              <DialogContentText id="alert-dialog-description">
+                Are you sure you want to delete?
+              </DialogContentText>
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={handleDeleteClose}>
+                No
+              </Button>
+              <Button onClick={() => 
+                deleteCategoryHandler(categoryId, rerenderState)
+                } 
+                  autoFocus>
+                Yes
+              </Button>
+            </DialogActions>
+          </Dialog>
+        </div>
       </div>
     );
   }

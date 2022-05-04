@@ -307,39 +307,6 @@ function Category(props) {
           </DialogActions>
         </Dialog>
       </div>
-            {/* -------------Delete Category dialog bog---------------- */}
-            <div>
-        <Dialog
-          open={openDeleteDialog}
-          onClose={handleDeleteClose}
-          aria-labelledby="alert-dialog-title"
-          aria-describedby="alert-dialog-description"
-        >
-          <DialogTitle id="alert-dialog-title">
-            {"Delete"}
-          </DialogTitle>
-          <DialogContent>
-            <DialogContentText id="alert-dialog-description">
-              Are you sure you want to delete?
-            </DialogContentText>
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={handleDeleteClose}>
-              No
-            </Button>
-            <Button onClick={() => 
-              deleteAssetHandler(
-                localStorage.getItem("assetIdForEdit"),
-                 props.eventRerenderState, 
-                 props.categoryId
-                 )} 
-                 autoFocus>
-              Yes
-            </Button>
-          </DialogActions>
-        </Dialog>
-      </div>
-
     </div>
   );
 }
