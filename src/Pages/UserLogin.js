@@ -20,7 +20,7 @@ function UserLogin() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
-  const [showPassword, setShowPassword] = useState(true)
+  const [showPassword, setShowPassword] = useState(false)
 
   const handleClickShowPassword = () => {
     setShowPassword(prevPassword => !prevPassword);
@@ -96,7 +96,7 @@ function UserLogin() {
                     onMouseDown={handleMouseDownPassword}
                     edge="end"
                   >
-                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                    {showPassword ? <Visibility /> : <VisibilityOff />}
                   </IconButton>
                 </InputAdornment>
               }
@@ -133,34 +133,6 @@ function UserLogin() {
       </Row>
       <div style={{ minHeight: "250px" }}></div>
     </Container>
-    /*
-    <>
-      <h2>Login to continue</h2>
-      <input
-        type="text"
-        placeholder="Username"
-        value={username}
-        onChange={(e) => setUsername(e.target.value)}
-      />{" "}
-      <input
-        type="text"
-        placeholder="Password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      />
-      <br />
-      <br />
-      <button onClick={() => doUserLogin()} type="primary">
-        Log In
-      </button>
-      <br />
-      <br />
-      <p style={{ display: "inline-block" }}>Don't have a user?</p>{" "}
-      <p style={{ display: "inline-block" }} onClick={() => navigate("/")}>
-        Go back and register
-      </p>
-    </>
-    */
   );
 }
 
