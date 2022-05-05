@@ -141,8 +141,8 @@ function Category(props) {
           {props.value ? <Value value={props.value} /> : <Value value={0} />}
         </Col>
         <Col style={{ margin: "auto" }}>
-          <Tag text="Profit" />
-          <CategoryProfit profit="3456" />
+          {/* <Tag text="Profit" />
+          <CategoryProfit profit="3456" /> */}
         </Col>
         <Col className="col-sm-1" style={{ margin: "auto", padding: "0px" }}>
           <nobr>
