@@ -48,10 +48,15 @@ function Category(props) {
     newValue,
     rerenderStateEdit
   ) {
-    await putAsset(assetId, newName, newValue);
-    await saveCatValue();
-    handleEditClose();
-    rerenderStateEdit();
+    if(isNaN(newValue)){
+      (alert("Can not add this value. The value most be a number."))
+      setNewAssetValue("")
+    } else {
+      await putAsset(assetId, newName, newValue);
+      await saveCatValue();
+      handleEditClose();
+      rerenderStateEdit();
+    }
   }
 
   //Logic for dialogue box starts from here
@@ -74,6 +79,7 @@ function Category(props) {
   //Opens dialogue box upon editAsset
   function handleEditClickOpen(assetId, assetName, categoryId) {
     //Note that it sets the initial assetName. Nessesary for the edit asset functionality so you don't have to type in the same name every time you update the value
+    setNewAssetValue(prev => "") //Needs to set the value to nothing otherwise it will have the previous edit value. 
     localStorage.setItem("categoryId", categoryId);
     localStorage.setItem("assetIdForEdit", assetId);
     setNewAssetName(assetName);
