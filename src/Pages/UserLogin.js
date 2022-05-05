@@ -13,7 +13,6 @@ import InputAdornment from '@mui/material/InputAdornment';
 import FormControl from '@mui/material/FormControl';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
-import { width } from "@mui/system";
 
 function UserLogin() {
   const navigate = useNavigate();
