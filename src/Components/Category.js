@@ -48,10 +48,15 @@ function Category(props) {
     newValue,
     rerenderStateEdit
   ) {
-    await putAsset(assetId, newName, newValue);
-    await saveCatValue();
-    handleEditClose();
-    rerenderStateEdit();
+    if(isNaN(newValue)){
+      (alert("Can not add this value. The value most be a number."))
+      setNewAssetValue("")
+    } else {
+      await putAsset(assetId, newName, newValue);
+      await saveCatValue();
+      handleEditClose();
+      rerenderStateEdit();
+    }
   }
 
   //Logic for dialogue box starts from here
