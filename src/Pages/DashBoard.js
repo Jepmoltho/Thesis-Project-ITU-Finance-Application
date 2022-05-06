@@ -503,6 +503,37 @@ function Dashboard() {
     setDeleteOpen(false);
   };
 
+
+  // -------------------API--------------------
+
+
+  
+  const [fetchStarWarsState, setFetchStarWarsState] = useState(false)
+  const [fetchState, setFetchState] = useState(false)
+  
+  useEffect(() => {
+  
+    fetch("https://swapi.dev/api/people")
+    .then(res => res.json())
+    .then(data => console.log(data))
+
+  },[fetchStarWarsState])
+
+// ----------HERE------------------------------
+  const [state, setState] = useState(false)
+
+  useEffect(() => {
+    const base_url = "https://api-sandbox.aiia.eu"
+    const client_id = "financeapp-bf16fa89-6b54-488b-81e9-1a12f2e9ddfe"
+    const client_redirect_uri = "http://localhost:3000"
+    const URL = base_url + "/v1/oauth/connect?client_id=" + client_id + "&scope=accounts offline_access payments:inbound payments:outbound&redirect_uri=" + client_redirect_uri + "&response_type=code"
+    fetch(URL)
+    .then(res => console.log(res) )
+
+  },[fetchState])
+
+
+
   if (currentUser === null) {
     //Nessesary, otherwise it crashes
     return (
@@ -529,7 +560,19 @@ function Dashboard() {
             historicNetworth={historicNetworth}
             goal={goal}
             setGoal={setGoal}
-          />
+            />
+            <Button
+              style={{backgroundColor: "red"}}
+              onClick={() => setFetchStarWarsState(prev => !prev)}
+            >
+              Fetch star wars
+            </Button>
+            <Button
+              style={{backgroundColor: "white"}}
+              onClick={() => setFetchState(prev => !prev)}
+            >
+              Fetch
+            </Button>
           <br />
           <div className="visibleSavedCategory">
             {categories.map((category) => (
