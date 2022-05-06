@@ -526,10 +526,10 @@ function Dashboard() {
     const base_url = "https://api-sandbox.aiia.eu"
     const client_id = "financeapp-bf16fa89-6b54-488b-81e9-1a12f2e9ddfe"
     const client_redirect_uri = "http://localhost:3000"
-    const URL = base_url + "/v1/oauth/connect?client_id=" + client_id + "&scope=accounts offline_access payments:inbound payments:outbound&redirect_uri=" + client_redirect_uri + "&response_type=code"
+    const URL = base_url + "/v1/oauth/connect?client_id="+client_id+"&scope=accounts offline_access payments:inbound payments:outbound&redirect_uri=" + client_redirect_uri +"&response_type=code"
+    // const URL = base_url + "/v1/oauth/connect?client_id=" + client_id + "&scope=accounts offline_access payments:inbound payments:outbound&redirect_uri=" + client_redirect_uri + "&response_type=code"
     fetch(URL)
-    .then(data => data.headers.keys('Location') )
-    .then(res => console.log(res.next()) ) 
+    .then(data => console.log(data.headers) )
 
   },[fetchState])
 
