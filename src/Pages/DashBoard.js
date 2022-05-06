@@ -29,6 +29,7 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
+import { async } from "parse/lib/browser/Storage";
 
 function Dashboard() {
   const navigate = useNavigate();
@@ -480,6 +481,31 @@ function Dashboard() {
     }
   };
 
+  const deleteProfile = async function (userId) {
+    
+    // const User = new Parse.Object("User")
+    // const User.set('objectId', userId)
+    // // Create a new Todo parse object instance and set todo id
+    // const Todo = new Parse.Object('Todo');
+    // Todo.set('objectId', todoId);
+    // .destroy should be called to delete a parse object
+    // try {
+    //   await Todo.destroy();
+    //   alert('Success! To-do deleted!');
+    //   // Refresh to-dos list to remove this one
+    //   readTodos();
+    //   return true;
+    // } catch (error) {
+    //   // Error can be caused by lack of Internet connection
+    //   alert(`Error ${error.message}`);
+    //   return false;
+    // };
+
+
+  };
+
+  
+
   //Dialogue box from here
   const [editOpen, setEditOpen] = React.useState(false);
   const [deleteOpen, setDeleteOpen] = React.useState(false);
@@ -518,6 +544,7 @@ function Dashboard() {
           welcome={"Welcome " + currentUser.get("username")}
           username={currentUser.get("username")}
           logout={() => doUserLogOut()}
+          deleteProfile={() => deleteProfile()}
         />
         <Container>
           <br />
