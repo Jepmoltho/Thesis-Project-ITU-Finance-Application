@@ -31,8 +31,6 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 
 function Dashboard() {
-  // Test if git problem is fixed
-
   const navigate = useNavigate();
   //Fetches userId upon start so it's always avaliable in localStorage
   const userId = localStorage.getItem("userId");
