@@ -514,8 +514,16 @@ function Dashboard() {
   useEffect(() => {
   
     fetch("https://swapi.dev/api/people")
-    .then(res => res.json())
-    .then(data => console.log(data))
+    // .then(data => data.headers)
+    .then(res => {
+          // for (let entry of res.headers) { // <-- response header iterable
+          //   console.log(entry);
+          // }
+          // return res; 
+          console.log(res)         
+      })
+      // .then(data => console.log(data))
+      
 
   },[fetchStarWarsState])
 
@@ -529,11 +537,25 @@ function Dashboard() {
     const URL = base_url + "/v1/oauth/connect?client_id="+client_id+"&scope=accounts offline_access payments:inbound payments:outbound&redirect_uri=" + client_redirect_uri +"&response_type=code"
     // const URL = base_url + "/v1/oauth/connect?client_id=" + client_id + "&scope=accounts offline_access payments:inbound payments:outbound&redirect_uri=" + client_redirect_uri + "&response_type=code"
     fetch(URL)
-    .then(data => console.log(data.headers) )
+    .then(res => console.log(res.url))    
+    
+      
+    },[fetchState])
+    
+    // {
+  //   for (let entry of res.headers) { // <-- response header iterable
+  //     console.log(entry);
+  //   }
+  //   return res;
+  // })
+  // .then(data => {
+  //   console.log(data); 
+  // })
 
-  },[fetchState])
+    // })
 
-
+    // .then(data => console.log(data) )
+    
 
   if (currentUser === null) {
     //Nessesary, otherwise it crashes
