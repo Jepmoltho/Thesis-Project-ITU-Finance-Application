@@ -92,8 +92,8 @@ function Dashboard() {
 
   async function putCategoryHandler() {
     try {
-      await putCategory(categoryId, userId, newCatName);
       setEditOpen(false);
+      await putCategory(categoryId, userId, newCatName);
     } catch (error) {
       console.log("Errors in putCatHandler");
     }
@@ -376,6 +376,12 @@ function Dashboard() {
     console.log("Delete category handler called");
   }
 
+  async function deleteProfileHandler() {
+    handleDeleteProfileClose()
+    await deleteProfile()
+    doUserLogOut() // logout
+  }
+
   //useEffect and stateHook handling userLogin and registration
   const [currentUser, setCurrentUser] = useState(null);
 
@@ -480,9 +486,28 @@ function Dashboard() {
     }
   };
 
+  const deleteProfile = async function () {
+    // get current user
+    const currentUser = await Parse.User.current();
+    try{
+      // delete the current user
+      await currentUser.destroy();
+      alert('Success! User deleted!');
+      return true;
+    }
+    catch (error) {
+      // Error can be caused by lack of Internet connection
+      alert(`Error ${error.message}`);
+      return false;
+    };
+  };
+
+  
+
   //Dialogue box from here
   const [editOpen, setEditOpen] = React.useState(false);
   const [deleteOpen, setDeleteOpen] = React.useState(false);
+  const [deleteProfileOpen, setDeleteProfileOpen] = React.useState(false);
 
   //GO HERE
   const handleEditClickOpen = (catId) => {
@@ -495,12 +520,20 @@ function Dashboard() {
     setDeleteOpen(true);
   };
 
+  const handleDeleteProfileClickOpen = () => {
+    setDeleteProfileOpen(true);
+  };
+
   const handleEditClose = () => {
     setEditOpen(false);
   };
 
   const handleDeleteClose = () => {
     setDeleteOpen(false);
+  };
+
+  const handleDeleteProfileClose = () => {
+    setDeleteProfileOpen(false);
   };
 
   if (currentUser === null) {
@@ -518,6 +551,7 @@ function Dashboard() {
           welcome={"Welcome " + currentUser.get("username")}
           username={currentUser.get("username")}
           logout={() => doUserLogOut()}
+          deleteProfile={() => handleDeleteProfileClickOpen()}
         />
         <Container>
           <br />
@@ -601,35 +635,69 @@ function Dashboard() {
           </Dialog>
         </div>
       {/* -----------Delete category dialog box---------------  */}
-      <div>
-        <Dialog
-          open={deleteOpen}
-          onClose={handleDeleteClose}
-          aria-labelledby="alert-dialog-title"
-          aria-describedby="alert-dialog-description"
-        >
-          <DialogTitle id="alert-dialog-title">
-            {"Delete"}
-          </DialogTitle>
-          <DialogContent>
-            <DialogContentText id="alert-dialog-description">
-              Are you sure you want to delete?
-            </DialogContentText>
-          </DialogContent>
-          <DialogActions>
-            <Button 
-              onClick={handleDeleteClose}
-              >
-              No
-            </Button>
-            <Button 
-              onClick={ () => deleteCategoryHandler(localStorage.getItem("categoryId"))} 
-              autoFocus>
-                Yes
-            </Button>
-          </DialogActions>
-        </Dialog>
-      </div>
+        <div>
+          <Dialog
+            open={deleteOpen}
+            onClose={handleDeleteClose}
+            aria-labelledby="alert-dialog-title"
+            aria-describedby="alert-dialog-description"
+          >
+            <DialogTitle id="alert-dialog-title">
+              {"Delete"}
+            </DialogTitle>
+            <DialogContent>
+              <DialogContentText id="alert-dialog-description">
+                Are you sure you want to delete?
+              </DialogContentText>
+            </DialogContent>
+            <DialogActions>
+              <Button 
+                onClick={handleDeleteClose}
+                >
+                No
+              </Button>
+              <Button 
+                onClick={ () => deleteCategoryHandler(localStorage.getItem("categoryId"))} 
+                autoFocus>
+                  Yes
+              </Button>
+            </DialogActions>
+          </Dialog>
+        </div>
+              {/* -----------Delete profile dialog box---------------  */}
+              <div>
+          <Dialog
+            open={deleteProfileOpen}
+            onClose={handleDeleteProfileClose}
+            aria-labelledby="alert-dialog-title"
+            aria-describedby="alert-dialog-description"
+          >
+            <DialogTitle id="alert-dialog-title">
+              {"Delete profile?"}
+            </DialogTitle>
+            <DialogContent>
+              <DialogContentText id="alert-dialog-description">
+                <p>
+                  All your data will be deleted permanently. 
+                Your data will also be removed from the AssetTracker database permanently. 
+                </p>
+                Are you sure you want to delete your profile?
+              </DialogContentText>
+            </DialogContent>
+            <DialogActions>
+              <Button 
+                onClick={handleDeleteProfileClose}
+                >
+                No
+              </Button>
+              <Button 
+                onClick={ () => deleteProfileHandler()} 
+                autoFocus>
+                  Yes, delete
+              </Button>
+            </DialogActions>
+          </Dialog>
+        </div>
       </div>
     );
   }
