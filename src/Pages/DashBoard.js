@@ -36,7 +36,7 @@ function Dashboard() {
   const userId = localStorage.getItem("userId");
   const [categoryId, setCategoryId] = useState("");
 
-  //Manages display of addCategoryComponent upon pressing addCategory and disappear upon pressing cancel
+  //Manages display of addCategoryComponent upon pressing addCategory and disappear upon pressing cancel 
   const [visibleAddCategory, setVisibleAddCategory] = useState(false);
 
   //Manages display if addAssetComponent upon pressing addAsset and disappear upon pressing cancel
