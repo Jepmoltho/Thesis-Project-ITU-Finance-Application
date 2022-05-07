@@ -123,7 +123,7 @@ function NavigationBar(props) {
             >
               <MenuItem onClick={handleCloseUserMenu}>Profile</MenuItem>
               <MenuItem onClick={props.logout}>Logout</MenuItem>
-              <MenuItem onClick={props.logout}>Delete profile</MenuItem>
+              <MenuItem onClick={props.deleteProfile}>Delete profile</MenuItem>
             </Menu>
           </Box>
         </Toolbar>

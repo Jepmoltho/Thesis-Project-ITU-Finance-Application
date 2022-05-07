@@ -481,13 +481,23 @@ function Dashboard() {
     }
   };
 
-  const deleteProfile = async function (userId) {
+  const deleteProfile = async function () {
     
-    // const User = new Parse.Object("User")
-    // const User.set('objectId', userId)
-    // // Create a new Todo parse object instance and set todo id
+    const currentUser = await Parse.User.current();
+    try{
+      await currentUser.destroy();
+      doUserLogOut()
+      alert('Success! User deleted!');
+      return true;
+    }
+    catch (error) {
+      // Error can be caused by lack of Internet connection
+      alert(`Error ${error.message}`);
+      return false;
+    };
+    // Create a new Todo parse object instance and set todo id
     // const Todo = new Parse.Object('Todo');
-    // Todo.set('objectId', todoId);
+    // // Todo.set('objectId', todoId);
     // .destroy should be called to delete a parse object
     // try {
     //   await Todo.destroy();
@@ -544,7 +554,7 @@ function Dashboard() {
           welcome={"Welcome " + currentUser.get("username")}
           username={currentUser.get("username")}
           logout={() => doUserLogOut()}
-          deleteProfile={() => deleteProfile()}
+          deleteProfile={() => deleteProfile(userId)}
         />
         <Container>
           <br />
