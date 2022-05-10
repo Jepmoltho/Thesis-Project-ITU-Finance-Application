@@ -29,6 +29,7 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
+import { Height } from "@mui/icons-material";
 
 function Dashboard() {
   const navigate = useNavigate();
@@ -372,14 +373,14 @@ function Dashboard() {
     localStorage.setItem("categoryId", categoryId);
     await deleteCategory(categoryId);
     setRerenderState(!rerenderState);
-    handleDeleteClose()
+    handleDeleteClose();
     console.log("Delete category handler called");
   }
 
   async function deleteProfileHandler() {
-    handleDeleteProfileClose()
-    await deleteProfile()
-    doUserLogOut() // logout
+    handleDeleteProfileClose();
+    await deleteProfile();
+    doUserLogOut(); // logout
   }
 
   //useEffect and stateHook handling userLogin and registration
@@ -489,20 +490,17 @@ function Dashboard() {
   const deleteProfile = async function () {
     // get current user
     const currentUser = await Parse.User.current();
-    try{
+    try {
       // delete the current user
       await currentUser.destroy();
-      alert('Success! User deleted!');
+      alert("Success! User deleted!");
       return true;
-    }
-    catch (error) {
+    } catch (error) {
       // Error can be caused by lack of Internet connection
       alert(`Error ${error.message}`);
       return false;
-    };
+    }
   };
-
-  
 
   //Dialogue box from here
   const [editOpen, setEditOpen] = React.useState(false);
@@ -579,10 +577,10 @@ function Dashboard() {
                   setUpdateEffectOfVisibleAsset((prevState) => !prevState)
                 }
                 eventCancel={() => addAssetClick(false, category.id)} //Sets the visibility of AddAsset to false
-                eventDeleteCategory={() => 
-                    // deleteCategoryHandler(category.id)
-                    handleDeleteClickOpen(category.id)
-                  }
+                eventDeleteCategory={() =>
+                  // deleteCategoryHandler(category.id)
+                  handleDeleteClickOpen(category.id)
+                }
                 eventSaveAssetRealestateM2={() =>
                   setUpdateEffectOfVisibleAssetRealM2((prevState) => !prevState)
                 }
@@ -610,7 +608,11 @@ function Dashboard() {
           <AddCategoryBtn event={() => setVisibleAddCategory(true)} />
           <br />
         </Container>
-      {/* -----------Edit category dialog box---------------  */}
+        <div
+          class="backgroundcolor-container"
+          style={{ height: "200px", backgroundColor: "#eff0f3" }}
+        ></div>
+        {/* -----------Edit category dialog box---------------  */}
         <div>
           <Dialog open={editOpen} onClose={handleEditClose}>
             <DialogTitle>Enter new category name</DialogTitle>
@@ -634,7 +636,7 @@ function Dashboard() {
             </DialogActions>
           </Dialog>
         </div>
-      {/* -----------Delete category dialog box---------------  */}
+        {/* -----------Delete category dialog box---------------  */}
         <div>
           <Dialog
             open={deleteOpen}
@@ -642,30 +644,27 @@ function Dashboard() {
             aria-labelledby="alert-dialog-title"
             aria-describedby="alert-dialog-description"
           >
-            <DialogTitle id="alert-dialog-title">
-              {"Delete"}
-            </DialogTitle>
+            <DialogTitle id="alert-dialog-title">{"Delete"}</DialogTitle>
             <DialogContent>
               <DialogContentText id="alert-dialog-description">
                 Are you sure you want to delete?
               </DialogContentText>
             </DialogContent>
             <DialogActions>
-              <Button 
-                onClick={handleDeleteClose}
-                >
-                No
-              </Button>
-              <Button 
-                onClick={ () => deleteCategoryHandler(localStorage.getItem("categoryId"))} 
-                autoFocus>
-                  Yes
+              <Button onClick={handleDeleteClose}>No</Button>
+              <Button
+                onClick={() =>
+                  deleteCategoryHandler(localStorage.getItem("categoryId"))
+                }
+                autoFocus
+              >
+                Yes
               </Button>
             </DialogActions>
           </Dialog>
         </div>
-              {/* -----------Delete profile dialog box---------------  */}
-              <div>
+        {/* -----------Delete profile dialog box---------------  */}
+        <div>
           <Dialog
             open={deleteProfileOpen}
             onClose={handleDeleteProfileClose}
@@ -678,22 +677,16 @@ function Dashboard() {
             <DialogContent>
               <DialogContentText id="alert-dialog-description">
                 <p>
-                  All your data will be deleted permanently. 
-                Your data will also be removed from the AssetTracker database permanently. 
+                  All your data will be deleted permanently. Your data will also
+                  be removed from the AssetTracker database permanently.
                 </p>
                 Are you sure you want to delete your profile?
               </DialogContentText>
             </DialogContent>
             <DialogActions>
-              <Button 
-                onClick={handleDeleteProfileClose}
-                >
-                No
-              </Button>
-              <Button 
-                onClick={ () => deleteProfileHandler()} 
-                autoFocus>
-                  Yes, delete
+              <Button onClick={handleDeleteProfileClose}>No</Button>
+              <Button onClick={() => deleteProfileHandler()} autoFocus>
+                Yes, delete
               </Button>
             </DialogActions>
           </Dialog>
