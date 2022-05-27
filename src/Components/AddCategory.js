@@ -100,9 +100,7 @@ function AddCategory(props) {
               event2={props.eventCancel}
             />
           </Col>
-          <Col className="col-sm-1">
-            <Icon delete />
-          </Col>
+          <Col className="col-sm-1">{/*<Icon delete />*/}</Col>
         </Row>
         {/* Shows iconList */}
         {isIconListvisible ? <CategoryIconList /> : null}
@@ -150,9 +148,7 @@ function AddCategory(props) {
               event2={props.eventCancel}
             />
           </Col>
-          <Col className="col-sm-1">
-            <Icon delete />
-          </Col>
+          <Col className="col-sm-1">{/*<Icon delete />*/}</Col>
         </Row>
         {/*Form dialogue from here*/}
         <div>

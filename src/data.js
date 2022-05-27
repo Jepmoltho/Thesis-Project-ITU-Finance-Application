@@ -8,7 +8,7 @@ export async function postCategory(name, userId) {
     thisCategory.set("userId", userId);
     //thisCategory.set("userPointer", userPointer); Bug: Doesn't work with pointersl
     await thisCategory.save();
-    alert("Saved category to database");
+    // alert("Saved category to database");
   } catch (error) {}
 }
 
@@ -34,7 +34,7 @@ export async function postAsset(assetName, assetValue, categoryId, userId) {
     thisAsset.set("categoryId", categoryId);
     thisAsset.set("userId", userId);
     //thisAsset.set("userPointer", userPointer); Bug: Doesn't work with pointers
-    alert("Saved asset to database");
+    // alert("Saved asset to database");
     return await thisAsset.save();
 
     // return thisAsset;
@@ -59,7 +59,7 @@ export async function postAssetRealestateM2(
     thisAsset.set("categoryId", categoryId);
     thisAsset.set("userId", userId);
     //thisAsset.set("userPointer", userPointer); Bug: Doesn't work with pointers
-    alert("Saved asset to database");
+    // alert("Saved asset to database");
     return await thisAsset.save();
   } catch (error) {
     alert("Error caught in postAssetRealestateM2 " + error);
@@ -131,7 +131,7 @@ export async function deleteAsset(assetId) {
   try {
     await Asset.destroy();
     //saveCatValue();
-    alert("Success! Asset " + assetId + " deleted");
+    // alert("Success! Asset " + assetId + " deleted");
     return true;
   } catch (error) {
     alert("Error " + error + " caught");
@@ -147,7 +147,7 @@ export async function putAsset(assetId, newName, newValue) {
   Asset.set("value", newValue);
   try {
     await Asset.save();
-    alert(assetId + " updated");
+    // alert(assetId + " updated");
     return true;
   } catch (error) {
     alert("Error in putAsset " + error);
@@ -163,10 +163,27 @@ export async function putGoal(userId, newGoal) {
   user.set("goal", newGoal);
   try {
     await user.save();
-    alert(userId + " updated");
+    // alert(userId + " updated");
     return true;
   } catch (error) {
     alert("Error in putGoal " + error);
+    return false;
+  }
+}
+
+// Updating category
+export async function putCategory(categoryId, userId, newName) {
+  const Category = new Parse.Object.extend("Category");
+  const cat = new Category();
+  cat.set("objectId", categoryId);
+  cat.set("userId", userId);
+  cat.set("name", newName);
+  try {
+    await cat.save();
+    // alert(cat + " updated");
+    return true;
+  } catch (error) {
+    alert("Error in putCategory " + error);
     return false;
   }
 }
@@ -196,7 +213,7 @@ export async function deleteCategory(categoryId) {
     // await Asset.destroy();
     // alert("Asset destroyed");
     await Category.destroy();
-    alert("Category destroyed");
+    // alert("Category destroyed");
     return true;
   } catch (error) {
     alert("Error caught in deleteCategory " + error);
