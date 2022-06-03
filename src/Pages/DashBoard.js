@@ -528,7 +528,6 @@ function Dashboard() {
   },[fetchStarWarsState])
 
 // ----------HERE------------------------------
-  const [state, setState] = useState(false)
 
   useEffect(() => {
     const base_url = "https://api-sandbox.aiia.eu"
@@ -537,7 +536,7 @@ function Dashboard() {
     const URL = base_url + "/v1/oauth/connect?client_id="+client_id+"&scope=accounts offline_access payments:inbound payments:outbound&redirect_uri=" + client_redirect_uri +"&response_type=code"
     // const URL = base_url + "/v1/oauth/connect?client_id=" + client_id + "&scope=accounts offline_access payments:inbound payments:outbound&redirect_uri=" + client_redirect_uri + "&response_type=code"
     fetch(URL)
-    .then(res => console.log(res.url))    
+    .then(res => console.log(res))    
     
       
     },[fetchState])
